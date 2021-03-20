@@ -2,7 +2,7 @@
 Python Quick Reference
 """
 
-### IMPORTS ###
+### IMPORTS ####
 print("IMPORTS")
 # 'generic import' of math module
 import math
