@@ -39,7 +39,7 @@ print("VARIABLES")
 # all variables/functions/class instances etc - are objects!!!
 # Variables are pointer to address in memory - they hold the address in memory not actually the value
 # addresses of objects can be revealed by function id()
-# Each assigment to a var changes the reference even if you do my_var = ny_var+5 it means my_var is now pointing to new
+# Each assignment to a var changes the reference even if you do my_var = ny_var+5 it means my_var is now pointing to new
 # address in memory
 a = 10
 print(hex(id(a))) #HEX address where a points to: 0x7ffc9daab470
