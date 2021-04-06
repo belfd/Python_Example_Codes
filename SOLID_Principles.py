@@ -23,6 +23,9 @@
 #      pass
 
 # We can use Facade pattern to fix this, we will create another class that handle DB
+from abc import abstractmethod
+
+
 class AccountDB:
    """Account DB management class """
 
@@ -56,6 +59,35 @@ class Account:
    def save(self):
        """account save"""
        self._db.account_save(obj=self)
+
+### Another example of violation Single Responsibility:
+# class Album:
+#     def __init__(self, name, artist, songs) -> None:
+#         self.name = name
+#         self.artist = artist
+#         self.songs = songs
+#     def add_song(self, song):
+#         self.songs.append(song)
+#     def remove_song(self, song):
+#         self.songs.remove(song)
+#     def __str__(self) -> str:
+#         return f"Album {self.name} by {self.artist}\nTracklist:\n{self.songs}"
+#     #### breaks the SRP ###
+#     def search_album_by_artist(self):
+#         """ Searching the database for other albums by same artist """
+#         pass
+
+### Fixed version:
+# instead, create 'AlbumBrowser' class dedicated for browsing DBs:
+class AlbumBrowser:
+    """ Class for browsing the Albums database"""
+
+    def search_album_by_artist(self, albums, artist):
+        pass
+
+    def search_album_starting_with_letter(self, albums, letter):
+        pass
+
 
 # Open and Closed Principle(OCP):
 # Software entities (classes, function, module) open for extension,
@@ -103,6 +135,91 @@ class SuperVIPDiscount(VIPDiscount):
    def get_discount(self):
        """A discount method"""
        return super().get_discount() * 4
+
+### Another example of OCP:
+class Album:
+    def __init__(self, name, artist, songs, genre):
+        self.name = name
+        self.artist = artist
+        self.songs = songs
+        self.genre = genre
+# #before
+# class AlbumBrowser:
+#     def search_album_by_artist(self, albums, artist):
+#         return [album for album in albums if album.artist == artist]
+#     def search_album_by_genre(self, albums, genre):
+#         return [album for album in albums if album.genre == genre]
+### Now what happens if I want to search by artist and genre?
+# What if I add release year? I will have to write new function every time - problem!
+
+### Instead, I should define a base class with a common interface for my specification,
+# and then define subclasses for each type of specification that inherits this interface from the base class:
+# after
+class SearchBy:
+    def is_matched(self, album):
+        pass
+
+
+class SearchByGenre(SearchBy):
+    def __init__(self, genre):
+        self.genre = genre
+
+    def is_matched(self, album):
+        return album.genre == self.genre
+
+
+class SearchByArtist(SearchBy):
+    def __init__(self, artist):
+        self.artist = artist
+
+    def is_matched(self, album):
+        return album.artist == self.artist
+
+
+class AlbumBrowser:
+    def browse(self, albums, searchby):
+        return [album for album in albums if searchby.is_matched(album)]
+
+# But what about multiple criteria? This allows use to join browsing criteria to be joined together by &:
+# add __and__:
+class SearchBy:
+    def is_matched(self, album):
+        pass
+
+    def __and__(self, other):
+        return AndSearchBy(self, other)
+
+
+class AndSearchBy(SearchBy):
+    def __init__(self, searchby1, searchby2):
+        self.searchby1 = searchby1
+        self.searchby2 = searchby2
+
+    def is_matched(self, album):
+        return self.searchby1.is_matched(album) and self.searchby2.is_matched(album)
+
+# EXample to use & :
+LAWoman = Album(
+    name="L.A. Woman",
+    artist="The Doors",
+    songs=["Riders on the Storm"],
+    genre="Rock",
+)
+Trash = Album(
+    name="Trash",
+    artist="Alice Cooper",
+    songs=["Poison"],
+    genre="Rock",
+)
+albums = [LAWoman, Trash]
+# this creates the AndSearchBy object
+my_search_criteria = SearchByGenre(genre="Rock") & SearchByArtist(
+    artist="The Doors"
+)
+browser = AlbumBrowser()
+assert browser.browse(albums=albums, searchby=my_search_criteria) == [LAWoman]
+# yay we found our album
+
 
 # Liskov Substitution Principle(LSP):
 # if S is a subtype of T, then objects of type T may be replaced by objects of type S, without breaking the program.
@@ -177,7 +294,8 @@ class Bicycle(VehicleWithoutEngine):
    def start_moving(self):
        pass
 # Interface Segregation Principle(ISP):
-# Actually, This principle suggests that “A client should not be forced to implement an interface that it does not use”
+# Actually, This principle suggests that:
+# “A client should not be forced to implement an interface that it does not use”
 
 # Example of Violation of ISP: Shape has methods that are not relevant to all shapes
 # class Shape:
@@ -213,6 +331,61 @@ class Square(Shape):
    def draw(self):
       """Draw a square"""
       pass
+
+# Another violation of ISP:
+# class PlaySongs:
+#     def __init__(self, title):
+#         self.title = title
+#     def play_drums(self):
+#         print("Ba-dum ts")
+#     def play_guitar(self):
+#         print("*Soul-moving guitar solo*")
+#     def sing_lyrics(self):
+#         print("NaNaNaNa")
+# # This class is fine, just changing the guitar and lyrics
+# class PlayRockSongs(PlaySongs):
+#     def play_guitar(self):
+#         print("*Very metal guitar solo*")
+#     def sing_lyrics(self):
+#         print("I wanna rock and roll all night")
+# # This breaks the ISP, we don't have lyrics
+# class PlayInstrumentalSongs(PlaySongs):
+#     def sing_lyrics(self):
+#         raise Exception("No lyrics for instrumental songs")
+
+# Instead, we could have a class for the singing and the music separately
+# (assuming guitar and drums always happen together in our case,
+# otherwise we need to split them up even more, perhaps by instrument.)
+# This way, we only have the interfaces we need, we cannot call sing lyrics on instrumental songs.
+
+# from abc import ABCMeta
+
+class PlaySongsLyrics:
+    @abstractmethod
+    def sing_lyrics(self, title):
+        pass
+
+class PlaySongsMusic:
+    @abstractmethod
+    def play_guitar(self, title):
+        pass
+    @abstractmethod
+    def play_drums(self, title):
+        pass
+
+class PlayInstrumentalSong(PlaySongsMusic):
+    def play_drums(self, title):
+        print("Ba-dum ts")
+    def play_guitar(self, title):
+        print("*Soul-moving guitar solo*")
+
+class PlayRockSong(PlaySongsMusic, PlaySongsLyrics):
+    def play_guitar(self):
+        print("*Very metal guitar solo*")
+    def sing_lyrics(self):
+        print("I wanna rock and roll all night")
+    def play_drums(self, title):
+        print("Ba-dum ts")
 
 # Dependency Inversion Principle(DIP):
 # This principle suggests that below two points.
@@ -278,3 +451,42 @@ class Project:
 
 project = Project()
 print(project.develops())
+
+# Another Violation of DIP:
+# ViewRockAlbums explicitly depends on the fact that albums are stored in a tuple in a certain order inside AlbumStore.
+# It should have no knowledge of the internal structure of Albumstore.
+# Now if we change the ordering in the tuples in the album, our code would break.
+
+# class AlbumStore:
+#     albums = []
+#     def add_album(self, name, artist, genre):
+#         self.albums.append((name, artist, genre))
+#
+# class ViewRockAlbums:
+#     def __init__(self, album_store):
+#         for album in album_store.albums:
+#             if album[2] == "Rock":
+#                 print(f"We have {album[0]} in store.")
+
+# Instead, we need to add an abstract interface to AlbumStore to hide the details,
+# that can be called by other classes. This should be done as in the example in the Open-Closed Principle,
+# but assuming we don’t care about filtering by anything else, I’ll just add a filter_by_genre method.
+# Now if we had another type of AlbumStore, that decides to store the album differently,
+# it would need to implement the same interface for filter_by_genre to make ViewRockAlbums work.
+
+class GeneralAlbumStore:
+    @abstractmethod
+    def filter_by_genre(self, genre):
+        pass
+class MyAlbumStore(GeneralAlbumStore):
+    albums = []
+    def add_album(self, name, artist, genre):
+        self.albums.append((name, artist, genre))
+    def filter_by_genre(self, genre):
+        if albums[2] == "Rock":
+            yield albums[0]
+class ViewRockAlbums:
+    def __init__(self, album_store):
+        for album_name in album_store.filter_by_genre("Rock"):
+            print(f"We have {album_name} in store.")
+
