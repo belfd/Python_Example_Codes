@@ -28,7 +28,7 @@ print(dt.date.today())
 # show help on math module
 # help(math)
 
-#define an alias to specific gunc from module
+#define an alias to specific func from module
 from math import sqrt as sq
 print(f"sqrt(81) is {sq(81)}")
 
@@ -63,7 +63,7 @@ type('two')  # returns 'str'
 type(True)  # returns 'bool'
 type(None)  # returns 'NoneType'
 
-#python is dynamic typed - var as pointer(reference) to address is chose type according to what is been pointed to
+#python is dynamic typed - var as pointer(reference) to address type is according to what is been pointed to
 a = 10
 print(f"type of a is: {type(a)} and its val is {a}")
 a = "Hello"
@@ -90,10 +90,10 @@ bool(2)
 bool('two')
 bool([2])
 
-# Object that can be changed internaly (its state = its data) is called mutable
-# Object that can BOT be changed internaly (its state = its data) is called immutable
+# Object that can be changed internally (its state = its data) is called mutable
+# Object that can NOT be changed internally (its state = its data) is called immutable
 # Numbers (int,float,Boolean),string,tuple,Frozen set,user defined classes are *immutables!*
-# list,set,dictonary,user defined classes are *mutables!*
+# list,set,dictionary,user defined classes are *mutables!*
 
 #Notice: t is tuple of list a and b it means it is immutable but a and b are mutable,
 # you cannot add new element to t but you can change the element in a and b inside the t
@@ -1148,12 +1148,12 @@ any([val for val in [1, 2, 3] if val > 5])  # False
 ### GLOBAL LOCAL SCOPES ####
 print("===============")
 print("GLOBAL LOCAL SCOPES")
-# Python is familar with scopes. The highest is Builtin scope (where defined True,list,print etc...)
+# Python is familiar with scopes. The highest is Builtin scope (where defined True,list,print etc...)
 # Next there is Global scope - all space that is outside of main() or any function
 # Local scope is inside the function we work with
 # When python encounter a function at complie-time it will scan for any variables that have values assigned to them
-# It will seatch them anywhere in the function, if the variable has not been specified as global,then it is local
-# If the vairable is not found - only at run-time python will start looking higher in hyrarchy to find the vars.
+# It will search them anywhere in the function, if the variable has not been specified as global,then it is local
+# If the variable is not found - only at run-time python will start looking higher in hierarchy to find the vars.
 
 a=10
 def func1():
