@@ -25,3 +25,25 @@ print(vowel_count('awesome'))
 print(vowel_count('Elie'))
 print(vowel_count('Colt'))
 '''
+
+'''
+Write a function called  which accepts a string of words and returns a new string 
+with the first letter of every word in the string capitalized.
+titleize('this is awesome') # "This Is Awesome"
+titleize('oNLy cAPITALIZe fIRSt') # "ONLy CAPITALIZe FIRSt"
+
+
+# def titleize(string:str)->str:
+#     lst=string.split(' ') # split the string to components
+#     lst1=[]
+#     for i in lst:
+#         lst1.append(i.capitalize()) #add each component to new list by capitilizing first letter
+#     strout = " ".join(lst1)  # recereate new string
+#     return strout
+
+def titleize(string):
+    return ' '.join(s[0].upper() + s[1:] for s in string.split(' '))
+
+print(titleize('this is awesome'))
+print(titleize('oNLy cAPITALIZe fIRSt'))
+'''
