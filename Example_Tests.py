@@ -188,3 +188,27 @@ def min_max_key_in_dictionary(inp):
 
 print(min_max_key_in_dictionary({1: "Elie", 4:"Matt", 2: "Tim"}))
 '''
+
+'''
+Create a function "running_average" that returns a function.
+When the function returned is passed a value, 
+the function returns the current average of all previous function calls. 
+You will have to use closure to solve this. 
+You should round all answers to the 2nd decimal place.
+
+def running_average():
+    running_average.tot=0
+    running_average.counter=0
+    def inner(n):
+        running_average.tot+=n
+        running_average.counter+=1
+        yield running_average.tot/running_average.counter
+    return inner
+
+
+rAvg = running_average()
+print(next(rAvg(1))) # 1
+print(next(rAvg(2))) # 1.5
+print(next(rAvg(3))) # 2
+print(next(rAvg(4))) # 2.5
+'''
