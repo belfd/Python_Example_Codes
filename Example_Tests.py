@@ -210,3 +210,30 @@ print(next(rAvg(2))) # 1.5
 print(next(rAvg(3))) # 2
 print(next(rAvg(4))) # 2.5
 '''
+
+'''
+Write a function called letter_counter which accepts a string and returns a function. 
+When the inner function is invoked it should accept a parameter which is a letter, 
+and the inner function should return the number of times that letter appears. 
+This inner function should be case insensitive.
+counter = letter_counter('Amazing')
+counter('a') # 2
+counter('m') # 1
+
+def letter_counter(strinp):
+    letter_counter.strtmp=strinp.lower()
+    letter_counter.dict={}
+
+    for letter in letter_counter.strtmp:
+        letter_counter.dict[letter] = letter_counter.dict[letter] + 1 if letter in letter_counter.dict.keys() else 1
+
+    def inner(chr):
+        return letter_counter.dict[chr]
+
+    return inner
+
+counter = letter_counter('Amazing')
+print(counter('a')) # 2
+print(counter('m')) # 1
+'''
+
