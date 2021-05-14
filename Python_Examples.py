@@ -588,7 +588,7 @@ data = {
 for country in data:
     print(f'The capital of {country} is {data[country]}')
 
-# A safer way of reading values from dictionary
+# A safer way of reading values from dictionary - using get instead of [key]
 data = {'France':'Paris','Italy':'Rome'}
 
 #capital  = data,get('Germany') #ERROR
@@ -828,7 +828,7 @@ print(display_info(1, 2, 3, last_name="Belfer", jov="Programmer"))
 
 ### output: [1, 2, (3,), 'Colt', {'last_name': 'Belfer', 'jov': 'Programmer'}] ###
 
-### TUPLE UNPACKING ###
+### TUPLE UNPACKING ### -- enable return of multiple vars from functions!
 ### Use * before arguments to convert to tuple when passing them to functions
 print("===============")
 print("TUPLE UNPACKING")
