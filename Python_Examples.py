@@ -205,6 +205,16 @@ x == 5
 not False
 False or not False and True  # evaluation order: not, and, or
 
+a=1;b=2;c=3
+d=5;e=5;f=3
+print("a=1;b=2;c=3\nd=5;e=5;f=3\n")
+print(f"a<b<c is {a<b<c}")
+print(f"a==b==c is {a==b==c}")
+print(f"a<d<=e is {a<d<=e}")
+print(f"d==e != f is {d==e != f}")
+print(f"d>f<e is {d>f<e}")
+
+
 # Use 'is' or 'is not' to compare variable addresses (by their id)
 # Use '==' ór '!=' to compare variable values
 
@@ -1126,6 +1136,34 @@ print("===============")
 print("ZIP")
 
 # make an iterator that aggregates elements from each of the iterables, only works with iterators
+# for iterating over two data types at the same time, where needed the indexes to be equal
+list1 = [102, 306, 918, 2754]
+list2 = [1, 3, 9, 27]
+
+averages = []
+for idx1, el1 in enumerate(list1):  # first for-loop
+  for idx2, el2 in enumerate(list2):  # second for-loop
+    if idx1 == idx2:  # check whether the indexes of first * second for-loop match
+      y_intercept = el1/el2
+      averages.append(y_intercept)
+
+print(averages) #output: [102.0, 102.0, 102.0, 102.0]
+## Now with zip...
+averages = []
+for el1, el2 in zip(list1, list2):  # loop through both list using zip
+  y_intercept = el1/el2
+  averages.append(y_intercept)
+print(averages) #output: [102.0, 102.0, 102.0, 102.0]
+
+'''
+You can do this with any data type or generator. 
+For instance, you could create dictionaries without looping over the separate lists, as such:
+'''
+keys = ['a', 'b', 'c']
+values = [1, 2, 3]
+dictionary = dict(zip(keys, values))
+print(dictionary) #output: {'a': 1, 'b': 2, 'c': 3}
+
 # Returns an iterator of tuples ,where the i-th tuple contains the i-th element
 # from each of the argument sequences or iterables
 # The iterator stops when the shortest input iterable is exhausted
@@ -1172,11 +1210,13 @@ print(f"Min Value in list is {min_result}")
 max_result = reduce(lambda a, b: a if a > b else b, l)
 print(f"Max Value in list is {max_result}")
 
-# 'all' return True if all elements of iterable are truthy (or iterable empty)
+# 'all' return True if all elements of iterable are true (or iterable empty)
+# 'all' behaves like a series of AND conditions
 all([0, 1, 2, 3])  # False
 all([char for char in 'eio' if char in 'aeiou'])
 all([num for num in [4, 2, 10, 6, 8] if num % 2 == 0])  # True
-# 'any' return True if any element of iterable is truthy. If iterable is empty ,retruns False
+# 'any' return True if any element of iterable is true. If iterable is empty ,returns False
+# 'any' behaves like a series of OR conditions
 any([0, 1, 2, 3])  # True
 any([val for val in [1, 2, 3] if val > 2])  # True
 any([val for val in [1, 2, 3] if val > 5])  # False
@@ -1762,8 +1802,8 @@ class ClassSample:
         print(f"And our count is {ClassSample.class_attribute}")
 
     def __repr__(self):
-        print("This method pretty the print of the instance ,i.e.: print(instance) is shown in __repr__")
-        pass
+        rep="This method pretty the print of the instance ,i.e.: print(instance) is shown in __repr__"
+        return rep
 
     # function dir(instance) can show all methods and attributes of the class
 
@@ -2013,6 +2053,20 @@ print(next(g2)) #val from generator 2 #output: 1
 print(next(g1)) #val from generator 1 #output: 2
 print(next(g2)) #val from generator 2 #output: 2
 
+## Another Example
+'''
+Consider an example where we want to generate a sequence of numbers (up to 100 Million) in our program 
+(like auto-incremented ids). We can solve this problem easily with the generator.'''
+def generate_ids(limit):
+    for id in range(1,limit+1):
+        yield id
+
+ids = generate_ids(10000000)
+print("Generate example")
+print(next(ids)) #1
+print(next(ids)) #2
+print(next(ids)) #3
+
 
 # PICKLE
 print("====================")
@@ -2228,3 +2282,82 @@ import sys
 
 myreallist = [x for x in range(0, 10000)]
 print(f"Memory Usage of My real list is {sys.getsizeof(myreallist)}")
+
+#### PPRINT BETTER OUTPUT ####
+print("=====================")
+print("PPRINT BETTER OUTPUT")
+
+import requests
+from pprint import pprint
+
+url = 'https://api.github.com/users/belfd'
+user = requests.get(url).json()
+print("+++  Ugly  +++")
+print(user)
+print("+++  Beutiful  +++")
+pprint(user)
+
+#### TIMEIT ####
+print("=====================")
+print("TIMEIT = to calculate the runtime of our code")
+
+import timeit
+code = '''
+def fun():
+    sum=0
+    for i in range(1000000):
+        sum+=i
+    return sum
+'''
+print(f'timeit 1st example, measured {timeit.timeit(stmt=code)}')
+
+def f(x):
+    return x**2
+def g(x):
+    return x**4
+def h(x):
+    return x**8
+
+print("timeit 2nd example, measured: ".strip())
+print(timeit.timeit('[func(42) for func in (f,g,h)]', globals=globals()))
+
+### REPLACEMENT to SWITCH CASE ######
+print("=====================")
+print("REPLACEMENT to SWITCH CASE")
+
+
+'''
+{'option1': function1,
+ 'option2': function2,
+ 'option3': function3,
+ 'option4': function4}[value]()
+'''
+
+def first_case():
+    print ("first")
+
+def second_case():
+    print ("second")
+
+def third_case():
+    print ("third")
+
+mycase = {
+'first': first_case, #do not use ()
+'second': second_case, #do not use ()
+'third': third_case #do not use ()
+}
+myfunc = mycase['first']
+myfunc()  #output: first
+
+## if only working with values
+def f(x):
+    return {
+        'a': 1,
+        'b': 2,
+        'c': 3,
+        'd': 4
+    }.get(x, 9)    # 9 is default if x not found
+
+print(f('c'))  #output: 3
+
