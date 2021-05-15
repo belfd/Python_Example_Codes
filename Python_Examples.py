@@ -1,6 +1,11 @@
 """
 Python Quick Reference - edited in GitHub
 """
+### CHECK PYTHON VERSION ### do verifications for customer version awareness
+import sys
+if sys.version_info < (3,5):
+    print(f"Dear customer you are running old python")
+print(f"Python version is: {sys.version_info}")
 
 ### IMPORTS ####
 print("IMPORTS")
@@ -31,6 +36,13 @@ print(dt.date.today())
 #define an alias to specific func from module
 from math import sqrt as sq
 print(f"sqrt(81) is {sq(81)}")
+
+# PLACEHOLDER - a placeholder in a function that you haven’t implemented
+def func():
+    pass
+
+def func1():
+    ...
 
 # VARIABLES
 print("===============")
@@ -267,17 +279,41 @@ simpsons.count('lisa')  # counts the number of instances
 simpsons.index('itchy')  # returns index of first instance
 
 # list slicing [start:end:step]
-weekdays = ['mon', 'tues', 'wed', 'thurs', 'fri']
-weekdays[0]  # element 0
-weekdays[0:3]  # elements 0, 1, 2
-weekdays[:3]  # elements 0, 1, 2
-weekdays[3:]  # elements 3, 4
-weekdays[-1]  # last element (element 4)
-weekdays[::2]  # every 2nd element (0, 2, 4)
-weekdays[::-1]  # backwards (4, 3, 2, 1, 0)
+# Start, stop and step are optional. If you don’t fill them in, they will default to:
+# 0 for start
+# the end of the list for stop
+# 1 for step
+# start is the index of element, stop is always index-1
+numbers = ['0','1','2','3','4','5','6','7','8','9']
+print(numbers[0])  # element 0
+print(numbers[0:3])  # elements 0, 1, 2
+print(numbers[:3])  # elements 0, 1, 2
+print(numbers[3:])  # elements 3, 4, 5, 6, 7, 8, 9
+print(numbers[-1])  # last element (element 9)
+print(numbers[::2])  # every 2nd element [0, 2, 4, 6, 8]
+print(numbers[::-1])  # backwards [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 
 # alternative method for returning the list backwards
-list(reversed(weekdays))
+list(reversed(numbers))
+
+# We can easily create a new list from
+# the first two elements of a list:
+first_two = [1, 2, 3, 4, 5][0:2]
+print(first_two) #output: [1, 2]
+
+# And if we use a step value of 2,
+# we can skip over every second number
+# like this:
+steps = [1, 2, 3, 4, 5][0:5:2]
+print(steps)
+# [1, 3, 5]
+
+# This works on strings too. In Python,
+# you can treat a string like a list of
+# letters:
+mystring = "abcdefdn nimt"[::2]
+print(mystring)
+# 'aced it'
 
 # sort a list in place (modifies but does not return the list)
 simpsons.sort()
@@ -1484,8 +1520,19 @@ def slow_code():
     time.sleep(2)
 
 print(slow_code) #output: 2.011594533920288
+print("=========&&&&&&&*********&&&&&&&&=======")
+## Another simple decorator example ###
+def print_argument(func):
+    def wrapper(the_number):
+        print("Decorator added explanation: Argument for",func.__name__,"is", the_number)
+        return func(the_number)
+    return wrapper
 
-
+@print_argument
+def add_one(x):
+    return x + 1
+print(f"The result is: {add_one(1)}")
+#######################################
 
 ### SINGLE DISPATCH GENERIC FUNCTION ####
 print("=====================")
@@ -2076,6 +2123,23 @@ profile2.update(contact)
 print("Example 2: Pythonic update a dictionary")
 print(profile2)
 
+dict1 = { 'a': 1, 'b': 2 }
+dict2 = { 'b': 3, 'c': 4 }
+merged = { **dict1, **dict2 }
+
+print("Example 3: Pythonic ** a dictionary")
+print (merged)
+# {'a': 1, 'b': 3, 'c': 4}
+
+# Since Python 3.9 merging - with |
+
+# Python >= 3.9 only
+merged3_9 = dict1 | dict2
+print("Example 4: Since Python 3.9 | a dictionary")
+print (merged3_9)
+# {'a': 1, 'b': 3, 'c': 4}
+
+
 #### CONTEXT MANAGER ####
 print("=====================")
 print("CONTEXT MANAGERS")
@@ -2145,3 +2209,22 @@ print(f"Val of division is: {a}")
 
 #a = divide(100,0) #ERROR
 #print(f"Val of division is: {a}") #will not be printed
+
+
+#### MEMORY USAGE ####
+print("=====================")
+print("MEMORY USAGE")
+
+import sys
+
+mylist = range(0, 10000)
+print(f"Memory Usage of Mylist is {sys.getsizeof(mylist)}") #output: 48
+
+#  why is this huge list only 48 bytes?
+'''It’s because the range function returns a class that only behaves like a list. 
+A range is a lot more memory efficient than using an actual list of numbers.
+You can see for yourself by using a list comprehension to create an actual list of numbers from the same range:'''
+import sys
+
+myreallist = [x for x in range(0, 10000)]
+print(f"Memory Usage of My real list is {sys.getsizeof(myreallist)}")
