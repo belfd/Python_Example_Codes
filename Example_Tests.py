@@ -296,3 +296,4 @@ def return_stuff():
 a, b, c, *_ = return_stuff()
 print(f"{a} {b} {c}")  # output: This is interesting
 '''
+
