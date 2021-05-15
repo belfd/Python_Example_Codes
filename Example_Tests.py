@@ -237,3 +237,62 @@ print(counter('a')) # 2
 print(counter('m')) # 1
 '''
 
+'''
+def add(a,b):
+    return a+b
+
+oneAddition = once(add)
+
+oneAddition(2,2) # 4
+oneAddition(2,2) # None
+oneAddition(12,200) # None
+'''
+'''
+def add(a,b):
+    return a+b
+
+def once(inp):
+    once.parm=False
+    once.input=inp
+    def inner(a,b):
+        once.parm = False
+        return None if once.parm == True else inp(a,b)
+
+    return inner
+
+
+oneAddition = once(add)
+print(oneAddition(2,2)) # 4
+print(oneAddition(2,2) # None
+print(oneAddition(12,200)) # None
+
+
+
+# Example 1: shuffle data to ensure random class distribution in train/test split
+import random
+
+documents = ["positive tweet message", "negative tweet message"]
+labels = ["pos", "neg"]
+
+tuples = [(doc, label) for doc, label in zip(documents, labels)]
+print(f"tuples is {tuples}")  # tuples is [('positive tweet message', 'pos'), ('negative tweet message', 'neg')]
+random.shuffle(tuples)
+X, Y = zip(*tuples)
+print(f"X is {X} and Y is {Y}")  # X is ('negative tweet message', 'positive tweet message') and Y is ('neg', 'pos')
+
+# Example 2: merging two dictionaries
+first_dictionary = {"A": 1, "B": 2}
+second_dictionary = {"C": 3, "D": 4}
+merged_dictionary = {**first_dictionary, **second_dictionary}
+print(merged_dictionary)  # output: {"A": 1, "B": 2, "C": 3, "D": 4}
+
+
+# Example 3: dropping unnecessary function variables
+def return_stuff():
+    """Example function that returns data."""
+    return "This", "is", "interesting", "This", "is", "not"
+
+
+a, b, c, *_ = return_stuff()
+print(f"{a} {b} {c}")  # output: This is interesting
+'''
