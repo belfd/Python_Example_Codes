@@ -2361,3 +2361,23 @@ def f(x):
 
 print(f('c'))  #output: 3
 
+
+
+### COUNTING OCCURENCES IN LIST ###
+print("===========================")
+print("COUNTING OCCURENCES IN LIST")
+
+
+from collections import Counter
+
+mylist = [1, 1, 2, 3, 4, 5, 5, 5, 6, 6]
+c = Counter(mylist)
+print(f"Original list: {mylist}")
+print(f"Counted times: {c}")
+# Counter({1: 2, 2: 1, 3: 1, 4: 1, 5: 3, 6: 2})
+
+# And it works on strings too:
+strt = "aaaaabbbbbccccc"
+print(f"String is: {strt}")
+print(f"Count of Chars: {Counter(strt)}")
+# Counter({'a': 5, 'b': 5, 'c': 5})
