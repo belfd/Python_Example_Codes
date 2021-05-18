@@ -49,6 +49,28 @@ print(titleize('oNLy cAPITALIZe fIRSt'))
 '''
 
 '''
+find_factors(10) # [1,2,5,10 ]
+find_factors(11) # [1,11]
+find_factors(111) # [1,3,37,111 ]
+find_factors(321421) # [1,293,1097,321421 ]
+find_factors(412146) # [1,2,3,6,7,9,14,18,21,42,63,126,3271,6542,9813,19626,22897,29439,45794,58878,68691,137382,206073,412146]
+'''
+''''
+import math
+
+def find_factors(num:int)->list[int]:
+    lst=[]
+    # run loop on all numbers from 1 to the square root of the number
+    for i in range(1,round(math.sqrt(num))):
+        if num%i==0:
+            lst.append(i)
+    lst.append(num)
+    return lst
+print(find_factors(10))
+print(find_factors(11))
+print(find_factors(111))
+'''
+'''
 Write a function called 'find_factors' which accepts a number and returns a list of all of the numbers 
 which are divisible by starting from 1 and going up to the number
 
@@ -236,6 +258,43 @@ counter = letter_counter('Amazing')
 print(counter('a')) # 2
 print(counter('m')) # 1
 '''
+'''
+Check for Uniqueness
+The following function will check if all elements in a list are unique or not.
+
+
+def unique(l):
+    if len(l)==len(set(l)):
+        print("All elements are unique")
+    else:
+        print("List has duplicates")
+
+unique([1,2,3,4]) #output: All elements are unique
+
+unique([1,1,2,3]) #output: List has duplicates
+'''
+
+'''
+convert an integer into a list of digits
+
+num = 123456
+
+# using map
+list_of_digits = list(map(int, str(num)))
+
+print(list_of_digits) # [1, 2, 3, 4, 5, 6]
+
+# using list comprehension
+list_of_digits = [int(x) for x in str(num)]
+
+print(list_of_digits) # [1, 2, 3, 4, 5, 6]
+
+# Even simpler approach
+list_of_digits = list(str(num))
+
+print(list_of_digits) # [1, 2, 3, 4, 5, 6]
+'''
+
 
 '''
 def add(a,b):
