@@ -355,4 +355,97 @@ def return_stuff():
 a, b, c, *_ = return_stuff()
 print(f"{a} {b} {c}")  # output: This is interesting
 '''
+'''
+data = [
+    ("Hi my name is Dan, and I write sentences, often delimited by a comma", "48", "Belfer")
+]
+with open("texts.csv", "w") as csv_out:
+    for element in data:
+        csv_out.write("{0}\n".format(",".join(element)))
 
+objects = []
+with open("texts.csv", "r") as csv_in:
+    for line in csv_in:
+        line = line.rstrip().split(",")
+        objects.append(line)
+
+print(objects) # [['Hi my name is Dan', ' and I write sentences', ' often delimited by a comma', '48', 'Belfer']]
+
+import json
+
+# JSON encoding
+string = "I am a Dan Belfer and works with python."
+s = json.dumps(string)
+
+with open("data.json", "w") as json_out:
+    json_out.dumps(string)
+
+# JSON decoding
+string = '["list_item", {"personal":["Louis", null, 8.3, 26]}]'
+s = json.loads(string)
+
+with open("data.json", "r") as json_in:
+    string = json.load(json_in)
+'''
+## REPLACEMENT to NESTED LOOPS - Using itertools
+import itertools
+'''
+list_a = [1, 2020, 70]
+list_b = [2, 4, 7, 2000]
+list_c = [3, 70, 7]
+
+
+for a in list_a:
+    for b in list_b:
+        for c in list_c:
+            if a + b + c == 2077:
+                print(a, b, c)
+
+
+for a, b, c in itertools.product(list_a, list_b, list_c):
+    if a + b + c == 2077:
+        print(a, b, c)  #output: 70 2000 7
+
+
+natural_num = count(1)
+for n in natural_num:
+    print(n)  #1,2,3,4,...
+
+many_yang = itertools.cycle('Yang')
+for y in many_yang:
+    print(y) #Y,a,ng,Y,a,..
+
+many_yang = itertools.repeat('Yang')
+for y in many_yang:
+    print(y) #Yang,Yang,...
+
+list_a = [1, 22]
+list_b = [7, 20]
+list_c = [3, 70]
+
+for i in itertools.chain(list_a, list_b, list_c):
+    print(i) #1,22,7,20,3,70
+
+from itertools import groupby
+
+for key, group in groupby('YAaANNGGG'):
+    print(key, list(group)) #Y['Y],A['A'],a['a'],['A'],N['N','N'],G['G','G','G']
+'''
+'''
+### Using assistant class
+class MessageFormatter:
+    def success(self, message):
+        return f"👍 {message}"
+
+
+class MessageWriter:
+    def __init__(self):
+        self.message_formatter = MessageFormatter()
+
+    def write(self, message):
+        print(self.message_formatter.success(message))
+
+
+message_writer = MessageWriter()
+message_writer.write("Hello World!")
+'''
