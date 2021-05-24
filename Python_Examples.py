@@ -2361,6 +2361,45 @@ def f(x):
 
 print(f('c'))  #output: 3
 
+### MUTABLE DEFAULT PROBLEM!!! ######
+print("=====================")
+print("MUTABLE DEFAULT PROBLEM!!!")
+'''
+This is a nifty little trick that has more benefits than it appears.
+BUT SHOULD be handled Carefully! 
+Every call will create new list and append 1.. or that is what intended..
+
+def something(x=[]):
+    x.append(1)
+    print (x)
+
+output:
+>>> something()
+[1]>>> something()
+[1, 1]>>> something()
+[1, 1, 1]
+
+The list gets appended every time you use this function. BOOM!!!
+Default argument that receives list,dicts (any mutable) is changed after assignment 
+Instead, you should use a default value denoting "not indicated" 
+and replace with the mutable you'd like as default:
+'''
+# def something(x= None):
+#     if x is None:
+#         x= []
+#     x.append(1)
+#     print (x)
+
+
+def something(x= []):
+    x = x if x else []
+    x.append(1)
+    print (x)
+
+
+something()  #output: [1]
+something()  #output: [1]
+
 
 
 ### COUNTING OCCURENCES IN LIST ###
