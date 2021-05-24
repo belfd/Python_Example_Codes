@@ -449,3 +449,6 @@ class MessageWriter:
 message_writer = MessageWriter()
 message_writer.write("Hello World!")
 '''
+'''
+Added in main new command
+'''
