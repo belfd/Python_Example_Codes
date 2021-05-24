@@ -449,11 +449,3 @@ class MessageWriter:
 message_writer = MessageWriter()
 message_writer.write("Hello World!")
 '''
-'''
-This is my test of new branch
-Now I added another code
-Now I added another code 2
-'''
-'''
-Added in main new command
-'''
