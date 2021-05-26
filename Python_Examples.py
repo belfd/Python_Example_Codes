@@ -505,6 +505,70 @@ str_samp = "Hello World"
 #print a character
 print(str_samp[3])
 
+# capitalize a sentence - First char is Capital rest are small
+s = 'this is a sentence.'
+# old way: s = s[0].upper() + s[1:]
+#New way: use capitalize
+print(f"capitlize is: {s.capitalize()}") #output: This is a sentence
+
+# capitalize every word in a sentence - first char of each word in sentence
+s = 'this is a sentence.'
+# old way
+'''
+words = s.split(' ')
+words = [w[0].upper() + w[1:] for w in words]
+s = ' '.join(words)
+'''
+print(f"title() is: {s.title()}") #output: This Is A Sentence
+
+id_list = [
+    '123',
+    '45',
+    '4321',
+    '51323'
+]
+fixed_len = 6
+print(f"zfill is: {[id.zfill(fixed_len) for id in id_list]}")
+#output: ['000123', '000045', '004321', '051323']
+
+# Decide if string is made of chars or numbers
+s = '1plus1'
+# re-invent the wheel:
+# import re
+# bool(re.match(r'^[\dA-Za-z]+$', s))
+s.isalnum() #output: True
+
+'''
+    If you want to match a string with letters only, use isalpha()
+    If you want to match a string with digits only, use isdigit()
+    If you want to match a decimal number (not binary or hex), use isdecimal()
+    If you consider the underscore “_” is valid in a string, use isidentifier()
+'''
+
+'''
+Sometimes we receive string with '\n' or '\t' and we want to remove leading spaces or tailing spaces.
+'''
+s = ' \nDan Belfer\t  '
+print(f"My name is {s.strip()}") #output: My name is Dan Belfer
+
+# split lines
+'''
+When we want to break down a large chunk of string into lines by the newlines, 
+we can definitely use split()
+'''
+print("regular split:")
+print("123 \n 456 \r 789 \r\n abc".split('\n')) #output: ['123 ', ' 456 \r 789 \r', ' abc']
+
+print("split lines:")
+print([s.strip() for s in "123 \n 456 \r 789 \r\n abc".splitlines()]) # output: ['123', '456', '789', 'abc']
+
+print("join example: ")
+s = 'abcdef'
+print(' '.join(s)) #output: 'a b c d e f'
+print(','.join(s)) #output  'a,b,c,d,e,f'
+
+
+
 #make list from the string
 chars=list(str_samp) #output: l
 print(type(chars)) #output: <class 'list'>
