@@ -355,6 +355,46 @@ num is new_num  # returns False
 num == same_num  # returns True (checks whether they have the same contents)
 num == new_num  # returns True
 
+### DEQUES ###
+print("======================")
+print("DEQUES")
+'''
+ deques are a double-ended sequence data structure, 
+ it’s designed for operations involving adding items to or removing items
+ from both ends. 
+ Thus, we shouldn’t limit our data model selection to only lists or other common data types. 
+ When specific business needs (e.g. FIFO) arise, we should consider alternative data models.
+'''
+import collections
+# Create a deque
+DoubleEnded = collections.deque(["Mon","Tue","Wed"])
+print (DoubleEnded)
+
+# Append to the right
+print("Adding to the right: ")
+DoubleEnded.append("Thu")
+print (DoubleEnded)
+
+# append to the left
+print("Adding to the left: ")
+DoubleEnded.appendleft("Sun")
+print (DoubleEnded)
+
+# Remove from the right
+print("Removing from the right: ")
+DoubleEnded.pop()
+print (DoubleEnded)
+
+# Remove from the left
+print("Removing from the left: ")
+DoubleEnded.popleft()
+print (DoubleEnded)
+
+# Reverse the dequeue
+print("Reversing the deque: ")
+DoubleEnded.reverse()
+print (DoubleEnded)
+
 ### TUPLES ###
 ## properties: ordered, iterable, immutable, can contain multiple data types
 ## like lists, but they don't change size
