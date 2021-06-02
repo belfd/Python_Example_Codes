@@ -169,6 +169,19 @@ val = 10000000000000000
 print(f"{val:_}") #output: 10_000_000_000_000_000
 print(f"{val:,}") #output: 10,000,000,000,000,000
 
+'''
+f-strings can also be used to self-document code using the = character.
+What this means in practice is that when you’re printing a variable’s value to the console, 
+you no longer need to write f"variable_name = {variable_name}".
+'''
+some_variable = "HELLO!"
+print(f"some_variable={some_variable}")  #output: some_variable=HELLO!
+
+## Instead, you can simply write:
+some_variable = "HELLO!"
+print(f"{some_variable=}")  #output: some_variable=HELLO!
+
+
 
 ### MATH ###
 print("===============")
@@ -522,6 +535,11 @@ s3 = 'The meaning of life is'
 s4 = '42'
 s3 + ' ' + s4  # returns 'The meaning of life is 42'
 
+# professional concatenate with JOIN method - better than '+'
+arr = ['H', 'e', 'l', 'l', 'o']
+result = "".join(arr)  #output: Hello
+
+
 # remove whitespace from start and end of a string
 s5 = '  ham and cheese  '
 s5.strip()  # returns 'ham and cheese'
@@ -713,6 +731,14 @@ print(capital) #output: None
 capital = data.get('Germany','??')
 print(capital) #output: ??
 
+'''
+The advantage of these functions is that these functions do not throw errors 
+if the item with a specified key does not exist.
+'''
+print("get() and setdefault() functions for dictionary: ")
+dict1 = {1: 'one', 2:'two', 4:'four'}
+print(dict1.get(3)) #output: None
+print(dict1.setdefault(3, 'Default Value')) #output: Default Value
 
 
 ### SETS ###
@@ -1056,6 +1082,20 @@ import random
 l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 print(sorted(l, key=lambda x: random.random()))
 
+'''
+sorted() method can be used to sort any iterable in Python
+We have passed a lambda function as a key to sort the dictionary by age
+'''
+
+data = [{'name': 'John', 'age': 21},
+        {'name': 'Max', 'age': 19},
+        {'name': 'Lisa', 'age': 22}
+       ]
+sorted_data = sorted(data, key=lambda x: x['age'])
+print("Using sorted on dictionary by age:")
+print(sorted_data) # [{'name': 'Max', 'age': 19}, {'name': 'John', 'age': 21}, {'name': 'Lisa', 'age': 22}]
+
+
 ### FUNCTION ATTRIBUTES ####
 print("=================")
 print("FUNCTION ATTRIBUTES")
@@ -1324,6 +1364,35 @@ all([num for num in [4, 2, 10, 6, 8] if num % 2 == 0])  # True
 any([0, 1, 2, 3])  # True
 any([val for val in [1, 2, 3] if val > 2])  # True
 any([val for val in [1, 2, 3] if val > 5])  # False
+
+'''
+When you need many conditions to be fulfilled in your code, 
+then you can use Conditional List and All to check all the conditions. 
+We can write all the conditions in the list and apply All to check if all the conditions are true.
+Instead of using the if statement and writing all the conditions separated by and operator, 
+we can write all the conditions in the list and apply All.
+'''
+physics=49
+chemistry=51
+mathematics=57
+
+list_condition = [physics > 50, chemistry > 50, mathematics > 50]
+("Pass" if all(list_condition) else "Fail") #output: Fail
+
+'''
+We can use a Conditional List and Any together when we want to check even if one of the many conditions is True.
+Instead of using if statement and checking conditions separated by or operator, 
+we can write all the conditions in the list and pass it to Any.
+'''
+
+physics=49
+chemistry=51
+mathematics=47
+
+list_condition = [physics > 50, chemistry > 50, mathematics > 50]
+("Pass" if any(list_condition) else "Fail") #output: Pass
+
+
 
 ### GLOBAL LOCAL SCOPES ####
 print("===============")
@@ -2171,6 +2240,22 @@ print(next(ids)) #1
 print(next(ids)) #2
 print(next(ids)) #3
 
+'''
+Using Generator Comprehensions, we can save our memory. 
+It works the same as List Comprehension, but instead of creating a list and keeping the whole sequence in memory, 
+the generator generates the next item in demand.
+'''
+print("Compare list comprehension and generator comprehension: ")
+#list comprehension
+my_list = [i for i in range(1000)]
+print(f"summary of list: is {sum(my_list)}")
+print(f"sizeof memory is: {sys.getsizeof(my_list)} bytes") #8856 bytes
+
+#generator comprehension
+my_gene = (i for i in range(1000))
+print(f"summary of generator: is {sum(my_gene)}")
+print(f"sizeof memory is: {sys.getsizeof(my_gene)} bytes") #112 bytes
+
 
 # PICKLE
 print("====================")
@@ -2524,3 +2609,187 @@ strt = "aaaaabbbbbccccc"
 print(f"String is: {strt}")
 print(f"Count of Chars: {Counter(strt)}")
 # Counter({'a': 5, 'b': 5, 'c': 5})
+
+### UNDERSCORES & DUNDERS ###
+print("===========================")
+print("UNDERSCORES & DUNDERS")
+
+'''
+1. Single Leading Underscore:_var
+Python doesn’t have a strong distinction between “private” and “public” variables like Java does. 
+So, to indicate that a variable is meant for internal use, a single leading underscore (prefix) 
+is used before the variable name.
+'''
+class Pubber:
+  def __init__(self):
+    self.name = 'Bond, James'
+    self._age = 33 #private variable, shhh...
+
+    def _menu_tonight():  # private function
+        pass
+
+p = Pubber()
+p._age=11  #not recommended - like private
+
+'''
+Single Trailing Underscore: var_
+What if you need to use a keyword for a name?
+Append a single trailing underscore (postfix) after variable, function, or Class names, and you’re good to go! It avoids naming conflicts with Python keywords.
+class class: #SyntaxError: "invalid syntax"
+'''
+class class_: #No problem
+    pass
+
+'''
+Leading Dunders: __var
+‘Dunders’ means double underscores.
+A double underscore prefix can be used in Python to avoid naming conflicts in subclasses.
+'''
+class Pubber:
+  def __init__(self):
+    self.name = 'Bond, James'
+    self._age = 33
+    self.__address = 'Mars' #double underscore prefix
+
+class SubPubber(Pubber):
+    def __init__(self):
+        self.name = 'Bond, James'
+        self._age = 33
+        self.__address = 'Mars'  # double underscore prefix
+p1= Pubber()
+sp1 = SubPubber()
+# p1.__address='aaa' #output: AttributeError: object has no __address
+# sp1.__address='bbb' #output: AttributeError: object has no __address
+
+print(dir(p1)) #we can see it was converted to '_Pubber__address'
+print(dir(sp1)) #we can see it was converted to '_SubPubber__address'
+
+'''
+Leading and Trailing Dunders: __var__ there are almost 100 built-in Dunders in Python
+'''
+
+'''
+Single Underscore: _ 
+ use a single stand-alone underscore as a name to indicate that a variable is temporary or insignificant.
+'''
+beer = ('light', 'bitter', 70, 153)
+color, _, _, calories = beer
+print(f"color is {color} and caloris are {calories}") #output: color is light and caloris are 153
+
+### FUNCTOOLS LIBRARY ###
+print("===========================")
+print("FUNCTOOLS LIBRARY")
+
+'''
+Using Partial function, you can fix any argument value the number of arguments of a function thus removing
+the necessity of creating another one. What you get as a result is an elegant and easy to read code.
+If you have a function with several arguments but you need to set only 1 or 2 each time. Use partial.
+'''
+print("functools.partial")
+from functools import partial
+def logger(log_level,id, message):
+    print(f'[{log_level}]: {id} - {message}')
+
+# The regular way
+logger('DEBUG',1111, 'message_one') #[DEBUG]: 2222 - message_one
+logger('DEBUG',1111, 'message_two') #[DEBUG]: 2222 - message_two
+logger('DEBUG',1111, 'message_three') #[DEBUG]: 2222 - message_three
+
+# Using partial, log_level should be debug and id 2222 always
+debug_logger = partial(logger, 'DEBUG', 2222)
+debug_logger('message_one')   #[DEBUG]: 2222 - message_one
+debug_logger('message_two')   #[DEBUG]: 2222 - message_two
+debug_logger('message_three') #[DEBUG]: 2222 - message_three
+
+'''
+LRU stands for Least Recently Used, it saves the result of last executed function in memory and 
+when it have to again execute the function, first it will check in cache, 
+if found it will return the result otherwise it will go on to execute the function.
+“lru_cache” can save us a lot of time when we need to perform computationally expensive or I/O bound 
+operations through a function.
+'''
+
+print("functools.lru_cache")
+from functools import lru_cache,singledispatch
+from time import time
+
+@lru_cache(maxsize=128)
+def fibo_lru(n):
+   if n <= 1:
+       return n
+   else:
+       return(fibo_lru(n-1) + fibo_lru(n-2))
+
+def fibo(n):
+   if n <= 1:
+       return n
+   else:
+       return(fibo(n-1) + fibo(n-2))
+
+def sum_of_fibo(nterms,fun):
+    start = time()
+    result = 0
+    for i in range(nterms):
+        result += fun(i)
+    print(f'Total Sum {result} , Total time taken {(time() - start):.2f} sec')
+
+sum_of_fibo(30,fibo_lru)
+sum_of_fibo(30,fibo)
+
+'''
+“singledispatch” implementation lets you achieve function overloading. 
+It converts your function into a generic function which can have different behavior depending 
+on the type of first argument.
+Use “singledispatch” decorator over the default implementation and then simply add
+ “@<functionname>.register(<type>)” over the functions that you need to overload.
+'''
+
+print("functools.singledispatch")
+from functools import singledispatch
+@singledispatch
+def add(a, b):
+    raise NotImplementedError('Unsupported type')
+@add.register(int)
+def _(a, b):
+    print("First argument is of type ", type(a))
+    print(a + b)
+@add.register(str)
+def _(a, b):
+    print("First argument is of type ", type(a))
+    print(a + b)
+@add.register(list)
+def _(a, b):
+    print("First argument is of type ", type(a))
+    print(a + b)
+
+
+add(1, 2) #output: 3
+add('Python', 'Programming') #output: PythonProgramming
+add([1, 2, 3], [5, 6, 7]) #output: [1, 2, 3, 5, 6, 7]
+
+'''
+functools.reduce
+Reduce is again a higher order function which is primarily used to accumulate data while 
+iterating over a passed sequence → reduce(function, sequence, start)
+Working of reduce function →
+1. In first iteration, the function provided is applied to the first element of a sequence and the start value, 
+and the result is then returned to next iteration.
+2. In second iteration, the same function is applied on the previously calculated result and the next element of 
+the sequence, the result is then updated with the newly calculated value.
+3. In all subsequent iterations, Step 2 is executed repeatedly until the sequence is exhausted, 
+and the final result is then returned.
+Reduce always returns a single value.
+'''
+
+print("functools.reduce")
+from functools import reduce
+l = [10, 20, 5, 100, 30]
+
+# Sum of list with start value = 0
+print(reduce(lambda x,y: x+y, l)) #output: 165
+
+# Sum of list with start value = 100
+print(reduce(lambda x,y: x+y, l, 100))  #output: 265
+
+print(reduce(lambda a, b: a if a > b else b, l)) #output: 100
+print(reduce(min, l)) #output: 5
