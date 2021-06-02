@@ -44,6 +44,19 @@ def func():
 def func1():
     ...
 
+#INPUTS
+print("================")
+print("INPUTS")
+print("Multiple User input")
+
+#normal way
+# a = input("Enter name: ")
+# b = input("Enter age: ")
+#Better way
+# a, b = input("Enter name and age: ").split()
+
+
+
 # VARIABLES
 print("===============")
 print("VARIABLES")
@@ -449,6 +462,14 @@ sorted(tens)  # sorts by first element in tuple, then second element
 bart = ('male', 10, 'simpson')  # create a tuple
 (sex, age, surname) = bart  # assign three values at once
 
+# Trick to append values to tuple because it is immutable (non changed)
+tuple1 = (1, 2, 3)
+lst= list(tuple1)
+lst.append(4)
+lst.append(5)
+tuple1 = tuple(lst)
+print(f"new tuple after appending: {tuple1}") # (1, 2, 3, 4, 5)
+
 ### NAMED TUPLES ####
 print("================")
 print("NAMED TUPLES")
@@ -625,7 +646,8 @@ s = 'abcdef'
 print(' '.join(s)) #output: 'a b c d e f'
 print(','.join(s)) #output  'a,b,c,d,e,f'
 
-
+str1 = "Reverse a String" #the best way to reverse string
+print(f"{str1} and now reversed: {str1[::-1]}")
 
 #make list from the string
 chars=list(str_samp) #output: l
@@ -655,6 +677,10 @@ def rand_colors():
 color = rand_colors()
 print(f"color is:{color}")
 
+# Best way to find palindrom
+w = "Rotator".lower()
+palindrome = bool(w.find(w[: : -1]) + 1)
+print(f"Is {w} is palindrom? {palindrome}")
 
 
 ### DICTIONARIES ###
@@ -780,6 +806,11 @@ languages.update(['go', 'spark'])  # add multiple elements (can also pass a set)
 # get a sorted list of unique elements from a list
 sorted(set([9, 0, 2, 1, 0]))  # returns [0, 1, 2, 9]
 
+# remove a duplication in list
+my_list = [1,2,2,3,3,3,4,4,5,5,5,1,1,2]
+print(list(set(my_list)))  #output: [1, 2, 3, 4, 5]
+
+
 ### DEFINING FUNCTIONS ###
 print("===============")
 print("FUNCTIONS")
@@ -862,7 +893,7 @@ def min_max(nums):
 nums = [1, 2, 3]
 min_max_num = min_max(nums)  # min_max_num = (1, 3)
 
-# return values can be assigned into multiple variables using tuple unpacking
+# return values can be assigned into multiple variables using *tuple unpacking*
 min_num, max_num = min_max(nums)  # min_num = 1, max_num = 3
 
 
@@ -931,6 +962,8 @@ def avg(*args):
     return count,total/count
 
 print(avg(2,2,4,4)) #output: (4,3.0)
+
+
 
 ### **KWARGS ###
 ### an operator we can pass to functions, gather remaining arguments as a dictionary ###
@@ -1305,7 +1338,7 @@ For instance, you could create dictionaries without looping over the separate li
 '''
 keys = ['a', 'b', 'c']
 values = [1, 2, 3]
-dictionary = dict(zip(keys, values))
+dictionary = dict(zip(keys, values)) #Best way to convert list to dictionary
 print(dictionary) #output: {'a': 1, 'b': 2, 'c': 3}
 
 # Returns an iterator of tuples ,where the i-th tuple contains the i-th element
