@@ -2151,6 +2151,63 @@ lst = [c1,c2,c3,c4,c5,c6]
 for i in lst:
     i.mtd() #this is actually polymorphism
 
+
+### ABSTRACTION ###
+print("===============")
+print("ABSTRACTION")
+
+'''
+Abstraction is used to hide the internal functionality of the function from the users. 
+By applying abstraction, each object is only exposed to a high-level mechanism for using it. 
+A method that only has a declaration and not a definition is called an abstract method. 
+An abstract method doesn’t have anything inside the body. 
+A class that has an abstract method is called an abstract class.
+Python by default does not support abstract classes, but there is a module named abc that 
+allows Python to create abstract methods and classes.
+'''
+
+from abc import ABC, abstractmethod
+class Computer(ABC):
+    @abstractmethod
+    def process(self):
+        pass
+# com = Computer()
+# com.process()
+# ---------------------------------
+# TypeError: Can't instantiate abstract class Computer with abstract method process
+
+'''
+You can’t create objects for abstract classes. 
+To access the abstract class and its methods, you need to use inheritance.
+'''
+
+import abc
+class Shape(metaclass=abc.ABCMeta):
+   @abc.abstractmethod
+   def area(self):
+      pass
+
+class Rectangle(Shape):
+   def __init__(self, x,y):
+      self.l = x
+      self.b=y
+   def area(self):
+      return self.l*self.b
+
+r = Rectangle(10,20)
+print ('area: ',r.area())
+'''
+Some Things To Remember on Classes on general:
+A method inside the class without self can only use class attributes.
+Class and instance attributes are both accessible using the object of the class.
+You don't need to call the constructor __init__. It is automatically called at the time of object creation.
+A child class can access all the attributes of the parent class, but it does not happen vice versa.
+To access a protected member, we need to use _ at the time of accessing it through an object or class member.
+You can’t create objects for abstract classes
+'''
+
+
+
 #ITERATORS VS ITERABLES
 print("====================")
 print("ITERATORS VS ITERABLES")
@@ -2826,3 +2883,219 @@ print(reduce(lambda x,y: x+y, l, 100))  #output: 265
 
 print(reduce(lambda a, b: a if a > b else b, l)) #output: 100
 print(reduce(min, l)) #output: 5
+
+### STACK Class implementation ###
+print("===============================")
+print("Stack Class implementation")
+
+
+class Stack():
+    def __init__(self):
+        self.items = []  ## Empty list intilize
+
+    def push(self, item):
+        self.items.append(item)  ## simple appending to list
+
+    def pop(self):
+        return self.items.pop()  ## Removing top element of the stack
+
+    def is_empty(self):
+        return self.items == []  ### Checking whether the stack is empty or not
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]  ## returnign top element using [-1]=last element
+
+    def show_stack(self):
+        return self.items  ## Printing all the items
+
+
+obj = Stack()  ## Creating obj for class stack
+
+print("push 10")
+obj.push(10)
+print("push 20")
+obj.push(20)
+print("push 30")
+obj.push(30)
+print("Show stack:")
+print(obj.show_stack())
+print("pop")
+print(obj.pop())
+print("peek top element")
+print(obj.peek())
+print("Show stack:")
+print(obj.show_stack())
+
+### Linked List Implementation ###
+print("======================================")
+print("Linked List Implementation")
+
+# A single node of a singly linked list
+class Node:
+    # constructor
+    def __init__(self, data=None, next=None):
+        self.data = data
+        self.next = next
+
+
+# A Linked List class with a single head node
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    #############################################
+    ############ INSERT NODES ###################
+    #############################################
+
+    ######### AT THE END (APPEND) ###############
+    def append(self, data):
+        newNode = Node(data)  ## Taking the data in the as a newNode
+        if (self.head):  ## if self.head is not None then     means :=>> Linked list is not empty
+            current = self.head  ## define current node as head node
+            while (current.next):  ## While current node is not None
+                current = current.next  # increase the current node by one node
+            current.next = newNode  ## current node next is equal to newNode
+        else:
+            self.head = newNode  ## linked list is empty then simply add the new node
+
+    ######### AT THE START (PREPAND) #############
+    def prepand(self, data):
+        newNode = Node(data)  ## Create a node
+        newNode.next = self.head  ## Ponit the next of the new node to the head
+        self.head = newNode  ## paas the head to the new node
+
+    ######### AFTER A NODE  #######################
+    def add(self, prev_node, data):
+        if not prev_node:
+            print("Previous node is not in the list")
+            return
+        else:
+            newNode = Node(data)
+            newNode.next = prev_node.next
+            prev_node.next = newNode
+
+    ######### PRINTING ALL THE ELEMENTS  ##############
+    def printLL(self):
+        current = self.head  ## current node as head
+        while (current):  ## While current node is  not None
+            print(current.data)  ## Print the data part of the node   |data|next|
+            current = current.next  ## Increase the current node with one node
+
+    ##################################################
+    ############ DELETE NODES ########################
+    ##################################################
+
+    def delete_node(self, key):
+        current = self.head
+
+        ######### AT THE START ##########################
+        if current and current.data == key:
+            self.head = current.next
+            current = None
+            return
+            ######### IN THE MIDDLE AND THE END  ############
+        prev = None
+        while current and current.data != key:
+            prev = current
+            current = current.next
+        if current is None:
+            return
+        else:
+            prev.next = current.next
+            current = None
+        ##################################################
+        ######## DELETE NODE AT A GIVEN POSITION   #######
+        ##################################################
+
+    def delete_node_at_pos(self, pos):
+        current = self.head
+
+        if pos == 0:
+            self.head = current.next
+            current = None
+
+        count = 1
+        prev = None
+        while current and count != pos:
+            prev = current
+            current = current.next
+            count += 1
+        if current is None:
+            return
+        else:
+            prev.next = current.next
+            current = None
+        ##################################################
+        ###### CALCULATE THE LENGTH OF THE LINKED LIST ###
+        ##################################################
+
+    def length(self):
+        current = self.head
+        length = 0
+        while (current):
+            length += 1
+            current = current.next
+        return length
+
+
+# Singly Linked List with insertion and print methods
+LL = LinkedList()
+LL.prepand("E")
+LL.append("A")
+LL.add(LL.head.next, "F")
+LL.append("B")
+LL.append("C")
+LL.printLL()
+print("\n")
+
+LL.delete_node("B")
+LL.printLL()
+print("\n")
+LL.delete_node_at_pos(0)
+LL.printLL()
+print("\n")
+print(LL.length())
+
+### Search Algorithms Implemented ###
+print("======================================")
+print("Search Algorithms Implemented")
+
+
+## LINEAR SEASRCH ###
+print("Linear Search:")
+lst = [2,5,3,1,7]
+num = 1
+for index,value in enumerate(lst):
+    if num==value:
+        print(f"{value} found at position {index+1}")
+print("################")
+## BINARY SEARCH ###
+print("Binary Search:")
+lst = [1,3,2,4,5,6,9,8,7,10]
+lst.sort()
+first=0
+last=len(lst)-1
+mid = (first+last)//2
+item = 7
+found = False
+while( first<=last and not found):
+  mid = (first + last)//2
+  if lst[mid] == item :
+    print(f"found at location {mid+1}")
+    found= True
+  else:
+    if item < lst[mid]:
+      last = mid - 1
+    else:
+      first = mid + 1
+if found == False:
+  print("Number not found")
+
+print("################")
+
+## Calculate Prime Numbers ##
+print("===========================")
+print("Calculate Prime Numbers:")
+print(list(filter(lambda x:all(x % y != 0 for y in range(2, x)), range(2, 13))))
+
