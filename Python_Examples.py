@@ -3099,3 +3099,56 @@ print("===========================")
 print("Calculate Prime Numbers:")
 print(list(filter(lambda x:all(x % y != 0 for y in range(2, x)), range(2, 13))))
 
+## Checking Anagram ##
+'''
+An anagram is a word that is formed by rearranging the letters of a different word, 
+using all the original letters exactly once.
+'''
+
+def check_anagram(first_word, second_word):
+    return sorted(first_word) == sorted(second_word)
+
+check_anagram("silent", "listen")  # True
+check_anagram("ginger", "danger")  # False
+
+## Merging Two Dictionaries ##
+print("===========================")
+print("Merging Two Dictionaries:")
+'''
+3 examples to merge dictionaries
+'''
+
+basic_information = {"name":['karl','Lary'],"mobile":["0134567894","0123456789"]}
+academic_information = {"grade":["A","B"]}
+details = dict() ## Combines Dict
+
+## Dictionary Comprehension Method
+details = {key: value for data in (basic_information, academic_information) for key,value in data.items()}
+print(details)
+
+## Dictionary unpacking
+details = {**basic_information ,**academic_information}
+print(details)
+
+## Copy and Update Method
+details = basic_information.copy()
+details.update(academic_information)
+print(details)
+
+## FizzBuzz example ##
+print("===========================")
+print("MFizzBuzz example")
+print(['FizzBuzz' if i%3==0 and i%5==0 else 'Fizz' if i%3==0 else 'Buzz' if i%5==0 else i for i in range(1,20) ])
+
+## Find Duplicates in List ##
+print("===========================")
+print("Find Duplicates in List")
+
+def has_duplicates(lst):
+    return len(lst) != len(set(lst))
+
+x = [1,2,2,3,4,5]
+y = [1,2,3,4,5]
+
+print(f"x has duplicates: {has_duplicates(x)}") #True
+print(f"y has duplicates: {has_duplicates(y)}") #False
