@@ -682,6 +682,14 @@ w = "Rotator".lower()
 palindrome = bool(w.find(w[: : -1]) + 1)
 print(f"Is {w} is palindrom? {palindrome}")
 
+# write a program to find the largest word in a text file?
+def longest_word(filename):
+    with open(filename, 'r') as infile:
+              words = infile.read().split()
+    max_len = len(max(words, key=len))
+    return [word for word in words if len(word) == max_len]
+# print(longest_word('test.txt'))
+
 
 ### DICTIONARIES ###
 ## properties: unordered, iterable, mutable, can contain multiple data types
@@ -967,12 +975,12 @@ print(avg(2,2,4,4)) #output: (4,3.0)
 
 ### **KWARGS ###
 ### an operator we can pass to functions, gather remaining arguments as a dictionary ###
+### **kwargs is used when we want to pass a dictionary as an argument to a function. ###
 print("===============")
 print("**KWARGS")
 
 def func(**kargs):
     print(kargs)
-
 
 func(a=1, b=2, c=3)  # output: {'a': 1, 'b': 2, 'c': 3}
 
@@ -981,11 +989,31 @@ def family_members(**people):
     for name, family_name in people.items():
         print(f"His name is {name} and family name is {family_name}")
 
-
 family_members(ídan="Belfer", ron="Ram", noam="Belfer")
 #His name is ídan and family name is Belfer
 #His name is ron and family name is Ram
 #His name is noam and family name is Belfer
+
+def intro(**data):
+    print("\nData type of argument:",type(data))
+    for key, value in data.items():
+        print("{} is {}".format(key,value))
+intro(name="alex",Age=22, Phone=1234567890)
+intro(name="louis",Email="a@gmail.com",Country="Wakanda", Age=25)
+'''
+Data type of argument: <class 'dict'>
+name is alex
+Age is 22
+Phone is 1234567890
+
+Data type of argument: <class 'dict'>
+name is louis
+Email is a@gmail.com
+Country is Wakanda
+Age is 25
+'''
+
+
 
 ### PARAMETER ORDERING - only when you use all types of follwing###
 ### 1. params 2.*args 3.default params 4.**kwargs ###
@@ -1269,9 +1297,9 @@ unique_lengths = {len(fruit) for fruit in fruits}  # {5, 6}
 fruit_lengths = {fruit: len(fruit) for fruit in fruits}  # {'apple': 5, 'banana': 6, 'cherry': 6}
 fruit_indices = {fruit: index for index, fruit in enumerate(fruits)}  # {'apple': 0, 'banana': 1, 'cherry': 2}
 
-### MAP AND FILTER ALL AND ANY ###
+### MAP AND FILTER REDUCE ALL AND ANY ###
 print("===============")
-print("MAP AND FILTER ALL AND ANY ")
+print("MAP AND FILTER REDUCE ALL AND ANY ")
 
 # 'map' applies a function to every element of a sequence
 # ...and returns an iterator
@@ -1279,6 +1307,48 @@ print("MAP AND FILTER ALL AND ANY ")
 # iterable = something that can be iterated over(list,string,dictionary,set,tuple)
 # runs lambda for each value in the iterable and returns
 # a map object which can be converted into other data structure
+'''
++ If you already have a list of values and you want to do the exact same operation on each of the elements in the array 
+  and return the same amount of items in the list, in these type of situations it is better to use the map method.
+
++ If you already have list of values but you only want to have items in the array that match certain criteria, 
+  in these type of situations it is better to use the filter method.
+
++ If you already have list of values, but you want to use the values in that list to create something completely new, 
+  in these type of situations it is better to use the reduce method.
+'''
+
+# map example
+def square(n): return n*n
+map_inputs = (1, 2, 3, 4)
+map_ret = map(square, map_inputs)
+print(map_ret) #output: <map object at 0x0000019F8B6CC910>
+list_square = list(map_ret)
+print(list_square) #output: [1, 4, 9, 16]
+
+# map usually uses lambda function
+map_inputs = (1, 2, 3, 4)
+map_ret = map(lambda n: n**2, map_inputs)
+print(map_ret) #output: <map object at 0x0000019F8B6CC700>
+list_square = list(map_ret)
+print(list_square) #output: [1, 4, 9, 16]
+
+# map most short version
+map_inputs = (1, 2, 3, 4)
+print(list(map(lambda n: n**2, map_inputs))) #output: [1, 4, 9, 16]
+
+#filter example
+in_list = [98,99,100,101,102]
+out_list = filter(lambda x: x > 100, in_list)
+print(list(out_list)) #output: [101, 102]
+
+#reduce example
+result = 1
+in_num = [1, 2, 3, 4,5]
+for num in in_num:
+    result = result * num
+print(result) #output: 120
+
 
 simpsons = ['homer', 'marge', 'bart']
 map(len, simpsons)  # returns [5, 5, 4]
@@ -1307,6 +1377,45 @@ print(list(filter(lambda y:y<25, map(lambda x:x**2,l ) )  )) #output: [0, 1, 4, 
 # easy to use list comprehension
 print("list comprehension:")
 print([x**2 for x in range(10) if x**2 < 25]) #output: [0, 1, 4, 9, 16]
+
+# 'all' return True if all elements of iterable are true (or iterable empty)
+# 'all' behaves like a series of AND conditions
+all([0, 1, 2, 3])  # False
+all([char for char in 'eio' if char in 'aeiou'])
+all([num for num in [4, 2, 10, 6, 8] if num % 2 == 0])  # True
+# 'any' return True if any element of iterable is true. If iterable is empty ,returns False
+# 'any' behaves like a series of OR conditions
+any([0, 1, 2, 3])  # True
+any([val for val in [1, 2, 3] if val > 2])  # True
+any([val for val in [1, 2, 3] if val > 5])  # False
+
+'''
+When you need many conditions to be fulfilled in your code, 
+then you can use Conditional List and All to check all the conditions. 
+We can write all the conditions in the list and apply All to check if all the conditions are true.
+Instead of using the if statement and writing all the conditions separated by and operator, 
+we can write all the conditions in the list and apply All.
+'''
+physics=49
+chemistry=51
+mathematics=57
+
+list_condition = [physics > 50, chemistry > 50, mathematics > 50]
+("Pass" if all(list_condition) else "Fail") #output: Fail
+
+'''
+We can use a Conditional List and Any together when we want to check even if one of the many conditions is True.
+Instead of using if statement and checking conditions separated by or operator, 
+we can write all the conditions in the list and pass it to Any.
+'''
+
+physics=49
+chemistry=51
+mathematics=47
+
+list_condition = [physics > 50, chemistry > 50, mathematics > 50]
+("Pass" if any(list_condition) else "Fail") #output: Pass
+
 
 ### ZIP ###
 print("===============")
@@ -1387,43 +1496,7 @@ print(f"Min Value in list is {min_result}")
 max_result = reduce(lambda a, b: a if a > b else b, l)
 print(f"Max Value in list is {max_result}")
 
-# 'all' return True if all elements of iterable are true (or iterable empty)
-# 'all' behaves like a series of AND conditions
-all([0, 1, 2, 3])  # False
-all([char for char in 'eio' if char in 'aeiou'])
-all([num for num in [4, 2, 10, 6, 8] if num % 2 == 0])  # True
-# 'any' return True if any element of iterable is true. If iterable is empty ,returns False
-# 'any' behaves like a series of OR conditions
-any([0, 1, 2, 3])  # True
-any([val for val in [1, 2, 3] if val > 2])  # True
-any([val for val in [1, 2, 3] if val > 5])  # False
 
-'''
-When you need many conditions to be fulfilled in your code, 
-then you can use Conditional List and All to check all the conditions. 
-We can write all the conditions in the list and apply All to check if all the conditions are true.
-Instead of using the if statement and writing all the conditions separated by and operator, 
-we can write all the conditions in the list and apply All.
-'''
-physics=49
-chemistry=51
-mathematics=57
-
-list_condition = [physics > 50, chemistry > 50, mathematics > 50]
-("Pass" if all(list_condition) else "Fail") #output: Fail
-
-'''
-We can use a Conditional List and Any together when we want to check even if one of the many conditions is True.
-Instead of using if statement and checking conditions separated by or operator, 
-we can write all the conditions in the list and pass it to Any.
-'''
-
-physics=49
-chemistry=51
-mathematics=47
-
-list_condition = [physics > 50, chemistry > 50, mathematics > 50]
-("Pass" if any(list_condition) else "Fail") #output: Pass
 
 
 
@@ -1697,6 +1770,11 @@ def timed(fn): # decorator for measure time
 
         return result
     return inner
+
+# fibonachi calculation with list comprehension for example 10 first occurances
+fibo = [0,1]
+[fibo.append(fibo[-2]+fibo[-1]) for i in range(8)]
+
 
 #fibonachi_recorsion
 def calc_recursive_fib(n):
@@ -2219,6 +2297,30 @@ print("ITERATORS VS ITERABLES")
 # To make a class an Iterable we need to define __iter__() method
 # To loop on the class - we need to define __next__() method
 
+'''
+Difference between iterables and iterators?
+Ans: iterable: An iterable is an object, which one can iterate over. 
+In the case of iterable whole data is stored in the memory at a time.
+iterators: an iterator is an object used to iterate over an object. 
+it is only being initialized or stored in the memory when it is called. 
+iterators has next using which elements are fetched out from the object.
+
+### List is an iterable
+lst = [1,2,3,4,5]
+for i in lst:
+    print(i)
+### iterator
+lst1 = iter(lst)   
+next(lst1)
+>1
+next(lst1)
+>2
+for i in lst1:
+    print(i)
+>3,4,5      
+'''
+
+
 def my_for(iterable, func):
     iterator = iter(iterable)
     while True:
@@ -2350,6 +2452,11 @@ print(f"sizeof memory is: {sys.getsizeof(my_gene)} bytes") #112 bytes
 # PICKLE
 print("====================")
 print("PICKLE")
+'''
+Pickling is the process in which a python object hierarch is converted into a byte stream 
+Unpickling is the inverse process in which a byte stream is converted into an object
+'''
+
 # We can serialize simple objects on files - it is called pickle
 
 import json
@@ -2365,7 +2472,7 @@ class SomeClass:
         return f"This is {self.name} {self.family} aged {self.age}"
 
 man = SomeClass("Dan","Belfer",48)
-print(man)
+print(man)  #output: This is Dan Belfer aged 48
 
 json_structure = json.dumps(man.__dict__) #saved in json like a dictionary
 print(json_structure)  #output: {"name": "Dan", "family": "Belfer", "age": 48}
@@ -2377,7 +2484,7 @@ with open("people.pickle", "wb") as file:
 # To unpickle something:
 with open("people.pickle", "rb") as file:
      new_man = pickle.load(file)
-     print(new_man)
+     print(new_man) #output: This is Dan Belfer aged 48
 
 ### CLEAN CODE SAMPLES ###
 print("====================")
@@ -3096,8 +3203,30 @@ print("################")
 
 ## Calculate Prime Numbers ##
 print("===========================")
-print("Calculate Prime Numbers:")
-print(list(filter(lambda x:all(x % y != 0 for y in range(2, x)), range(2, 13))))
+print("Calculate Prime Numbers: till 13")
+print(list(filter(lambda x:all(x % y != 0 for y in range(2, x)), range(2, 13)))) #output: [2,3,5,7,11]
+
+# Write a one-liner in python to fetch out all the even and odd numbers from a given list?
+a = [1,2,3,4,5,6,7,8,9,10]
+odd, even = [el for el in a if el % 2==1], [el for el in a if el % 2==0]
+#output: ([1, 3, 5, 7, 9], [2, 4, 6, 8, 10])
+
+# Write a program to check whether a number is Armstrong or not?
+# Armstrong - sum of cubes of digits equal to value of the number - example:
+# (1*1*1) + (5*5*5) + (3*3*3) == 153
+num = 371
+sum = 0
+temp = num
+while temp > 0:
+   digit = temp % 10
+   sum += digit ** 3
+   temp //= 10
+if num == sum:
+    pass
+   #print(num,"is an Armstrong number")
+else:
+    pass
+   #print(num,"is not an Armstrong number")
 
 ## Checking Anagram ##
 '''
