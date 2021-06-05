@@ -3,6 +3,7 @@ Python Quick Reference - edited in GitHub
 """
 ### CHECK PYTHON VERSION ### do verifications for customer version awareness
 import sys
+
 if sys.version_info < (3,5):
     print(f"Dear customer you are running old python")
 print(f"Python version is: {sys.version_info}")
@@ -3281,3 +3282,50 @@ y = [1,2,3,4,5]
 
 print(f"x has duplicates: {has_duplicates(x)}") #True
 print(f"y has duplicates: {has_duplicates(y)}") #False
+
+
+## dataclasses ##
+print("===========================")
+print("dataclasses")
+'''
+There are several advantages over regular classes or other alternatives like returning multiple values or dictionaries:
+a data class requires a minimal amount of code
+you can compare data classes because __eq__ is implemented for you
+you can easily print a data class for debugging because __repr__ is implemented as well
+data classes require type hints, reduced the chances of bugs
+'''
+
+from dataclasses import dataclass
+
+@dataclass
+class Card:
+    rank: str
+    suit: str
+
+card = Card("Q", "hearts")
+print(card == card) # output: True
+print(card.rank) # output: 'Q'
+print(card) #output: Card(rank='Q', suit='hearts')
+
+# ## attrs ##
+# print("===========================")
+# print("attrs")
+#
+# from attrs import attr
+#
+# @attr.s
+# class Person(object):
+#     name = attr.ib(default='John')
+#     surname = attr.ib(default='Doe')
+#     age = attr.ib(init=False)
+#
+# p = Person()
+# print(p)
+# p = Person('Bill', 'Gates')
+# p.age = 60
+# print(p)
+#
+# # Output:
+# #   Person(name='John', surname='Doe', age=NOTHING)
+# #   Person(name='Bill', surname='Gates', age=60)
+
