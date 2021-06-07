@@ -1,6 +1,25 @@
 """
 Python Quick Reference - edited in GitHub
+
+ In python , the source code is compiled to a much simpler form called bytecode .
+ The bytecode instructions are similar to the CPU instructions but are executed by a virtual machine .
+
+ Searching in a list can be considerably slow as compared to a dictionary.
+ The effect is even more pronounced , when the size of elements to search increases .
+ As a fact, using a dictionary is over 100,000x faster than using a list if the search is on 10 million items.
+ The reason is simple , the list uses iterative method to search for an element while a dictionary uses a hash lookup.
+
+ A Metaclass in Python is a class of a class that defines how a class behaves.
+ A class is itself an instance of a metaclass.
+ A class in Python defines how the instance of the class will behave.
+
+ The Dataclass module was introduced as a utility tool to make structured classes specially for storing data.
+ These classes hold certain properties and functions to deal specifically with the data
+ and its representation. Two instances of a dataclass having the same content will be equal to each other ,
+ while two instances of a normal class will be not equal to each other as the equality operator
+ checks the address in this case.
 """
+
 ### CHECK PYTHON VERSION ### do verifications for customer version awareness
 import sys
 
@@ -1192,9 +1211,9 @@ print( inspect.getdoc(my_func) ) # output: This is a function for explanation
 #    print(f"{k} : {v} ") #output: all the params with values
 
 
-### FOR LOOPS AND WHILE LOOPS ###
+### FOR LOOPS AND WHILE LOOPS // ENUM ###
 print("===============")
-print("FOR WHILE LOOPS")
+print("FOR WHILE LOOPS // ENUM")
 
 # range returns a list of integers (Python 2) or a sequence (Python 3)
 range(0, 3)  # returns [0, 1, 2]: includes start value but excludes stop value
@@ -1242,7 +1261,18 @@ while x<5:
 else:
     print('Done')
 
+# ENUMERATE SAMPLE with Start argument
+print("Example of Enum with Start value:")
+mylist = ['a', 'b', 'd', 'c', 'g', 'e']
+print("Regular Enum:")
+for i, item in enumerate(mylist):
+    print(i, item) #output: 0 a 1 b 2 d 3 c 4 g 5 e
 
+# but, you can add a start for enumeration:
+print("Enum start with index from 16...")
+for i, item in enumerate(mylist, 16):
+    print(i, item) #output: 16 a 17 b 18 d 19 c 20 g 21 e
+print("\n")
 
 ### COMPREHENSIONS ###
 print("===============")
@@ -1297,6 +1327,12 @@ unique_lengths = {len(fruit) for fruit in fruits}  # {5, 6}
 # dictionary comprehension
 fruit_lengths = {fruit: len(fruit) for fruit in fruits}  # {'apple': 5, 'banana': 6, 'cherry': 6}
 fruit_indices = {fruit: index for index, fruit in enumerate(fruits)}  # {'apple': 0, 'banana': 1, 'cherry': 2}
+
+new_list = [x for x in range(10)] #list comprehension
+new_dict = {x:x+1 for x in range(10)} #dictionary comprehension
+new_set = {x for x in range(10)} #set comprehension
+new_gen = (x for x in range(10)) #generator comprehension
+
 
 ### MAP AND FILTER REDUCE ALL AND ANY ###
 print("===============")
@@ -1475,6 +1511,138 @@ m = [(1,2,3),(4,5,6)]
 print(f"We have matrix: m = {m}")
 
 print(f"Use *m to load the args - these 2 tuples to transpose the lists: list(zip(*m)) :{list(zip(*m))}")
+
+#simplest zip example
+idx = [1, 2, 3, 4]
+record = zip(idx)
+print(list(record)) #output: [(1,), (2,), (3,), (4,)]
+
+#deal with unequal lists:
+idx = [1, 2]
+leaders = ['Elon Mask', 'Tim Cook', 'Bill Gates', 'Yang Zhou']
+record = zip(idx, leaders)
+
+print(list(record)) #output:  [(1, 'Elon Mask'), (2, 'Tim Cook')]
+
+# Unzip operation - uses trick using *param
+record = [(1, 'Elon Mask'), (2, 'Tim Cook'), (3, 'Bill Gates'), (4, 'Yang Zhou')]
+idx, leaders = zip(*record)
+print(idx) # (1, 2, 3, 4)
+print(leaders) # ('Elon Mask', 'Tim Cook', 'Bill Gates', 'Yang Zhou')
+
+#Create and Update Dictionaries by the Zip Function
+#With the help of the zip function, creating or updating a dict based on some separated lists is very simple.
+# There are two one-line solutions:
+#Using dict comprehension and zip
+#Using dict function and zip
+
+idx = [1, 2, 3, 4]
+leaders = ['Elon Mask', 'Tim Cook', 'Bill Gates', 'Yang Zhou']
+
+# create dict by dict comprehension
+leader_dict = {i: name for i, name in zip(idx, leaders)}
+print(leader_dict)
+# {1: 'Elon Mask', 2: 'Tim Cook', 3: 'Bill Gates', 4: 'Yang Zhou'}
+
+# create dict by dict function
+leader_dict_2 = dict(zip(idx, leaders))
+print(leader_dict_2)
+# {1: 'Elon Mask', 2: 'Tim Cook', 3: 'Bill Gates', 4: 'Yang Zhou'}
+
+# update
+other_id = [5, 6]
+other_leaders = ['Larry Page', 'Sergey Brin']
+leader_dict.update(zip(other_id, other_leaders))
+print(leader_dict)
+# {1: 'Elon Mask', 2: 'Tim Cook', 3: 'Bill Gates', 4: 'Yang Zhou', 5: 'Larry Page', 6: 'Sergey Brin'}
+
+#Use Zip function in For-Loops:
+products = ["cherry", "strawberry", "banana"]
+price = [2.5, 3, 5]
+cost = [1, 1.5, 2]
+for prod, p, c in zip(products, price, cost):
+    print(f'The profit of a box of {prod} is £{p-c}!')
+# The profit of a box of cherry is £1.5!
+# The profit of a box of strawberry is £1.5!
+# The profit of a box of banana is £3!
+
+### 5 Uses of Asterisks in Python ###
+# 1. Mathematics
+#Single * for the multiplication operation.
+#Double ** for the exponentiation operation.
+
+# 2.To Receive an Unlimited Number of Arguments
+def print_genius(*names):
+    print(type(names))
+    for n in names:
+        print(n)
+
+print_genius('Elon Mask', 'Mark Zuckerberg ', 'Larry Page')
+#output:
+# <class 'tuple'>
+# Elon Mask
+# Mark Zuckerberg
+# Larry Page
+
+def top_genius(**names):
+    print(type(names))
+    for k, v in names.items():
+        print(k, v)
+
+top_genius(Top1="Elon Mask", Top2="Mark Zuckerberg", Top3="Larry Page")
+# output:
+# <class 'dict'>
+# Top1 Elon Mask
+# Top2 Mark Zuckerberg
+# Top3 Larry Page
+
+# 3. Restrict to Keyword-Only Arguments
+# A really cool usage of asterisks is to make a function can only receive keyword arguments
+# just one * can restrict all following arguments must be passed as keyword arguments
+
+def genius(*, first_name, last_name):
+    print(first_name, last_name)
+
+# genius('Yang','Zhou')
+# TypeError: genius() takes 0 positional arguments but 2 were given
+genius(first_name='Larry', last_name='Page')
+# Larry Page
+
+#  if we just would like to restrict a few arguments to be keyword-only and remain some positional arguments.
+#  We can just put the positional arguments before the asterisk.
+
+def genius(age, *, first_name, last_name):
+    print(first_name, last_name, 'is', age)
+genius(28, first_name='Larry', last_name='Page')
+# Larry Page is 28
+
+# 4. Iterables Unpacking
+# We can use asterisks to unpack iterables, which will make our programs clear and elegant.
+# For example, if we gonna combine different iterables, such as one list, one tuple and one set, into a new list
+A = [1, 2, 3]
+B = (4, 5, 6)
+C = {7, 8, 9}
+L = [a for a in A] + [b for b in B] + [c for c in C]
+print(L)
+# [1, 2, 3, 4, 5, 6, 8, 9, 7]
+
+## Better is using *
+A = [1, 2, 3]
+B = (4, 5, 6)
+C = {7, 8, 9}
+L = [*A, *B, *C]
+print(L)
+# [1, 2, 3, 4, 5, 6, 8, 9, 7]
+
+# 5.  Extended Iterable Unpacking
+L = [1, 2, 3, 4, 5, 6, 7, 8]
+a, *b = L
+print(a)
+# 1
+print(b)
+# [2, 3, 4, 5, 6, 7, 8]
+
+
 
 ### REDUCE FUNCTIONS ###
 print("===============")
@@ -2580,6 +2748,33 @@ print("Example 4: Since Python 3.9 | a dictionary")
 print (merged3_9)
 # {'a': 1, 'b': 3, 'c': 4}
 
+# How to work with multiple if else conditions?
+print("Working with Multiple if else conditions:")
+from enum import IntEnum
+class StatusE(IntEnum):
+    OPEN = 1
+    IN_PROGRESS = 2
+    CLOSED = 3
+def handle_open_status():
+    print('Handling open status')
+def handle_in_progress_status():
+    print('Handling in progress status')
+def handle_closed_status():
+    print('Handling closed status')
+handlers = {
+    StatusE.OPEN.value: handle_open_status,
+    StatusE.IN_PROGRESS.value: handle_in_progress_status,
+    StatusE.CLOSED.value: handle_closed_status
+}
+def handle_status_change(status):
+    if status not in handlers:
+         raise Exception(f'No handler found for status: {status}')
+    handler = handlers[status]
+    handler()
+handle_status_change(StatusE.OPEN.value)  # Handling open status
+handle_status_change(StatusE.IN_PROGRESS.value)  # Handling in progress status
+handle_status_change(StatusE.CLOSED.value)  # Handling closed status
+# handle_status_change(4)  # Will raise the exception
 
 #### CONTEXT MANAGER ####
 print("=====================")
