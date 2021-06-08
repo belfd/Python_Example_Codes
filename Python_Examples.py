@@ -1642,6 +1642,15 @@ print(a)
 print(b)
 # [2, 3, 4, 5, 6, 7, 8]
 
+# unpacking an iterable
+[x for x in range(100)] == [*range(100)] # True
+
+# unpkacing dict keys
+d = {'key1': 'A'}
+list(d.keys()) == [*d] # True
+
+# unpacking whole dict
+d == {**d} # True
 
 
 ### REDUCE FUNCTIONS ###
