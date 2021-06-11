@@ -924,6 +924,16 @@ min_max_num = min_max(nums)  # min_max_num = (1, 3)
 # return values can be assigned into multiple variables using *tuple unpacking*
 min_num, max_num = min_max(nums)  # min_num = 1, max_num = 3
 
+#Chained function call
+def add(a, b):
+  return a + b
+
+def subtract(a, b):
+  return a - b
+
+a, b = 5, 10
+
+print(f"Chained Function calls: {(add if b > a else subtract)(a, b)}") #output: Chained Function calls: 15
 
 ### DOCSTRING FUNCTIONS ###
 ### Enable adding documentation to functions - can be activated by __doc__ ###
@@ -2738,7 +2748,7 @@ profile2.update(name)
 profile2.update(job)
 profile2.update(contact)
 
-print("Example 2: Pythonic update a dictionary")
+print("Example 2: merge 2 dictionaries")
 print(profile2)
 
 dict1 = { 'a': 1, 'b': 2 }
@@ -2784,6 +2794,9 @@ handle_status_change(StatusE.OPEN.value)  # Handling open status
 handle_status_change(StatusE.IN_PROGRESS.value)  # Handling in progress status
 handle_status_change(StatusE.CLOSED.value)  # Handling closed status
 # handle_status_change(4)  # Will raise the exception
+
+
+
 
 #### CONTEXT MANAGER ####
 print("=====================")
@@ -3436,14 +3449,19 @@ else:
 ## Checking Anagram ##
 '''
 An anagram is a word that is formed by rearranging the letters of a different word, 
-using all the original letters exactly once.
+using all the original letters exactly once. Like: LISTEN & SILENT
 '''
+print("Check Anagram:")
+from collections import Counter
 
-def check_anagram(first_word, second_word):
+def check_anagram1(first_word, second_word):
     return sorted(first_word) == sorted(second_word)
 
-check_anagram("silent", "listen")  # True
-check_anagram("ginger", "danger")  # False
+def check_anagram2(first_word, second_word):
+    return Counter(first_word) == Counter(second_word)
+
+print(check_anagram1("silent", "listen"))  # True
+print(check_anagram2("Fried", "Fired"))  # True
 
 ## Merging Two Dictionaries ##
 print("===========================")
@@ -3487,6 +3505,20 @@ y = [1,2,3,4,5]
 print(f"x has duplicates: {has_duplicates(x)}") #True
 print(f"y has duplicates: {has_duplicates(y)}") #False
 
+## Remove Duplicates From a List ##
+print("===========================")
+print("Remove Duplicates From a List")
+list1 = [1,2,3,3,4,'John', 'Ana', 'Mark', 'John']
+
+#Method 1
+def remove_duplicate(list_value):
+    return list(set(list_value))
+print(remove_duplicate(list1))
+
+#Method 2
+result = []
+[result.append(x) for x in list1 if x not in result]
+print(result)
 
 ## dataclasses ##
 print("===========================")
@@ -3511,7 +3543,53 @@ print(card == card) # output: True
 print(card.rank) # output: 'Q'
 print(card) #output: Card(rank='Q', suit='hearts')
 
-# ## attrs ##
+#Find the most frequently occurring value - To find the most frequently occurring value in a list or string:
+test = [1, 2, 3, 4, 2, 2, 3, 1, 4, 4, 4]
+print(max(set(test), key=test.count)) #output: 4
+
+# Avoid the pitfalls of mutable default arguments
+def add_item_to_cart(new_item, shopper_name, existing_items=[]):
+     existing_items.append(new_item)
+     print(f"{shopper_name}'s cart has {existing_items}")
+     return existing_items
+
+shopping_list_wife = add_item_to_cart("Dress", "Jennifer")  # Jennifer's cart has ['Dress']
+shopping_list_husband = add_item_to_cart("Soccer", "David") # David's cart has ['Dress', 'Soccer']
+
+'''
+As shown above, although we intended to create two distinct shopping lists, the second function call still accessed 
+the same underlying object, which resulted in the Soccer item added to the same list object. To solve the problem, 
+we should use the following implementation. 
+Specifically, you should use None as the default value for a mutable argument:
+'''
+def add_item_to_cart(new_item, shopper_name, existing_items=None):
+    if existing_items is None:
+        existing_items = list()
+    existing_items.append(new_item)
+    print(f"{shopper_name}'s cart has {existing_items}")
+    return existing_items
+
+shopping_list_wife = add_item_to_cart("Dress", "Jennifer")  # Jennifer's cart has ['Dress']
+shopping_list_husband = add_item_to_cart("Soccer", "David") # David's cart has ['Soccer']
+
+# Check type before running the code in a function - example:
+def add_numbers(a, b):
+    if not(isinstance(a, (float, int)) and isinstance(b, (float, int))):
+        raise TypeError("Numbers are required.")
+    return a + b
+
+#example of using not better that several if-conditions
+class switch():
+    def toggle_switch(self):
+        if self.toggled == False:
+            self.toggled = True
+        else:
+            self.toggled = False
+
+    def better_toggle_switch(self):
+        self.toggled = not self.toggled
+
+    # ## attrs ##
 # print("===========================")
 # print("attrs")
 #
