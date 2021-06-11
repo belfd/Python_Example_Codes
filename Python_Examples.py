@@ -301,6 +301,14 @@ if x > 0: print('positive')
 # value_if_true if condition else value_if_false
 'positive' if x > 0 else 'zero or negative'
 
+# simple if-statement coniditions:
+n=10
+#instead of:
+if n == 0 or n == 1 or n == 2 or n == 3 or n == 4 or n == 5:
+    pass
+#Type:
+if n in [0, 1, 2, 3, 4, 5]:
+    pass
 
 ### LISTS ###
 ## properties: ordered, iterable, mutable, can contain multiple data types
@@ -1270,6 +1278,26 @@ while x<5:
     x+=1
 else:
     print('Done')
+
+### ENUMERATION ###
+print("===============")
+print("ENUMERATIONS")
+
+class Direction:
+    NORTH=1
+    EAST=2
+    SOUTH=3
+    WEST=4
+
+def move(direction):
+    if direction == Direction.NORTH:
+        print("Moving North")
+    elif direction == Direction.EAST:
+        print("Moving East")
+    elif direction == Direction.SOUTH:
+        print("Moving South")
+    elif direction == Direction.WEST:
+        print("Moving West")
 
 # ENUMERATE SAMPLE with Start argument
 print("Example of Enum with Start value:")
@@ -2766,6 +2794,10 @@ merged3_9 = dict1 | dict2
 print("Example 4: Since Python 3.9 | a dictionary")
 print (merged3_9)
 # {'a': 1, 'b': 3, 'c': 4}
+
+# Find the Most Frequent Element of a List
+nums = [2, 2, 6, 2, 2, 3, 4, 2, 113, 2, 1]
+print(f"Most frequent element in list: {max(set(nums), key = nums.count)}") # 2
 
 # How to work with multiple if else conditions?
 print("Working with Multiple if else conditions:")
