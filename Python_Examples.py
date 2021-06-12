@@ -2827,7 +2827,46 @@ handle_status_change(StatusE.IN_PROGRESS.value)  # Handling in progress status
 handle_status_change(StatusE.CLOSED.value)  # Handling closed status
 # handle_status_change(4)  # Will raise the exception
 
+## Using * and ** for Function Argument Unpacking ##
+print("=====================")
+print("Using * and ** for Function Argument Unpacking")
 
+# You can unpack a dictionary for use with named keywords by using the ** prefix:
+def f(a, b):
+     print(a, b)
+
+args = { "a": 1, "b": 2 }
+f(**args) #output: 1 2
+
+#  we can use single * to unpack an array and feed its content as positional arguments to a function:
+def f(a, b, c):
+    print(a, b, c)
+
+l = [1, 2, 3]
+f(*l) #output: 1 2 3
+
+## FIND SUBSTRING ##
+print("=====================")
+print("FIND SUBSTRING")
+
+# Find substring in long string
+# Useful when you are finding substring in a string, in 2 ways:
+
+programmers = ["I'm an expert Python Programmer",
+               "I'm an expert Javascript Programmer",
+               "I'm a professional Python Programmer",
+               "I'm a beginner C++ Programmer"]
+#method 1
+for p in programmers:
+    if p.find("Python")!=-1:
+        print(p)
+
+print("~~~~~~~~~~~~~~~~~~~~")
+
+#method 2
+for p in programmers:
+    if "Python" in p:
+        print(p)
 
 
 #### CONTEXT MANAGER ####
