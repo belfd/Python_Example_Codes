@@ -214,7 +214,10 @@ print(f"some_variable={some_variable}")  #output: some_variable=HELLO!
 some_variable = "HELLO!"
 print(f"{some_variable=}")  #output: some_variable=HELLO!
 
-
+# Printing on the Same Line - if need several string on same line
+print("Python ", end="")
+print("Programming")
+# output: Python Programming
 
 ### MATH ###
 print("===============")
@@ -394,6 +397,20 @@ num = [10, 20, 40, 50]
 from bisect import insort
 
 insort(num, 30)
+
+### Difference between sort() and sorted() ####
+# sort() sorts the original list.
+# sorted() returns a new sorted list.
+groceries = ['milk', 'bread', 'tea']
+
+new_groceries = sorted(groceries)
+# new_groceries = ['bread', 'milk', 'tea']
+
+# groceries = ['milk', 'bread', 'tea']
+groceries.sort()
+# groceries = ['bread', 'milk', 'tea']
+
+
 
 # create a second reference to the same list
 same_num = num
@@ -689,7 +706,7 @@ data = [s.strip() for s in data]
 print(data) #output:['alpha', 'beta', 'gamma']
 
 
-### +++++ ####
+### namedtuple ####
 # namedtuple is better when importing modules because inner attributes are seen in new context
 from random import randint
 from collections import namedtuple
@@ -1452,6 +1469,34 @@ print(list(filter(lambda y:y<25, map(lambda x:x**2,l ) )  )) #output: [0, 1, 4, 
 # easy to use list comprehension
 print("list comprehension:")
 print([x**2 for x in range(10) if x**2 < 25]) #output: [0, 1, 4, 9, 16]
+# Another list comprehention but with conditions:
+Genius = ["Jerry", "Jack", "tom", "Dan"]
+print("List Cmprehnsion with conditions:")
+L1 = [name if name.startswith('D') else 'Not Genius' for name in Genius]
+print(L1) # ['Not Genius', 'Not Genius', 'Not Genius', 'Dan']
+
+print("Same example without List Comprehension:")
+L2=[]
+for name in Genius:
+    if name.startswith('D'):
+        L2.append(name)
+    else:
+        L2.append('Not Genius')
+
+print(L2) # ['Not Genius', 'Not Genius', 'Not Genius', 'Dan']
+
+# Use Nested For-Loops to Handle Nested Iterables
+Genius = ["Jerry", "Jack", "tom", "Dan"]
+L1 = []
+for name in Genius:
+    for char in name:
+        L1.append(char)
+print(L1) #output: ['J', 'e', 'r', 'r', 'y', 'J', 'a', 'c', 'k', 't', 'o', 'm', 'D', 'a', 'n']
+
+# The short way using list comprehention
+Genius = ["Jerry", "Jack", "tom", "Dan"]
+L1 = [char for name in Genius for char in name]
+print(L1) #output: ['J', 'e', 'r', 'r', 'y', 'J', 'a', 'c', 'k', 't', 'o', 'm', 'D', 'a', 'n']
 
 # 'all' return True if all elements of iterable are true (or iterable empty)
 # 'all' behaves like a series of AND conditions
@@ -1491,6 +1536,30 @@ mathematics=47
 list_condition = [physics > 50, chemistry > 50, mathematics > 50]
 ("Pass" if any(list_condition) else "Fail") #output: Pass
 
+'''
+Python has some higher order functions such as map() , filter() and so on. 
+It’s a good habit to always use the list comprehension instead of higher order functions. 
+Because it makes our programs more readable for others.
+'''
+
+# The map() method can always be replaced:
+#L = map(func, iterable)
+#### can be replaced to:
+#L = [func(a) for a in iterable]
+
+# The filter() method can be converted as well:
+###L = filter(condition_func, iterable)
+# can be converted to
+###L = [a for a in iterable if condition]
+
+Genius = ["Jerry", "Jack", "tom", "Daniel"]
+L1 = filter(lambda a: len(a) < 4, Genius)
+print(list(L1))
+# ['tom']
+# Better way
+L2 = [a for a in Genius if len(a) < 4]
+print(L2)
+# ['tom']
 
 ### ZIP ###
 print("===============")
@@ -1683,6 +1752,10 @@ print(b)
 # unpacking an iterable
 [x for x in range(100)] == [*range(100)] # True
 
+# Example for using * to receive the middle elements
+_, *elements_in_the_middle, _ = [1, 2, 3, 4, 5, 6, 7, 8]
+print(elements_in_the_middle)  # [2, 3, 4, 5, 6, 7]
+
 # unpkacing dict keys
 d = {'key1': 'A'}
 list(d.keys()) == [*d] # True
@@ -1725,6 +1798,8 @@ print("GLOBAL LOCAL SCOPES")
 # When python encounter a function at complie-time it will scan for any variables that have values assigned to them
 # It will search them anywhere in the function, if the variable has not been specified as global,then it is local
 # If the variable is not found - only at run-time python will start looking higher in hierarchy to find the vars.
+# You cannot change the value of a global variable just by mentioning it inside a function, you need to use 'global'
+
 
 a=10
 def func1():
@@ -1816,6 +1891,45 @@ def outer():
 
 outer()
 print(f"After outer call x is {x}") #output: After outer call x is hello
+
+### Difference between copy() and deepcopy() ###
+print("========================")
+print("## Difference between copy() and deepcopy() ##")
+'''
+A shallow copy constructs a new compound object and then (to the extent possible) 
+inserts references into it to the objects found in the original.
+A deep copy constructs a new compound object and then, recursively, 
+inserts copies into it of the objects found in the original.
+
+A shallow copy means constructing a new collection object and then populating it with references 
+to the child objects found in the original. In essence, a shallow copy is only one level deep. 
+The copying process does not recurse and therefore won’t create copies of the child objects themselves.
+A deep copy makes the copying process recursive. It means first constructing a new collection object and 
+then recursively populating it with copies of the child objects found in the original. 
+Copying an object this way walks the whole object tree to create a fully independent clone of the 
+original object and all of its children.
+'''
+#example of shallow copy
+first_list = [[1, 2, 3], ['a', 'b', 'c']]
+
+second_list = first_list.copy()
+print(f"id of first_list: {id(first_list)}, id of second_list: {id(second_list)}")
+first_list[0][2] = 831
+
+print(f"content of first_list: {first_list}")  # [[1, 2, 831], ['a', 'b', 'c']]
+print(f"content of second_list: {second_list}")  # [[1, 2, 831], ['a', 'b', 'c']]
+
+#example for the deepcopy() case
+import copy
+
+first_list = [[1, 2, 3], ['a', 'b', 'c']]
+
+second_list = copy.deepcopy(first_list)
+print(f"id of first_list: {id(first_list)}, id of second_list: {id(second_list)}")
+first_list[0][2] = 831
+
+print(f"content of first_list: {first_list}")  # [[1, 2, 831], ['a', 'b', 'c']]
+print(f"content of second_list: {second_list}")  # [[1, 2, 3], ['a', 'b', 'c']]
 
 ### CLOSURE ####
 print("========================")
@@ -2202,9 +2316,9 @@ def colorize(text,color):
 #colorize("dan",10) #TypeError: color must be string
 #colorize("dan","blue") #ValueError: color is invalid color
 
-### TRY/CATCH Blocks ###
+### TRY/EXCEPT Blocks ###
 print("===============")
-print("TRY_CATCH Blocks")
+print("TRY_EXCEPT Blocks")
 
 def divide(a,b):
     try:
@@ -2391,6 +2505,38 @@ class Student(Person):
 
 st = Student("Mike","Pence","UCLA")
 print(st) #The student Mike Pence is studing in UCLA university
+
+# You can call the parent class’s initializer using super() or parent class’s name
+## using super()
+class Parent:
+    def __init__(self, city, address):
+        self.city = city
+        self.address = address
+
+class Child(Parent):
+    def __init__(self, city, address, university):
+        super().__init__(city, address)
+        self.university = university
+
+child = Child('Zürich', 'Rämistrasse 101', 'ETH Zürich')
+print(child.university)  # ETH Zürich
+
+## using parent's class name
+class Parent:
+    def __init__(self, city, address):
+        self.city = city
+        self.address = address
+
+class Child(Parent):
+    def __init__(self, city, address, university):
+        Parent.__init__(self, city, address)
+        self.university = university
+
+child = Child('Zürich', 'Rämistrasse 101', 'ETH Zürich')
+print(child.university)  # ETH Zürich
+
+##  Note that calls to parent initializers using __init__() and super()
+## can only be used inside the child class’s initializer.
 
 ### POLYMORPHISM ###
 print("===============")
@@ -2664,6 +2810,17 @@ my_gene = (i for i in range(1000))
 print(f"summary of generator: is {sum(my_gene)}")
 print(f"sizeof memory is: {sys.getsizeof(my_gene)} bytes") #112 bytes
 
+#Generator Comprehension = reduces the speed of creation and optimizes memory allocation
+my_list = [1, 2, 3, 4 ,5]
+my_gen_expr = (x * 2 for x in my_list)
+
+print(f"next(my_gen_expr): {next(my_gen_expr)}") #output: next(my_gen_expr): 2
+print(f"next(my_gen_expr): {next(my_gen_expr)}") #output: next(my_gen_expr): 4
+print("---- Notice Generator is statefull - saves the last value so we continue from 6 not from 2 as before ---")
+for x in my_gen_expr:
+  print(f"x = {x}") #output: x = 6  x = 8 x = 10
+
+
 
 # PICKLE
 print("====================")
@@ -2826,6 +2983,35 @@ handle_status_change(StatusE.OPEN.value)  # Handling open status
 handle_status_change(StatusE.IN_PROGRESS.value)  # Handling in progress status
 handle_status_change(StatusE.CLOSED.value)  # Handling closed status
 # handle_status_change(4)  # Will raise the exception
+
+## Multiple conditions at a single if-statement
+math_points = 51
+biology_points = 78
+physics_points = 56
+history_points = 72
+
+my_conditions = [math_points > 50, biology_points > 50,
+                 physics_points > 50, history_points > 50]
+
+if all(my_conditions):
+    print("Congratulations! You have passed all of the exams.") # Congratulations! You have passed all of the exams.
+else:
+    print("I am sorry, but it seems that you have to repeat at least one exam.")
+
+## At least one condition is met out of many in a single if-statement
+math_points = 51
+biology_points = 78
+physics_points = 56
+history_points = 72
+
+my_conditions = [math_points > 50, biology_points > 50,
+                 physics_points > 50, history_points > 50]
+
+if any(my_conditions):
+    print("Congratulations! You have passed all of the exams.") # Congratulations! You have passed all of the exams.
+else:
+    print("I am sorry, but it seems that you have to repeat at least one exam.")
+
 
 ## Using * and ** for Function Argument Unpacking ##
 print("=====================")
@@ -3558,6 +3744,10 @@ details = basic_information.copy()
 details.update(academic_information)
 print(details)
 
+## Find the index of an element in a tuple
+books = ('Atomic habits', 'Ego is the enemy', 'Outliers', 'Mastery')
+print(books.index('Mastery'))   # 3
+
 ## FizzBuzz example ##
 print("===========================")
 print("MFizzBuzz example")
@@ -3613,6 +3803,16 @@ card = Card("Q", "hearts")
 print(card == card) # output: True
 print(card.rank) # output: 'Q'
 print(card) #output: Card(rank='Q', suit='hearts')
+
+# Chunk
+# How to chunk a list and divide it into smaller parts
+
+def chunk(my_list, size):
+    return [my_list[i:i+size] for i in range(0,len(my_list), size)]
+my_list = [1, 2, 3, 4, 5, 6]
+print(chunk(my_list, 2)) # [[1, 2], [3, 4], [5, 6]]
+print(chunk(my_list, 3)) # [[1, 2, 3], [4, 5, 6]]
+print(chunk(my_list, 4)) # [[1, 2, 3, 4], [5, 6]]
 
 #Find the most frequently occurring value - To find the most frequently occurring value in a list or string:
 test = [1, 2, 3, 4, 2, 2, 3, 1, 4, 4, 4]
