@@ -1931,6 +1931,45 @@ first_list[0][2] = 831
 print(f"content of first_list: {first_list}")  # [[1, 2, 831], ['a', 'b', 'c']]
 print(f"content of second_list: {second_list}")  # [[1, 2, 3], ['a', 'b', 'c']]
 
+#example of diff the copy() and deepcopy() or assignment
+print("diff between copy() and deepcopy() or assinment")
+import copy
+
+x = 1
+s = {7}
+
+# create a list
+l = [x, 5, s, {3}]
+
+# copy!!!!!
+m = l
+n = l[:]
+o = list(l)
+p = copy.copy(l)
+r = copy.deepcopy(l)
+
+# shake things up
+x += 1
+l[1] += 1
+s.add(8)
+l[3].add(4)
+l.append(2)
+
+print(f"l is: {l}")  # l is: [1, 6, {8, 7}, {3, 4}, 2]
+print(f"m is: {m}")  # m is: [1, 6, {8, 7}, {3, 4}, 2]
+print(f"p is: {p}")  # p is: [1, 5, {8, 7}, {3, 4}]
+print(f"r is: {r}")  # r is: [1, 5, {7}, {3}]
+
+'''
+Assignment m = l does not create a copy, it merely gives our list another name. 
+All the modifications of l will be visible in m as well as they refer to the same object.
+The following methods of copying lists are equivalent: n = l[:], o = list(l) and p = copy.copy(l). 
+Altering mutable elements of the original list l will affect these shallow copies as well. 
+(You can find more information about mutable and immutable variables here)
+The only truly independent copy is r = copy.deepcopy(l). Altering the elements (mutable or immutable) 
+in the original list l will not affect this copy.
+'''
+
 ### CLOSURE ####
 print("========================")
 print("## CLOSURE ##")
@@ -3849,7 +3888,30 @@ def add_numbers(a, b):
         raise TypeError("Numbers are required.")
     return a + b
 
-#example of using not better that several if-conditions
+# built in functions in Python good to know
+class Circle():
+   def __init__(self):
+       self.radius = None
+
+## isinstance = Return True if the object argument is an instance of the classinfo argument,
+# or of a (direct, indirect or virtual) subclass thereof.
+circle = Circle()
+if isinstance(circle, Circle):
+   print('isinstance use!')
+
+## hasattr = hasattr() simply returns True if an object contains specified attribute, and False otherwise.
+if hasattr(circle, 'radius'):
+    print('hasattr returns the attribute of class')
+
+## exec - dynamic executing of statement in python as string
+statement = '''a = 10; print(a + 5); print("Exec example") '''
+exec(statement)
+
+
+
+
+
+#example of using toggle switch
 class switch():
     def toggle_switch(self):
         if self.toggled == False:
@@ -3859,6 +3921,110 @@ class switch():
 
     def better_toggle_switch(self):
         self.toggled = not self.toggled
+
+### LEGB (Local, Enclosing, Global and Built-in) ###
+'''
+The LEGB rule refers to the variable look-up order in Python. 
+Specifically, Python has four layers of scopes when the interpreter tries to resolve the variable 
+— understand what values are bound to the variables. It’ll first start with the local scope, 
+which can be a function or a class. If the interpreter finds the corresponding bound value for the variable, 
+it’ll stop looking up and use the variable with that particular value.
+Otherwise, it’ll look it up at a higher level — the enclosing scope. The enclosing scope only exists in 
+a nested structure of functions. Specifically, when a function is declared within another function, 
+we call the inside function the inner function and the outside function the outer function. 
+When the interpreter tries to resolve the variable used within the scope of the inner function, 
+if it can’t resolve in the local scope, it’ll go to the enclosing scope, 
+which is the local scope of the outer function.
+If it still can’t resolve the variable in the enclosing scope, it’ll go to the global scope. 
+The global scope usually is the module level, which typically is a standalone Python file. Notably, 
+when you import packages into the current file, the functions and classes from the import will 
+also become part of the global scope. The built-in scope is the functions, classes, and other 
+modules that are loaded when an interpreter is launched to make these most basic objects always available for use 
+(e.g., the print and other built-in functions).
+'''
+
+#### MRO (Method Resolution Order) ####
+'''
+The Method Resolution Order denotes how Python or a programming language in general resolves a method or attribute. 
+Unlike the LEGB rule discussed above, which is concerned about resolving a variable, 
+the MRO is concerned about an object and how its calling of a method or retrieving a particular attribute is resolved. 
+The MRO is mostly discussed in the context of multi-inheritance — classes (i.e., subclasses) inheriting 
+from multiple classes (i.e., superclasses) and/or multi-layers of inheritance. Because both subclasses and 
+superclasses share some common methods with possibly varied implementations, Python interpreter needs 
+to have a mechanism to determine which method or attribute should be used in a particular call, and this is what the 
+MRO takes the responsibility. A schematic example is shown in the code snippet below.
+
+>>> class X:
+...     def bin(self):
+...         print(f"bin called in X")
+... 
+... class Y(X):
+...     def go(self):
+...         print(f"go called Y")
+... 
+... class Z(X):
+...     def go(self):
+...         print(f"go called Z")
+... 
+... class W(Y, Z):
+...     def bin(self):
+...         super().bin()
+...         print(f"bin called W")
+... 
+...     def bingo(self):
+...         self.bin()
+...         self.go()
+... 
+... w = W()
+... w.bingo()
+... 
+bin called in X
+bin called W
+go called Y
+'''
+
+
+### Dynamically Calling Functions ###
+print("### Dynamically Calling Functions ###")
+class MyClass():
+    def example_func(self):
+        print("example_func was called")
+
+def call_func(name):
+    klass = MyClass()
+    return getattr(klass, name)()
+
+call_func('example_func') #output: example_func was called
+
+'''
+If you encounter sections of code where you won’t necessarily know the name of a function you wish to invoke until later, 
+this is the answer. By using the built-in Python function getattr, you can call a function by name using a string. 
+This is great for reducing tightly coupled code and improving extensibility. If you reduce hard-coded function names 
+and allow more flexibility, then there is a strong chance your code will break less.
+Using this simple method also reduces the overhead for other developers to add functionality to existing code. 
+If all you have to do is add a new function to a class and it becomes immediately usable, that reduces complexity and 
+makes code easier work with.
+'''
+
+# Another getattr example:
+class Person:
+    age = 23
+    name = "Adam"
+
+person = Person()
+print('The age is:', getattr(person, "age"))  #output: The age is: 23
+print('The age is:', person.age) #output: The age is: 23
+
+# getattr() when named attribute is not found
+class Person:
+    age = 23
+    name = "Adam"
+
+person = Person()
+
+# when default value is provided
+print('The sex is:', getattr(person, 'sex', 'Male')) #output: The sex is: Male
+
 
     # ## attrs ##
 # print("===========================")
