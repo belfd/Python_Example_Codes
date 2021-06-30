@@ -2007,6 +2007,44 @@ print(avg_instance.add(20)) #output: 15
 # Use this design pattern when 2 or more functions rely on another function
 # Use this design pattern when a function has multiple responsibilities
 # Use this design pattern when a function behavior needs to be extended
+'''
+@awesome_decorator
+def my_function(agr1, agr2):
+    return arg1 + arg2
+
+is same as:
+def my_function(arg1, arg2):
+    # logic
+my_function = awesome_decorator(my_function)
+
+A decorator in Python can also be a class. 
+In order to achieve that, we will pass the function to be decorated in __init__ and we will also
+have to implement a special method, __call__. 
+The call special method allows us to call the object of the class as we would call a function. 
+Let’s refactor what we have above:
+
+class awesome_decorator_class():
+    def __init__(self, func):
+        self.function = func
+
+    def __call__(self, *arg, **kwargs):
+        for arg in args:
+            if arg < 0:
+                raise Exception("Invalid Number!")
+        return self.function(*args, **kwargs)
+
+
+@awesome_decorator_class
+def complicated_function(x, y, z):
+    return x ** 2 + 10 * y - z
+
+print(f"Complicated Computation: {complicated_function(-1, 15, 7)}")
+
+'''
+
+
+
+#
 print("===============")
 print("DECORATORS")
 
@@ -2426,32 +2464,43 @@ print("CLASS")
 # regular class
 class ClassSample:
     class_attribute=0  #this attribute is known to any instance of the class
+    # class attribute is a variable which belongs to a class rather than a particular instance.
+    # All instances of this class can access it and it is defined outside the constructor function.
 
     def __init__(self,attr1,attr2=0):
-        self.attr1 = attr1
-        self.attr2 = attr2
+        self.instance_attr1 = attr1
+        self.instance_attr2 = attr2
+        # An instance attribute inside the constructor function is a variable belonging
+        # to a particular instance of a class. This variable is only accessible in this
+        # instance rather than the class. If we call a instance attribute by the class,
+        # there will be a AttributeError.
         self._private = "This is like private but can be accessed directly in main"
         self.__hidden = "This really can't be accessed in main\n \
         only by _ClassSample__hidden if need to access from main"
         self.__dunder__="Not recommended to use such function - only for python"
         ClassSample.class_attribute+=1  #counter of number of instances
 
+    # A class method is a method which first parameter is the class itself[cls] to represent this mandatory parameter.
+    # a class method can be called by class directly or by an instance but an instance method can only be called
+    # by an instance.
     @classmethod
     def func_handle_class_attribute(cls,inp):
         print(f"This is method related to class attribute: {cls.class_attribute} and can use {inp}")
 
+    # Static method is a method within a class that doesn’t have parameters of the class or instance. 
     @staticmethod
     def func_as_utility_not_related_to_cls():
         print(f"This is utility and {ClassSample.class_attribute} is not related to it")
 
-    def instance_method(self,inp):
+    def instance_method(self,inp): # instance methods, which first parameter is self.
+        # The 'self' represents the current instance itself.
         print(f"This is instance_method with value {self._private} that receives {inp}")
 
-    def logged_out(self):
+    def logged_out(self): #instance_method
         ClassSample.class_attribute-=1 #decrease number when logged out
 
-    def print(self):
-        print(f"We have {self.attr1} & {self.attr2} also have {self._private} and {self.__hidden} ")
+    def print(self): #instance_method
+        print(f"We have {self.instance_attr1} & {self.instance_attr2} also have {self._private} and {self.__hidden} ")
         print(f"And our count is {ClassSample.class_attribute}")
 
     def __repr__(self):
@@ -2480,6 +2529,122 @@ cs1 = ClassSample(321)
 cs.print()
 cs.priv=445
 print(f"The value of _private in cs instance is {cs.priv}")
+
+'''
+Instance method has a mandatory first attribute self which represent the instance itself. 
+Instance method must be called by a instantiated instance.
+Class method has a mandatory first attribute cls which represent the class itself. 
+Class method can be called by an instance or by the class directly. 
+Its most common using scenario is to define a factory method.
+Static method doesn’t have any attributes of instances or the class. 
+It also can be called by an instance or by the class directly. 
+Its most common using scenario is to define some helper or utility functions which are closely relative to the class.
+
+class Student:
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    @classmethod
+    def get_from_string(cls, name_string: str):
+        first_name, last_name = name_string.split()
+        if Student.validate_name(first_name) and Student.validate_name(last_name):
+            return cls(first_name, last_name)
+        else:
+            print('Invalid Names')
+
+    @staticmethod
+    def validate_name(name):
+        return len(name) <= 10
+
+
+Yang = Student.get_from_string('yang zhou')
+print(Yang.first_name) # yang
+print(Yang.last_name) # zhou
+'''
+### STATIC VAR AND METHOD IN CLASS ###
+print("===============")
+print("STATIC VAR AND METHOD IN CLASS")
+
+
+class Employee:  # create Employee class name
+    dept = 'Information technology'  # define class variable == static variable
+
+    def __init__(self, name, id):
+        self.name = name  # instance variable
+        self.id = id  # instance variable
+
+
+# Define the objects of Employee class
+emp1 = Employee('John', 'E101')
+emp2 = Employee('Marcus', 'E105')
+
+print(emp1.dept) #Information technology
+print(emp2.dept) #Information technology
+print(emp1.name) #John
+print(emp2.name) #Marcus
+print(emp1.id) #E101
+print(emp2.id) #E105
+
+# Access class variable using the class name
+print(Employee.dept) # Information technology   # print the department
+
+# change the department of particular instance
+emp1.dept = 'Networking'
+print(emp1.dept) # Networking
+print(emp2.dept) # Information technology
+
+# change the department for all instances of the class
+Employee.dept = 'Database Administration'
+print(emp1.dept) # Networking
+print(emp2.dept) # Database Administration
+
+# Python has a static method that belongs to the class.
+# It is just like a static variable that bounds to the class rather than the class's object.
+# A static method can be called without creating an object for the class.
+# It means we can directly call the static method with the reference of the class name.
+# Furthermore, a static method is constrained with a class; hence it cannot change the state of an object.
+# A static method in Python related to the class.
+# It can be called directly from the class by reference to a class name.
+# It cannot access the class attributes in the Python program.
+# It is bound only to the class. So it cannot modify the state of the object
+# It is also used to divide the utility methods for the class.
+# It can only be defined inside a class but not to the objects of the class.
+# All the objects of the class share only one copy of the static method.
+# Define static method: Using the @staticmethod Decorator
+
+# STATIC METHODS
+print("                     ")
+print("=== STATIC METHOD ===")
+class Marks:
+    @staticmethod
+    def Math_num(a, b):  # define the static Math_num() function
+        return a + b
+
+    @staticmethod
+    def Sci_num(a, b):  # define the static Sci_num() function
+        return a + b
+
+    @staticmethod
+    def Eng_num(a, b):  # define the static Eng_num() function
+        return a + b
+
+    # print the total marks in Maths
+
+
+print(" Total Marks in Maths", Marks.Math_num(64, 28)) #Total Marks in Maths 92
+
+# print the total marks in Science
+print(" Total Marks in Science", Marks.Sci_num(70, 25)) #Total Marks in Science 95
+
+# print the total marks in English
+print(" Total Marks in English", Marks.Eng_num(65, 30)) #Total Marks in English 95
+
+print("                     ")
+
+### Creating Custom Ctor and Custome Dtor ###
+print("===============")
+print("Creating Custom Ctor and Custome Dtor")
 
 #Creating Custom Ctor and Custome Dtor
 class C:
@@ -2779,6 +2944,29 @@ print("GENERATORS")
 #Can be created with generator functions
 #use yield keyword
 #Can be created with generator expressions
+
+'''
+We can create our own generators by writing functions that use the yield keyword instead of return. 
+Return will fetch something, give it back to us and exit the function. 
+With yield we can create a sequence and then we iterate over it when we need to. 
+Yield does not stop the execution of the function, we can have logic after it too and it ‘remembers’ its previous value. 
+Let’s take a look by implementing our own range, that will give us squares of the numbers we pass as arguments:
+def squares(a, b):
+    i = a
+    while i < b:
+        yield i**2
+        i += 1
+        
+Of course, we can use for to iterate, just like any other sequence we have seen before, 
+or we can use the next() function to access the next element in our sequence, after we bind it to a variable. 
+This is similar to the .next() special iterator method we have in Java. Try running the following snippets:
+for num in squares(5, 10):
+    print(num)
+sequene = squares(5, 10
+print(next(sequene))
+print(next(sequene))        
+        
+'''
 
 # Generator functions are functions but do not use 'return' they use 'yield'
 # Generator functions are not return once like regular functions but can yield multiple times
@@ -3092,6 +3280,31 @@ print("~~~~~~~~~~~~~~~~~~~~")
 for p in programmers:
     if "Python" in p:
         print(p)
+
+# Use pathlib to read files without using a with context manager
+'''
+The pathlib module offers a number of conveniences for working with file system paths and files on your file system
+One particular convenience offered by pathlib is the pathlib.Path.read_text method. 
+pathlib.Path.read_text lets you read the contents of a file without explicitly using a context manager:
+
+from pathlib import Path
+
+contents = Path("example-file.txt").read_text()
+print(contents)
+
+In the above example, you instantiate a Path object with the path you are interested in opening: example-file.txt. 
+Calling the read_text method of the new Path object returns the text contained in the underlying file. 
+The value of contents is the same as the value of contents in the first example.
+In case you are concerned about files being closed properly, note that Path.read_text uses 
+a with context manager under the hood to ensure that the underlying file is closed appropriately. 
+The with context manager is still in play to ensure the file is closed for you, just abstracted away.
+Path also offers three related additional methods beyond read_text. Namely: read_bytes, write_text, and write_bytes. 
+With these four methods, you can cover the majority of your file reading/writing needs without 
+repeatedly writing with open(...) context managers.
+As you start working more withPath objects, you’ll also find that Path objects can augment 
+and improve on functions you’re used to importing from the os module.
+'''
+
 
 
 #### CONTEXT MANAGER ####
@@ -4024,6 +4237,160 @@ person = Person()
 
 # when default value is provided
 print('The sex is:', getattr(person, 'sex', 'Male')) #output: The sex is: Male
+
+
+# ==== SINGLETON ===
+print("===========================")
+print("=== Singleton ===")
+
+## The __new__() method creates a new instance.
+## The __init__() method initialises that instance.
+'''
+The __new__() is a static method (special-cased so we need not declare it as such) of a class to create instances. 
+The first parameter is always the cls representing the class itself. 
+Remaining parameters are those needed for the constructor. The return value should be a instance of this class.
+'''
+
+class Singleton_Student(object):
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        print("Running __new__() method.")
+        if not Singleton_Student._instance:
+            Singleton_Student._instance = object.__new__(cls)
+        return Singleton_Student._instance
+
+    def __init__(self, first_name, last_name):
+        print("Running __init__() method.")
+        self.first_name = first_name
+        self.last_name = last_name
+
+s1 = Singleton_Student("Yang", "Zhou")  # Running __new__() method.
+                                        # Running __init__() method.
+s2 = Singleton_Student("Elon", "Musk")  # Running __new__() method.
+                                        # Running __init__() method.
+
+print(s1)           # <__main__.Singleton_Student object at 0x7ff1e5a53198>
+print(s2)           # <__main__.Singleton_Student object at 0x7ff1e5a53198>
+print(s1 == s2)     # True
+print(s1.last_name) # Musk
+print(s2.last_name) # Musk
+
+## REMEMBER ##
+'''
+__init__() method must return None , otherwise a TypeError will be raised.
+If the parent class has defined __init__() method, we should using super().__init__() to explicitly 
+call it in subclasses’ __init__() method to ensure correct initialization.
+If __new__() method does not return an instance of the class, then the __init__()method will not be invoked.
+'''
+
+class Student(object):
+
+    def __new__(cls, *args, **kwargs):
+        print("Running __new__() method.")
+        instance = object.__new__(cls)
+        return instance
+
+    def __init__(self, first_name, last_name):
+        print("Running __init__() method.")
+        self.first_name = first_name
+        self.last_name = last_name
+
+s1 = Student("Dan", "Belfer") # Running __new__() method.
+                              # Running __init__() method.
+
+print(s1.last_name)  #Belfer
+
+### ABSTRACT CLASS ###
+print("========================")
+print("### ABSTRACT CLASS ###")
+
+'''
+An abstract class has some features, as follows:
+An abstract class doesn’t contain all of the method implementations required to work completely, 
+which means it contains one or more abstract methods. 
+An abstract method is a method that just has a declaration but does not have a detail implementation.
+An abstract class cannot be instantiated. It just provides an interface for subclasses to avoid code duplication. 
+It makes no sense to instantiate an abstract class.
+A derived subclass must implement the abstract methods to create a concrete class that fits 
+the interface defined by the abstract class. 
+Therefore it cannot be instantiated unless all of its abstract methods are overridden.
+In a nutshell, an abstract class defines a common interface for a set of subclasses. 
+It provides common attributes and methods for all subclasses to reduce code duplication. 
+It also enforces subclasses to implement abstract methods to avoid odd inconsistencies.
+
+Python comes with a module called abc which provides useful stuff for abstract class.
+We can define a class as an abstract class by abc.ABC and define a method as an abstract method by abc.abstractmethod. 
+ABC is the abbreviation of abstract base class.
+Note: A class is not real abstract if it has abstract methods but not inherit from abc.ABC, 
+which means it can be instantiated. For example:
+'''
+
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    @abstractmethod
+    def move(self):
+        print('Animal moves')
+
+class Cat(Animal):
+    def move(self):
+        super().move()
+        print('Cat moves')
+
+c = Cat()
+c.move() # Animal moves
+         # Cat moves
+
+
+### PROPERTY DECORATORS ###
+print("=============================")
+print("### PROPERTY DECORATORS ###")
+
+'''
+In object-oriented programming, each attribute of a class may have three basic methods:
+A getter method to get its value
+A setter method to set its value
+A deleter method to delete it
+
+Common property template:
+class C(object):
+
+    @property
+    def x(self):
+        return self._x
+
+    @x.setter
+    def x(self, value):
+        self._x = value
+
+    @x.deleter
+    def x(self):
+        del self._x
+
+### if you want to have Read only on property - do not apply setter on it ###
+'''
+
+class Student:
+    def __init__(self):
+        self._score = 0
+
+    @property
+    def score(self):
+        return self._score
+
+    @score.setter
+    def score(self, s):
+        if 0 <= s <= 100:
+            self._score = s
+        else:
+            raise ValueError('The score must be between 0 ~ 100!')
+
+    @score.deleter
+    def score(self):
+        del self._score
+Yang = Student()
+Yang.score = 55
 
 
     # ## attrs ##
