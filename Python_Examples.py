@@ -96,7 +96,10 @@ print(hex(id(a))) #output: 0x7ffcaea1b3d0 meaning the assignment moved var a fro
 print(f"b is {b}") #output: b is 10 because the assignment still to 10 in memory
 b = b + 5  #b is now 15 meaning value changed - it means b is now pointing to other place
 print(hex(id(b))) #HEX address where a points to: 0x7ffcaea1b510 a different address.
-
+### values of integer -5 till 256 will point always to same variables
+k1=2
+k2=2
+print(f"k1 is k2: {k1 is k2} because k1 id is: {id(k1)} and it equal to id of: {id(k2)}")
 
 ### DATA TYPES ###
 print("===============")
@@ -2964,7 +2967,7 @@ for num in squares(5, 10):
     print(num)
 sequene = squares(5, 10
 print(next(sequene))
-print(next(sequene))        
+print(next(sequene))`*        
         
 '''
 
@@ -4389,27 +4392,194 @@ class Student:
     @score.deleter
     def score(self):
         del self._score
+
 Yang = Student()
 Yang.score = 55
+print(f"The student score is: {Yang.score}")
+
+###########################################
+### 6 Alternatives to Classes in Python ###
+print("###  6 Alternatives to Classes in Python  ####")
+### Plain class ###
+
+from typing import Optional
 
 
-    # ## attrs ##
-# print("===========================")
-# print("attrs")
-#
-# from attrs import attr
-#
-# @attr.s
-# class Person(object):
-#     name = attr.ib(default='John')
-#     surname = attr.ib(default='Doe')
-#     age = attr.ib(init=False)
-#
-# p = Person()
-# print(p)
-# p = Person('Bill', 'Gates')
-# p.age = 60
-# print(p)
+class Position:
+    MIN_LATITUDE = -90
+    MAX_LATITUDE = 90
+    MIN_LONGITUDE = -180
+    MAX_LONGITUDE = 180
+
+    def __init__(
+        self, longitude: float, latitude: float, address: Optional[str] = None
+    ):
+        self.longitude = longitude
+        self.latitude = latitude
+        self.address = address
+
+    @property
+    def latitude(self) -> float:
+        """Getter for latitude."""
+        return self._latitude
+
+    @latitude.setter
+    def latitude(self, latitude: float) -> None:
+        """Setter for latitude."""
+        if not (Position.MIN_LATITUDE <= latitude <= Position.MAX_LATITUDE):
+            raise ValueError(f"latitude was {latitude}, but has to be in [-90, 90]")
+        self._latitude = latitude
+
+    @property
+    def longitude(self) -> float:
+        """Getter for longitude."""
+        return self._longitude
+
+    @longitude.setter
+    def longitude(self, longitude: float) -> None:
+        """Setter for longitude."""
+        if not (Position.MIN_LONGITUDE <= longitude <= Position.MAX_LONGITUDE):
+            raise ValueError(f"longitude was {longitude}, but has to be in [-180, 180]")
+        self._longitude = longitude
+
+
+pos1 = Position(49.0127913, 8.4231381, "Parkstraße 17")
+pos2 = Position(42.1238762, 9.1649964)
+
+
+def get_distance(p1: Position, p2: Position) -> float:
+    pass
+
+### tuples ###
+from typing import Tuple, Optional
+pos1 = (49.0127913, 8.4231381, "Parkstraße 17")
+pos2 = (42.1238762, 9.1649964, None)
+def get_distance(p1: Tuple[float, float, Optional[str]],
+                 p2: Tuple[float, float, Optional[str]]) -> float:
+    pass
+
+### Dictionaries ###
+from typing import Any, Dict
+pos1 = {"longitude": 49.0127913,
+        "latitude": 8.4231381,
+        "address": "Parkstraße 17"}
+pos2 = {"longitude": 42.1238762,
+        "latitude": 9.1649964,
+        "address": None}
+def get_distance(p1: Dict[str, Any],
+                 p2: Dict[str, Any]) -> float:
+    pass
+
+### NamedTuples ###
+from typing import NamedTuple
+
+class Position(NamedTuple):
+    longitude: int
+    latitude: int
+    address: int = None
+
+# Both are used in the same way
+pos1 = Position(49.0127913, 8.4231381, "Parkstraße 17")
+pos2 = Position(42.1238762, 9.1649964)
+
+def get_distance(p1: Position, p2: Position) -> float:
+    pass
+
+### attrs ###
+from typing import Optional
+import attr
+
+
+@attr.s
+class Position:
+    longitude: float = attr.ib()
+    latitude: float = attr.ib()
+    address: Optional[str] = attr.ib(default=None)
+
+    @longitude.validator
+    def check_long(self, attribute, v):
+        if not (-180 <= v <= 180):
+            raise ValueError(f"Longitude was {v}, but must be in [-180, +180]")
+
+    @latitude.validator
+    def check_lat(self, attribute, v):
+        if not (-90 <= v <= 90):
+            raise ValueError(f"Latitude was {v}, but must be in [-90, +90]")
+
+
+pos1 = Position(49.0127913, 8.4231381, "Parkstraße 17")
+pos2 = Position(42.1238762, 9.1649964)
+
+
+def get_distance(p1: Position, p2: Position) -> float:
+    pass
+
+### dataclasses ###
+from typing import Optional
+from dataclasses import dataclass
+
+
+@dataclass
+class Position:
+    longitude: float
+    latitude: float
+    address: Optional[str] = None
+
+@property
+def latitude(self) -> float:
+    """Getter for latitude."""
+    return self._latitude
+
+@latitude.setter
+def latitude(self, latitude: float) -> None:
+    """Setter for latitude."""
+    if not (-90 <= latitude <= 90):
+       raise ValueError(f"latitude was {latitude}, but has to be in [-90, 90]")
+    self._latitude = latitude
+
+@property
+def longitude(self) -> float:
+    """Getter for longitude."""
+    return self._longitude
+
+@longitude.setter
+def longitude(self, longitude: float) -> None:
+    """Setter for longitude."""
+    if not (-180 <= longitude <= 180):
+       raise ValueError(f"longitude was {longitude}, but has to be in [-180, 180]")
+    self._longitude = longitude
+
+pos1 = Position(49.0127913, 8.4231381, "Parkstraße 17")
+pos2 = Position(42.1238762, 9.1649964, None)
+
+
+def get_distance(p1: Position, p2: Position) -> float:
+    pass
+
+
+
+
+
+
+
+
+### attrs ###
+print("===========================")
+print("######    attrs    ########")
+
+import attr
+
+@attr.s
+class Person(object):
+    name = attr.ib(default='John')
+    surname = attr.ib(default='Doe')
+    age = attr.ib(init=False)
+
+p = Person()
+print(p)
+p = Person('Bill', 'Gates')
+p.age = 60
+print(p)
 #
 # # Output:
 # #   Person(name='John', surname='Doe', age=NOTHING)
