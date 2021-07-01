@@ -4398,7 +4398,7 @@ Yang.score = 55
 print(f"The student score is: {Yang.score}")
 
 ###########################################
-### 6 Alternatives to Classes in Python ###
+### 5 Alternatives to Classes in Python ###
 print("###  6 Alternatives to Classes in Python  ####")
 ### Plain class ###
 
