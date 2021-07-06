@@ -1071,6 +1071,167 @@ Country is Wakanda
 Age is 25
 '''
 
+### RETURN ###
+print("===============")
+print("RETURN")
+
+'''
+By Default function return None, even if nothing is returned
+def func():
+    tot = 1 +2
+    
+print(func()) #output: None
+
+If the return statement is not reached in the function, it returns None.
+def add(a,b):
+    c=a+b
+    if (c>10):
+        return c
+    
+print(add(1,2)) #output: None
+
+Return Multiple values from a function:
++ using commas  return a,b,c  -->> return type tuple
++ List          return [a,b,c] -->> return type list
++ Set           return {a,b,c} -->> return type set
++ Dictionary    return {'a':a,'B':b,'C':c} -->> return type dictionary
+Examples: 
+
+def add(a,b):
+    result=a+b
+    return a,b,result
+
+print(add(1,2))  #output: (1,2,3)
+
+def add(a,b):
+    result=a+b
+    return result,
+
+print(add(1,2))  #output: (3,)
+
+def calc(a,b):
+    sum=a+b
+    dif=a-b
+    mul=a*b
+    div=a/b
+    return [sum,dif,mul,div]
+
+print(calc(5,4)) #Output:[9, 1, 20, 1.25]
+
+def calc(a,b):
+    sum=a+b
+    dif=a-b
+    mul=a*b
+    div=a/b
+    return {"Addition":sum,"Subtraction":dif,"Multiplication":mul,"Division":div}
+
+print(calc(5,4)) #Output:{'Addition': 9, 'Subtraction': 1, 'Multiplication': 20, 'Division': 1.25}
+
+def calc(a,b):
+    sum=a+b
+    dif=a-b
+    mul=a*b
+    div=a/b
+    return {sum,dif,mul,div}
+
+print(calc(5,4)) #Output:{9, 20, 1, 1.25}
+
+The return statement having a single expression without a trailing comma doesn’t create a tuple; 
+it returns the value of that expression.
+
+def add(a,b):
+   result=a+b
+   return result
+
+print(add(1,2)) #Output:3
+
+print(add("Hello ","Python"))  #Output:Hello Python
+
+print(add([1,2],[3,4])) #Output:[1, 2, 3, 4]
+
+print(add((1,2),(3,4))) #Output:(1, 2, 3, 4)
+
+Multiple ‘return’ statements in a single function:
+The function call is terminated when one of the return statements is reached.
+
+def num(a):
+    if a%2==0:
+        return "Even Number"
+    else:
+        return "Odd Number"
+
+print(num(5))#Output:Odd Number
+print(num(30))#Output:Even Number
+
+‘return’ vs. ‘print’ statements inside a function
+The return statement will terminate the function call and return the value to the caller.
+The print statement will just print the value. We can’t assign that result to another variable or pass 
+the result to another function.
+
+def add(a,b):
+    r1=a+b
+    print (r1)
+
+add(3,4) #Output:7
+
+#We can't assign the return value to a variable
+r3=add(3,4) 
+print(r3)  #Output:None
+
+‘return’ statement terminates the function call
+The return statement terminates the current function call with the expression list (or None) as the return value. 
+The statements after the return statement inside the function are not executed.
+
+def add(a,b):
+    result=a+b
+    return result
+    print("After return statement")
+
+print(add(3,4)) #Output:7
+
+’return’ statement in ‘try’ block
+“When return passes control out of a try statement with a finally clause, 
+that finally clause is executed before really leaving the function.”
+
+Example: In the below example, the function call will return after executing the finally clause:
+
+def add(a,b):
+    try:
+        result=a+b
+        return result
+
+    except Exception as e:
+        return e
+    finally:
+        print("Finally done")
+
+print(add(3,4))
+
+#Output:
+#Finally done
+#7
+
+If an exception is raised, the function call will return after executing the finally clause.
+
+def add(a,b):
+    try:
+        result=a+b
+        return result
+    except Exception as e:
+        return e
+    finally:
+        print("Finally done")
+
+print(add({'a':1},{'b':2}))
+
+Output:
+Finally done
+unsupported operand type(s) for +: 'dict' and 'dict'
+ 
+'''
+
+
+
 
 
 ### PARAMETER ORDERING - only when you use all types of follwing###
@@ -1375,8 +1536,7 @@ for row in matrix:
         items.append(item)
 
 # equivalent list comprehension
-items = [item for row in matrix
-         for item in row]  # [1, 2, 3, 4]
+items = [item for row in matrix for item in row]  # [1, 2, 3, 4]
 
 # set comprehension
 fruits = ['apple', 'banana', 'cherry']
@@ -4073,7 +4233,7 @@ print(chunk(my_list, 4)) # [[1, 2, 3, 4], [5, 6]]
 test = [1, 2, 3, 4, 2, 2, 3, 1, 4, 4, 4]
 print(max(set(test), key=test.count)) #output: 4
 
-# Avoid the pitfalls of mutable default arguments
+#### Avoid the pitfalls of mutable default arguments ####
 def add_item_to_cart(new_item, shopper_name, existing_items=[]):
      existing_items.append(new_item)
      print(f"{shopper_name}'s cart has {existing_items}")
@@ -4097,6 +4257,7 @@ def add_item_to_cart(new_item, shopper_name, existing_items=None):
 
 shopping_list_wife = add_item_to_cart("Dress", "Jennifer")  # Jennifer's cart has ['Dress']
 shopping_list_husband = add_item_to_cart("Soccer", "David") # David's cart has ['Soccer']
+#####################################################################
 
 # Check type before running the code in a function - example:
 def add_numbers(a, b):
@@ -4585,3 +4746,29 @@ print(p)
 # #   Person(name='John', surname='Doe', age=NOTHING)
 # #   Person(name='Bill', surname='Gates', age=60)
 
+##################################################
+print("#### Choosing Function names rules..")
+'''
+1. Is the function a test? -> test_<entity>_<behavior>.
+2. Does the function has a @property decorator? -> don’t use a verb in the function name.
+3. Does the function use a disk or a network:
+3.1. … to store data? -> save_to, send, write_to
+3.2. … to receive data? -> fetch, load, read
+4. Does the function output any data? -> print, output
+5. Returns boolean value? -> is_, has_/have_, can_, check_if_<entity>_<characteristic>
+6. Aggregates data? -> calculate, extract, analyze
+7. Put data from one form to another:
+7.1. Creates a single meaningful object? -> create
+7.2. Fills an existing object with data? -> initialize, configure
+7.3. Clean raw data? -> clean
+7.4. Receive a string as input? -> parse
+7.5. Return a string as output? -> render
+7.6. Return an iterator as output? ->iter
+7.7. Mutates its arguments or some global state? -> update, mutate, add, remove, insert, set
+7.8. Return a list of errors? -> validate
+7.9. Checks data items recursively? -> walk
+7.10. Finds appropriate item in data? -> find, search, match
+7.11. Transform data type? -> <something>_to_<something_else>
+7.12. None of the above, but still works with data? -> Check one of those: morph, compose, prepare, extract, generate, 
+initialize, filter, map, aggregate, export, import, normalize, calculate .
+'''
