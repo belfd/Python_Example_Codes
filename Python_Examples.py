@@ -963,6 +963,24 @@ a, b = 5, 10
 
 print(f"Chained Function calls: {(add if b > a else subtract)(a, b)}") #output: Chained Function calls: 15
 
+# Objects Can Behave Like Functions
+'''
+While all functions are objects in Python, the reverse isn’t true. Objects aren’t functions. But they can be made 
+callable, which allows us to treat them like functions in many cases.
+If an object is callable it means we can use the round parentheses function call syntax on it and even pass in function 
+call arguments. This is all powered by the __call__ dunder method.
+Here’s an example of class defining a callable object:
+class Foo:
+    def __init__(self):
+        print("init")
+    def __call__(self):
+        print("call")
+>>> obj = Foo()
+init
+>>> obj()
+call
+'''
+
 ### DOCSTRING FUNCTIONS ###
 ### Enable adding documentation to functions - can be activated by __doc__ ###
 print("===============")
@@ -4718,8 +4736,60 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 
 
+#### 3 Ways to Explore a Python Object #####
+print("#### 3 Ways to Explore a Python Object #####")
+#  First of all, when we get an object, we can check which type it belongs to by type() method.
 
+a = 'Dan'
+b = 100
 
+class Person:
+  def __init__(self, first_name="", last_name= ""):
+    self.first_name = first_name
+    self.last_name = last_name
+Author = Person("Dan", "Blfer")
+
+print(type(a)) #output: <class 'str'>
+print(type(b)) #output: <class 'int'>
+print(type(Author)) #output: <class '__main__.Person'>
+
+# We can compare types:
+a = 'dan'
+b = 100
+print(f"type(a)==type('developer'): {type(a)} == {type('developer')} : {type(a) == type('developer')}") #output: True
+print(f"type(b)==type(a): {type(b)} == {type(a)} : {type(b) == type(a)} ") #output: False
+print(f"type(b)==int: {type(b)} == int : {type(b)==int}") #output: True
+print(f"type(int) is {type(int)}") #output: type(int) is <class 'type'>
+
+# with import types we can check more complex types
+import types
+def func():
+  return "Dan"
+print(type(func)==types.FunctionType) #output: True
+print(type(lambda x: x)==types.LambdaType) #output: True
+
+# For inherited classes, using the isinstance() method is a very convenient way to check their inheritance relationship.
+
+class Person:
+  def __init__(self, first_name="", last_name= ""):
+    self.first_name = first_name
+    self.last_name = last_name
+
+class Developer(Person):
+  pass
+
+class TopDeveloper(Developer):
+  pass
+one_guy = Developer()
+Dan = TopDeveloper(first_name="Dan",last_name="Belfer")
+
+print(f"isinstance(Dan,Person): {isinstance(Dan,Person)}") #output: True
+print(f"isinstance(one_guy,TopDeveloper): {isinstance(one_guy,TopDeveloper)}") #output: False
+print(f"isinstance(one_guy,Developer): {isinstance(one_guy,Developer)}") #output: True
+
+# The second parameter of isinstance() method can be a tuple to help us judge whether an object is one of certain types
+print(f"isinstance('123',(str,int)): {isinstance('123',(str,int))}") #output: True
+print(f"isinstance([1,2,3],(list,tuple)): {isinstance([1,2,3],(list,tuple))}") #output: True
 
 
 

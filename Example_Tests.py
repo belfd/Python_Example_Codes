@@ -295,7 +295,6 @@ list_of_digits = list(str(num))
 print(list_of_digits) # [1, 2, 3, 4, 5, 6]
 '''
 
-
 '''
 def add(a,b):
     return a+b
@@ -389,6 +388,7 @@ with open("data.json", "r") as json_in:
 '''
 ## REPLACEMENT to NESTED LOOPS - Using itertools
 import itertools
+
 '''
 list_a = [1, 2020, 70]
 list_b = [2, 4, 7, 2000]
@@ -450,3 +450,25 @@ message_writer = MessageWriter()
 message_writer.write("Hello World!")
 '''
 
+#  class Student(object):
+#
+#     def __new__(cls, *args, **kwargs):
+#         print("Running __new__() method.")
+#         instance = object.__new__(cls)
+#         return instance
+#
+#     def __init__(self, first_name, last_name):
+#         print("Running __init__() method.")
+#         self.first_name = first_name
+#         self.last_name = last_name
+#
+# s1 = Student("Dan", "Belfer") # Running __new__() method.
+#                               # Running __init__() method.
+#
+# print(s1.last_name)  #Belfer
+
+def implementtest(num):
+    if num == 5:
+        raise(NotImplementedError('This is the right way!'))
+
+implementtest(5)
