@@ -4577,7 +4577,8 @@ Yang.score = 55
 print(f"The student score is: {Yang.score}")
 
 ###########################################
-### 5 Alternatives to Classes in Python ###
+### 6 Alternatives to Classes in Python ###
+print("==============================================")
 print("###  6 Alternatives to Classes in Python  ####")
 ### Plain class ###
 
@@ -4737,6 +4738,7 @@ def get_distance(p1: Position, p2: Position) -> float:
 
 
 #### 3 Ways to Explore a Python Object #####
+print("===========================")
 print("#### 3 Ways to Explore a Python Object #####")
 #  First of all, when we get an object, we can check which type it belongs to by type() method.
 
@@ -4791,7 +4793,126 @@ print(f"isinstance(one_guy,Developer): {isinstance(one_guy,Developer)}") #output
 print(f"isinstance('123',(str,int)): {isinstance('123',(str,int))}") #output: True
 print(f"isinstance([1,2,3],(list,tuple)): {isinstance([1,2,3],(list,tuple))}") #output: True
 
+# Type’s method mro() can give us the whole chain of class inheritance relations
+class Person:
+    def __init__(self, first_name="", last_name=""):
+        self.first_name = first_name
+        self.last_name = last_name
 
+class Developer(Person):
+    pass
+
+class TopDeveloper(Developer):
+    pass
+
+Dan = TopDeveloper(first_name="Dan", last_name="Belfer")
+print(f"type(Dan).mro(): {type(Dan).mro()}")
+#output: [<class '__main__.TopDeveloper'>, <class '__main__.Developer'>, <class '__main__.Person'>, <class 'object'>]
+
+# The dir() method, which returns a list containing strings,
+# can help us get all names of attributes and methods within an object.
+class Person:
+  def __init__(self, first_name="", last_name= ""):
+    self.first_name = first_name
+    self.last_name = last_name
+
+print(dir(Person()))
+
+# With the help of these three methods: getattr(), setattr() and hasattr(),
+# we are able to get, set and check attributes or methods of an object.
+
+class Person:
+  def __init__(self, first_name="", last_name= ""):
+    self.first_name = first_name
+    self.last_name = last_name
+
+Dan = Person("Dan")
+# Check an attribute is existed or not
+print(f"hasattr(Dan,'first_name'): {hasattr(Dan,'first_name')}") # True
+print(f"hasattr(Dan,'age'): {hasattr(Dan,'age')}")# False
+
+# Set a new attribute to an object
+setattr(Dan,'sex','male')
+print(f"getattr(Dan,'sex'): {getattr(Dan,'sex')}") # male
+
+
+####### META-PROGRAMMING ######
+print("===========================")
+print("##### META-PROGRAMMING #####")
+# Meta-programming is an act of writing code that manipulates code
+# Meta-programming is an act of building functions and classes that can manipulate code by modifying,
+# wrapping existing code, or generating code
+
+# Meta-programming in Python can be achieved with:
+
+# 1. Decorators - Decorators are higher-order functions that take a function as an argument and returns another function
+
+# 2. Meta-classes - Meta-classes are special types of classes, rather than ordinary classes in Python.
+# Where an ordinary class defines behavior of its own instance,
+# a meta-class defines the behavior of an ordinary class and its instance.
+
+# A meta-class can add or subtract a method or field to an ordinary class.
+# Python has one special class, the type class, which is by default a meta-class.
+# All custom type classes must inherit from the type class.
+
+'''
+For instance, if we have class Calc, with three class methods, 
+and we want to provide debug functionality to all the methods in one class then we can use a meta-class for this.
+'''
+
+
+class Calc():
+    def add(self, x, y):
+        return x + y
+
+    def sub(self, x, y):
+        return x - y
+
+    def mul(self, x, y):
+        return x * y
+
+# First, we need to create a meta-class MetaClassDebug, with debug functionality,
+# and make the Calc class inherit from MetaClassDebug.
+# And, when we call any method from the Calc class, it will get invoked with our debug_function.
+
+def debug_function(func):
+    def wrapper(*args, **kwargs):
+        print(f"{func.__qualname__} is called with parameter {args[1:]}")
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+def debug_all_methods(cls):
+    for key, val in vars(cls).items():
+        if callable(val):
+            setattr(cls, key, debug_function(val))
+    return cls
+
+
+class MetaClassDebug(type):
+
+    def __new__(cls, clsname, bases, clsdict):
+        obj = super().__new__(cls, clsname, bases, clsdict)
+        obj = debug_all_methods(obj)
+        return obj
+
+
+class Calc(metaclass=MetaClassDebug):
+    def add(self, x, y):
+        return x + y
+
+    def sub(self, x, y):
+        return x - y
+
+    def mul(self, x, y):
+        return x * y
+
+
+calc = Calc()
+print(calc.add(2, 3)) #output: Calc.add is called with parameter (2, 3)  5
+print(calc.sub(2, 3)) #output: Calc.sub is called with parameter (2, 3) -1
+print(calc.mul(2, 3)) #output: Calc.mul is called with parameter (2, 3)  6
 
 
 ### attrs ###
