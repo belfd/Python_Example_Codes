@@ -1455,7 +1455,7 @@ for key, value in family.items():
 for index, fruit in enumerate(fruits):
     print(index, fruit)
 
-# for/else loop
+# for/else loop - #else will happen if for loop finishes completely and not stopped by break
 for fruit in fruits:
     if fruit == 'banana':
         print('Found the banana!')
@@ -1471,10 +1471,13 @@ while count < 5:
     count += 1  # equivalent to 'count = count + 1'
 
 # 'else' command after while will be execute after while finishes
-x=0
-while x<5:
+# else will happen if while loop finishes completely and not stopped by break
+x=5
+while x>0:
     print(x)
-    x+=1
+    if x<0:
+        break
+    x-=1
 else:
     print('Done')
 
