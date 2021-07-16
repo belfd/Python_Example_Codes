@@ -2926,6 +2926,37 @@ print(child.university)  # ETH Zürich
 ##  Note that calls to parent initializers using __init__() and super()
 ## can only be used inside the child class’s initializer.
 
+##### private & protected used #####
+class Base(object):
+    def __private(self):
+        print("private value in Base")
+    def _protected(self):
+        print("protected value in Base")
+    def public(self):
+        print("public value in Base")
+        self.__private()
+        self._protected()
+class Derived(Base):
+    def __private(self):
+        print("derived private")
+    def _protected(self):
+        print("derived protected")
+d = Derived()
+d.public()
+'''
+Output:
+public value in Base
+private value in Base
+derived protected
+
+Explain:
+derived is not implementing public so public is Base
+Because __private is a private method, only the object itself could use it, 
+there is no naming conflict for a private method. Calling d.__prvate() will cause an Error
+derive protected related to self of derived is chosen
+'''
+
+####################
 ### POLYMORPHISM ###
 print("===============")
 print("POLYMORPHISM")
