@@ -185,6 +185,137 @@ print(f"address of c is {hex(id(c))}")  # output: 0x2484852fbc8 meaning - in thi
 c.append(100)  # will cause c to add 100 to list and also b to add 100
 print(f"b val is: {b}")  # output: b val is: [1, 2, 3, 100]
 
+#### Mutable and Imutable Explained ####
+print("Mutable and Imutable Explained")
+print("==============================")
+'''
+the mutable objects can be changed after creation. The immutable objects cannot be changed after creation. 
+Let’s check it out by two examples:
+leaders = ["Elon Mask"]
+print(leaders, id(leaders))
+# ['Elon Mask'] 140700341254336
+leaders.append("Dan Belfer")
+print(leaders, id(leaders))  # Same id
+# ['Elon Mask', 'Dan Belfer'] 140700341254336
+
+if we changed the leaders list, its content will be changed but its identity won’t be changed. 
+Because the list object in Python is mutable, we can do the in-place modifications on it.
+
+Leader = "dan"
+print(Leader, id(Leader))
+# dan 139713044786288
+
+Leader.capitalize()
+print(Leader, id(Leader))  # the Leader itself wasn't changed
+# dan 139713044786288
+
+### since a string is an immutable object in Python, we can not change anything on it, 
+### even just capitalize its first letter. 
+### We must assign the result of Leader.capitalize() to a new string.
+Cap_Leader = Leader.capitalize()
+print(Cap_Leader, id(Cap_Leader))
+# Dan 139713044502768
+
+list/Dict/Set are mutable (can be modified after initialized) all rest(tuple,string,number...) cannot be modified.
+The '=' will create new object and label will be attached to the new object.
+**Everything in Python is an object and the assignment operation is just binding a name to an object**
+
+leaders = ["Elon Mask"]
+print(leaders, id(leaders))
+# ['Elon Mask'] 140009549940864
+leaders.append("Dan Belfer")
+print(leaders, id(leaders))  # Same id
+# ['Elon Mask', 'Dan Belfer'] 140009549940864
+leaders = ["Mark Zuckerberg"]
+print(leaders, id(leaders))  # the id changed!
+# ['Mark Zuckerberg'] 140009549461184
+
+## The ["Mark Zuckerberg"] is another list object, and the name leaders will be bound to this object 
+## when we run leaders = ["Mark Zuckerberg"].
+## Due to the name leaders has already represented another object, it’s id is different.
+
+A = ["Elon", "Dan"]
+B = A
+print(B, A)            # ['Elon', 'Dan'] ['Elon', 'Dan']
+print(id(B) == id(A))  # True
+
+
+
+B.append("Mark")  # 'append' modifies the list itself 
+print(B, A)             # ['Elon', 'Dan', 'Mark'] ['Elon', 'Dan', 'Mark']
+print(id(B) == id(A))   # True
+
+B = ["Mark"]   # the '=' attach name to new object
+print(B, A)             # ['Mark'] ['Elon', 'Yang', 'Mark']
+print(id(B) == id(A))   # False
+
+## As the above example shown, when B and A are bound to the same object, 
+## changing B will affect A as well. When B is bound to another object, changing B won’t affect A at all.
+
+How Objects are Passed to Functions?? Python is neither call-by-value nor call-by-reference. 
+** It is call-by-sharing (also known as “call-by-object” or “call-by-object-sharing”). **
+
+Why immutable objects are not call-by-value?
+def updateNumber(val):
+    val += 10
+    print(val)
+    
+b = 5
+updateNumber(b)  # 15
+print(b)         # 5
+
+BUT:
+def updateNumber(val):
+    print(id(val)) # 10055680
+
+b = 5
+print(id(b))  # 10055680
+updateNumber(b)  # 10055680
+
+## the val is another name besides b which is bound to the integer object 5. 
+## The two names have identical ids since they are bound to the same object. 
+## If we change the integer, because of its immutability, 
+## a new integer object will be created and the val will be bound to it.
+
+Why mutable objects are not call-by-reference?
+
+L = [1, 2, 3]
+
+def func(vals):
+    vals.append(4)
+    print(vals)
+
+func(L)  # [1, 2, 3, 4] 
+print(L) # [1, 2, 3, 4]
+
+## As demonstrated above, appending a new value to the val will affect the L as well. 
+## It acts like call-by-reference.
+
+BUT:
+L = [1, 2, 3]
+
+def func(vals):
+    vals = [7, 8, 9]  ## the assignment '=' bind vals name to the list [7,8,9]
+    print(vals)
+
+func(L)  # [7, 8, 9] 
+print(L) # [1, 2, 3]
+
+## after the 'vals' = [7,8,9] was executed, the name 'vals' had been bound to another list object — [7,8,9]. 
+## Since the 'vals' and 'L' were bound to different list objects, the modification of 'vals' would not affect 'L'.
+
+Be Aware of the Mutability of Nested Objects
+# we should know that the mutability of nested objects depends on each object itself. For instance:
+
+tp = ([1, 2, 3], 4, 5)
+tp[0].append(4)
+print(tp)  # ([1, 2, 3, 4], 4, 5)
+
+# The tp is a tuple which is immutable, but the first element of tp is a list that is mutable. 
+# Therefore, we can modify the first element of tp even if it’s an immutable object.
+'''
+
+
 ### F-STRING ###
 print("===============")
 print("F-STRING PRINTING")
