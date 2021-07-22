@@ -3497,6 +3497,18 @@ for num in squares(5, 10):
 sequene = squares(5, 10
 print(next(sequene))
 print(next(sequene))`*        
+
+Difference between list comprehension(return) and generator comprehention: 
+my_nums = [x*x for x in [1, 2, 3, 4, 5]] #list comprehension
+my_nums1 = (x*x for x in [1, 2, 3, 4, 5]) #generator comprehension
+print(my_nums)  #output:  [1,4,9,16,25]
+print(my_nums1) #output:  <generator object <genexpr> at 0x000001C727BFDF20>
+
+for num in my_nums:
+  print(num)  # [1, 4, 9, 16, 25]
+
+for num in my_nums1:
+  print(num)  # 1 4 9 16 25
         
 '''
 
