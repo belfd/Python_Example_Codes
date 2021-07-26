@@ -893,7 +893,7 @@ def longest_word(filename):
 ## keys must be unique, and can be strings, numbers, or tuples
 ## values can be any type
 print("===============")
-print("DICTIONARIES")
+print("DICTIONARY")
 
 # create an empty dictionary (two ways)
 empty_dict = {}
@@ -969,6 +969,17 @@ print("get() and setdefault() functions for dictionary: ")
 dict1 = {1: 'one', 2: 'two', 4: 'four'}
 print(dict1.get(3))  # output: None
 print(dict1.setdefault(3, 'Default Value'))  # output: Default Value
+
+'''
+Swap dictionary key & values:
+'''
+mydict= {1: 11, 2: 22, 3: 33}
+mydict = {i: j for j, i in mydict.items()}
+print(mydict) #output: {11: 1, 22: 2, 33: 3}
+
+mydict= {'John': 'Tesla', 'Jane': 'BMW'}
+mydict = {i:j for j,i in mydict.items()}
+print(mydict) #output: {'Tesla': 'John', 'BMW': 'Jane'}
 
 ### SETS ###
 ## properties: unordered, iterable, mutable, can contain multiple data types
@@ -4143,7 +4154,7 @@ something()  # output: [1]
 
 ### COUNTING OCCURENCES IN LIST ###
 print("===========================")
-print("COUNTING OCCURENCES IN LIST")
+print("COUNTING OCCURRENCES IN LIST")
 
 from collections import Counter
 
@@ -5484,6 +5495,65 @@ print(p)
 # # Output:
 # #   Person(name='John', surname='Doe', age=NOTHING)
 # #   Person(name='Bill', surname='Gates', age=60)
+
+###############################
+### WORKING WITH CSV ##########
+'''
+Reading from CSV file
+Basic CSV Interaction
+code:
+import csv 
+with open('hackers.csv', 'r', newline='') as myCsvFile: 
+    reader = csv.reader(myCsvFile, delimiter=',', quotechar='|')
+        for row in reader.readlines(): 
+            print('row = ', row)
+--code finished ---
+
+That’s fine and all, but row returns a list - this is obviously a problem if you want to access the values of 
+certain columns by column name, as opposed to numeric index (I bet you do). Well, we've got you covered:
+
+code:
+import csv 
+with open('hackers.csv', 'r', newline='') as myCsvFile: 
+     reader = csv.DictReader(myCsvFile) 
+          for row in reader.readlines(): 
+                print(row['column_name_1'], row['column_name_2'])
+            
+--code finished ---
+
+Changing reader to DictReader outputs a dictionary per CSV row, as opposed to a simple list.
+Printing all Keys and Their Values:
+
+code:
+with open('hackers.csv', 'r', newline='') as myCsvFile: 
+       reader = csv.DictReader(myCsvFile) 
+       for row in loc_reader: 
+               for (k, v) in row.items(): 
+                     print(k, ':', v)
+
+--code finished ---
+we probably don’t want to iterate over the first row of our CSV: this will output our key values alone, 
+which would be useless in this context. Consider this:
+
+code:
+with open('hackers.csv', 'r') as myCsvFile:   
+      next(myCsvFile) 
+      for row in myCsvFile.readlines(): 
+             print(row)
+--code finished ---
+
+Writing to CSV
+code:
+with open('hackers.csv', 'w') as myCsvFile: 
+    columns = ['column_name_1', 'column_name_2'] 
+    writer = csv.DictWriter(myCsvFile, fieldnames=columns)    
+    writer.writeheader() 
+    writer.writerow({'column_name_1': 'Mark', 'column_name_2': 'Twain'}) 
+    writer.writerow({'column_name_1': 'Foo', 'column_name_2: 'Bar'})
+--code finished ---
+
+'''
+
 
 ##################################################
 print("#### Choosing Function names rules..")
