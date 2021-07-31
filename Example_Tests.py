@@ -387,7 +387,7 @@ with open("data.json", "r") as json_in:
     string = json.load(json_in)
 '''
 ## REPLACEMENT to NESTED LOOPS - Using itertools
-import itertools
+# import itertools
 
 '''
 list_a = [1, 2020, 70]
@@ -467,8 +467,39 @@ message_writer.write("Hello World!")
 #
 # print(s1.last_name)  #Belfer
 
-def implementtest(num):
-    if num == 5:
-        raise(NotImplementedError('This is the right way!'))
+# def find_happy_numbers(inp: int) -> None:
+#     inp1 = inp
+#     summary = None
+#     index = 0
+#     while summary != 1:
+#         index += 1
+#         if index > 10:
+#             # print(f"{inp1} is a Sad number")
+#             break
+#         if inp == 0:
+#             inp = summary
+#         summary = 0
+#         while inp != 0:
+#             dig = inp % 10
+#             summary += dig ** 2
+#             inp //= 10
+#     else:
+#         print(f"{inp1} is is a happy number")
+#
+#
+# for i in range(1, 40):
+#     find_happy_numbers(i)
 
-implementtest(5)
+# def square_numbers(nums):
+#     for i in nums:
+#         yield (i * i)
+#
+#
+# my_nums = square_numbers([1, 2, 3, 4, 5])
+#
+# for num in my_nums:
+#     print(num)
+
+# alternative to sum digit of number - replace to string which is iterable and use map function that iterate each char
+number = 1234
+print(sum(map(int, str(number))))

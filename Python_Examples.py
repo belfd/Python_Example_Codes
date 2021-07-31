@@ -660,8 +660,8 @@ tuple1 = tuple(lst)
 print(f"new tuple after appending: {tuple1}")  # (1, 2, 3, 4, 5)
 
 ### NAMED TUPLES ####
-print("================")
-print("NAMED TUPLES")
+print("=====================")
+print("### NAMED TUPLES ####")
 
 # namedtuple - a function which generates new class like class factory that inherites from tuple
 # because tuple are immutable and has elements and only with index can be reached
@@ -700,11 +700,29 @@ print("NAMED TUPLES")
 # When working with modules and there is function to import that has attributes it will be easier to return
 # namedtuple because it will appear with name of attributes when calling the function
 from collections import namedtuple
+import math
+
+Polar_Coordinate = namedtuple('Polar_Coordinate', 'r theta')
+
+def convert_cartesian_to_polar(x, y):
+    # Calculate Polar Cooordinates
+    r0 = (x ** 2 + y ** 2) ** 0.5
+    theta0 = math.atan2(y, x)
+    # Convert from radians to degrees
+    theta0 = math.degrees(theta0)
+
+    return Polar_Coordinate(theta=theta0, r=r0)
+
+box_position = convert_cartesian_to_polar(10, 10)
+print(box_position)  #output: Polar_Coordinate(r=14.142135623730951, theta=45.0)
+print(box_position.r) #output: 14.142135623730951
+print(box_position.theta) #output: 45.0
+print(type(box_position)) #output: <class '__main__.Polar_Coordinate'>
 
 ### STRINGS ###
 ## properties: iterable, immutable
 print("===============")
-print("STRINGS")
+print("### STRINGS ###")
 
 # create a string
 s = str(42)  # convert another data type into a string
@@ -3674,13 +3692,14 @@ json_structure = json.dumps(man.__dict__)  # saved in json like a dictionary
 print(json_structure)  # output: {"name": "Dan", "family": "Belfer", "age": 48}
 
 # To pickle an object: Serialize it
-with open("people.pickle", "wb") as file:
-    pickle.dump(man, file)
+# with open("people.pickle", "wb") as file:
+#     pickle.dump(man, file)
+#     file.close()
 
 # To unpickle something:
-with open("people.pickle", "rb") as file:
-    new_man = pickle.load(file)
-    print(new_man)  # output: This is Dan Belfer aged 48
+# with open("people.pickle", "rb") as file:
+#     new_man = pickle.load(file)
+#     print(new_man)  # output: This is Dan Belfer aged 48
 
 ### CLEAN CODE SAMPLES ###
 print("====================")
@@ -4638,6 +4657,12 @@ def check_anagram2(first_word, second_word):
 print(check_anagram1("silent", "listen"))  # True
 print(check_anagram2("Fried", "Fired"))  # True
 
+## sum digits in number
+# alternative to sum digit of number - replace to string which is iterable and use map function that iterate each char
+#number = 1234
+#print(sum(map((int), str(number))))
+
+
 ## Merging Two Dictionaries ##
 print("===========================")
 print("Merging Two Dictionaries:")
@@ -4665,6 +4690,30 @@ print(details)
 ## Find the index of an element in a tuple
 books = ('Atomic habits', 'Ego is the enemy', 'Outliers', 'Mastery')
 print(books.index('Mastery'))  # 3
+
+## Replace nested loop with itertools.product
+for i in range(2):
+    for j in range(2):
+        print(f"i={i} and j={j}")
+
+print("+++++ The same ++++++++")
+
+import itertools
+for i, j in itertools.product(range(2), range(2)):
+    print(f"i={i} and j={j}")
+
+'''
+output: 
+i=0 and j=0
+i=0 and j=1
+i=1 and j=0
+i=1 and j=1
++++++++++++++
+i=0 and j=0
+i=0 and j=1
+i=1 and j=0
+i=1 and j=1
+'''
 
 ## FizzBuzz example ##
 print("===========================")
@@ -4696,7 +4745,6 @@ list1 = [1, 2, 3, 3, 4, 'John', 'Ana', 'Mark', 'John']
 # Method 1
 def remove_duplicate(list_value):
     return list(set(list_value))
-
 
 print(remove_duplicate(list1))
 
@@ -5179,7 +5227,6 @@ def get_distance(p1: Dict[str, Any],
 
 ### NamedTuples ###
 from typing import NamedTuple
-
 
 class Position(NamedTuple):
     longitude: int
@@ -5822,7 +5869,433 @@ with open('hackers.csv', 'w') as myCsvFile:
 '''
 
 ##################################################
+print("### Find Longest String in List ####")
+# Method 1: Iterate through the list using a loop and keep track of the longest string
+string_list = ["hello", "world", "let's", "learn", "some", "Python"]
+longest = ""
+for current_string in string_list:
+    if len(current_string) > len(longest):
+        longest = current_string
+print(longest) # Python
+
+# Method 2: Iterate through the list using a functional approach
+import functools
+string_list = ["hello", "world", "let's", "learn", "some", "Python"]
+longest = functools.reduce(lambda longest, current_string: current_string if len(current_string) >
+                                                                             len(longest) else longest, string_list, "")
+print(longest) # Python
+
+print("### Convert String to List of Characters ###")
+# Method 1: Iterate through the string using a for loop
+character_string = "character"
+character_list = []
+for character in character_string:
+    character_list.append(character)
+print(character_list) # ["c", "h", "a", "r", "a", "c", "t", "e", "r"]
+
+# Method 2: List Comprehension
+character_string = "character"
+character_list = [char for char in character_string]
+print(character_list) # ["c", "h", "a", "r", "a", "c", "t", "e", "r"]
+
+print("### Convert Comma Separated String to List ###")
+split_string = "Split me, please"
+string_list = split_string.split()
+print(string_list) # ["Split", "me,", "please"]
+string_list = split_string.split(",")
+print(string_list) # ["Split me", " please"]
+
+print("### Check if String Contains Substring from List ###")
+# Method 1: Simple Iteration
+l = ['hello', 'world']
+contains = "this string contains the word hello"
+not_contains = "this string contains no relevant words"
+def check_contains(string_list, larger_string):
+    for w in string_list:
+        if w in larger_string:
+            return True
+    return False
+print(check_contains(l, contains)) # True
+print(check_contains(l, not_contains)) # False
+
+# Method 2: Set Intersections
+l = ['hello', 'world']
+contains = "this string contains the word hello"
+not_contains = "this string contains no relevant words"
+def check_contains(string_list, larger_string):
+    return len(set(string_list).intersection(larger_string.split())) > 0
+print(check_contains(l, contains)) # True
+print(check_contains(l, not_contains)) # False
+
+print("### Convert List of Characters to String ###")
+character_list = ["c", "h", "a", "r", "a", "c", "t", "e", "r"]
+result = "".join(character_list)
+print(result) # character
+
+print("### Remove Item from List (and also Remove First and Last Item from List) ###")
+'''
+list.remove(x): Removes the first item from the list whose value is equal to x.
+list.pop([i]): Remove the item in the list at the index denoted by i. 
+If no value i is provided, the last value in the list is removed.
+'''
+number_list = [1, 4, 2, 6, 2, 5]
+number_list.remove(2)
+print(number_list) # [1, 4, 6, 2, 5]
+number_list. remove(2)
+print(number_list) # [1, 4, 6, 5]
+number_list.remove(1)
+print(number_list) # [4, 6, 5]
+#number_list.remove(2) # ValueError: list.remove(x): x not in list
+
+number_list = [1, 4, 2, 6, 2, 5]
+# Remove first item from list
+number_list.pop(0)
+print(number_list) # [4, 2, 6, 2, 5]
+# Remove last item from list
+number_list.pop(len(number_list) - 1)
+print(number_list) # [4, 2, 6, 2]
+
+print("### Remove Duplicates from List ###")
+# Method 1: Iteration
+number_list = [1, 1, 2, 6, 2, 5]
+no_duplicates_list = []
+for number in number_list:
+    if number not in no_duplicates_list:
+        no_duplicates_list.append(number)
+print(no_duplicates_list) # [1, 2, 6, 5]
+
+# Method 2: Sets
+number_list = [1, 1, 2, 6, 2, 5]
+
+no_duplicates_list = list(set(number_list))
+print(no_duplicates_list) # [1, 2, 6, 5]
+
+print("### Check if List is Empty ###")
+empty_list = []
+non_empty_list = [1, 2, 3]
+def check_empty(l):
+    if list:
+        print("List is empty" if len(l) == 0 else "List not empty")
+check_empty(empty_list) # List is empty
+check_empty(non_empty_list) # List is not empty
+
+print("### Reverse Order of List ###")
+# Method 1: Use the list.reverse() Function
+number_list = [1, 2, 3, 4, 5]
+number_list.reverse()
+print(number_list) # [5, 4, 3, 2, 1]
+
+# Method 2: Use List Slicing:
+number_list = [1, 2, 3, 4, 5]
+reversed_list = number_list[::-1]
+print(reversed_list) # [5, 4, 3, 2, 1]
+print("########################")
+print("########################")
+##################################################
+import logging
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
+# logging.basicConfig(level=logging.DEBUG,filename='data.log', filemode='w') ## for writing logs to file
+name = 'example' #example to enter param to the log line
+# List of levels for logging by their order:
+logging.debug('This is a debug message')
+logging.info(f'The param \'{name}\' shows an info message')
+logging.warning('This is a warning message')  #this is the default
+logging.error('This is an error message')
+logging.critical('This is a critical message')
+print("########################")
+## example of using exception info to logging ##
+# try:
+#   c = a / 0
+# except Exception as e:
+#   logging.error("Exception Occurred", exc_info=True)  ## At default it is True
+
+'''
+Handler helps you to configure your own logger and send logs to multiple places after being generated. 
+handlers can send the logs messages to a specified destination, to your console, to a file, 
+or send over an HTTP connection. 
+A logger can have multiple handlers. Like loggers, they also have severity levels that are useful when 
+you want to log messages to different places.
+Suppose You have an application and You want to take logs of the application. 
+You want to save logs higher than the WARNING severity level to a log file and Higher than INFO on the console. 
+With the help of handlers, you can do that-
+'''
+
+# custom logger
+logger = logging.getLogger(__name__)
+
+# Create handlers
+c_handler = logging.StreamHandler()
+f_handler = logging.FileHandler('file.log')
+c_handler.setLevel(logging.WARNING)
+f_handler.setLevel(logging.WARNING)
+
+# Create formatters and add it to handlers
+c_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+c_handler.setFormatter(c_format)
+f_handler.setFormatter(f_format)
+
+# Add handlers to the logger
+logger.addHandler(c_handler)
+logger.addHandler(f_handler)
+
+# Each of this messages appears in condole and saved in file.log file
+logger.warning('This is a warning')
+logger.error('This is an error')
+logger.critical('This is an error')
+
+'''
+You saw the above codes they look so messy because of all the formatting we did. 
+To avoid this we can add all the formatting to a new file and then use that formatting in the different logs files. 
+We can load that config file using fileconfig() The file extension should be .conf :
+[loggers]
+keys=root,simpleExample
+
+[handlers]
+keys=consoleHandler
+
+[formatters]
+keys=simpleFormatter
+
+[logger_root]
+level=DEBUG
+handlers=consoleHandler
+
+[logger_simpleExample]
+level=DEBUG
+handlers=consoleHandler
+qualname=simpleExample
+propagate=0
+
+[handler_consoleHandler]
+class=StreamHandler
+level=DEBUG
+formatter=simpleFormatter
+args=(sys.stdout,)
+
+[formatter_simpleFormatter]
+format=%(asctime)s - %(name)s - %(levelname)s - %(message)s
+datefmt=
+
+Now to use it in execution:
+code:
+
+import logging
+import logging.config
+
+## Loads The Config File
+logging.config.fileConfig('logging.conf')
+
+# create a logger with the name from the config file. 
+# This logger now has StreamHandler with DEBUG Level and the specified format in the logging.conf file
+logger = logging.getLogger('simpleExample')
+
+## Log Messages
+logger.debug('debug message')
+logger.info('info message') 
+'''
+
+'''
+When You are working with a large application and you have so many events to log and you only need to keep track of 
+the most recent events then you should use a rotating file handler. 
+It helps you to set a byte limit for your file and if the limit reaches then all the previous logs replaced by new logs.
+You can even create multiple backups of the file.
+
+code:
+import logging
+from logging.handlers import RotatingFileHandler
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# roll over after 2KB, and keep backup logs app.log.1, app.log.2 , etc.
+handler = RotatingFileHandler('app.log', maxBytes=2000, backupCount=5)
+logger.addHandler(handler)
+
+for i in range(10000):
+    logger.info(i)
+'''
+
+'''
+Duck Typing
+To begin with let’s recall the definition of the duck test:
+If it looks like a duck, swims like a duck, and quacks like a duck, then it probably is a duck.
+'''
+class Duck:
+    def clean(self):
+        print("Quack I'm clean")
+    def feed(self):
+        print("Quack I'm full")
+
+class Owl:
+    def clean(self):
+        print("Woo I'm clean")
+    def feed(self):
+        print("Woo I'm full")
+
+'''
+Our zookeper, Arnold, takes care of all our animals at the zoo; he feeds them and cleans them daily.
+'''
+
+class Zookeeper:
+    def __init__(self, animals):
+        self.animals = animals
+
+    def work(self):
+        for animal in self.animals:
+            animal.clean()
+            animal.feed()
+
+
+our_animals = [Duck(), Owl()]
+arnold = Zookeeper(our_animals)
+arnold.work()
+#output:
+# Quack I'm clean
+# Quack I'm full
+# Woo I'm clean
+# Woo I'm full
+
+'''
+That’s the principle of duck typing. It’s kinda similar to polymorphism in statically typed languages like Java, 
+except that it’s easier, more flexible and doesn’t require the creation of an interface beforehand.
+The problem is that you only see it when executing the code.
+'''
+
+'''
+Mixins
+Our zookeeper Arnold turned to be a sadistic person. From time to time, Arnold tortures the animals. 
+To create a realistic Arnold, we have to give him a method to torture the animals with. 
+We already have the Zookeeper class, which applies to most zookepers, we just want to add the sadistic .play() method 
+to it for sadistic zookeepers only. To solve this problem, we’ll resort to using mixins. 
+Mixins are classes that don’t stand on their own, but add functionality to other classes.
+Let’s create our Sadistic mixin, and make a SadisticZookeeper class to help us create Arnold:
+'''
+
+class SadisticMixin:
+    def play(self):
+        for animal in self.animals:
+            animal.torture()
+
+
+class SadisticZookeeper(Zookeeper, SadisticMixin):
+    pass
+
+'''
+But now our animals should be torturable for Arnold to be able to play with them. 
+We’ll create another mixin for our animals: TorturableMixin and create our torturable animals and our sadistic arnold.
+'''
+class TorturableMixin:
+    def torture(self):
+        print("AAAAAAAHHHHHHHH")
+
+# A TorturableDuck is a Duck that has the .torture() method
+class TorturableDuck(Duck, TorturableMixin):
+    pass
+
+# A TorturableOwl is an Owl that has the .torture() method
+class TorturableOwl(Owl, TorturableMixin):
+    pass
+
+our_animals = [TorturableDuck(), TorturableOwl()]
+arnold = SadisticZookeeper(our_animals)
+
+arnold.play()
+# output:
+# AAAAAAAHHHHHHHH
+# AAAAAAAHHHHHHHH
+
+'''
+Monkey patching
+Monkey patching, like duck typing, is yet another simple technique with a fancy (?) name. 
+Monkey patching is the technique of altering the behaviour of a class or a function during runtime.
+For example, as a conscious python coder who knows monkey patching, I
+’m able to incapacitate arnold and prevent him from torturing the animals, 
+even though arnold was created as a SadisticZookeeper in the first place. I just have to do:
+'''
+
+def anti_torture():
+    print("NO MORE TORTURING, JACKASS!! Play Tetris instead.")
+
+arnold.play = anti_torture
+
+arnold.play()
+#output:
+# NO MORE TORTURING, JACKASS!! Play Tetris instead.
+
+##################################################
+### BREAK out of nested loops ###
+print("### BREAK out of nested loops ###")
+
+'''
+when we need to break out of nested loops as follows:
+for a in list_a:
+    for b in list_b:
+        if condition(a,b):
+            break
+The break keyword can only help us break out of the inner-most loop. 
+Can we directly break out of the two nested loops at once? 
+Are there some built-in keywords or tricks for this in Python?
+Unfortunately, there is no built-in support for this operation.
+
+We see 5 ways to avoid the problem
+'''
+# Add a flag variable
+break_out_flag = False
+for i in range(5):
+    for j in range(5):
+        if j == 2 and i == 0:
+            break_out_flag = True
+            break
+    if break_out_flag:
+        break
+
+# raise an exception
+try:
+    for i in range(5):
+        for j in range(5):
+            if j == 2 and i == 0:
+                raise StopIteration
+except StopIteration:
+    pass
+
+# check the same condition again
+for i in range(5):
+    for j in range(5):
+        if j == 2 and i == 0:
+            break
+    if j == 2 and i == 0:
+        break
+
+# use the for-else syntax
+for i in range(5):
+    for j in range(5):
+        if j == 2 and i == 0:
+            break
+    else:  # only execute when it's no break in the inner loop
+        continue
+    break
+
+# make it as a function
+def check_sth():
+    for i in range(5):
+        for j in range(5):
+            if j == 2 and i == 0:
+                return
+check_sth() # Run the function when needed
+
+# Avoid nested loops
+import itertools
+for i, j in itertools.product(range(5), range(5)):
+    if j == 2 and i == 0:
+        break
+##################################################
+
+
+##################################################
+print("########################################")
 print("#### Choosing Function names rules..####")
+print("########################################")
 '''
 1. Is the function a test? -> test_<entity>_<behavior>.
 2. Does the function has a @property decorator? -> don’t use a verb in the function name.
