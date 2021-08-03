@@ -999,6 +999,33 @@ mydict= {'John': 'Tesla', 'Jane': 'BMW'}
 mydict = {i:j for j,i in mydict.items()}
 print(mydict) #output: {'Tesla': 'John', 'BMW': 'Jane'}
 
+# defaultdict
+print("### defaultdict ###")
+print("###################")
+'''
+When working with dict, if we try to access a key that is not presented - KeyError appear
+defaultdict handles this error by building on top of dictionaries. 
+It does not give a KeyError like the regular dictionaries. 
+However, whenever you try to access or “assign to” a key that is not there, it will create that key and give it 
+a default value that was already specified.
+'''
+from collections import defaultdict
+
+
+# defaultdict requires a function telling it what to assign as a value if the key is not initially there.
+# In this case, Not Present Yet will be that default value:
+def default_value():
+    return "Not Present Yet"
+
+# defaultdict takes one argument: the name of the function that returns the default value.
+mydict = defaultdict(default_value)  # or can be  mydict = defaultdict(lambda: "Not Present Yet")
+mydict["cat"] = 2
+mydict["dog"] = 4
+print(mydict["cat"]) #output: 2
+print(mydict["dog"]) #output: 4
+print(mydict["pig"])    #output: Not Present Yet
+print(mydict["rabbit"]) #output: Not Present Yet
+
 ### SETS ###
 ## properties: unordered, iterable, mutable, can contain multiple data types
 ## made of unique elements (strings, numbers, or tuples)
@@ -4794,6 +4821,25 @@ print(chunk(my_list, 4))  # [[1, 2, 3, 4], [5, 6]]
 # Find the most frequently occurring value - To find the most frequently occurring value in a list or string:
 test = [1, 2, 3, 4, 2, 2, 3, 1, 4, 4, 4]
 print(max(set(test), key=test.count))  # output: 4
+
+# working with 'is' and 'is not'
+a = "string"
+b = "string"
+b1=a
+print(id(a)) #2262644416240
+print(id(b)) #2262644416240
+print(a is b) #True
+print(a == b) #True
+print(a is not b1) #False
+
+c=["string"]
+d=["string"]
+d1=c
+print(id(c)) #2262643597376
+print(id(d)) #2262702838464
+print(c is d) #False
+print(c == d) #True
+print(c is not d1) #False
 
 
 #### Avoid the pitfalls of mutable default arguments ####
