@@ -2420,7 +2420,9 @@ in the original list l will not affect this copy.
 ### CLOSURE ####
 print("========================")
 print("## CLOSURE ##")
-
+'''
+The closure is a concept in the context of nested functions.
+'''
 
 class Averager:  # class example
     def __init__(self):
@@ -2454,6 +2456,39 @@ print(avg_func(20))  # output: 15   --> (10+20)/2
 avg_instance = Averager()  # using instance of class
 print(avg_instance.add(10))  # output: 10
 print(avg_instance.add(20))  # output: 15
+
+#Another example of closure:
+def outer_func():
+    leader = "Dan Belfer"
+
+    def print_leader():
+        print(leader)
+
+    return print_leader
+
+f = outer_func()
+print(outer_func.__closure__) #output: None
+print(f.__closure__) #output: (<cell at 0x0000025113E77FD0: str object at 0x0000025113DBEF30>,)
+print(f.__closure__[0].cell_contents) #output: Dan Belfer
+del outer_func
+
+## Why its local variable [outer_func] is still alive after removing the function?
+f() #output: Dan Belfer
+# outer_func() # -- causes error : name 'outer_func' is not defined
+
+'''
+The closure in Python is a function which remembers values in its enclosing scope.
+The appearance of the closure must meet three conditions:
+There are nested functions.
+The inner function must use variables defined in its outer function.
+The outer function must return the inner function.
+
+The outer_func is not a closure and its __closure__ attribute is None. 
+In the other hand, the __closure__ of f contains a cell object which saves the “remembered” value.
+'''
+
+
+
 
 ### DECORATORS ###
 # Use this design pattern when 2 or more functions rely on another function
