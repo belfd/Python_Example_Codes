@@ -504,6 +504,49 @@ print("odd" if 14%2==0 else "even")
 # for num in my_nums:
 #     print(num)
 
-# alternative to sum digit of number - replace to string which is iterable and use map function that iterate each char
-number = 1234
-print(sum(map(int, str(number))))
+
+# def outer_func():
+#     leader = "Dan Belfer"
+#
+#     def print_leader():
+#         print(leader)
+#
+#     return print_leader
+#
+# f = outer_func()
+# print(outer_func.__closure__) #output: None
+# print(f.__closure__) #output: (<cell at 0x0000025113E77FD0: str object at 0x0000025113DBEF30>,)
+# print(f.__closure__[0].cell_contents) #output: Dan Belfer
+# del outer_func
+#
+# ## Why its local variable [outer_func] is still alive after removing the function?
+# f() #output: Dan Belfer
+# # outer_func() # -- causes error : name 'outer_func' is not defined
+
+'''
+The closure in Python is a function which remembers values in its enclosing scope.
+The appearance of the closure must meet three conditions:
+There are nested functions.
+The inner function must use variables defined in its outer function.
+The outer function must return the inner function.
+
+The outer_func is not a closure and its __closure__ attribute is None. 
+In the other hand, the __closure__ of f contains a cell object which saves the “remembered” value.
+'''
+
+import logging
+
+logger = logging.getLogger(__name__)
+
+def parse_number(value):
+    if type(value)!=type(1):
+        raise ValueError("No No No")
+    print(f"The val is : {value}")
+
+
+value = "10"
+try:
+    parse_number(value)
+
+except ValueError as e:
+    logger.exception(e)
