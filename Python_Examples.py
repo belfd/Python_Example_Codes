@@ -568,6 +568,89 @@ num is new_num  # returns False
 num == same_num  # returns True (checks whether they have the same contents)
 num == new_num  # returns True
 
+# The filter() function takes two parameters: a function and an iterable item.
+# In this case, we’ll define a function and filter a list.
+original_list = [1,2,3,4,5]
+def filter_three(number):
+  return number > 3
+
+filtered = filter(filter_three, original_list)
+filtered_list = list(filtered)
+print(filtered_list) # Returns [4,5]
+
+#same with list comprehension
+original_list = [1,2,3,4,5]
+filtered_list = [number for number in original_list if number > 3]
+print(filtered_list) # Return [4,5]
+
+# The Python Map function allows us to apply a function to every item in an iterable object.
+original_list = [1,2,3,4,5]
+
+def square(number):
+  return number ** 2
+
+squares = map(square, original_list)
+squares_list = list(squares)
+print(squares) # Returns [1, 4, 9, 16, 25]
+
+# with list comprehension:
+original_list = [1,2,3,4,5]
+
+squares_list = [number ** 2 for number in original_list]
+print(squares_list) # Returns [1,4,9,16,25]
+
+# There may be cases when you want to combine two or more lists.
+# This is where the zip() function comes in! The zip() function creates an object containing
+# the lists’ corresponding elements at each index.
+
+numbers = [1,2,3]
+letters = ['a', 'b', 'c']
+combined = zip(numbers, letters)
+combined_list = list(combined)  # returns [(1, 'a'), (2, 'b'), (3, 'c')]
+
+# reverse list
+original_list = [1,2,3,4,5]
+reversed_list = original_list[::-1]
+print(reversed_list)  # Returns: [5,4,3,2,1]
+
+#There may be times when you want to see if an item exists in a list.
+#You can do this simply by using the in operator.
+games = ['Yankees', 'Yankees', 'Cubs', 'Blue Jays', 'Giants']
+
+def isin(item, list_name):
+  if item in list_name: print(f"{item} is in the list!")
+  else: print(f"{item} is not in the list!")
+
+isin('Blue Jays', games)
+isin('Angels', games)
+# Returns
+# Blue Jays is in the list!
+# Angels is not in the list!
+
+# You may want to find the most common item in a list.
+games = ['heads', 'heads', 'tails', 'heads', 'tails']
+items = set(games)
+print(max(items, key = games.count))
+
+# Sometimes you’ll end up with a list that has other lists in it. You can use list comprehensions to do this easily!
+nested_list = [[1,2,3],[4,5,6],[7,8,9]]
+flat_list = [i for j in nested_list for i in j]
+print(flat_list)  # Returns [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# If you need to check if all items in a list are unique, you can use the power of sets to accomplish this!
+list1 = [1,2,3,4,5]
+list2 = [1,1,2,3,4]
+
+def isunique(list):
+  if len(list) == len(set(list)):
+    print('Unique!')
+  else: print('Not Unique!')
+
+isunique(list1)
+isunique(list2)
+# Returns:  Unique!
+
+
 ### DEQUES ###
 print("======================")
 print("DEQUES")
@@ -2725,7 +2808,7 @@ def timed(fn):  # decorator for measure time
 
 # fibonachi calculation with list comprehension for example 10 first occurances
 fibo = [0, 1]
-[fibo.append(fibo[-2] + fibo[-1]) for i in range(8)]
+[fibo.append(fibo[-2] + fibo[-1]) for _ in range(8)]
 
 
 # fibonachi_recorsion
@@ -3275,6 +3358,12 @@ with obj:
 # Some work being Done!
 # EXIT
 ######
+
+###
+# __init__ is the initializer, some kind of first place to fill the object attributes,
+# but when __init__ is called; the instance was already created.
+# __new__ is the *real* constructor, it is here where the instance is created.
+
 
 
 ### INHERITANCE ###
@@ -4547,6 +4636,13 @@ print(reduce(lambda x, y: x + y, l, 100))  # output: 265
 
 print(reduce(lambda a, b: a if a > b else b, l))  # output: 100
 print(reduce(min, l))  # output: 5
+
+# Sum of digits in number
+sum_of_digit = lambda x: sum(map(int, str(x)))
+output = sum_of_digit(123)
+# print("Sum of the digits is: ", output)
+# Output:
+# Sum of the digits is: 6
 
 ### STACK Class implementation ###
 print("===============================")
