@@ -450,6 +450,10 @@ message_writer = MessageWriter()
 message_writer.write("Hello World!")
 '''
 
+
+print("odd" if 14%2==0 else "even")
+
+
 #  class Student(object):
 #
 #     def __new__(cls, *args, **kwargs):

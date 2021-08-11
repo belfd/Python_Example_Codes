@@ -315,7 +315,6 @@ print(tp)  # ([1, 2, 3, 4], 4, 5)
 # Therefore, we can modify the first element of tp even if it’s an immutable object.
 '''
 
-
 ### F-STRING ###
 print("===============")
 print("F-STRING PRINTING")
@@ -704,6 +703,7 @@ import math
 
 Polar_Coordinate = namedtuple('Polar_Coordinate', 'r theta')
 
+
 def convert_cartesian_to_polar(x, y):
     # Calculate Polar Cooordinates
     r0 = (x ** 2 + y ** 2) ** 0.5
@@ -713,11 +713,12 @@ def convert_cartesian_to_polar(x, y):
 
     return Polar_Coordinate(theta=theta0, r=r0)
 
+
 box_position = convert_cartesian_to_polar(10, 10)
-print(box_position)  #output: Polar_Coordinate(r=14.142135623730951, theta=45.0)
-print(box_position.r) #output: 14.142135623730951
-print(box_position.theta) #output: 45.0
-print(type(box_position)) #output: <class '__main__.Polar_Coordinate'>
+print(box_position)  # output: Polar_Coordinate(r=14.142135623730951, theta=45.0)
+print(box_position.r)  # output: 14.142135623730951
+print(box_position.theta)  # output: 45.0
+print(type(box_position))  # output: <class '__main__.Polar_Coordinate'>
 
 ### STRINGS ###
 ## properties: iterable, immutable
@@ -991,13 +992,13 @@ print(dict1.setdefault(3, 'Default Value'))  # output: Default Value
 '''
 Swap dictionary key & values:
 '''
-mydict= {1: 11, 2: 22, 3: 33}
+mydict = {1: 11, 2: 22, 3: 33}
 mydict = {i: j for j, i in mydict.items()}
-print(mydict) #output: {11: 1, 22: 2, 33: 3}
+print(mydict)  # output: {11: 1, 22: 2, 33: 3}
 
-mydict= {'John': 'Tesla', 'Jane': 'BMW'}
-mydict = {i:j for j,i in mydict.items()}
-print(mydict) #output: {'Tesla': 'John', 'BMW': 'Jane'}
+mydict = {'John': 'Tesla', 'Jane': 'BMW'}
+mydict = {i: j for j, i in mydict.items()}
+print(mydict)  # output: {'Tesla': 'John', 'BMW': 'Jane'}
 
 # defaultdict
 print("### defaultdict ###")
@@ -1017,14 +1018,15 @@ from collections import defaultdict
 def default_value():
     return "Not Present Yet"
 
+
 # defaultdict takes one argument: the name of the function that returns the default value.
 mydict = defaultdict(default_value)  # or can be  mydict = defaultdict(lambda: "Not Present Yet")
 mydict["cat"] = 2
 mydict["dog"] = 4
-print(mydict["cat"]) #output: 2
-print(mydict["dog"]) #output: 4
-print(mydict["pig"])    #output: Not Present Yet
-print(mydict["rabbit"]) #output: Not Present Yet
+print(mydict["cat"])  # output: 2
+print(mydict["dog"])  # output: 4
+print(mydict["pig"])  # output: Not Present Yet
+print(mydict["rabbit"])  # output: Not Present Yet
 
 ### SETS ###
 ## properties: unordered, iterable, mutable, can contain multiple data types
@@ -1745,6 +1747,23 @@ for i, item in enumerate(mylist, 16):
     print(i, item)  # output: 16 a 17 b 18 d 19 c 20 g 21 e
 print("\n")
 
+# Another way to use Enum
+
+from enum import Enum
+class WeekDay(Enum):
+  Monday = 1
+  Tuesday = 2
+  Wednesday = 3
+  Thursday = 4
+  Friday = 5
+  Saturday = 6
+  Sunday = 7
+
+
+day = WeekDay.Friday
+intDay = day.value # This will be 5
+print(f"day is: {day} and {intDay}")  #output: day is: WeekDay.Friday and 5
+
 ### COMPREHENSIONS ###
 print("===============")
 print("COMPREHENSIONS")
@@ -1757,6 +1776,19 @@ for num in nums:
 
 # equivalent list comprehension
 cubes = [num ** 3 for num in nums]  # [1, 8, 27, 64, 125]
+
+# list comprehension on nested list
+vals = [[1, 2, 3], [4, 5, 2], [3, 2, 6]]
+# we want to make the nested non nested list
+vals_exp = [y for x in vals for y in x]  # list comprehension
+print(f"vals_exp with list comprehension: {vals_exp}")  # [1,2,3,4,5,2,3,2,6]
+
+# equivalent to regular using of for loops:
+vals_exp = []
+for x in vals:
+    for y in x:
+        vals_exp.append(y)
+print(f"vals_exp with regular for loops: {vals_exp}")  # [1,2,3,4,5,2,3,2,6]
 
 # for loop to create a list of cubes of even numbers
 cubes_of_even = []
@@ -2424,6 +2456,7 @@ print("## CLOSURE ##")
 The closure is a concept in the context of nested functions.
 '''
 
+
 class Averager:  # class example
     def __init__(self):
         self.total = 0
@@ -2457,7 +2490,8 @@ avg_instance = Averager()  # using instance of class
 print(avg_instance.add(10))  # output: 10
 print(avg_instance.add(20))  # output: 15
 
-#Another example of closure:
+
+# Another example of closure:
 def outer_func():
     leader = "Dan Belfer"
 
@@ -2466,14 +2500,15 @@ def outer_func():
 
     return print_leader
 
+
 f = outer_func()
-print(outer_func.__closure__) #output: None
-print(f.__closure__) #output: (<cell at 0x0000025113E77FD0: str object at 0x0000025113DBEF30>,)
-print(f.__closure__[0].cell_contents) #output: Dan Belfer
+print(outer_func.__closure__)  # output: None
+print(f.__closure__)  # output: (<cell at 0x0000025113E77FD0: str object at 0x0000025113DBEF30>,)
+print(f.__closure__[0].cell_contents)  # output: Dan Belfer
 del outer_func
 
 ## Why its local variable [outer_func] is still alive after removing the function?
-f() #output: Dan Belfer
+f()  # output: Dan Belfer
 # outer_func() # -- causes error : name 'outer_func' is not defined
 
 '''
@@ -2486,9 +2521,6 @@ The outer function must return the inner function.
 The outer_func is not a closure and its __closure__ attribute is None. 
 In the other hand, the __closure__ of f contains a cell object which saves the “remembered” value.
 '''
-
-
-
 
 ### DECORATORS ###
 # Use this design pattern when 2 or more functions rely on another function
@@ -3563,6 +3595,60 @@ i = iter(c)  # get an iterator
 for _ in range(5):
     # use the iterator
     print(next(i))  # output: 1 2 3 4 5
+
+# Iterators #
+# If you want to create your own iterator, you just have to implement the __next__ and __iter__methods.
+# __iter__ should return the iterator object (so it return self in most cases)
+# __next__ should return the next element of the data structure
+print("=== Private Iterators Implementation ====")
+class Backward():
+  def __init__(self, data):
+    self.data = data # The list we want to iterate
+    self.index = len(self.data)
+  def __iter__(self):
+    return self
+  def __next__(self):
+    if(self.index == 0):
+      raise StopIteration
+    else:
+      self.index -= 1
+      return self.data[self.index]
+
+bw = Backward([1,2,3,4,5])
+for elem in bw:
+  print(elem,end=',') #output: 5,4,3,2,1,
+
+print("")
+
+#### Accessing a class as a list ####
+print("====================================")
+print("==== Accessing a class as a list ==")
+
+#When we are using lists, we can access specific values using square brackets.
+# It would be nice to be able to implement something similar for our own classes.
+# We can use __getitem__ and __setitem__ to do just that. These are the methods that are called
+# by a list when we use the square brackets:
+# x = l[idx] is the same as writing x = l.__getitem__(idx)
+# l[idx] = x is the same as writing l.__setitem__(idx, x)
+# So if we implement these two methods in our class, we will then be able to use the square brackets
+# as we would do for a list.
+# Here is a really easy example (it is a list whose size cannot be changed, and whose index start at 1):
+
+class MyList():
+    def __init__(self, dimension):
+        self.l = [0 for i in range(dimension)]
+
+    def __getitem__(self, idx):
+        return self.l[idx - 1]
+
+    def __setitem__(self, idx, data):
+        self.l[idx - 1] = data
+
+
+ml = MyList(5)
+ml[1] = 50  # Set the first element of ml to 50
+ml[2] = 100  # Set the second element of ml to 100
+x = ml[1]  # x is now 50
 
 # GENERATORS
 print("====================")
@@ -4721,8 +4807,8 @@ print(check_anagram2("Fried", "Fired"))  # True
 
 ## sum digits in number
 # alternative to sum digit of number - replace to string which is iterable and use map function that iterate each char
-#number = 1234
-#print(sum(map((int), str(number))))
+# number = 1234
+# print(sum(map((int), str(number))))
 
 
 ## Merging Two Dictionaries ##
@@ -4761,6 +4847,7 @@ for i in range(2):
 print("+++++ The same ++++++++")
 
 import itertools
+
 for i, j in itertools.product(range(2), range(2)):
     print(f"i={i} and j={j}")
 
@@ -4807,6 +4894,7 @@ list1 = [1, 2, 3, 3, 4, 'John', 'Ana', 'Mark', 'John']
 # Method 1
 def remove_duplicate(list_value):
     return list(set(list_value))
+
 
 print(remove_duplicate(list1))
 
@@ -4860,21 +4948,21 @@ print(max(set(test), key=test.count))  # output: 4
 # working with 'is' and 'is not'
 a = "string"
 b = "string"
-b1=a
-print(id(a)) #2262644416240
-print(id(b)) #2262644416240
-print(a is b) #True
-print(a == b) #True
-print(a is not b1) #False
+b1 = a
+print(id(a))  # 2262644416240
+print(id(b))  # 2262644416240
+print(a is b)  # True
+print(a == b)  # True
+print(a is not b1)  # False
 
-c=["string"]
-d=["string"]
-d1=c
-print(id(c)) #2262643597376
-print(id(d)) #2262702838464
-print(c is d) #False
-print(c == d) #True
-print(c is not d1) #False
+c = ["string"]
+d = ["string"]
+d1 = c
+print(id(c))  # 2262643597376
+print(id(d))  # 2262702838464
+print(c is d)  # False
+print(c == d)  # True
+print(c is not d1)  # False
 
 
 #### Avoid the pitfalls of mutable default arguments ####
@@ -5309,6 +5397,7 @@ def get_distance(p1: Dict[str, Any],
 ### NamedTuples ###
 from typing import NamedTuple
 
+
 class Position(NamedTuple):
     longitude: int
     latitude: int
@@ -5520,6 +5609,55 @@ print(f"hasattr(Dan,'age'): {hasattr(Dan, 'age')}")  # False
 # Set a new attribute to an object
 setattr(Dan, 'sex', 'male')
 print(f"getattr(Dan,'sex'): {getattr(Dan, 'sex')}")  # male
+
+###### Create a constant value in class ######
+print("============================================")
+print("##### Create a constant value in class #####")
+
+
+class Circle():
+    def __init__(self, radius):
+        self.radius = radius
+
+    @property
+    def pi(self):
+        return 3.14
+
+    def area(self):
+        return self.pi * self.radius * self.radius
+
+    def perimeter(self):
+        return 2 * self.pi * self.radius
+
+
+c = Circle(4)
+print(f"c.pi is: {c.pi} that cannot be modified!")
+
+####### Multiple Class constructors ######
+print("=======================================")
+print("##### Multiple Class constructors #####")
+
+
+class Date():
+    def __init__(self, day, month, year):
+        self.day = day
+        self.month = month
+        self.year = year
+
+
+# We want to add another Ctor to obtain the date from a String in the format dd/mm/yyyy
+    @classmethod
+    def fromString(obj, s):
+        day = int(s[:2])
+        month = int(s[3:5])
+        year = int(s[6:])
+        return obj(day, month, year)  # Return a new object
+
+
+d1 = Date(12, 3, 1977)
+d2 = Date.fromString("21/07/2020")
+print(d1.day, d1.month, d1.year) #output: 12 3 1977
+print(d2.day, d2.month, d2.year) #output: 21 7 2020
 
 ####### META-PROGRAMMING ######
 print("===========================")
@@ -5957,14 +6095,15 @@ longest = ""
 for current_string in string_list:
     if len(current_string) > len(longest):
         longest = current_string
-print(longest) # Python
+print(longest)  # Python
 
 # Method 2: Iterate through the list using a functional approach
 import functools
+
 string_list = ["hello", "world", "let's", "learn", "some", "Python"]
 longest = functools.reduce(lambda longest, current_string: current_string if len(current_string) >
                                                                              len(longest) else longest, string_list, "")
-print(longest) # Python
+print(longest)  # Python
 
 print("### Convert String to List of Characters ###")
 # Method 1: Iterate through the string using a for loop
@@ -5972,46 +6111,54 @@ character_string = "character"
 character_list = []
 for character in character_string:
     character_list.append(character)
-print(character_list) # ["c", "h", "a", "r", "a", "c", "t", "e", "r"]
+print(character_list)  # ["c", "h", "a", "r", "a", "c", "t", "e", "r"]
 
 # Method 2: List Comprehension
 character_string = "character"
 character_list = [char for char in character_string]
-print(character_list) # ["c", "h", "a", "r", "a", "c", "t", "e", "r"]
+print(character_list)  # ["c", "h", "a", "r", "a", "c", "t", "e", "r"]
 
 print("### Convert Comma Separated String to List ###")
 split_string = "Split me, please"
 string_list = split_string.split()
-print(string_list) # ["Split", "me,", "please"]
+print(string_list)  # ["Split", "me,", "please"]
 string_list = split_string.split(",")
-print(string_list) # ["Split me", " please"]
+print(string_list)  # ["Split me", " please"]
 
 print("### Check if String Contains Substring from List ###")
 # Method 1: Simple Iteration
 l = ['hello', 'world']
 contains = "this string contains the word hello"
 not_contains = "this string contains no relevant words"
+
+
 def check_contains(string_list, larger_string):
     for w in string_list:
         if w in larger_string:
             return True
     return False
-print(check_contains(l, contains)) # True
-print(check_contains(l, not_contains)) # False
+
+
+print(check_contains(l, contains))  # True
+print(check_contains(l, not_contains))  # False
 
 # Method 2: Set Intersections
 l = ['hello', 'world']
 contains = "this string contains the word hello"
 not_contains = "this string contains no relevant words"
+
+
 def check_contains(string_list, larger_string):
     return len(set(string_list).intersection(larger_string.split())) > 0
-print(check_contains(l, contains)) # True
-print(check_contains(l, not_contains)) # False
+
+
+print(check_contains(l, contains))  # True
+print(check_contains(l, not_contains))  # False
 
 print("### Convert List of Characters to String ###")
 character_list = ["c", "h", "a", "r", "a", "c", "t", "e", "r"]
 result = "".join(character_list)
-print(result) # character
+print(result)  # character
 
 print("### Remove Item from List (and also Remove First and Last Item from List) ###")
 '''
@@ -6021,20 +6168,20 @@ If no value i is provided, the last value in the list is removed.
 '''
 number_list = [1, 4, 2, 6, 2, 5]
 number_list.remove(2)
-print(number_list) # [1, 4, 6, 2, 5]
-number_list. remove(2)
-print(number_list) # [1, 4, 6, 5]
+print(number_list)  # [1, 4, 6, 2, 5]
+number_list.remove(2)
+print(number_list)  # [1, 4, 6, 5]
 number_list.remove(1)
-print(number_list) # [4, 6, 5]
-#number_list.remove(2) # ValueError: list.remove(x): x not in list
+print(number_list)  # [4, 6, 5]
+# number_list.remove(2) # ValueError: list.remove(x): x not in list
 
 number_list = [1, 4, 2, 6, 2, 5]
 # Remove first item from list
 number_list.pop(0)
-print(number_list) # [4, 2, 6, 2, 5]
+print(number_list)  # [4, 2, 6, 2, 5]
 # Remove last item from list
 number_list.pop(len(number_list) - 1)
-print(number_list) # [4, 2, 6, 2]
+print(number_list)  # [4, 2, 6, 2]
 
 print("### Remove Duplicates from List ###")
 # Method 1: Iteration
@@ -6043,44 +6190,50 @@ no_duplicates_list = []
 for number in number_list:
     if number not in no_duplicates_list:
         no_duplicates_list.append(number)
-print(no_duplicates_list) # [1, 2, 6, 5]
+print(no_duplicates_list)  # [1, 2, 6, 5]
 
 # Method 2: Sets
 number_list = [1, 1, 2, 6, 2, 5]
 
 no_duplicates_list = list(set(number_list))
-print(no_duplicates_list) # [1, 2, 6, 5]
+print(no_duplicates_list)  # [1, 2, 6, 5]
 
 print("### Check if List is Empty ###")
 empty_list = []
 non_empty_list = [1, 2, 3]
+
+
 def check_empty(l):
     if list:
         print("List is empty" if len(l) == 0 else "List not empty")
-check_empty(empty_list) # List is empty
-check_empty(non_empty_list) # List is not empty
+
+
+check_empty(empty_list)  # List is empty
+check_empty(non_empty_list)  # List is not empty
 
 print("### Reverse Order of List ###")
 # Method 1: Use the list.reverse() Function
 number_list = [1, 2, 3, 4, 5]
 number_list.reverse()
-print(number_list) # [5, 4, 3, 2, 1]
+print(number_list)  # [5, 4, 3, 2, 1]
 
 # Method 2: Use List Slicing:
 number_list = [1, 2, 3, 4, 5]
 reversed_list = number_list[::-1]
-print(reversed_list) # [5, 4, 3, 2, 1]
+print(reversed_list)  # [5, 4, 3, 2, 1]
 print("########################")
 print("########################")
 ##################################################
 import logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    datefmt='%d/%m/%Y %H:%M:%S')
 # logging.basicConfig(level=logging.DEBUG,filename='data.log', filemode='w') ## for writing logs to file
-name = 'example' #example to enter param to the log line
+name = 'example'  # example to enter param to the log line
 # List of levels for logging by their order:
 logging.debug('This is a debug message')
 logging.info(f'The param \'{name}\' shows an info message')
-logging.warning('This is a warning message')  #this is the default
+logging.warning('This is a warning message')  # this is the default
 logging.error('This is an error message')
 logging.critical('This is a critical message')
 print("########################")
@@ -6202,21 +6355,28 @@ Duck Typing
 To begin with let’s recall the definition of the duck test:
 If it looks like a duck, swims like a duck, and quacks like a duck, then it probably is a duck.
 '''
+
+
 class Duck:
     def clean(self):
         print("Quack I'm clean")
+
     def feed(self):
         print("Quack I'm full")
+
 
 class Owl:
     def clean(self):
         print("Woo I'm clean")
+
     def feed(self):
         print("Woo I'm full")
+
 
 '''
 Our zookeper, Arnold, takes care of all our animals at the zoo; he feeds them and cleans them daily.
 '''
+
 
 class Zookeeper:
     def __init__(self, animals):
@@ -6231,7 +6391,7 @@ class Zookeeper:
 our_animals = [Duck(), Owl()]
 arnold = Zookeeper(our_animals)
 arnold.work()
-#output:
+# output:
 # Quack I'm clean
 # Quack I'm full
 # Woo I'm clean
@@ -6253,6 +6413,7 @@ Mixins are classes that don’t stand on their own, but add functionality to oth
 Let’s create our Sadistic mixin, and make a SadisticZookeeper class to help us create Arnold:
 '''
 
+
 class SadisticMixin:
     def play(self):
         for animal in self.animals:
@@ -6262,21 +6423,27 @@ class SadisticMixin:
 class SadisticZookeeper(Zookeeper, SadisticMixin):
     pass
 
+
 '''
 But now our animals should be torturable for Arnold to be able to play with them. 
 We’ll create another mixin for our animals: TorturableMixin and create our torturable animals and our sadistic arnold.
 '''
+
+
 class TorturableMixin:
     def torture(self):
         print("AAAAAAAHHHHHHHH")
+
 
 # A TorturableDuck is a Duck that has the .torture() method
 class TorturableDuck(Duck, TorturableMixin):
     pass
 
+
 # A TorturableOwl is an Owl that has the .torture() method
 class TorturableOwl(Owl, TorturableMixin):
     pass
+
 
 our_animals = [TorturableDuck(), TorturableOwl()]
 arnold = SadisticZookeeper(our_animals)
@@ -6295,13 +6462,15 @@ For example, as a conscious python coder who knows monkey patching, I
 even though arnold was created as a SadisticZookeeper in the first place. I just have to do:
 '''
 
+
 def anti_torture():
     print("NO MORE TORTURING, JACKASS!! Play Tetris instead.")
+
 
 arnold.play = anti_torture
 
 arnold.play()
-#output:
+# output:
 # NO MORE TORTURING, JACKASS!! Play Tetris instead.
 
 ##################################################
@@ -6357,16 +6526,20 @@ for i in range(5):
         continue
     break
 
+
 # make it as a function
 def check_sth():
     for i in range(5):
         for j in range(5):
             if j == 2 and i == 0:
                 return
-check_sth() # Run the function when needed
+
+
+check_sth()  # Run the function when needed
 
 # Avoid nested loops
 import itertools
+
 for i, j in itertools.product(range(5), range(5)):
     if j == 2 and i == 0:
         break
