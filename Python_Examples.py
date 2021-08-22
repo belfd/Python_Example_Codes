@@ -846,6 +846,11 @@ print(s.partition('like'))
 stooges = ['larry', 'curly', 'moe']
 ' '.join(stooges)  # returns 'larry curly moe'
 
+# we want to rip a number from a string
+x = "BTC is $48000.12"
+x = ''.join([c for c in x if c in '1234567890.'])
+print(x) #output: '48000.12'
+
 # concatenate strings
 s3 = 'The meaning of life is'
 s4 = '42'
@@ -985,9 +990,12 @@ def longest_word(filename):
     max_len = len(max(words, key=len))
     return [word for word in words if len(word) == max_len]
 
-
 # print(longest_word('test.txt'))
 
+# The split() method works great when we wish to disintegrate a string based on some delimiter.
+x = "mail.google.com"
+x.partition(".") # ('mail', '.', 'google.com')
+print(x.partition(".")[0]) #output: 'mail'
 
 ### DICTIONARIES ###
 ## properties: unordered, iterable, mutable, can contain multiple data types
