@@ -3713,6 +3713,9 @@ To access a protected member, we need to use _ at the time of accessing it throu
 You can’t create objects for abstract classes
 '''
 
+
+
+
 # ITERATORS VS ITERABLES
 print("====================")
 print("ITERATORS VS ITERABLES")

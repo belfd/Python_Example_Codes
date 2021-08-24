@@ -450,9 +450,7 @@ message_writer = MessageWriter()
 message_writer.write("Hello World!")
 '''
 
-
-print("odd" if 14%2==0 else "even")
-
+#print("odd" if 14 % 2 == 0 else "even")
 
 #  class Student(object):
 #
@@ -533,4 +531,5 @@ The outer function must return the inner function.
 The outer_func is not a closure and its __closure__ attribute is None. 
 In the other hand, the __closure__ of f contains a cell object which saves the “remembered” value.
 '''
-
+# I want to test squash
+# Again I want to commit
