@@ -534,19 +534,3 @@ The outer_func is not a closure and its __closure__ attribute is None.
 In the other hand, the __closure__ of f contains a cell object which saves the “remembered” value.
 '''
 
-import logging
-
-logger = logging.getLogger(__name__)
-
-def parse_number(value):
-    if type(value)!=type(1):
-        raise ValueError("No No No")
-    print(f"The val is : {value}")
-
-
-value = "10"
-try:
-    parse_number(value)
-
-except ValueError as e:
-    logger.exception(e)

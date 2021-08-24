@@ -461,6 +461,33 @@ if n in [0, 1, 2, 3, 4, 5]:
 print("===============")
 print("LISTS")
 
+'''
+list = list[from_inclusive : to_exclusive : ±step_size]
+
+list.append(el)               # Or: list += [el]
+list.extend(collection)       # Or: list += collection
+
+list.sort()
+list.reverse()
+list = sorted(collection)
+list = reversed(list)
+
+sum_of_elements  = sum(collection)
+elementwise_sum  = [sum(pair) for pair in zip(list_a, list_b)]
+sorted_by_second = sorted(collection, key=lambda el: el[1])
+sorted_by_both   = sorted(collection, key=lambda el: (el[1], el[0]))
+flatter_list     = list(itertools.chain.from_iterable(list))
+product_of_elems = functools.reduce(lambda out, el: out * el, collection)
+list_of_chars    = list(str)
+
+# Module operator provides functions itemgetter() and mul() that offer the same functionality as lambda expressions above.
+int = list.count(el)         # Returns number of occurrences. Also works on strings.
+index = list.index(el)       # Returns index of first occurrence or raises ValueError.
+list.insert(index, el)       # Inserts item at index and moves the rest to the right.
+el = list.pop([index])       # Removes and returns item at index or from the end.
+list.remove(el)              # Removes first occurrence of item or raises ValueError.
+list.clear()                 # Removes all items. Also works on dictionary and set.
+'''
 # create an empty list (two ways)
 empty_list = []
 empty_list = list()
@@ -808,6 +835,28 @@ print(type(box_position))  # output: <class '__main__.Polar_Coordinate'>
 print("===============")
 print("### STRINGS ###")
 
+'''
+str  = str.strip()                         # Strips all whitespace characters from both ends.
+str  = str.strip('chars')                  # Strips all passed characters from both ends.
+
+list = str.split()                         # Splits on one or more whitespace characters.
+list = str.split(sep=None, maxsplit=-1)    # Splits on 'sep' str at most 'maxsplit' times.
+list = str.splitlines(keepends=False)      # Splits on \n,\r,\r\n. Keeps them if 'keepends'.
+str  = str.join(coll_of_strings)           # Joins elements using string as separator.
+
+bool = sub_str in str                      # Checks if string contains a substring.
+bool = str.startswith(sub_str)             # Pass tuple of strings for multiple options.
+bool = str.endswith(sub_str)               # Pass tuple of strings for multiple options.
+int  = str.find(sub_str)                   # Returns start index of first match or -1.
+int  = str.index(sub_str)                  # Same but raises ValueError if missing.
+
+str  = str.replace(old, new [, count])     # Replaces 'old' with 'new' at most 'count' times.
+str  = str.translate(table)                # Use `str.maketrans(dict)` to generate table.
+
+str  = chr(int)                            # Converts int to Unicode char.
+int  = ord(str)                            # Converts Unicode char to int.
+'''
+
 # create a string
 s = str(42)  # convert another data type into a string
 s = 'I like you'
@@ -1005,6 +1054,27 @@ print(x.partition(".")[0]) #output: 'mail'
 print("===============")
 print("DICTIONARY")
 
+'''
+dict = {'x': 1, 'y': 2}                       # Dictionary example
+
+dict.keys()                                   # Coll. of keys that reflects changes.
+dict.values()                                 # Coll. of values that reflects changes.
+dict.items()                                  # Coll. of key-value tuples that reflects ch
+
+value  = dict.get(key, default=None)          # Returns default if key is missing.
+value  = dict.setdefault(key, default=None)   # Returns and writes default if key is missing.
+dict = collections.defaultdict(type)          # Creates a dict with default value of type.
+dict = collections.defaultdict(lambda: 1)     # Creates a dict with default value 1.
+
+dict = dict(collection)                       # Creates a dict from coll. of key-value pairs.
+dict = dict(zip(keys, values))                # Creates a dict from two collections.
+dict = dict.fromkeys(keys [, value])          # Creates a dict from collection of keys.
+
+dict.update(dict)                             # Adds items. Replaces ones with matching keys.
+value = dict.pop(key)                         # Removes item or raises KeyError.
+{k for k, v in dict.items() if v == value}    # Returns set of keys that point to the value.
+{k: v for k, v in dict.items() if k in keys}  # Returns a dictionary, filtered by keys.
+'''
 # create an empty dictionary (two ways)
 empty_dict = {}
 empty_dict = dict()
@@ -1637,6 +1707,12 @@ print(func(lst))
 print("===============")
 print("LAMBDA FUNCTIONS")
 
+'''
+# Lambda
+function = lambda: return_value
+function = lambda argument_1, argument_2: return_value
+'''
+
 my_func = lambda x: x ** 2
 # my_func(3) ->9
 my_func = lambda x, y: x + y
@@ -1806,6 +1882,15 @@ else:
 print("===============")
 print("ENUMERATIONS")
 
+'''
+range_name = range(to_exclusive)
+range_name = range(from_inclusive, to_exclusive)
+range_name = range(from_inclusive, to_exclusive, ± step_size)
+
+
+for i, el in enumerate(collection [, i_start]):
+    ...
+'''
 
 class Direction:
     NORTH = 1
@@ -1858,6 +1943,21 @@ print(f"day is: {day} and {intDay}")  #output: day is: WeekDay.Friday and 5
 ### COMPREHENSIONS ###
 print("===============")
 print("COMPREHENSIONS")
+
+'''
+list = [i+1 for i in range(10)]                   # [1, 2, ..., 10]
+set  = {i for i in range(10) if i > 5}            # {6, 7, 8, 9}
+iter = (i+5 for i in range(10))                   # (5, 6, ..., 14)
+dict = {i: i*2 for i in range(10)}                # {0: 0, 1: 2, ..., 9: 18}
+
+out = [i+j for i in range(10) for j in range(10)]
+
+# Is the same as
+out = []
+for i in range(10):
+    for j in range(10):
+        out.append(i+j)
+'''
 
 # for loop to create a list of cubes
 nums = [1, 2, 3, 4, 5]
@@ -2213,6 +2313,17 @@ for prod, p, c in zip(products, price, cost):
 # The profit of a box of strawberry is £1.5!
 # The profit of a box of banana is £3!
 
+'''
+import re
+str   = re.sub(regex, new, text, count=0)  # Substitutes all occurrences with 'new'.
+list  = re.findall(regex, text)            # Returns all occurrences as strings.
+list  = re.split(regex, text, maxsplit=0)  # Use brackets in regex to include the matches.
+match = re.search(regex, text)             # Searches for first occurrence of the pattern.
+match = re.match(regex, text)              # Searches only at the beginning of the text.
+iter  = re.finditer(regex, text)           # Returns all occurrences as match objects.
+'''
+
+
 ### 5 Uses of Asterisks in Python ###
 # 1. Mathematics
 # Single * for the multiplication operation.
@@ -2409,7 +2520,7 @@ def outer():
 
 
 outer()
-print("========================")
+print("==============================")
 print("## ANOTHER NONLOCAL EXAMPLE ##")
 
 
@@ -6648,6 +6759,57 @@ for i, j in itertools.product(range(5), range(5)):
     if j == 2 and i == 0:
         break
 ##################################################
+
+'''
+############################
+#######  DATETIME  #########
+############################
+from datetime import date, time, datetime, timedelta
+from dateutil.tz import UTC, tzlocal, gettz, resolve_imaginary
+
+# Constructors
+d  = date(year, month, day)
+t  = time(hour=0, minute=0, second=0, microsecond=0, tzinfo=None, fold=0)
+dt = datetime(year, month, day, hour=0, minute=0, second=0, ...)
+td = timedelta(days=0, seconds=0, microseconds=0, milliseconds=0, minutes=0, hours=0, weeks=0)
+                 
+# Now
+d/dtn  = d/dt.today()                     # Current local date or naive datetime.
+dtn    = dt.utcnow()                      # Naive datetime from current UTC time.
+dta    = dt.now(tzinfo)                   # Aware datetime from current tz time.
+
+# To extract time
+dtn.time()
+dta.time()
+dta.timetz()
+
+# Encode
+d/t/dt = d/t/dt.fromisoformat('iso')     # Object from ISO string. Raises ValueError.
+dt     = dt.strptime(str, 'format')      # Datetime from str, according to format.
+d/dtn  = d/dt.fromordinal(int)           # d/dtn from days since Christ, at midnight.
+dtn    = dt.fromtimestamp(real)          # Local time dtn from seconds since the Epoch.
+dta    = dt.fromtimestamp(real, tz.)     # Aware datetime from seconds since the Epoch.
+
+# Decode
+str    = d/t/dt.isoformat(sep='T')       # Also timespec='auto/hours/minutes/seconds'.
+str    = d/t/dt.strftime('format')       # Custom string representation.
+int    = d/dt.toordinal()                # Days since Christ, ignoring time and tz.
+float  = dtn.timestamp()                 # Seconds since the Epoch, from dtn in local tz.
+float  = dta.timestamp()                 # Seconds since the Epoch, from dta.
+
+# Format
+from datetime import datetime
+dt = datetime.strptime('2015-05-14 23:39:00.00 +0200', '%Y-%m-%d %H:%M:%S.%f %z')
+dt.strftime("%A, %dth of %B '%y, %I:%M%p %Z")
+"Friday, 14 of July '89, 09:45PM UTC+03:00"
+
+# Arithmatics
+d/dt   = d/dt   ± td                     # Returned datetime can fall into missing hour.
+td     = d/dtn  - d/dtn                  # Returns the difference, ignoring time jumps.
+td     = dta    - dta                    # Ignores time jumps if they share tzinfo object.
+td     = dt_UTC - dt_UTC                 # Convert dts to UTC to get the actual delta.
+'''
+
 
 
 ##################################################
