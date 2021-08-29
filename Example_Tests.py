@@ -531,10 +531,4 @@ The outer function must return the inner function.
 The outer_func is not a closure and its __closure__ attribute is None. 
 In the other hand, the __closure__ of f contains a cell object which saves the “remembered” value.
 '''
-# I want to test squash
-# Again I want to commit
 
-#second commit to revert
-# change to conflict 1
-# a real one
-# git fetch example

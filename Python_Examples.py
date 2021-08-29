@@ -4976,6 +4976,65 @@ if found == False:
 
 print("################")
 
+## Dispatch example
+print("#################")
+print("Dispatch example")
+import datetime
+
+def do_monday():
+    print("Monday")
+
+def do_tuesday():
+    print("Tuesday")
+
+def do_wednesday():
+    print("Wednesday")
+
+def do_thursday():
+    print("Thursday")
+
+def do_friday():
+    print("Friday")
+
+def do_saturday():
+    print("Saturday")
+
+def do_sunday():
+    print("Sunday")
+
+my_special_day = datetime.date.today()
+
+print("long if-else solution")
+if my_special_day.weekday() == 0:
+    do_monday()
+elif my_special_day.weekday() == 1:
+    do_tuesday()
+elif my_special_day.weekday() == 2:
+    do_wednesday()
+elif my_special_day.weekday() == 3:
+    do_thursday()
+elif my_special_day.weekday() == 4:
+    do_friday()
+elif my_special_day.weekday() == 5:
+    do_saturday()
+elif my_special_day.weekday() == 6:
+    do_sunday()
+
+print("Short dispatch solution")
+
+dispatch = {
+  0: do_monday,
+  1: do_tuesday,
+  2: do_wednesday,
+  3: do_thursday,
+  4: do_friday,
+  5: do_saturday,
+  6: do_sunday
+}
+
+dispatch[my_special_day.weekday()]()
+
+
 ## Calculate Prime Numbers ##
 print("===========================")
 print("Calculate Prime Numbers: till 13")
@@ -5027,6 +5086,68 @@ print(check_anagram2("Fried", "Fired"))  # True
 # alternative to sum digit of number - replace to string which is iterable and use map function that iterate each char
 # number = 1234
 # print(sum(map((int), str(number))))
+
+## DIGITAIZING a Number
+# Digitizing means converting a number into an array or list.
+# This comes in handy when you need to convert a large number into a list form.
+print("===========================")
+print("DIGITAIZING a Number:")
+
+def Digitizing(num):
+    return list(map(int, str(num)))
+num1 = 4858
+num2 = 7804
+print(Digitizing(num1))  # [4, 8, 5, 8]
+print(Digitizing(num2))  # [7, 8, 0, 4]
+
+## Convert Hexadecimal Color Codes to RGB Code
+print("===========================")
+print("HEX To RGB:")
+def Hex_To_Rgb(hex):
+  rgb = tuple(int(hex[x: x+2], 16) for x in (0, 2, 4))
+  return rgb
+print(f"FF5733 is: {Hex_To_Rgb('FF5733')}") # (255, 87, 51)
+print(f"33D8FF is: {Hex_To_Rgb('33D8FF')}") # (51, 216, 255)
+
+
+## Quick Sort in one line
+print("===========================")
+print("Quick Sort in one line:")
+
+lst = [12,45,2,6,67,32,98,52,68,13,91,18,36,29,57,72,1,5,8]
+qsort = lambda l : l if len(l)<=1 else qsort([x for x in l[1:] if x < l[0]]) + [l[0]] + qsort([x for x in l[1:] if x >= l[0]])
+print(qsort(lst)) #output: [1, 2, 5, 6, 8, 12, 13, 18, 29, 32, 36, 45, 52, 57, 67, 68, 72, 91, 98]
+print(lst) #output: [12, 45, 2, 6, 67, 32, 98, 52, 68, 13, 91, 18, 36, 29, 57, 72, 1, 5, 8]
+
+## longest string in from a list
+print("===========================")
+print("longest string in from a list:")
+words = ['This', 'is', 'a', 'list', 'of', 'words']
+print(max(words, key=len)) #output: 'words'
+
+## Count the frequency of a character in a string
+print("===========================")
+print("Count the frequency of a character in a string:")
+print("umbrella".count('l')) #output 2
+
+## Most frequent element in list
+print("===========================")
+print("Most frequent element in list:")
+numbers = [9, 4, 5, 4, 4, 5, 9, 5, 4]
+most_frequent_element = max(set(numbers), key=numbers.count)
+print(f"most_frequent_element: {most_frequent_element}") #4
+
+## Rotate a list
+print("===========================")
+print("Rotate a list:")
+li = [1,2,3,4,5]
+# right to left
+# li[n:] + li[:n] # n is the no of rotations
+print(f"right to left: {li[2:] + li[:2]}") #[3, 4, 5, 1, 2]
+# left to right
+#li[-n:] + li[:-n]
+#li[-1:] + li[:-1]
+print(f"left to right: {li[-1:] + li[:-1]}")  #[5, 1, 2, 3, 4]
 
 
 ## Merging Two Dictionaries ##
