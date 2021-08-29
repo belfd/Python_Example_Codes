@@ -5028,6 +5028,45 @@ print(check_anagram2("Fried", "Fired"))  # True
 # number = 1234
 # print(sum(map((int), str(number))))
 
+## Quick Sort in one line
+print("===========================")
+print("Quick Sort in one line:")
+
+lst = [12,45,2,6,67,32,98,52,68,13,91,18,36,29,57,72,1,5,8]
+qsort = lambda l : l if len(l)<=1 else qsort([x for x in l[1:] if x < l[0]]) + [l[0]] + qsort([x for x in l[1:] if x >= l[0]])
+print(qsort(lst)) #output: [1, 2, 5, 6, 8, 12, 13, 18, 29, 32, 36, 45, 52, 57, 67, 68, 72, 91, 98]
+print(lst) #output: [12, 45, 2, 6, 67, 32, 98, 52, 68, 13, 91, 18, 36, 29, 57, 72, 1, 5, 8]
+
+## longest string in from a list
+print("===========================")
+print("longest string in from a list:")
+words = ['This', 'is', 'a', 'list', 'of', 'words']
+print(max(words, key=len)) #output: 'words'
+
+## Count the frequency of a character in a string
+print("===========================")
+print("Count the frequency of a character in a string:")
+print("umbrella".count('l')) #output 2
+
+## Most frequent element in list
+print("===========================")
+print("Most frequent element in list:")
+numbers = [9, 4, 5, 4, 4, 5, 9, 5, 4]
+most_frequent_element = max(set(numbers), key=numbers.count)
+print(f"most_frequent_element: {most_frequent_element}") #4
+
+## Rotate a list
+print("===========================")
+print("Rotate a list:")
+li = [1,2,3,4,5]
+# right to left
+# li[n:] + li[:n] # n is the no of rotations
+print(f"right to left: {li[2:] + li[:2]}") #[3, 4, 5, 1, 2]
+# left to right
+#li[-n:] + li[:-n]
+#li[-1:] + li[:-1]
+print(f"left to right: {li[-1:] + li[:-1]}")  #[5, 1, 2, 3, 4]
+
 
 ## Merging Two Dictionaries ##
 print("===========================")

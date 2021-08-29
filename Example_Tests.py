@@ -533,8 +533,15 @@ In the other hand, the __closure__ of f contains a cell object which saves the â
 '''
 # I want to test squash
 # Again I want to commit
+# Now I want to squash and push
 
 #second commit to revert
 # change to conflict 1
 # a real one
 # git fetch example
+
+li = [1,2,3,4,5]
+# right to left
+# li[n:] + li[:n] # n is the no of rotations
+
+print(f"right to left: {li[6:]+ li[:6]}") #[3, 4, 5, 1, 2]
