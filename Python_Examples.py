@@ -2074,6 +2074,12 @@ in_list = [98, 99, 100, 101, 102]
 out_list = filter(lambda x: x > 100, in_list)
 print(list(out_list))  # output: [101, 102]
 
+# filter False,None,0 values from a list
+mylst = [False, None, 0, 2, None, "", 9, 4, 7]
+newlst = list(filter(None, mylst))
+print(newlst) #output: [2, 9, 4, 7]
+
+
 # reduce example
 result = 1
 in_num = [1, 2, 3, 4, 5]
@@ -2173,6 +2179,30 @@ mathematics = 47
 
 list_condition = [physics > 50, chemistry > 50, mathematics > 50]
 ("Pass" if any(list_condition) else "Fail")  # output: Pass
+
+''''Another example for any and all'''
+# Assume some complex conditions
+condition1 =  5==6
+condition2 =  5<7
+condition3 =  10>0
+condition4 =  10!=10
+condition5 =  20>10
+# without any
+if condition1 or condition2 or condition3 or condition4 or condition5:
+    print("without any")
+#with any
+lst = [condition1,condition2,condition3,condition4,condition5]
+if any(lst):
+    print("with any")
+
+# without all
+if condition3 and condition5:
+    print("without and")
+#with all
+lst = [condition3,condition5]
+if all(lst):
+    print("with all")
+
 
 '''
 Python has some higher order functions such as map() , filter() and so on. 
@@ -4258,6 +4288,12 @@ def f(a, b, c):
 
 l = [1, 2, 3]
 f(*l)  # output: 1 2 3
+
+## OR another example ##
+num_lst=range(1,12,2)
+print(num_lst) #output: range(1, 12, 2)
+# using * unpacking
+print(*num_lst) #output: 1 3 5 7 9 11
 
 ## FIND SUBSTRING ##
 print("=====================")

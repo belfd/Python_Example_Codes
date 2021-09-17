@@ -532,3 +532,4 @@ The outer_func is not a closure and its __closure__ attribute is None.
 In the other hand, the __closure__ of f contains a cell object which saves the “remembered” value.
 '''
 
+
