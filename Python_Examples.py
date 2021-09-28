@@ -20,6 +20,22 @@ Python Quick Reference - edited in GitHub
  checks the address in this case.
 """
 
+'''
+# Variable lower_snake
+firstName = 'Dan Belfer'
+
+# Class and module CamelCase
+class UserDetails:
+
+# Constant All Capital/UpperCase
+USER_AGE = 100 # All uppercase
+
+# Indentation : 4 spaces
+if USER_AGE > 18:
+    print('You can go to the party.')
+'''
+
+
 ### CHECK PYTHON VERSION ### do verifications for customer version awareness
 import sys
 
@@ -1957,6 +1973,35 @@ out = []
 for i in range(10):
     for j in range(10):
         out.append(i+j)
+        
+# list comprehension
+[expression for item in iterable]
+# expanded form
+for item in iterable:
+    expression
+
+# list comprehension with a conditional statement
+[expression for item in iterable if some_condition]
+# expanded form
+for item in iterable:
+    if some_condition:
+        expression
+        
+# basic syntax
+[expression0 if some_condition else expression1 for item in iterable]
+# syntax explained: compared to the list comprehension's basic syntax: [expression for item in iterable], 
+we can thin about that (expression0 if some_condition else expression1) is a whole part that constitutes the expression 
+in the general format
+
+# basic syntax of the nested list comprehensions
+[expression for sublist in outer_list for item in sublist]
+# expanded form
+for sublist in outer_list:
+    for item in sublist:
+        expression
+
+        
+        
 '''
 
 # for loop to create a list of cubes
@@ -3743,7 +3788,183 @@ To access a protected member, we need to use _ at the time of accessing it throu
 You can’t create objects for abstract classes
 '''
 
+'''
+Object-Oriented Programming concepts
+Creating class in Python
+class Transaction:
+    def __init__(self, sender, recipient, amount):
+        self.sender = sender
+        self.recipient = recipient
+        self.amount = amount
+    def __str__(self):
+        return f"{self.sender} -> {self.recipient} : {self.amount}"
 
+if __name__ == "__main__":
+    transaction_1 = Transaction("Alice", "Bob", 100)
+    print(transaction_1)
+output:
+Alice -> Bob : 100
+
+Inheritance in Python
+Define a base/parent class:
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+    def __str__(self):
+        return f"{self.name} earns {self.salary}"
+
+if __name__ == "__main__":
+    e1 = Employee("John", 100)
+    print(e1)
+outputs:
+John earns 100
+Now we will define another class superclass/child class that extends the base class Employee
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+    def __str__(self):
+        return f"{self.name} earns {self.salary}"
+
+class Manager(Employee):
+    def __init__(self, name, salary, bonus):
+        super().__init__(name, salary)
+        self.bonus = bonus
+    def __str__(self):
+        return f"{self.name} earns {self.salary} and gets  {self.bonus} bonus"
+
+if __name__ == "__main__":
+    e1 = Employee("John", 100)
+    e2 = Manager("John", 100, 10)
+    print(e2)
+output:
+John earns 100 and gets 10 bonus
+Polymorphism in Python
+Polymorphism means more than one form, the same object performing different operations according to the requirement.
+Polymorphism can be achieved by using two ways, those are
+Method overriding
+Method overloading
+Method overloading means writing two or more methods in the same class by using same method name, 
+but the passing parameters is different.
+Method overriding means we use the method names in the different classes, which means parent class method 
+is used in the child class.
+
+Method Overloading in Python
+When people do method overloading in languages like Java, they generally want a default value 
+(if they don’t, they generally want a method with different parameters). 
+In Python, we don’t do things that way. So, in Python, we can assign default values like the below:
+
+class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+    def full_name(self, first_name=None, last_name=None):
+        if first_name and last_name:
+            return f"{first_name} {last_name}"
+        else:
+            return f"{self.name}"
+if __name__ == "__main__":
+    employee = Employee("John", 10000)
+    print(employee.full_name())
+    print(employee.full_name("John", "Doe"))
+
+Output:
+John
+John Doe
+
+Method Overriding in Python
+class Dog:
+    def bark(self):
+        print("WOOF")
+
+class BabyDog(Dog):
+    def bark(self):
+        print("WoOoOoF!")
+if __name__ == "__main__":
+    big_dog = Dog()
+    big_dog.bark()
+    baby_dog = BabyDog()
+    baby_dog.bark()
+output
+WOOF
+WoOoOoF!
+
+Encapsulation in Python
+The process of wrapping up variables and methods into a single entity is known as Encapsulation. 
+It is one of the underlying concepts in object-oriented programming (OOP). 
+It acts as a protective shield that puts restrictions on accessing variables and methods directly 
+and can prevent accidental or unauthorized modification of data. We can implement encapsulation in the following way:
+class Human:
+    def __init__(self):
+        self.__var = "private variable"
+        self.var = "public variable"
+    def print_var(self):
+        # we can access the private variable in the class
+        print(self.__var)
+if __name__ == "__main__":
+    h = Human()
+    h.print_var()        # prints "private variable"
+    
+    print(h.var)         # prints "public variable"
+    
+    # private variable cannot be accessed outside the class 
+    print(h.__var)       # does not work, will give error
+'''
+
+'''
+What is Composition?
+Composition is a concept that models a has a relationship. It enables creating complex types by combining 
+objects of other types. This means that a class can contain an object of another class. 
+This relationship means that a class has a class.
+
+Example:
+class Student:
+ def__init__(self,name,rollno,marks):
+  self.name = name
+  self.rollno = rollno
+  self.marks = marks
+ def Info(self):
+  print('Student name is ',self.name,'roll no ',self.rollno)
+class Result:
+ def __init__(self,name,rollno,marks)
+  self.student = Student(name,rollno,marks)
+ def printInfo:
+  self.student.Info()
+s = Result('sam',233,56)
+s.printInfo()
+The composition is similar to inheritance but we cannot call the methods of the class that we defined inside the result class.
+'''
+
+'''
+Inheritance is defined as ‘is a relationship’ whereas composition is defined as ‘has a relationship’. 
+In inheritance, a class is derived as a subclass of another class whereas in composition a class is somewhat 
+called inside another class.
+
+class Employee:
+ def __init__(self,name,eid):
+  self.name = name  
+  self.eid = eid
+ def printDetails(self):
+  print('Employee name is {} and Employee no is     {}'.format(self.name,self.eid))
+#inheritance - is a relationship
+class Supervisior(Employee):
+ pass
+#composition - has a relationship
+class TL():
+ def __init__(self,name,eid):
+  self.employee = Employee(name,eid)
+ def empDetails(self):
+  self.employee.printDetails()
+
+Test:
+s = Supervisior('jon',25)
+t = TL('Tom',30)
+s.printDetails()
+t.empDetails()
+Employee name is jon and Employee no is 25
+Employee name is Tom and Employee no is 30;
+'''
 
 
 # ITERATORS VS ITERABLES
@@ -5185,6 +5406,26 @@ print(f"right to left: {li[2:] + li[:2]}") #[3, 4, 5, 1, 2]
 #li[-1:] + li[:-1]
 print(f"left to right: {li[-1:] + li[:-1]}")  #[5, 1, 2, 3, 4]
 
+# Python One Line Nested/Double Loop
+#example code Multi-Line Loop
+lst1 = [1, 2]
+lst2 = ["x", "y"]
+for x in lst1:
+    for y in lst2:
+        print(x, y)
+
+#example Code of Single Line Loop
+[print(x, y) for x in lst1 for y in lst2]
+#Output
+# 1 x
+# 1 y
+# 2 x
+# 2 y
+
+# Python One Line String to Integer
+strlist = ["1", "2", "3", "4", "5"]
+intlist = list(map(int, strlist))
+print(intlist) # [1, 2, 3, 4, 5]
 
 ## Merging Two Dictionaries ##
 print("===========================")
@@ -6919,6 +7160,99 @@ for i, j in itertools.product(range(5), range(5)):
     if j == 2 and i == 0:
         break
 ##################################################
+
+'''
+__slots__ is an attribute you can add to a Python class when defining it. 
+You define slots with the possible attributes that an instance of an object can possess. 
+Here’s how you use __slots__:
+class WithSlots:
+    __slots__ = ('x', 'y')
+
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+        
+For instances of this class, you can use self.x and self.y in the same ways as a normal class instance. 
+However, one key difference between this and instancing from a normal class is that you cannot add 
+or remove attributes from this class’ instances. Say the instance was called w: 
+you couldn’t write w.z = 2 without causing an error.
+The biggest higher-level reasons to use __slots__ are 1) faster attribute getting and setting due to data 
+structure optimization and 2) reduced memory usage for class instances. 
+Some reasons you wouldn’t want to use it is if your class has attributes that change during 
+run-time (dynamic attributes) or if there’s a complicated object inheritance tree.        
+'''
+
+# long lines are BAD - Use parentheses, not backslashes, to fix longer lines:
+'''
+# BAD
+long_variable_name = even_longer_function_name(pretty_long_argument, another_argument) + another_function() - final_function() / 3
+
+# BETTER
+long_variable_name = even_longer_function_name(pretty_long_argument, another_argument) \
+                        + another_function() - final_function() / 3
+                        
+# BEST!
+long_variable_name = (
+    even_longer_function_name(pretty_long_argument, another_argument)
+    + another_function()
+    - final_function() / 3
+)
+'''
+
+# Python pros — You can actually write your own context managers.
+# These are useful for code that has a setup and an ending action. The general structure looks like this:
+'''
+from functools import contextmanager  # standard library
+
+
+@contextmanager
+def my_context_manager():
+    # setup code: runs just before entering the "with" statement
+    # ...
+    try:
+        yield var  # or just "yield" if you don't need to pass a variable on
+    finally:
+        # ending code: runs right after exiting the "with" statement
+        # will run even if code inside the "with" statement raised an exception!
+        # ...
+        
+Say you wanted to have a context manager that printed to let you know when your processes start and end:
+
+from functools import contextmanager
+from datetime import datetime
+
+@contextmanager
+def log_start_and_end():
+    print(f'Start time: {datetime.now()}')
+    try:
+        yield
+    finally:
+        print(f'End time: {datetime.now()}')
+
+### That’s it! Now you can use it like this:
+with log_start_and_end():
+    # ...                
+'''
+### Positional-only arguments
+'''
+Often, the names of a function’s arguments are irrelevant. 
+In this case, you want those arguments to always be passed positionally:
+Positionally: is_capitalized("world")
+Not positionally: is_capitalized(string="world")
+In Python 3.8, you can force arguments to your functions to be positional! 
+This can make code cleaner and more readable.
+To achieve this functionality, use a / as an argument:
+
+def is_capitalized(string, /):
+    return string[0].isupper()
+    
+# All arguments that precede the / will need to be passed positionally:
+is_capitalized("October")
+# True
+
+is_capitalized(string="October")
+# TypeError: is_capitalized() got some positional-only arguments passed as [etc.]
+
+'''
 
 '''
 ############################

@@ -532,4 +532,7 @@ The outer_func is not a closure and its __closure__ attribute is None.
 In the other hand, the __closure__ of f contains a cell object which saves the “remembered” value.
 '''
 
-
+# Python One Line Nested/Double Loop
+lst1 = [1, 2]
+lst2 = ["x", "y"]
+[print(x, y) for x in lst1 for y in lst2]
