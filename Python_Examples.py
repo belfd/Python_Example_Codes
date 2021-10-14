@@ -508,6 +508,18 @@ list.clear()                 # Removes all items. Also works on dictionary and s
 empty_list = []
 empty_list = list()
 
+# Check empty list
+mylst = []
+#way 1
+if len(mylst) == 0:
+    print("Empty!")
+# way 2
+if not mylst:
+    print("Empty!")
+# way 3
+if mylst == []:
+    print("Empty!")
+
 # create a list
 simpsons = ['homer', 'marge', 'bart']
 
@@ -929,6 +941,12 @@ result = "".join(arr)  # output: Hello
 s5 = '  ham and cheese  '
 s5.strip()  # returns 'ham and cheese'
 
+# remove whitespace inside a string
+message = " Welcome to the real world! "
+print("first method: "+ message.replace(" ","")) #output: Welcometotherealworld!
+print("second method: "+ "".join(message.split())) #output: Welcometotherealworld!
+
+
 # string substitutions: all of these return 'raining cats and dogs'
 'raining %s and %s' % ('cats', 'dogs')  # old way
 'raining {} and {}'.format('cats', 'dogs')  # new way
@@ -941,6 +959,12 @@ s5.strip()  # returns 'ham and cheese'
 # normal strings versus raw strings
 print('first line\nsecond line')  # normal strings allow for escaped characters
 print(r'first line\nfirst line')  # raw strings treat backslashes as literal characters
+
+# Extract Vowels
+def Extract_Vowels(data):
+    return [each for each in data if each in 'aeiou']
+print(Extract_Vowels("langauge"))  # ['a', 'a', 'u', 'e']
+print(Extract_Vowels("Developer")) # ['e', 'e', 'o', 'e']
 
 # Split string to characters
 str_samp = "Hello World"
