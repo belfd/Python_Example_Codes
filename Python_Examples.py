@@ -4105,6 +4105,45 @@ Employee name is jon and Employee no is 25
 Employee name is Tom and Employee no is 30;
 '''
 
+''''
+How Abstract Base classes work :
+By default, Python does not provide abstract classes. Python comes with a module that provides the base for 
+defining Abstract Base classes(ABC) and that module name is ABC. ABC works by decorating methods of the base class 
+as abstract and then registering concrete classes as implementations of the abstract base. 
+A method becomes abstract when decorated with the keyword @abstractmethod.
+Let us see an example of how the abstract method works:
+
+from abc import *
+
+class Newinterface(ABC):
+ @abstractmethod
+ def connect(self):
+  pass
+ @abstractmethod
+ def disconnect(self):
+  pass
+
+class Videocard(Newinterface):
+ def connect(self):
+  print(‘connecting videocard’)
+ def disconnect(self):
+  print(‘disconnecting videocard’)
+
+class TPU(Newinterface):
+ def connect(self):
+  print(‘connecting TPU’)
+ def disconnect(self):
+  print(‘disconnecting TPU’)
+
+a = TPU()
+a.connect()
+a.disconnect()
+
+#outputs:
+connecting TPU
+disconnecting TPU
+'''
+
 
 # ITERATORS VS ITERABLES
 print("====================")
