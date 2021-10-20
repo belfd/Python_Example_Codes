@@ -947,6 +947,18 @@ print("first method: "+ message.replace(" ","")) #output: Welcometotherealworld!
 print("second method: "+ "".join(message.split())) #output: Welcometotherealworld!
 
 
+# removing prefix of string
+my_string = 'ABC-1234'
+
+def strip_prefix(string_to_remove_from,prefix_that_being_removed):
+    if string_to_remove_from.startswith(prefix_that_being_removed):
+        return string_to_remove_from[len(prefix_that_being_removed):]
+    else:
+        return string_to_remove_from
+
+print("~~Removing prefix: ~~")
+print(strip_prefix(my_string,'ABC')) #output: -1234
+
 # string substitutions: all of these return 'raining cats and dogs'
 'raining %s and %s' % ('cats', 'dogs')  # old way
 'raining {} and {}'.format('cats', 'dogs')  # new way
@@ -1200,6 +1212,18 @@ print(mydict)  # output: {11: 1, 22: 2, 33: 3}
 mydict = {'John': 'Tesla', 'Jane': 'BMW'}
 mydict = {i: j for j, i in mydict.items()}
 print(mydict)  # output: {'Tesla': 'John', 'BMW': 'Jane'}
+
+'''
+Reverse Dictionary
+'''
+mydict = {1: "ab", 2: "bc", 3: "cd", 4: "de"}
+# Way 1
+rev1 = dict(map(reversed, mydict.items()))
+print(rev1)  # {'ab': 1, 'bc': 2, 'cd': 3, 'de': 4}
+# Way 2
+rev2 = {value: key for key, value in mydict.items()}
+print(rev2)  # {'ab': 1, 'bc': 2, 'cd': 3, 'de': 4}
+
 
 # defaultdict
 print("### defaultdict ###")
@@ -2114,6 +2138,14 @@ print("MAP AND FILTER REDUCE ALL AND ANY ")
 
 + If you already have list of values, but you want to use the values in that list to create something completely new, 
   in these type of situations it is better to use the reduce method.
+  
++ Python works better and faster with built in functions like map
+Example:
+newlist = []
+for word in wordlist:
+    newlist.append(word.upper())
+A better way to write this code is:
+newlist = list(map(str.upper, wordlist))
 '''
 
 
@@ -3532,6 +3564,89 @@ print(" Total Marks in English", Marks.Eng_num(65, 30))  # Total Marks in Englis
 
 print("                     ")
 
+'''
+Converting a Normal Method onto a Static One
+A Static Method is a type of method in python classes that is bound to a particular state of the class. 
+They can not access or update the state of the class. 
+You can convert a normal method or instance method to a static method with the help of staticmethod(function)
+class ABC:
+    def abc(num1,num2):
+        print(num1+numn2)
+
+
+# changing torture_students into static method
+ABC.abc = staticmethod(ABC.abc)
+
+ABC.abc(4,5) ## 9
+'''
+
+'''
+Difference between class method and static method
+
+A staticmethod is a method that knows nothing about the class or instance it was called on. 
+It just gets the arguments that were passed, no implicit first argument. 
+It is basically useless in Python -- you can just use a module function instead of a staticmethod.
+
+A classmethod, on the other hand, is a method that gets passed the class it was called on, 
+or the class of the instance it was called on, as first argument. 
+This is useful when you want the method to be a factory for the class: since it gets the actual class 
+it was called on as first argument, you can always instantiate the right class, even when subclasses are involved. 
+'''
+
+class A(object):
+    def foo(self, x):
+        print(f"executing foo({self}, {x})")
+
+    @classmethod
+    def class_foo(cls, x):
+        print(f"executing class_foo({cls}, {x})")
+
+    @staticmethod
+    def static_foo(x):
+        print(f"executing static_foo({x})")
+
+a = A()
+#Below is the usual way an object instance calls a method.
+# The object instance, a, is implicitly passed as the first argument.
+a.foo(1)
+# executing foo(<__main__.A object at 0xb7dbef0c>, 1)
+#With classmethods, the class of the object instance is implicitly passed as the first argument instead of self.
+a.class_foo(1)
+# executing class_foo(<class '__main__.A'>, 1)
+# You can also call class_foo using the class.
+# In fact, if you define something to be a classmethod, it is probably because you intend to call it
+# from the class rather than from a class instance.
+# A.foo(1) would have raised a TypeError, but A.class_foo(1) works just fine:
+A.class_foo(1)
+# executing class_foo(<class '__main__.A'>, 1)
+# With staticmethods, neither self (the object instance) nor cls (the class) is implicitly passed as the first argument.
+# They behave like plain functions except that you can call them from an instance or the class:
+a.static_foo(1)
+# executing static_foo(1)
+
+A.static_foo('hi')
+# executing static_foo(hi)
+# Staticmethods are used to group functions which have some logical connection with a class to the class.
+
+# foo is just a function, but when you call a.foo you don't just get the function,
+# you get a "partially applied" version of the function with the object instance a bound as the first
+# argument to the function. foo expects 2 arguments, while a.foo only expects 1 argument.
+
+# a is bound to foo. That is what is meant by the term "bound" below:
+print(a.foo)
+# <bound method A.foo of <__main__.A object at 0xb7d52f0c>>
+# With a.class_foo, a is not bound to class_foo, rather the class A is bound to class_foo.
+print(a.class_foo)
+# <bound method type.class_foo of <class '__main__.A'>>
+# Here, with a staticmethod, even though it is a method, a.static_foo just returns a good
+# 'ole function with no arguments bound. static_foo expects 1 argument, and a.static_foo expects 1 argument too.
+print(a.static_foo)
+# <function static_foo at 0xb7d479cc>
+# And of course the same thing happens when you call static_foo with the class A instead.
+print(A.static_foo)
+# <function static_foo at 0xb7d479cc>
+
+
 ### Creating Custom Ctor and Custome Dtor ###
 print("===============")
 print("Creating Custom Ctor and Custome Dtor")
@@ -4184,6 +4299,20 @@ for num in my_nums1:
 # Generator functions are functions but do not use 'return' they use 'yield'
 # Generator functions are not return once like regular functions but can yield multiple times
 # Generator functions when invoked returns generator , regular functions return value
+'''
+Generator functions allow you to declare a function that behave like an iterator, i.e. it can be used in a for loop. This greatly simplifies your code and is much more memory efficient than a simple for loop.
+Example:
+def simpleGeneratorFun():
+ yield 1 
+ yield 2
+ yield 3
+for value in simpleGeneratorFun():
+ print(value)
+#Output:
+1
+2
+3
+'''
 
 def gen(max):
     count = 1
@@ -7184,6 +7313,33 @@ for i, j in itertools.product(range(5), range(5)):
     if j == 2 and i == 0:
         break
 ##################################################
+
+####### Schedule tasks with Threading ######
+print("~~~~~ Schedule tasks with Threads ~~~~")
+
+import time
+import threading
+
+def task():
+    task.counter +=1
+    print("Job Completed!")
+
+task.counter=0  # function attribute
+
+def schedule():
+    while 1:
+        task()
+        if task.counter > 3:
+            break
+        time.sleep(1)
+
+# makes our logic non blocking
+thread = threading.Thread(target=schedule)
+thread.start()
+
+##############################################
+
+
 
 '''
 __slots__ is an attribute you can add to a Python class when defining it. 

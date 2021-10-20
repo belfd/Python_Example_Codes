@@ -532,18 +532,22 @@ The outer_func is not a closure and its __closure__ attribute is None.
 In the other hand, the __closure__ of f contains a cell object which saves the “remembered” value.
 '''
 
-import threading
 import time
-import sys
+import threading
 
+def task():
+    task.counter +=1
+    print("Job Completed!")
 
-def func():
-    while True:
-        time.sleep(0.5)
-        print("Thread alive, and it won't die on program termination")
+task.counter=0  # function attribute
 
+def schedule():
+    while 1:
+        task()
+        if task.counter > 3:
+            break
+        time.sleep(1)
 
-t1 = threading.Thread(target=func)
-t1.start()
-time.sleep(2)
-sys.exit()
+# makes our logic non blocking
+thread = threading.Thread(target=schedule)
+thread.start()
