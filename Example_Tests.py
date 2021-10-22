@@ -533,21 +533,42 @@ In the other hand, the __closure__ of f contains a cell object which saves the â
 '''
 
 import time
-import threading
+def login_user():
+      time.sleep(2)
 
-def task():
-    task.counter +=1
-    print("Job Completed!")
+def load_posts():
+      time.sleep(3)
 
-task.counter=0  # function attribute
+def launch_app():
+      print("Not async operations - take more time:")
+      a1 = time.time()
+      print("Open App:", time.asctime())
+      login_user()
+      load_posts()
+      b1 = time.time()
+      print("App Page Loaded:", time.asctime())
+      print(f"There are {(int)(b1-a1)} seconds gap")
 
-def schedule():
-    while 1:
-        task()
-        if task.counter > 3:
-            break
-        time.sleep(1)
+launch_app()
 
-# makes our logic non blocking
-thread = threading.Thread(target=schedule)
-thread.start()
+import asyncio
+import time
+async def login_user_async():
+     await asyncio.sleep(2)
+
+async def load_posts_async():
+     await asyncio.sleep(3)
+
+async def launch_app_async():
+     print("Async operation can parallel thing ,takes less time:")
+     print("Open App:", time.asctime())
+     a1 = time.time()
+     await asyncio.gather(
+         login_user_async(),
+         load_posts_async()
+     )
+     print("App Page Loaded:", time.asctime())
+     b1 = time.time()
+     print(f"There are {(int)(b1 - a1)} seconds gap")
+
+asyncio.run(launch_app_async())

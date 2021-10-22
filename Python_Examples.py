@@ -1430,6 +1430,22 @@ def func_doc_string(something):
 func_doc_string('Hi')
 print(func_doc_string.__doc__)
 
+# Docstrings can be considered formal documentations of functions. It generally has four essential components.
+# Overall description: one sentence to describe the function’s operation, intended purpose, etc.
+# Parameter list: describe each of the parameters
+# Return value: what the function returns
+# Exceptions (optional): describe what exceptions that the function can raise.
+def calculate_fraction(a, b):
+    """
+    Calculate a fraction of two numbers
+    :param a: int or float, the numerator of the fraction
+    :param b: int or float, the denominator of the fraction
+    :return: float, calculated as a /b
+    :raise: ZeroDivisionError (when b is zero)
+    """
+    return a / b
+
+
 ### *ARGS ###
 ### an operator we can pass to functions, can be called whatever we want, gather remaining arguments as tuple ###
 print("===============")
@@ -1734,6 +1750,9 @@ display_names(**names)  # output: Ram says hello to Anat
 ### ANNOTATIONS ####
 # Function annotations give us additional way to document our functions
 # used with __annotations__ dunder
+# To give a type hint to the variables, you simply use the syntax: var_name: type.
+# In the parentheses, you apply this syntax for each of the parameters.
+# To indicate the return value’s type, you use -> type following the parentheses before the colon.
 print("===============")
 print("ANNOTATIONS")
 
@@ -3459,6 +3478,8 @@ Its most common using scenario is to define a factory method.
 Static method doesn’t have any attributes of instances or the class. 
 It also can be called by an instance or by the class directly. 
 Its most common using scenario is to define some helper or utility functions which are closely relative to the class.
+The self in instance methods refer to the instance object that calls the method, 
+and the cls in the class method refers to the class (i.e., Student in our case).
 
 class Student:
     def __init__(self, first_name, last_name):
@@ -6119,6 +6140,21 @@ Yang = Student()
 Yang.score = 55
 print(f"The student score is: {Yang.score}")
 
+# By using the property decorator, you can use the dot notation to access the function without calling it explicitly.
+# In other words, the method appears to become a regular attribute. Consider the example below:
+class Product:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+    @property
+    def employee_price(self):
+        return self.price * 0.9
+
+
+vacuum = Product("Vacuum", 200)
+vacuum.employee_price  # output: 180.0
+
 ###########################################
 ### 6 Alternatives to Classes in Python ###
 print("==============================================")
@@ -7353,6 +7389,61 @@ for i, j in itertools.product(range(5), range(5)):
         break
 ##################################################
 
+
+####### Async ######
+print("~~~~~ Async ~~~~")
+# Asynchronous is a general programming technique that is intended to improve the performance of your project
+# by delegating some computationally heavy or lengthy process to a different process or thread.
+# For instance, when you make a web API request, you can implement asynchronous coding to fire the request
+# in a different thread, and you can still work on your current thread, when the API responds,
+# you can use the response whenever it becomes available without the need of waiting for possibly extended time.
+# The above is a very general discussion of asynchronous programming.
+# In Python, we can implement asynchronous programming by taking advantage of the asyncio module.
+# Specifically, we can create asynchronous functions.
+
+import time
+def login_user():
+      time.sleep(2)
+
+def load_posts():
+      time.sleep(3)
+
+def launch_app():
+      print("Not async operations - take more time:")
+      a1 = time.time()
+      print("Open App:", time.asctime())
+      login_user()
+      load_posts()
+      b1 = time.time()
+      print("App Page Loaded:", time.asctime())
+      print(f"There are {(int)(b1-a1)} seconds gap")
+
+launch_app()
+
+import asyncio
+import time
+async def login_user_async():
+     await asyncio.sleep(2)
+
+async def load_posts_async():
+     await asyncio.sleep(3)
+
+async def launch_app_async():
+     print("Async operation can parallel thing ,takes less time:")
+     print("Open App:", time.asctime())
+     a1 = time.time()
+     await asyncio.gather(
+         login_user_async(),
+         load_posts_async()
+     )
+     print("App Page Loaded:", time.asctime())
+     b1 = time.time()
+     print(f"There are {(int)(b1 - a1)} seconds gap")
+
+asyncio.run(launch_app_async())
+
+####################################################
+
 ####### Schedule tasks with Threading ######
 print("~~~~~ Schedule tasks with Threads ~~~~")
 
@@ -7523,12 +7614,127 @@ td     = dta    - dta                    # Ignores time jumps if they share tzin
 td     = dt_UTC - dt_UTC                 # Convert dts to UTC to get the actual delta.
 '''
 
+#############
+# 1. What is the difference between .py and .pyc files?
+# The .py file contains the source code of the program. On the other hand .pyc files contain the compiled
+# byte of your program.
+# Python Compiles the .py file and saved it into a .pyc file. Then It is executed by the Python Virtual Machine.
+# Before executing the main source code python looks for a compiled version of it(.pyc file)
+# if python finds one then it will execute it with the help of a virtual machine.
+# if not then it will look for a .py file compiles it and then execute the .py file.
+# Basically, .pyc files save the compilation time, By Executing the already compiled code again.
+
+# 2. What is Abstraction? How To Achieve Abstraction in Python?
+# Abstraction is used to hide the internal functionality of a function from the users.
+# They Can Interact with the function and generate results but don’t know how the results are generated.
+# In Simple Words, Abstraction is used to hide the irrelevant data from the user
+# to reduce the complexity of the program. In Python With The Help of the ABC Module, We can achieve abstraction.
+# An Abstract Class also works as a blueprint for other classes because you can’t
+# create objects for an abstract class so the only way to access elements is to use inheritance.
+'''
+from abs import ABC, abstractmethod
+
+class Parent(ABC):
+  @abstracmethod
+  def show(self):
+    pass
+  
+class child(Parent):
+  def show(self):
+    print("Child Class")
+    
+obj = child()
+obj.show()
+'''
+
+# 3. How Shallow Copy is Different From Deep Copy Explain With an Example?
+# Shallow Copy Stores reference of the object in a new memory location.
+# Changes Made to the new location also reflect on the previous location. It is faster than a Deep copy.
+# Deep Copy Stores the value of the object in a new location.
+# Any changes made to the new location don’t reflect on the previous location.
+'''
+## Example of Shallow Copy
+data = [1, 2, 3, 4, 5]
+updated_data = data
+updated_data.append(6)
+print(updated_data)
+print(data)
+--------------------------------
+[1,2,3,4,5,6]
+[1,2,3,4,5,6]
+## Example of Deep Copy
+import copy
+data = [1,2,3,4,5]
+updated_data = copy.deepcopy(data)
+updated_data.append(6)
+print(updated_data)
+print(data)
+------------------------------
+[1,2,3,4,5,6]
+[1,2,3,4,5]
+'''
+
+# 4. What do you understand with pickling and unpicking?
+# Pickling is the process where a python object hierarchy is converted into a byte stream.
+# And Unpickling is the inverse operation, where a byte stream is converted back into an object hierarchy.
+'''
+## Pickling
+import pickle
+data =  {'Names': ["Karl","Robin","Lary"],
+         'Id': ('G770531','G770532','G770533'),
+         'Salary':[55600,88900,76000]}
+output = open('data.pkl', 'wb')
+pickle.dump(data, output)
+output.close()
+## Unpickling
+import pickle
+stream = open('data.pkl', 'rb')
+data = pickle.load(stream)
+print(data)
+stream.close()
+---------------------------------------
+{'Names': ['Karl', 'Robin', 'Lary'], 'Id': ('G770531', 'G770532', 'G770533'), 'Salary': [55600, 88900, 76000]}
+'''
+
+# 5. What are *args and **kwargs in python?
+# Both *args and **kwargs allows passing the variable number of arguments to a function.
+# These are used when you are not sure about the number of arguments to be passed in a function.
+# *args allows you to pass a variable number of arguments to a function.
+# It is defined with an asterisk * followed by a variable.
+''''
+def addNumbers(*numbers):
+    sum = 0
+    for number in numbers:
+        sum = sum + number
+    print("Sum: ",sum)
+addNumbers(3,5)
+addNumbers(5,6,7)
+------------------------------------
+Sum: 8
+Sum: 18
+# In the Above Code, *numbers allows to pass variable number of arguments to the function addNumbers.
+'''
+# **kwargs allows you to pass a variable number of keyword arguments to a function.
+# It is defined with a double asterisk followed by a variable.
+'''
+def addNumbers(*args,**data):
+    sum = 0
+    for key,value in data.items():
+        sum = sum+value
+    print("Sum: ",sum)
+    
+addNumbers(a=5, b=6)
+addNumbers(a=5, b=8, c=10)
+------------------------------------
+Sum: 11
+Sum: 23
+'''
 
 
-##################################################
-print("########################################")
-print("#### Choosing Function names rules..####")
-print("########################################")
+########################################
+########################################
+#### Choosing Function names rules..####
+########################################
 '''
 1. Is the function a test? -> test_<entity>_<behavior>.
 2. Does the function has a @property decorator? -> don’t use a verb in the function name.
