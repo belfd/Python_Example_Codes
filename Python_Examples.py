@@ -1126,6 +1126,34 @@ dict.update(dict)                             # Adds items. Replaces ones with m
 value = dict.pop(key)                         # Removes item or raises KeyError.
 {k for k, v in dict.items() if v == value}    # Returns set of keys that point to the value.
 {k: v for k, v in dict.items() if k in keys}  # Returns a dictionary, filtered by keys.
+
+genius = {
+    'name': ["Dan", "others"],
+    'sex': ["Male", " "],
+    'job': ["Programmer", "others"]
+}
+for k, (v1, v2) in genius.items():
+    print(k, v1, v2)
+
+genius = {
+    'name': "Dan",
+    'sex': "Male",
+    'job': "Programmer"
+}
+#for keys
+n, s, j = genius
+print(n, s, j)
+# name sex job
+
+genius = {
+    'name': "Dan",
+    'sex': "Male",
+    'job': "Programmer"
+}
+#for values
+n, s, j = genius.values()
+print(n, s, j)
+# Dan Male Programmer
 '''
 # create an empty dictionary (two ways)
 empty_dict = {}
@@ -2066,9 +2094,6 @@ in the general format
 for sublist in outer_list:
     for item in sublist:
         expression
-
-        
-        
 '''
 
 # for loop to create a list of cubes
@@ -2124,6 +2149,33 @@ for row in matrix:
 
 # equivalent list comprehension
 items = [item for row in matrix for item in row]  # [1, 2, 3, 4]
+
+# Example: Do apply a conditional criterion if only some items are needed
+integers = [1, 2, 3, 4, 5, 6]
+# Create a list of squares for even numbers only
+squares_of_evens = [x*x for x in integers if x % 2 == 0]
+print((squares_of_evens))  #output: [4, 16, 36]
+
+# Example: Do Use a conditional expression
+integers = [1, 2, 3, 4, 5, 6]
+# Create a list of numbers, when the item is even, take the square
+# when the item is odd, take the cube
+custom_powers = [x*x if x % 2 == 0 else pow(x, 3) for x in integers]
+print(custom_powers) #output: [1, 4, 27, 16, 125, 36]
+
+#  Do use nested for loops if you have a nested structure for the iterable
+'''
+[expression for item_outer in iterable for item_inner in item_outer]
+# Equivalent to
+for item_outer in iterable:
+    for item_inner in item_outer:
+        expression
+'''
+# A list of tuples
+prices = [('$5.99', '$4.99'), ('$3.5', '$4.5')]
+# Flattened list of prices
+prices_formatted = [float(x[1:]) for price_group in prices for x in price_group]
+print(prices_formatted) #output: [5.99, 4.99, 3.5, 4.5]
 
 # set comprehension
 fruits = ['apple', 'banana', 'cherry']
