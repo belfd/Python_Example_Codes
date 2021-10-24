@@ -2051,6 +2051,18 @@ day = WeekDay.Friday
 intDay = day.value # This will be 5
 print(f"day is: {day} and {intDay}")  #output: day is: WeekDay.Friday and 5
 
+# Another example for using Enum:
+from enum import Enum
+class ProgrammingLanguage(Enum):
+    PYTHON = "Python"
+    JAVA = "Java"
+    C = "C"
+    JAVASCRIPT = "JavaScript"
+    PHP = "Php"
+
+print(f"The language I write is: {ProgrammingLanguage.PYTHON.value}")
+
+
 ### COMPREHENSIONS ###
 print("===============")
 print("COMPREHENSIONS")
@@ -5622,6 +5634,11 @@ num2 = 7804
 print(Digitizing(num1))  # [4, 8, 5, 8]
 print(Digitizing(num2))  # [7, 8, 0, 4]
 
+# Digitizing
+integer = 234553
+digitz = [int(i) for i in str(integer)]
+print(digitz) # [2, 3, 4, 5, 5, 3]
+
 ## Convert Hexadecimal Color Codes to RGB Code
 print("===========================")
 print("HEX To RGB:")
@@ -7499,6 +7516,7 @@ asyncio.run(launch_app_async())
 ####### Schedule tasks with Threading ######
 print("~~~~~ Schedule tasks with Threads ~~~~")
 
+import os
 import time
 import threading
 
@@ -7512,7 +7530,7 @@ def schedule():
     while 1:
         task()
         if task.counter > 3:
-            break
+            sys.exit(0)
         time.sleep(1)
 
 # makes our logic non blocking
