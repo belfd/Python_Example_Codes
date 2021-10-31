@@ -3892,6 +3892,143 @@ there is no naming conflict for a private method. Calling d.__prvate() will caus
 derive protected related to self of derived is chosen
 '''
 
+# Single inheritance enables a derived class to inherit properties from a single parent class,
+# thus enabling code reusability and the addition of new features to existing code.
+
+class P1:
+ def mym11(self):
+  print('Parent Method')
+class Q1(P1):
+ def mym12(self):
+  print('Child Method')
+a = Q1()
+a.mym12() #output: Child Method
+a.mym11() #output: Parent Method
+print("##Single inheritance###")
+# In multilevel inheritance, features of the base class and the derived class are further
+# inherited into the new derived class. This is similar to a relationship representing a child and a grandfather.
+
+class P2:
+ def mym21(self):
+  print('Parent Method')
+class Q2(P2):
+ def mym22(self):
+  print('Child Method')
+class R2(Q2):
+ def mym23(self):
+  print('Muli-level inheritance Method')
+a = R2()
+a.mym23() #output: Muli-level inheritance Method
+a.mym22() #output: Child Method
+a.mym21() #output: Parent Method
+print("##multilevel inheritance###")
+# When a class can be derived from more than one base class this type of inheritance is called multiple inheritance.
+# In multiple inheritance, all the features of the base classes are inherited into the derived class.
+
+class P3:
+ def mym31(self):
+     print('Parent1 Method')
+class Q3():
+ def mym32(self):
+     print('Parent2 Method')
+class R3(Q3,P3):
+ def mym33(self):
+     print('Child Method')
+a = R3()
+a.mym33() #output: Child Method
+a.mym32() #output: Parent2 Method
+a.mym31() #output: Parent1 Method
+print("##multiple inheritance###")
+# When more than one derived classes are created from a single base this type of inheritance is
+# called hierarchical inheritance. In this program, we have a parent (base) class and two children (derived) classes.
+
+class P4:
+ def mym41(self):
+  print('Parent Method')
+class Q4(P4):
+ def mym42(self):
+  print('Child1 Method')
+class R4(Q4, P4):
+ def mym43(self):
+  print('Child2 Method')
+a = Q4()
+b = R4()
+a.mym42() #output: Child1 Method
+a.mym41() #output: Parent Method
+b.mym43() #output: Child2 Method
+b.mym41() #output: Parent Method
+print("##hierarchical inheritance###")
+
+# The Python Method Resolution Order (MRO) defines the class search path used
+# by Python to search for the right method to use in classes having multi-inheritance.
+
+class A: pass
+class B: pass
+class C: pass
+class D(A): pass
+class E(B): pass
+class F(D, E, C): pass
+
+print(F.mro()) #output: [<class '__main__.F'>, <class '__main__.D'>, <class '__main__.A'>,
+# <class '__main__.E'>, <class '__main__.B'>, <class '__main__.C'>, <class 'object'>]
+
+####################
+## COMPOSITION #####
+print("===============")
+print("COMPOSITION")
+
+# Composition is a concept that models a has a relationship.
+# It enables creating complex types by combining objects of other types.
+# This means that a class can contain an object of another class.
+# This relationship means that a class has a class.
+
+class Student:
+      def __init__(self,name,rollno,marks):
+         self.name = name
+         self.rollno = rollno
+         self.marks = marks
+      def Info(self):
+         print('Student name is ',self.name,'roll no ',self.rollno)
+
+class Result:
+      def __init__(self,name,rollno,marks):
+          self.student = Student(name,rollno,marks)
+
+      def printInfo(self):
+          self.student.Info()
+
+s = Result('sam',233,56)
+s.printInfo() #output: Student name is  sam roll no  233
+
+# The composition is similar to inheritance but we cannot call the methods
+# of the class that we defined inside the result class.
+
+# Inheritance Vs Composition:
+class Employee:
+ def __init__(self,name,eid):
+  self.name = name
+  self.eid = eid
+ def printDetails(self):
+  print('Employee name is {} and Employee no is     {}'.format(self.name,self.eid))
+#inheritance - is a relationship
+class Supervisior(Employee):
+ pass
+#composition - has a relationship
+class TL():
+ def __init__(self,name,eid):
+  self.employee = Employee(name,eid)
+ def empDetails(self):
+  self.employee.printDetails()
+
+s = Supervisior('jon',25)
+t = TL('Tom',30)
+s.printDetails()  #output: Employee name is jon and Employee no is     25
+t.empDetails()    #output: Employee name is Tom and Employee no is     30
+
+# We can see that we can directly call a method of a parent class in subclass using Inheritance
+# whereas in composition we have to define it under the other module.
+
+
 ####################
 ### POLYMORPHISM ###
 print("===============")
