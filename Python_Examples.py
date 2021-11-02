@@ -6292,6 +6292,53 @@ c = Cat()
 c.move()  # Animal moves
 # Cat moves
 
+## Another Abstract class example
+from abc import ABC, abstractmethod
+
+class Calculation(ABC):
+
+    @abstractmethod
+    def add(self):
+        pass
+
+    @abstractmethod
+    def subtract(self):
+        pass
+
+    def multiply(self):
+        print('Method of an Abstract Class can be called without error',
+              'because abstract method decorator is not used')
+
+    @abstractmethod
+    def division(self):
+        pass
+
+class Calculator(Calculation):
+
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    def add(self):
+        print(self.a + self.b)
+
+    def subtract(self):
+        print(self.a - self.b)
+
+    def division(self):
+        print(self.a / self.b)
+
+
+
+take = Calculator(10, 5)
+take.add() # 15
+take.subtract() # 5
+take.division() # 2.0
+take.multiply() # Method of an Abstract Class can be called without error because abstract method decorator is not used
+print(issubclass(Calculator, Calculation)) # True
+# throws an error because abstract class method is an abstract method
+
+
 
 ### PROPERTY DECORATORS ###
 print("=============================")
