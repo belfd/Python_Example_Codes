@@ -3242,6 +3242,240 @@ def add_one(x):
 
 
 print(f"The result is: {add_one(1)}")
+
+##### DECORATORS EXPLAINED ############
+print("========================")
+print("DECORATORS EXPLAINED")
+
+import functools
+
+# Simple Decorator
+def deco_function(func):
+    @functools.wraps(func)
+    def wrapped(*args):
+        """
+        This is the wrapper for a function to be fail safe
+        """
+        try:
+            return func(*args)
+        except:
+            print("Error occured")
+            return None
+
+    return wrapped
+
+
+@deco_function
+def divide(a, b):
+    """
+    This is a function to divide two numbers
+    """
+    return a / b
+
+print(divide(10,2))
+
+# Simple Decorator with argument
+
+def powered(power):
+    def powered_decorator(func):
+        def wrapper(*args):
+            return func(*args)**power
+        return wrapper
+    return powered_decorator
+
+@powered(2)
+def add(*args):
+    return sum(args)
+
+print(add(10))
+
+
+# Decorators within a class
+
+def try_safe(func):
+    @functools.wraps(func)
+    def wrapped(*args):
+        try:
+            return func(*args)
+        except:
+            print("Error occured")
+            return None
+
+    return wrapped
+
+
+class Calculator:
+
+    def __init__(self):
+        pass
+
+    @try_safe
+    def add(self, *args):
+        return sum(args)
+
+    @try_safe
+    def divide(self, a, b):
+        return a / b
+
+calc = Calculator()
+print(calc.divide(10, 2))
+
+# Decorators for a Class
+# Decorator for a class will activate the decorator during the instantiation of the function
+
+def try_safe(cls):
+    @functools.wraps(cls)
+    def wrapped(*args):
+        try:
+            return cls(*args)
+        except:
+            print("Error occured")
+            return None
+
+    return wrapped
+
+
+@try_safe
+class Calculator:
+
+    def __init__(self, a, b):
+        self.ratio = a / b
+
+calc = Calculator(1,0) #output: Error occured
+
+# Injecting State for a Function using Decorators
+# During the process of wrapping a function, a state could be injected into the function
+
+
+def record(func):
+    @functools.wraps(func)
+    def wrapped(*args):
+        wrapped.record += 1
+        print(f"Ran for {wrapped.record} time(s)")
+        return func(*args)
+    wrapped.record = 0
+    return wrapped
+@record
+def test():
+    print("Running")
+
+test()
+test()
+test()
+''' output:
+Ran for 1 time(s)
+Running
+Ran for 2 time(s)
+Running
+Ran for 3 time(s)
+Running
+'''
+
+# Singleton using Python Decorators
+# Singleton refers to an instance that is shared between calls, and would not duplicate for any reason.
+# In simple terms, at first, an instance is created. In the following calls to make an instance,
+# the existing instance will be returned.
+
+def singleton(cls):
+    @functools.wraps(cls)
+    def wrapped(*args, **kwargs):
+        if not wrapped.object:
+            wrapped.object = cls(*args, **kwargs)
+        return wrapped.object
+    wrapped.object = None
+    return wrapped
+@singleton
+class SingularObject:
+    def __init__(self):
+        print("The object is being created")
+
+first = SingularObject()
+second = SingularObject()
+print(f"second is first : {second is first}") #output: True
+
+# Making a Wrapper/Decorator Class
+
+import functools
+class Record:
+    def __init__(self, func):
+        functools.update_wrapper(self, func)
+        self.func = func
+        self.record = 0
+    def __call__(self, *args, **kwargs):
+        self.record += 1
+        print(f"Ran for {self.record} time(s)")
+        return self.func(*args, **kwargs)
+
+@Record
+def test():
+    print("Run")
+
+test()
+test()
+test()
+
+#######################################
+## CLASS DECORATOR EXPLAINED ##
+print("==========================")
+print("CLASS DECORATOR EXPLAINED")
+
+# Here is a class that is decorator for a function, receive no arguments
+
+class Power(object):
+	def __init__(self, arg):
+		self._arg = arg
+
+	def __call__(self, a, b):
+		retval = self._arg(a, b)
+		return retval ** 2
+
+
+@Power
+def multiply_together(a, b):
+	return a * b
+
+
+print(multiply_together(3, 2))
+
+
+################################
+# Class Decorator that receive an argument but can also be without argument
+class power(object):
+	def __init__(self, arg):
+		self._arg = arg
+
+	def __call__(self, *param_arg):
+		"""If there are decorator arguments, __call__() is only called once
+		as part of the decoration process. You can only give it a single argument,
+		which is the function object
+		If there are no decorator arguments, the function
+		to be decorated is passed to the constructor.
+		"""
+		if len(param_arg) == 1:
+			def wrapper(a, b):
+				retval = param_arg[0](a, b)
+				return retval ** self._arg
+			return wrapper
+		else:
+			expo = 2
+			retval = self._arg(param_arg[0], param_arg[1])
+			return retval ** expo
+
+
+# no argument - default square: result^2
+@power
+def multiply_together1(a, b):
+	return a * b
+
+# argument = n - default square: result^n
+@power(4)
+def multiply_together2(a, b):
+	return a * b
+
+
+print(multiply_together1(2, 2)) #output: 16 = (2*2)^2
+print(multiply_together2(2, 2)) #output: 256 = (2*2)^4
+
 #######################################
 
 ### SINGLE DISPATCH GENERIC FUNCTION ####
