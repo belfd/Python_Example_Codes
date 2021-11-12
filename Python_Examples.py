@@ -2413,6 +2413,12 @@ L2 = [a for a in Genius if len(a) < 4]
 print(L2)
 # ['tom']
 
+# Remove specific element from list
+x = [1, 2, 3, 2, 2, 2, 3, 4]
+lst = list(filter(lambda a: a != 2, x)) # remove element 2 form the list
+print(lst) #output: [1, 3, 3, 4]
+
+
 ### ZIP ###
 print("===============")
 print("ZIP")
