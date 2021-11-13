@@ -1252,6 +1252,82 @@ print(rev1)  # {'ab': 1, 'bc': 2, 'cd': 3, 'de': 4}
 rev2 = {value: key for key, value in mydict.items()}
 print(rev2)  # {'ab': 1, 'bc': 2, 'cd': 3, 'de': 4}
 
+'''
+5 ways to Sort Dictionaries
+'''
+print("~#~ 5 ways to Sort Dictionaries ~#~")
+### Using sorted() function ###
+## Sorting the dictionary - ascending
+print("~~ Sorting the dictionary - ascending ~~")
+d1={'cherry':1,'apple':2,'banana':3}
+print(sorted(d1.items()))
+#Output:[('apple', 2), ('banana', 3), ('cherry', 1)]
+
+# Sorting the keys in the dictionary
+d1={'cherry':1,'apple':2,'banana':3}
+print(sorted(d1.keys()))
+#Output:['apple', 'banana', 'cherry']
+
+# Sorting the values in the dictionary
+d1={'cherry':1,'apple':2,'banana':3}
+print(sorted(d1.values()))
+#Output:[1,2,3]
+
+### Sorting using reverse parameter - descending ###
+# Sorting dictionary in reverse order
+print("~~ Sorting dictionary in reverse order ~~")
+d1={'cherry':1,'apple':2,'banana':3}
+print(sorted(d1.items(),reverse=True))
+#Output: [('cherry', 1), ('banana', 3), ('apple', 2)]
+
+# Sorting dictionary keys in reverse order
+d1={'cherry':1,'apple':2,'banana':3}
+print(sorted(d1.keys(),reverse=True))
+#Output:['cherry', 'banana', 'apple']
+
+# Sorting dictionary values in reverse order.
+d1={'cherry':1,'apple':2,'banana':3}
+print(sorted(d1.values(),reverse=True))
+#Output:[3,2,1]
+
+### Sorting using the key parameter ###
+# Sorting the dictionary based on values.
+print("~~ Sorting using the key parameter ~~")
+d1={'cherry':1,'apple':12,'banana':3}
+print(sorted(d1.items(),key=lambda x:x[1]))
+#Output:[('cherry', 1), ('banana', 3), ('apple', 12)]
+
+#  Sorting dictionary based on length of keys.
+d1={'cherry':1,'apple':2,'banana':3}
+print(sorted(d1.items(),key=lambda x: len(x[0])))
+#Output:[('apple', 2), ('cherry', 1), ('banana', 3)]
+
+### Using sorted function in a dictionary comprehension ###
+# Sorting dictionary based on keys and returns a sorted dictionary.
+print("~~ Using sorted function in a dictionary comprehension ~~")
+d1={'cherry':1,'apple':2,'banana':3}
+#by default, sorted function, will sort based on keys.
+sort_keys={k:v for k,v in sorted(d1.items())}
+print(sort_keys)
+#Output:{'apple': 2, 'banana': 3, 'cherry': 1}
+
+# Sorting dictionary based on values and returns a sorted dictionary
+d1={'cherry':1,'apple':12,'banana':3}
+#key parameter is given as second element which is dict values
+sort_values={k:v for k,v in sorted(d1.items(),key=lambda x:x[1])}
+print (sort_values)
+#Output:{'cherry': 1, 'banana': 3, 'apple': 12}
+
+### Using Counter ###
+print("~~ Using Counter ~~")
+from collections import Counter
+d1={'cherry':1,'apple':12,'banana':3}
+print(Counter(d1))
+#Output:Counter({'apple': 12, 'banana': 3, 'cherry': 1})
+c=Counter(d1)
+print(c.most_common())
+#Output: [('apple', 12), ('banana', 3), ('cherry', 1)]
+
 
 # defaultdict
 print("### defaultdict ###")
@@ -3248,6 +3324,40 @@ def add_one(x):
 
 
 print(f"The result is: {add_one(1)}")
+
+## Error Handling Using Decorators ##
+
+def exception_handler(func):
+    def inner_function(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+        except TypeError:
+            print(f"{func.__name__} only takes numbers as the argument")
+    return inner_function
+
+
+@exception_handler
+def area_square(length):
+    print(length * length)
+
+
+@exception_handler
+def area_circle(radius):
+    print(3.14 * radius * radius)
+
+
+@exception_handler
+def area_rectangle(length, breadth):
+    print(length * breadth)
+
+
+area_square(2) #output: 4
+area_circle(2) #output: 12.56
+area_rectangle(2, 4) #output: 8
+area_square("some_str") # output: area_square only takes numbers as the argument
+area_circle("some_other_str") # output: area_circle only takes numbers as the argument
+area_rectangle("some_other_rectangle") #output: area_rectangle only takes numbers as the argument
+
 
 ##### DECORATORS EXPLAINED ############
 print("========================")
@@ -5850,6 +5960,61 @@ LL.delete_node_at_pos(0)
 LL.printLL()
 print("\n")
 print(LL.length())
+
+### QUEUE CLASS IMPLEMENTATION ###
+print("=====================================")
+print("Queue class implementation")
+
+class Queue(object):
+    def __init__(self, size):
+        self.queue = []
+        self.size = size
+
+    def __str__(self):
+        myString = ' '.join(str(i) for i in self.queue)
+        return myString
+
+    def enqueue(self, item):
+        '''This function adds an item to the rear end of the queue '''
+        if(self.isFull() != True):
+            self.queue.insert(0, item)
+        else:
+            print('Queue is Full!')
+
+    def dequeue(self):
+        ''' This function removes an item from the front end of the queue '''
+        if(self.isEmpty() != True):
+            return self.queue.pop()
+        else:
+            print('Queue is Empty!')
+
+    def isEmpty(self):
+        ''' This function checks if the queue is empty '''
+        return self.queue == []
+
+    def isFull(self):
+        ''' This function checks if the queue is full '''
+        return len(self.queue) == self.size
+
+    def peek(self):
+        ''' This function helps to see the first element at the fron end of the queue '''
+        if(self.isEmpty() != True):
+            return self.queue[-1]
+        else:
+            print('Queue is Empty!')
+
+MyQuere = Queue(10)
+MyQuere.enqueue(1)
+MyQuere.enqueue(2)
+MyQuere.enqueue(3)
+MyQuere.enqueue(4)
+
+print(MyQuere) #output: 4 3 2 1
+print(MyQuere.peek()) #output: 1
+print(MyQuere.isFull()) #output: False
+print(MyQuere.dequeue())
+print(MyQuere) #output: 4 3 2
+
 
 ### Search Algorithms Implemented ###
 print("======================================")
