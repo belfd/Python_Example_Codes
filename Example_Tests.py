@@ -1,32 +1,18 @@
-## Error Handling Using Decorators ##
+# Python pass argument by object reference (not by value and not by reference)
 
-def exception_handler(func):
-    def inner_function(*args, **kwargs):
-        try:
-            func(*args, **kwargs)
-        except TypeError:
-            print(f"{func.__name__} only takes numbers as the argument")
-    return inner_function
+def set_list(list):
+    list = ["A", "B", "C"]  # here a new assignment will create object
+    return list
 
 
-@exception_handler
-def area_square(length):
-    print(length * length)
+def add(list):
+    list.append("D") # here we use the original object to extend its value
+    return list
 
 
-@exception_handler
-def area_circle(radius):
-    print(3.14 * radius * radius)
-
-
-@exception_handler
-def area_rectangle(length, breadth):
-    print(length * breadth)
-
-
-area_square(2) #output: 4
-area_circle(2) #output: 12.56
-area_rectangle(2, 4) #output: 8
-area_square("some_str") # output: area_square only takes numbers as the argument
-area_circle("some_other_str") # output: area_circle only takes numbers as the argument
-area_rectangle("some_other_rectangle") #output: area_rectangle only takes numbers as the argument
+my_list = ["E"]
+print(f"id of my_list: {id(my_list)}")
+x1 = set_list(my_list)
+x2 = add(my_list)
+print(f"id of my_list is {id(x1)} and value is: {x1}")
+print(f"id of my_list is {id(x2)} and value is: {x2}")
