@@ -3736,6 +3736,73 @@ print(fun.registry.keys())  # output: dict_keys([<class 'object'>, <class 'int'>
 print(fun.registry[int])  # output: <function _1 at 0x000002C4468F8940>
 print(fun.registry[object])  # output: <function fun at 0x000002C4468CD3A0>
 
+### ANOTHER SINGLEDISPATCH EXAMPLE
+from functools import singledispatch
+from decimal import Decimal
+"""
+When there is no registered implementation found, its MRO is used to find a more generic implementation. 
+Hence the original function decorated is registered for the base object type, 
+and is used if no other implementation is found.
+"""
+@singledispatch
+def calc_num(num):
+    raise NotImplementedError("cannot calculate for unknown number type")
+
+@calc_num.register(int)
+def calc_int(num):
+    print(f"int: {num}")
+
+@calc_num.register(float)
+def calc_float(num):
+    print(f"float: {num}")
+
+"""
+The decorator also supports decorator stacking, 
+so we can create an overloaded function to handle multiple types.
+"""
+
+@calc_num.register(float)
+@calc_num.register(Decimal)
+def calc_float_or_decimal(num):
+    print(f"float/decimal: {round(num, 2)}")
+
+calc_num(1)
+calc_num(1.0)
+calc_num(1.02324)
+#calc_num("num") #NotImplementedError: cannot cannot calculate for unknown number type
+
+from functools import singledispatch
+from dataclasses import dataclass
+
+@dataclass
+class Tea:
+    kind: str
+    temp: int
+
+@dataclass
+class Coffee:
+    kind: str
+    temp: int
+
+@singledispatch
+def boil(obj=None):
+    raise NotImplementedError("No boiler instruction for this drink")
+
+@boil.register(Coffee)
+def _coffee_boil(obj):
+    return "Successfully boiled coffee!"
+
+@boil.register(Tea)
+def _tea_boil(obj):
+    return "Successfully boiled tea!"
+
+tea = Tea(kind="white tea", temp=93)
+coffee = Coffee(kind="Yunnan", temp=98)
+print(boil(tea))    # output: Successfully boiled tea!
+print(boil(coffee)) # output: Successfully boiled coffee!
+
+
+
 ### EXCEPTION RAISE ERROR ###
 print("===============")
 print("EXCEPTION RAISE ERRORS")
@@ -6615,8 +6682,14 @@ print("=== Singleton ===")
 The __new__() is a static method (special-cased so we need not declare it as such) of a class to create instances. 
 The first parameter is always the cls representing the class itself. 
 Remaining parameters are those needed for the constructor. The return value should be a instance of this class.
+General Singleton mechanism
+class Singleton:
+    __instance = None
+    def __new__(cls, *args):
+        if cls.__instance is None:
+            cls.__instance = object.__new__(cls, *args)
+        return cls.__instance
 '''
-
 
 class Singleton_Student(object):
     _instance = None
@@ -6633,7 +6706,7 @@ class Singleton_Student(object):
         self.last_name = last_name
 
 
-s1 = Singleton_Student("Yang", "Zhou")  # Running __new__() method.
+s1 = Singleton_Student("Dan", "Belfer")  # Running __new__() method.
 # Running __init__() method.
 s2 = Singleton_Student("Elon", "Musk")  # Running __new__() method.
 # Running __init__() method.
