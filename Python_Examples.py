@@ -8558,6 +8558,14 @@ Sum: 11
 Sum: 23
 '''
 
+'''
+How does GIL work and how can it be avoided?
+GIL stands for the Global Interpreter Lock, a concurrency mechanism implemented by Python. 
+It is deeply engrained into the Python code and can’t be removed at the moment. 
+GIL introduces a significant downside in that it does not permit threads to be truly concurrent. 
+The interpreter is locked, and even though you appear to be working with threads, 
+there are no threads executing at the same time, degrading performance.
+'''
 
 ########################################
 ########################################
