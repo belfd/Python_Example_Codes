@@ -3896,6 +3896,14 @@ print(p3)  # (5,7)
 print("===============")
 print("CLASS")
 
+'''
+In python, everything is an object. And every object has attributes and methods or functions. 
+Attributes are described by data variables for example like name, age, height etc.
+Properties are special kind of attributes which have getter, setter and delete methods like 
+__get__, __set__ and __delete__ methods.
+However, there is a property decorator in Python which provides getter/setter access to an attribute Properties 
+are a special kind of attributes.
+'''
 
 # regular class
 class ClassSample:
