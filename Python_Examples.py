@@ -8379,7 +8379,55 @@ def schedule():
 thread = threading.Thread(target=schedule)
 thread.start()
 
-##############################################
+#### REDUCE COMPLEXITY WITH EXAMPLE OF LIST OF ACTIONS ####
+# Each request contains an action and a customer name.
+# Actions consist of creating a new customer,
+# activating a customer, suspending a customer and deleting a customer.
+# There are 4 types, and each type is handled differently.
+
+from typing import Any, Dict
+
+def _handle_create_request(customer_name: str) -> None:
+    # do something related to create
+    return
+
+
+def _handle_activate_request(customer_name: str) -> None:
+    # do something related to activate
+    return
+
+
+def _handle_suspend_suspend(customer_name: str) -> None:
+    # do something related to suspend
+    return
+
+
+def _handle_delete_request(customer_name: str) -> None:
+    # do something related to delete
+    return
+
+
+ACTION_MAPPING = {
+    "create": _handle_create_request,
+    "activate": _handle_activate_request,
+    "suspend": _handle_suspend_suspend,
+    "delete": _handle_delete_request,
+}
+
+
+def function_handler(request: Dict[str, Any]) -> None:
+    action = request.get("action")
+    customer_name = request.get("customer")
+    # validate input
+    _handle_request(action, customer_name)
+
+
+def _handle_request(action: str, customer_name: str) -> None:
+    action_handler = ACTION_MAPPING.get(action)
+    # handle action
+    action_handler(customer_name)
+
+###########################################################
 
 
 
