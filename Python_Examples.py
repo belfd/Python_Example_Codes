@@ -7267,6 +7267,84 @@ print(f"hasattr(Dan,'age'): {hasattr(Dan, 'age')}")  # False
 setattr(Dan, 'sex', 'male')
 print(f"getattr(Dan,'sex'): {getattr(Dan, 'sex')}")  # male
 
+####### MRO - order of inheritance ####
+# When defining a subclass, there are different ways to call the __init__ method of a parent class.
+
+class Base(object):
+    def __init__(self):
+        print("Base created")
+
+# Method 1 :: Using Parent Reference Directly
+class ChildA(Base):
+    def __init__(self):
+        Base.__init__(self)
+        print("Child A initlaized")
+
+# Method 2:: Using Super with child class
+class ChildB(Base):
+    def __init__(self):
+        super(ChildB, self).__init__()
+        print("Child B initlaized")
+
+# Method 3:: Using the super method
+class ChildC(Base):
+    def __init__(self):
+        super().__init__() #this works sincxe python 3.xx
+        print("Child C initlaized")
+
+cA = ChildA()
+cB = ChildB()
+cC = ChildC()
+''' output:
+Base created
+Child A initlaized
+Base created
+Child B initlaized
+Base created
+Child C initlaized
+'''
+print("=================")
+
+class Base1:
+    def __init__(self):
+        super().__init__()
+        print("Base 1 created")
+class Base2:
+    def __init__(self):
+        super().__init__()
+        print("Base 2 created")
+
+class A1(Base1, Base2):
+    def __init__(self):
+        super().__init__()
+        print("Child A1 Initialized")
+
+class A2(Base2, Base1):
+    def __init__(self):
+        super().__init__()
+        print("Child A2 Initialized")
+
+a1 = A1()
+''' output:
+Base 2 created
+Base 1 created
+Child A1 Initialized
+'''
+print ("\n\n")
+a2 = A2()
+''' output:
+Base 1 created
+Base 2 created
+Child A2 Initialized
+'''
+# mro = Method Resolution Order(MRO) denotes the way a programming language resolves a method or attribute.
+print(A2.mro())
+''' output:
+[<class '__main__.A2'>, <class '__main__.Base2'>, <class '__main__.Base1'>, <class 'object'>]
+'''
+#######################################
+
+
 ###### Create a constant value in class ######
 print("============================================")
 print("##### Create a constant value in class #####")
