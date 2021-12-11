@@ -1876,8 +1876,92 @@ display_names(**names)  # output: Ram says hello to Anat
 # In the parentheses, you apply this syntax for each of the parameters.
 # To indicate the return value’s type, you use -> type following the parentheses before the colon.
 print("===============")
-print("ANNOTATIONS")
+print("ANNOTATIONS - Type Hints")
 
+'''
+from typing import *
+foo:    Any = 0 # completely dynamic type: can be anything
+foobar: Tuple[()] = () # empty tuple
+bar:    Tuple[int, str] = (2, "nic")
+barfoo: Tuple[Any, str, int] = (9, "nic", 18)
+foobaz: List[int] = [1, 2, 4, 6]
+baz:    Callable = lambda x: print(f'hi {x}')
+bazbar: Dict[str, int] = {"nic": 10, "mark": 4, "linus": 9}
+'''
+
+# Variable declaration - # You can declare a typed variable without assigning it a value. Here’s an example:
+'''
+foo: str
+# assign a value later
+foo = bar()
+'''
+
+# Multiple types (Union) - A Union means that the type can be either of the specified types:
+'''
+foo: Union[int, str]
+foo = 4
+foo = "nic"
+'''
+
+# Typed functions = Typed functions are a staple of well-written modules.
+# You can specify the parameters’ type as well as the return type. Here’s an example:
+'''# Takes an int and a function that takes an int. Can return any type.
+def callFunctionOn(bar: int, foo: Callable[int]) -> Any:
+  return foo(bar)
+
+# Takes an int. Doesn't ever return since it terminates the program.
+def exitProgram(code: int) -> NoReturn:
+  exit(code)
+'''
+
+# Optional types = Note that optional types are not optional arguments.
+# Optional[x] signals that the argument can be either None or x.
+'''
+# Can take either a str or None. Returns an int or None
+def length(bar: Optional[str]) -> Union[int, None]:
+  if bar is None:
+    return None
+  return len(bar)
+'''
+
+# Creating types = You can also create your own types if you wish. Here’s an example from the documentation:
+'''
+UserId = NewType('UserId', int)
+first_user = UserId(1)
+'''
+
+# Literal types = A type that indicates that a variable’s value must be one of a specified set. Check out this example:
+'''
+OpenMode = Literal["r", "rb", "w", "wb"]
+# Takes a string path and a string open mode. Returns a file wrapper.
+def openFile(path: str, mode: OpenMode) -> _io.TextIOWrapper:
+  return open(path, mode)
+
+file = openFile("/home/nic/.profile", "rb") # OK
+file = openFile("/home/nic/.profile", "rn") # Type checker highlights error
+'''
+
+# Typing with classes = You can define your own types with NewType . You can also use classes; one is shown below:
+'''
+class Person:
+  def __init__(self, name: str, age: int):
+    self.name: str = name
+    self.age: int = age
+  
+  def greet(self, other: Person) -> str:
+    return f"Hello {other.name}, I'm {self.name}"
+'''
+
+# Example of type hints function that make things clear:
+'''
+def make_connection(ip: str,
+                    port: int,
+                    timeout: datetime.timedelta,
+                    on_connection: Callable[[Client], None], 
+                    on_error: Callable[[ConnectionError], None]
+                   ) -> Union[Client, None]:
+  # ...
+'''
 
 # def my_func(a:<expression>,b:<expression>)-><expression>:
 #     pass
