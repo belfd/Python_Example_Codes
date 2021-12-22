@@ -5187,6 +5187,139 @@ for value in simpleGeneratorFun():
 3
 '''
 
+'''
+Iterator, and Generator for Beginners
+---------------------------------------
+An iterable is an object that can return an iterator (to return all of its elements), for example:
+mylist = ['a', 'b', 'c']
+for i in mylist:
+     print(i)
+
+Objects that can be iterated using a for loop are iterable objects. 
+The 'strings', 'lists', 'files', etc. that we commonly use are all iterable objects.
+
+How do iterables work?
+It calls iter(x) function
+It checks whether the object implements the __iter__ method, and if it is implemented, call it to obtain an iterator
+If the __iter__ method is not implemented, but the __getitem__ method is implemented, Python will create an iterator and try to get the elements in order (starting at index 0)
+
+Therefore objects with __iter__() methods or __getitem__() methods are usually called iterable objects .
+
+An iterator is an object that contains a countable number of values. 
+It can be iterated upon, meaning that you can traverse through all the values. Iterator example:
+for i in range(5):
+    print(i)
+
+In simple words, an iterable object with a next() method is an iterator, 
+or the relationship between an iterable object and an iterator is: Python obtains an iterator from an iterable object.
+
+So lists, strings, etc.. that mentioned above are not iterators. 
+However, you can use Python’s built-in iter() function to obtain their iterator objects. 
+Let us use the iterator pattern to rewrite the previous example:
+mylist = [1,2,3]
+it = iter(mylist)
+while True:
+    try:
+        print(next(it))
+    except StopIteration:
+        print("Stop iteration!")
+        break
+
+Python provides a generator to create your iterator function. 
+A generator is a special type of function which does not return a single value, 
+instead, it returns an iterator object with a sequence of values. 
+In a generator function, a yield statement is used rather than a return statement.
+
+If the amount of data is too large, such as for i in range(1000000), using the for loop 
+to store all values in memory not only takes up a lot of storage space but also 
+if we only need to access the first few elements, the space is wasted. 
+In this case, we can use generator .
+The idea of the generator is that we don’t need to create this list all at once, 
+we just need to remember its creation rules, and then when we need to use it, 
+we will calculate and create it again and again. Let’s take a look at one example:
+my_generator = (x*x for x in range(10))
+for i in my_generator:
+    print(i)
+
+You can think of yield as a return, but what it returns is a generator.
+If a function uses yield as return value, then it becomes a generator function.
+
+Unlike normal functions, after the generator function is called, the code in the function body is not executed immediately , 
+but a generator is returned!
+As we mentioned earlier, generator is iterator and yield can be treated as return:
+def test():
+    print("First")
+    yield 1
+    print("Second")
+    yield 2
+    print("Third")
+    yield 3
+
+my_generator = test()
+print(type(my_generator)) # Output: <class 'generator'>
+
+for item in my_generator:
+    print(item)
+
+# output:
+# First
+# 1
+# Second
+# 2
+# Third
+# 3
+
+next(my_generator) # output: First
+next(my_generator) # output: Second
+next(my_generator) # output: Third
+next(my_generator) # Error with StopIteration
+
+Every time next(my_generator) is called, it only runs to the yield position and stops, 
+and the next time it runs, it starts from the position where it ended last time! 
+And the length of the generator depends on the number of times the yield is defined in the function.
+
+def simple_gen(a):
+    print('-> Started: a =', a)
+    b = yield a
+    print('-> Received: b =', b)
+    c = yield a + b
+    print('-> Received: c =', c)
+gen = simple_gen(14)
+next(gen) #output: -> Started: a = 14
+
+Since each time you call next(gen) , it will stop at the next yield run, so in the above example, 
+the b = yield a was not fully executed, only the right side yield a was executed. 
+That’s why you don’t see the -> Received: b= in the output.
+
+In case of next(gen) again. The output is: 
+-> Received: b = None
+TypeError: unsupported operand type(s) for +: 'int' and 'NoneType'
+
+Since the first next(gen) call, it stopped at yield a , 
+then when you call next(gen) again, b is actually None value, 
+and this has caused an exception. 
+
+To proceed, you will need to use the Send() function:
+generator.send(value)
+
+The send() method returns the next value yielded by the generator or raises StopIteration if the generator exits 
+without yielding another value. When send() is called to start the generator, it must be called with None as the 
+argument, because no yield expression could receive the value.
+
+def simple_gen(a):
+    print('-> Started: a =', a)
+    b = yield a
+    print('-> Received: b =', b)
+    c = yield a + b
+    print('-> Received: c =', c)
+gen = simple_gen(14)
+next(gen)
+gen.send(15)
+Output:
+-> Started: a = 14
+-> Received: b = 15
+'''
+
 def gen(max):
     count = 1
     while count <= max:
