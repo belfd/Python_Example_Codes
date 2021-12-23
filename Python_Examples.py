@@ -19,7 +19,10 @@ Python Quick Reference - edited in GitHub
  while two instances of a normal class will be not equal to each other as the equality operator
  checks the address in this case.
 """
-
+# Cheatsheet : https://github.com/gto76/python-cheatsheet
+# Cheatsheet : https://www.pythoncheatsheet.org/#Virtual-Environment
+# Cheatsheet : https://cheatography.com/davechild/cheat-sheets/python/
+# Cheatsheet : https://perso.limsi.fr/pointal/_media/python:cours:mementopython3-english.pdf
 '''
 # Variable lower_snake
 firstName = 'Dan Belfer'
