@@ -1569,6 +1569,50 @@ init
 >>> obj()
 call
 '''
+'''
+# When we pass immutable items as arguments to the function, it uses pass by value. For e.g:
+def set_list(value):
+  value= "Changed string"
+  return value
+s = "Hello"
+print(set_list(s))
+print(s)
+Output:
+Changed string
+Hello
+
+# You can see that the string has changed only in the function scope and not the outside one.
+# So, only the value is passed on to the function.
+
+# When we pass mutables like list in the function arguments, it uses pass by reference.
+def change(my_list):
+   my_list.append(5)
+   return my_list
+
+my_list = [10, 20]
+print(change(my_list))
+print(my_list)
+# Output:
+# [10, 20, 5]
+# [10, 20, 5]
+
+# The list passed in the function also changed its value outside the function, when a number was appended.
+# But there is a catch!
+
+# When we assign a new value to the list passed in the function, it uses pass by value.
+def assign_list(my_list):
+   my_list= ["A", "B", "C"]
+   return my_list
+my_list = [10, 20]
+print(assign_list(my_list))
+print(my_list)
+# Output:
+# ['A', 'B', 'C']
+# [10, 20]
+
+# Here, python created a new variable(within function scope) pointing to [“A”, “B”, “C”].
+
+'''
 
 ### DOCSTRING FUNCTIONS ###
 ### Enable adding documentation to functions - can be activated by __doc__ ###
