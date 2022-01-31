@@ -8168,6 +8168,30 @@ new_object = json.loads('{"__class__": "User", "__module__": "__main__", "name":
 type(new_object) #output: __main__.User
 
 '''
+"""
+json.dumps() This function accepts Python’s basic data types and serializes them into strings;
+json.loads() function, on the other hand, accepts a valid string and deserializes it into Python’s basic data types.
+For example:
+import json
+params = {
+    'symbol': '123456',
+    'type': 'limit',
+    'price': 123.4,
+    'amount': 23
+}
+params_str = json.dumps(params)
+print('after json serialization')
+print(f'type of params_str = {type(params_str)}, params_str = {params_str}')
+original_params = json.loads(params_str)
+print('after json deserialization')
+print(f'type of original_params = {type(original_params)}, original_params = {original_params}')
+########## Output ##########
+after json serialization
+type of params_str = <class 'str'>, params_str = {'symbol': '123456', 'type': 'limit', 'price': 123.4, 'amount': 23}
+after json deserialization
+type of original_params = <class 'dict'>, original_params = {'symbol': '123456', 'type': 'limit', 'price': 123.4, 'amount': 23}
+"""
+
 ###############################
 ### WORKING WITH CSV ##########
 '''
