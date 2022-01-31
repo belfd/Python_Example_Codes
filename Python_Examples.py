@@ -7584,30 +7584,30 @@ class Base(object):
 class ChildA(Base):
     def __init__(self):
         Base.__init__(self)
-        print("Child A initlaized")
+        print("Child A initialized")
 
 # Method 2:: Using Super with child class
 class ChildB(Base):
     def __init__(self):
         super(ChildB, self).__init__()
-        print("Child B initlaized")
+        print("Child B initialized")
 
 # Method 3:: Using the super method
 class ChildC(Base):
     def __init__(self):
         super().__init__() #this works sincxe python 3.xx
-        print("Child C initlaized")
+        print("Child C initialized")
 
 cA = ChildA()
 cB = ChildB()
 cC = ChildC()
 ''' output:
 Base created
-Child A initlaized
+Child A initialized
 Base created
-Child B initlaized
+Child B initialized
 Base created
-Child C initlaized
+Child C initialized
 '''
 print("=================")
 
