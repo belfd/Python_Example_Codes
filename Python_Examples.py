@@ -378,6 +378,16 @@ print("Python ", end="")
 print("Programming")
 # output: Python Programming
 
+print(f"{'Right Aligned' : >30}")
+print(f"{'Left Aligned' : <30}")
+print(f"{'Centered' : ^30}")
+# output:
+'''
+                Right Aligned
+Left Aligned                  
+           Centered           
+'''
+
 ### MATH ###
 print("===============")
 print("MATH")
@@ -2360,6 +2370,14 @@ in the general format
 for sublist in outer_list:
     for item in sublist:
         expression
+        
+Syntax : [expression for item in iterable]
+Syntax (if only): [expression for item in iterable if condition]
+Syntax (if & else both): [expression if condition else expression for item in iterable ]
+Syntax (Nested Loops): [(x,y) for x in iterable1 for y in iterable 2]
+Syntax (Multiple if ): [x for x in iterable if condition1 and condition2]
+Syntax (Multiple if & else): [x if condition1 and condition2 else condition for x in iterable]        
+        
 '''
 
 # for loop to create a list of cubes
@@ -3119,6 +3137,15 @@ A deep copy makes the copying process recursive. It means first constructing a n
 then recursively populating it with copies of the child objects found in the original. 
 Copying an object this way walks the whole object tree to create a fully independent clone of the 
 original object and all of its children.
+## Example of Shallow Copy
+data = [1, 2, 3, 4, 5]
+updated_data = data
+updated_data.append(6)
+print(updated_data)
+print(data)
+--------------------------------
+[1,2,3,4,5,6]     ## new
+[1,2,3,4,5,6]     ## old
 '''
 # example of shallow copy
 first_list = [[1, 2, 3], ['a', 'b', 'c']]
@@ -3179,6 +3206,16 @@ Altering mutable elements of the original list l will affect these shallow copie
 (You can find more information about mutable and immutable variables here)
 The only truly independent copy is r = copy.deepcopy(l). Altering the elements (mutable or immutable) 
 in the original list l will not affect this copy.
+## Example of Deep Copy
+import copy
+data = [1,2,3,4,5]
+updated_data = copy.deepcopy(data)
+updated_data.append(6)
+print(updated_data)
+print(data)
+------------------------------
+[1,2,3,4,5,6]    ## new
+[1,2,3,4,5]      ## old 
 '''
 
 ### CLOSURE ####
