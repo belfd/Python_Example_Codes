@@ -5731,6 +5731,18 @@ if any(my_conditions):
 else:
     print("I am sorry, but it seems that you have to repeat at least one exam.")
 
+
+## Replace Using “or” to Check Multiple Conditions in Python with "in"
+""" 
+Instead of using multiple or:
+if number == 1 or number == 2 or number == 3 or number == 4:
+    do_smt()
+
+Use in:
+if number in [1, 2, 3, 4]:
+    do_smt()    
+"""
+
 ## Using * and ** for Function Argument Unpacking ##
 print("=====================")
 print("Using * and ** for Function Argument Unpacking")
