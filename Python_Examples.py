@@ -2697,6 +2697,18 @@ print("ZIP")
 
 # make an iterator that aggregates elements from each of the iterables, only works with iterators
 # for iterating over two data types at the same time, where needed the indexes to be equal
+# zip creates tuple where i-th element in the tuple is i-element of one iterator and second is i-th element in second..
+
+test_list = [1,2,3]
+zip_result = zip(test_list)
+for i in zip_result:
+    print(i)
+
+#(1,)
+#(2,)
+#(3,)
+
+
 list1 = [102, 306, 918, 2754]
 list2 = [1, 3, 9, 27]
 
