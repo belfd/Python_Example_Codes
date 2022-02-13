@@ -6868,6 +6868,18 @@ a data class requires a minimal amount of code
 you can compare data classes because __eq__ is implemented for you
 you can easily print a data class for debugging because __repr__ is implemented as well
 data classes require type hints, reduced the chances of bugs
+
+dataclass vs. Named Tuple:
+The use of Data Class is most often compared with the use of Named Tuple. 
+For the most part, Data Class offers the same advantage if not more than Named Tuple.
+In the case where you need to unpack your variables, you might want to consider using Named Tuple instead.
+
+dataclass vs. Dictionary
+When our Dictionary has a fixed set of keys where their corresponding values have fixed types, 
+it is almost always better to use Data Class.
+In short, the rule of thumb is rather simple, if you create a dictionary or a class that mostly consists of 
+attributes about the underlying data, use Data Class. It saves you a bunch of time.
+Finally, Data Class also preserves type information for each property, which is a huge added advantage!
 '''
 
 from dataclasses import dataclass
@@ -6883,6 +6895,86 @@ card = Card("Q", "hearts")
 print(card == card)  # output: True
 print(card.rank)  # output: 'Q'
 print(card)  # output: Card(rank='Q', suit='hearts')
+
+'''
+Custom attribute behaviour with the field function
+In some situations, you may need to create an attribute that is only defined internally, 
+not when the class is instantiated. This may be the case when the attribute has a value that depends on 
+previously-set attributes.
+Here’s where you’d use the field function from dataclasses.
+By using this function and setting itsinit and repr arguments to False to create a new field called full_name, 
+we can still instantiate a Person class without setting the full_name attribute.
+'''
+from dataclasses import dataclass, field, astuple, asdict
+
+@dataclass
+class Person:
+    first_name: str = "Ahmed"
+    last_name: str = "Besbes"
+    age: int = 30
+    job: str = "Data Scientist"
+    full_name: str = field(init=False, repr=True)
+    def __post_init__(self):
+        self.full_name = self.first_name + " " + self.last_name
+
+# Note that the repr argument inside the field function has been set to True to make it visible
+# when the object is printed.
+'''
+Using dataclasses, you can create objects that are read-only. 
+All you have to do is set the frozen argument to True inside the @dataclass decorator.
+'''
+
+@dataclass(frozen=True)
+class Person1:
+     first_name: str = "Ron"
+     last_name: str = "Ronniel"
+     age: int = 20
+     job: str = "Artist"
+
+'''
+When you do this, you prevent anyone from modifying the values of the attributes once the object is instantiated.
+If you try to set a frozen object’s attribute to a new value, a FrozenInstanceError error will be raised.
+'''
+
+'''
+Instances can easily be serialized into dicts or tuples. 
+This is very useful when your code interacts with other programs that expect these formats.
+'''
+
+ahmed = Person()
+print(astuple(ahmed))
+# ('Ahmed', 'Besbes', 30, 'Data Scientist')
+
+print(asdict(ahmed))
+# {'first_name': 'Ahmed',
+# 'last_name': 'Besbes',
+# 'age': 30,
+# 'job': 'Data Scientist'}
+
+'''
+The attribute 'full_name' doesn’t exist yet in the instance. If we try to access it, an AttributeError is thrown.
+'''
+p_example = Person(first_name='Dan',last_name='Belfer',age=49,job='QA')
+# print(p_example.full_name)  ## will throw an error that there is no attribute of 'full_name'
+# To set the value of full_name and still keep it out of the constructor of the class?
+# To do this, we’ll have to use the __post_init__method.
+
+'''
+dataclasses has a special method called __post_init__ .
+As the name clearly suggests, this method is called right after the __init__ method is called.
+Going back to the previous example, we can see how this method can be called to initialize 
+an internal attribute that depends on previously set attributes.
+Note that the repr argument inside the field function has been set to True 
+to make it visible when the object is printed. 
+'''
+
+@dataclass
+class Car:
+    name: str = field(compare=False)  # To exclude this field from comparison
+    brand: str = field(repr=False)    # To hide fields in __repr__
+    price: int = 120_000
+    condition: str = field(default='New')
+
 
 
 # Chunk
@@ -7761,6 +7853,105 @@ d2 = Date.fromString("21/07/2020")
 print(d1.day, d1.month, d1.year) #output: 12 3 1977
 print(d2.day, d2.month, d2.year) #output: 21 7 2020
 
+##### DESCRIPTORS ###########
+print("===========================")
+print("##### DESCRIPTORS #####")
+
+
+class Car:
+   def __init__(self):
+      self.fuel_amount = 0
+
+   @property
+   def fuel_amount(self):
+      return self._fuel_amount
+
+   @fuel_amount.setter
+   def fuel_amount(self, amount):
+      if amount < 0:
+         raise ValueError("Tank can't be less than empty!")
+
+      if amount > 60:
+         raise ValueError("Tank can't take more than 60 l!")
+
+      self._fuel_amount = amount
+
+car = Car()
+#car.fuel_amount = -10 will cause "ValueError: Tank can't be less than empty!"
+
+"""
+Descriptors provide a solution that helps us separating concerns within our class, 
+so our code remains nice and SOLID. By using a descriptor instead of a property, our Car class gets as short as this:
+"""
+
+
+#Descriptor
+class SixtyLitresCapacity:
+   def __set__(self, car, amount):
+      if amount < 0:
+         raise ValueError("Tank can't be less than empty!")
+
+      if amount > 60:
+         raise ValueError("Tank can't take more than 60 l!")
+
+      car._fuel_amount = amount
+
+   def __get__(self, car, objtype=None):
+      return car._fuel_amount
+
+
+class Car:
+   fuel_amount = SixtyLitresCapacity()
+
+   def __init__(self):
+      self.fuel_amount = 0
+
+
+
+car1 = Car()
+# car1.fuel_amount = 70  ## Error occur: "ValueError: Tank can't take more than 60 l!"
+
+#Better after refactoring:
+class IsBetween:
+   def __init__(self,
+                min_value,
+                max_value,
+                below_exception=ValueError(),
+                above_exception=ValueError()):
+      self.min_value = min_value
+      self.max_value = max_value
+
+      self.below_exception = below_exception
+      self.above_exception = above_exception
+
+   def __set_name__(self, owner, name):
+      self.private_name = '_' + name
+      self.public_name = name
+
+   def __set__(self, obj, value):
+      if value < self.min_value:
+         raise self.below_exception
+
+      if value > self.max_value:
+         raise self.above_exception
+
+      setattr(obj, self.private_name, value)
+
+   def __get__(self, obj, objtype=None):
+      return getattr(obj, self.private_name)
+
+
+class Car:
+   fuel_amount = IsBetween(0, 60, ValueError(), ValueError())
+
+   def __init__(self):
+      self.fuel_amount = 0
+
+car2 = Car()
+# car2.fuel_amount = 70  ### Raise Error: "raise self.above_exception ValueError"
+
+
+
 ####### META-PROGRAMMING ######
 print("===========================")
 print("##### META-PROGRAMMING #####")
@@ -8251,6 +8442,36 @@ after json serialization
 type of params_str = <class 'str'>, params_str = {'symbol': '123456', 'type': 'limit', 'price': 123.4, 'amount': 23}
 after json deserialization
 type of original_params = <class 'dict'>, original_params = {'symbol': '123456', 'type': 'limit', 'price': 123.4, 'amount': 23}
+"""
+
+"""
+Have you ever wondered why json.loads ends with a “s”? The reason is because that method is specifically 
+for working on a string, and there is another related method for working on files: json.load.
+json.loads is for deserialising a string containing JSON, 
+while json.load (no "s") is for deserialising a file containing JSON.
+The methods are very related. In fact, json.load is a wrapper around json.loads. 
+It's a method provided out of the box by Python to simplify the task of reading JSON from file-like objects. 
+For example, these result in the same outcome:
+# bad
+with open(‘some/path.json’, ‘r’) as f:
+ content = json.loads(f.read())
+# good
+with open(‘some/path.json’, ‘r’) as f:
+ content = json.load(f)
+
+Similarly to json.loads, json.dumpsalso ends with an "s" because it's specifically for working on a string 
+and there is another related method:json.dump
+json.dumps is for JSON serialising an object to a string, while json.dump (no "s") is for JSON 
+serialising an object to a file.
+Again similar to the relationship between json.load and json.loads, json.dump is a wrapper around json.dumps. 
+It's a method provided out of the box by Python to simplify the task of writing JSON to a file-like object.
+For example, these result in the same outcome:
+# bad
+with open('some/path.json', 'w') as f:
+    f.write(json.dumps({'foo': 'bar'}))
+# good
+with open('some/path.json', 'w') as f:
+    json.dump({'foo': 'bar'}, f)
 """
 
 ###############################
@@ -8823,7 +9044,74 @@ async def launch_app_async():
 asyncio.run(launch_app_async())
 
 ####################################################
+### DEPENDENCY INJECTOR ############################
+print("~~~~~ Dependency Injection ~~~~")
 
+## Hard coupling without dependency injection
+class MessageFormatter:
+   def success(self, message):
+      return f"👍 {message}"
+
+
+class MessageWriter:
+   def __init__(self):
+      self.message_formatter = MessageFormatter() ## Hard coupling
+
+   def write(self, message):
+      print(self.message_formatter.success(message))
+
+
+message_writer = MessageWriter()
+message_writer.write("Hello World!")
+
+# With dependency injection
+class MessageFormatter:
+   def success(self, message):
+      return f"👍 {message}"
+
+
+class MessageWriter:
+   def __init__(self, message_formatter): #dependency injection
+      self.message_formatter = message_formatter
+
+   def write(self, message):
+      print(self.message_formatter.success(message))
+
+
+message_formatter = MessageFormatter()
+message_writer = MessageWriter(message_formatter)
+message_writer.write("Hello World!")
+
+"""
+Most Formal way is using 'dependency_injector' lib 
+from dependency_injector import containers, providers
+
+class MessageFormatter:
+    def success(self, message):
+        return f"👍 {message}"
+
+class Container(containers.DeclarativeContainer):
+   message_formatter = providers.Factory(MessageFormatter)
+
+
+class MessageWriter:
+    def __init__(self, message_formatter=None):
+        if message_formatter:
+            self.message_formatter = message_formatter
+        else:
+            self.message_formatter = Container.message_formatter()
+
+    def write(self, message):
+        print(self.message_formatter.success(message))
+
+
+message_formatter = MessageFormatter()
+message_writer = MessageWriter(message_formatter)
+message_writer.write("Hello World!")
+"""
+
+
+####################################################
 ####### Schedule tasks with Threading ######
 print("~~~~~ Schedule tasks with Threads ~~~~")
 
