@@ -2163,6 +2163,26 @@ sorted_data = sorted(data, key=lambda x: x['age'])
 print("Using sorted on dictionary by age:")
 print(sorted_data)  # [{'name': 'Max', 'age': 19}, {'name': 'John', 'age': 21}, {'name': 'Lisa', 'age': 22}]
 
+"""
+following lambda function completed three operations:
+1) remove the last "+"
+2) remove ',' from the string and
+3) convert string into integer
+one liner lambda function example
+df[‘installs_clean’]= df['installs'].apply(lambda x:int(x[:-1].replace(‘,’,’’)))
+
+#Use if condition in lambda function example:
+train[‘pop’]=train[‘popularity’].apply(lambda x: 1 if x==’High’ else 0)
+
+Lambda extract dictionary values or keys for sorting
+Lambda function can also be used in sorted, sort, min,max, largest function.
+A typical usage is to sort a dictionary by its key or value.
+
+sorted(dic.items(), key=lambda item: item[1])
+Here is the sequence:
+dic.items() decomposes dictionary into list of tuples
+"""
+
 ### FUNCTION ATTRIBUTES ####
 print("=================")
 print("FUNCTION ATTRIBUTES")
@@ -4680,6 +4700,44 @@ class F(D, E, C): pass
 print(F.mro()) #output: [<class '__main__.F'>, <class '__main__.D'>, <class '__main__.A'>,
 # <class '__main__.E'>, <class '__main__.B'>, <class '__main__.C'>, <class 'object'>]
 
+###### Multiply Inheritance Example ######
+class BaseClassA:
+    def __init__(self, hello: str, world: str = "test"):
+        self.hello = hello
+        self.world = world
+
+    def method_from_a(self) -> str:
+        return f"This is a method from class A with {self.hello}"
+
+    def shared_method(self) -> str:
+        return "This is A"
+
+
+class BaseClassB:
+    class_var = 0
+
+    def method_from_b(self, input_var: int) -> int:
+        self.class_var += input_var
+        return self.class_var
+
+    def shared_method(self) -> str:
+        return "This is B"
+
+
+class Inherited(BaseClassB,BaseClassA):
+    def __init__(self, hello: str, world: str = "not test"):
+        super().__init__(hello, world)
+        self.inherited_var = []
+
+
+inherited = Inherited("foo", "bar")
+assert inherited.method_from_a() == "This is a method from class A with foo"
+assert inherited.method_from_b(10) == 10
+assert inherited.shared_method() == "This is B"  ## This is true only because of MRO rule,
+# if a method is defined both in BaseClassA and BaseClassB, it will take the method from BaseClassB,
+# as it is defined first.
+##########################################
+
 ####################
 ## COMPOSITION #####
 print("===============")
@@ -7042,7 +7100,42 @@ def add_item_to_cart(new_item, shopper_name, existing_items=None):
 shopping_list_wife = add_item_to_cart("Dress", "Jennifer")  # Jennifer's cart has ['Dress']
 shopping_list_husband = add_item_to_cart("Soccer", "David")  # David's cart has ['Soccer']
 
+####################################################################
+print("### ITERTOOLS ###")
 
+import itertools
+import operator
+
+data = [1, 2, 3, 4, 5]
+result = itertools.accumulate(data, operator.mul)
+for each in result:
+    print(each)
+
+# 1
+# 2
+# 6
+# 24
+# 120
+
+# compress - This function filters one iterable with another
+
+countries = ['Pakistan', 'China', 'India', 'Afghanistan']
+selections = [True, False, True, False]
+result = itertools.compress(countries, selections)
+for each in result:
+    print(each)
+
+#output:
+#Pakistan
+#India
+
+#####################
+data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+result = itertools.dropwhile(lambda x: x<5, data)
+for each in result:
+    print(each, end=" ")
+
+#output: 5 6 7 8 9 10
 #####################################################################
 
 # Check type before running the code in a function - example:
