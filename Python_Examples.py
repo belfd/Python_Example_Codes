@@ -622,6 +622,29 @@ groceries.sort()
 # groceries = ['bread', 'milk', 'tea']
 
 
+## Sorting a List of Dictionaries
+print("--------------------------------")
+print("Sorting a List of Dictionaries")
+
+person = [
+{
+ 'name' : 'andrew',
+ 'age' : 25,
+ 'id' : 72365
+},
+{
+ 'name' : 'bill',
+ 'age' : 34,
+ 'id' : 55443
+}
+]
+# Method 1
+person.sort(key=lambda item: item.get("id"))
+print(person) #output: [{'name': 'bill', 'age': 34, 'id': 55443}, {'name': 'andrew', 'age': 25, 'id': 72365}]
+# Method 2
+person = sorted(person, key=lambda item: item.get("id"))
+print(person)  #output: [{'name': 'bill', 'age': 34, 'id': 55443}, {'name': 'andrew', 'age': 25, 'id': 72365}]
+
 # create a second reference to the same list
 same_num = num
 same_num[0] = 0  # modifies both 'num' and 'same_num'
@@ -2415,6 +2438,15 @@ vals = [[1, 2, 3], [4, 5, 2], [3, 2, 6]]
 vals_exp = [y for x in vals for y in x]  # list comprehension
 print(f"vals_exp with list comprehension: {vals_exp}")  # [1,2,3,4,5,2,3,2,6]
 
+# list comprehension using if-else
+my_list = ['BuzzFizz' if i % 12== 0
+  else 'Buzz' if i % 3 == 0
+  else 'Fizz' if i % 4== 0
+  else i for i in range(1, 15)]
+print(my_list) #output: [1, 2, 'Buzz', 'Fizz', 5, 'Buzz', 7, 'Fizz', 'Buzz', 10, 11, 'BuzzFizz', 13, 14]
+
+
+
 # equivalent to regular using of for loops:
 vals_exp = []
 for x in vals:
@@ -2450,6 +2482,16 @@ items = []
 for row in matrix:
     for item in row:
         items.append(item)
+
+# Flattening a list
+mylist = [10,12,36,[41,59,63],[77],81,93]
+flat = []
+for i in mylist:
+ if isinstance(i, list):
+   flat.extend(i) #add all the elements in list in one iteration
+ else:
+   flat.append(i) #add single element
+print(flat) #output: [10, 12, 36, 41, 59, 63, 77, 81, 93]
 
 # equivalent list comprehension
 items = [item for row in matrix for item in row]  # [1, 2, 3, 4]
@@ -6766,6 +6808,36 @@ print("===========================")
 print("longest string in from a list:")
 words = ['This', 'is', 'a', 'list', 'of', 'words']
 print(max(words, key=len)) #output: 'words'
+
+##  Find the element with the highest frequency
+print("===========================")
+print("Find the element with the highest frequency:")
+new_list = ['a','b','a','d','e','g','g','a','c','f','k','t','u','z','x','a']
+print("Most frequent element:", max(set(new_list),key= new_list.count)) #output: Most frequent element: a
+
+## Finding sub-strings from a list of strings
+print("===========================")
+print("Finding sub-strings from a list of strings:")
+data = [
+"Python, Programming Language",
+"Meta, Mark Zuckerberg",
+"Sebastian Vettel, F1 racer",
+"Alexa, Amazon"
+]
+# Method 1
+name = "Meta"
+for data in data:
+    if data.find(name) >= 0:
+        print(data)  #output: Meta, Mark Zuckerberg
+
+# Method 2
+name = "Vettel"
+for data in data:
+    if name in data:
+        print(data)
+
+
+
 
 ## Count the frequency of a character in a string
 print("===========================")
