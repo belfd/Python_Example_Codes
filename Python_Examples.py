@@ -2655,10 +2655,30 @@ for name in Genius:
         L1.append(char)
 print(L1)  # output: ['J', 'e', 'r', 'r', 'y', 'J', 'a', 'c', 'k', 't', 'o', 'm', 'D', 'a', 'n']
 
-# The short way using list comprehention
+# The short way using list comprehension
 Genius = ["Jerry", "Jack", "tom", "Dan"]
 L1 = [char for name in Genius for char in name]
 print(L1)  # output: ['J', 'e', 'r', 'r', 'y', 'J', 'a', 'c', 'k', 't', 'o', 'm', 'D', 'a', 'n']
+
+"""
+Avoid large conditions — All
+long conditionals are not easy to catch in the first time; 
+so, when possible, we have to avoid large conditions. For example:
+if condition1 and condition2 and condition3 and condition4:
+    do_something()
+# same case, different syntax
+if condition1:
+    if condition2:
+        if condition3:
+            if condition4:
+                do_something()
+You can avoid them this way:
+conditions = [condition1, condition2, condition3, condition4]
+if all(conditions):
+    do_something()    
+"""
+
+
 
 # 'all' return True if all elements of iterable are true (or iterable empty)
 # 'all' behaves like a series of AND conditions
@@ -2667,6 +2687,18 @@ all([char for char in 'eio' if char in 'aeiou'])
 all([num for num in [4, 2, 10, 6, 8] if num % 2 == 0])  # True
 # 'any' return True if any element of iterable is true. If iterable is empty ,returns False
 # 'any' behaves like a series of OR conditions
+
+"""
+Avoid large conditions — Any
+Sometimes, conditions are not followed just by and operators. In case of or operator:
+if condition1 or condition2 or condition3 or condition4:
+    do_something()
+you can use any()
+conditions = [condition1, condition2, condition3, condition4]
+if any(conditions):
+    do_something()
+"""
+
 any([0, 1, 2, 3])  # True
 any([val for val in [1, 2, 3] if val > 2])  # True
 any([val for val in [1, 2, 3] if val > 5])  # False
@@ -5134,7 +5166,51 @@ t.empDetails()
 Employee name is jon and Employee no is 25
 Employee name is Tom and Employee no is 30;
 '''
+"""
+## Static and Class methods can be inherited ##
 
+class A:
+    def __init__(self,attr1=1,attr2=2):
+        self.attr1=attr1
+        self.attr2=attr2
+
+    def instance_method(self):
+        print(f"info of class {self} with attributes attr1: {self.attr1} attr2: {self.attr2}")
+
+    @classmethod
+    def get_instance(cls,atr1,atr2):
+        print(f"class method of {cls}")
+        return cls(atr1,atr2)
+
+    @staticmethod
+    def static_func(in1,in2):
+        print(f"static method of A")
+
+class DeriveA(A):
+    def __init__(self,a1,a2,da1=111,da2=222):
+        self.derattr1 = da1
+        self.derattr2 = da2
+        super().__init__(a1,a2)
+
+    def instance_method(self):
+        print(f"info of class {self} with attributes derattr1: {self.derattr1} derattr2: {self.derattr2}")
+
+
+a_sample = A(15,3)
+a_sample.instance_method() #info of class <__main__.A object at 0x00000217CAD9FEE0> with attributes attr1: 15 attr2: 3
+print("class method:\n")
+a_sample.get_instance(11,22).instance_method()
+#class method of <class '__main__.A'>
+#info of class <__main__.A object at 0x00000217CAD9FF70> with attributes attr1: 11 attr2: 22
+A.static_func(2,3) # static method of A
+
+da_sample = DeriveA(1,2,3,4)
+da_sample.instance_method() 
+# info of class <__main__.DeriveA object at 0x00000217CAD9FF70> with attributes derattr1: 3 derattr2: 4
+da_sample.get_instance(20,30).instance_method()  # class method of <class '__main__.DeriveA'>
+# info of class <__main__.DeriveA object at 0x00000217CAD9FE20> with attributes derattr1: 111 derattr2: 222
+da_sample.static_func(5,6) # static method of A bn           
+"""
 ''''
 How Abstract Base classes work :
 By default, Python does not provide abstract classes. Python comes with a module that provides the base for 
@@ -7405,6 +7481,15 @@ print(s1 == s2)  # True
 print(s1.last_name)  # Musk
 print(s2.last_name)  # Musk
 
+"""
+Another example:
+class SingletonPattern:     
+    def __new__(cls, *args, **kwargs):   
+        if cls._instance is None: # Checking if an instance of this class exists            
+            cls._instance = super().__new__(cls, *args, **kwargs) # Creating a new instance           
+        return cls._instance # Returing the instance 
+"""
+
 ## REMEMBER ##
 '''
 __init__() method must return None , otherwise a TypeError will be raised.
@@ -9620,6 +9705,138 @@ GIL introduces a significant downside in that it does not permit threads to be t
 The interpreter is locked, and even though you appear to be working with threads, 
 there are no threads executing at the same time, degrading performance.
 '''
+"""
+SOLID stands for five software development principles that are instrumental in writing cleaner, more readable code. 
+There are five principles that make your code easier to read and understand and help you write better programs:
+S — Single Responsibility Principle
+O — Open/Closed Principle
+L — Liskov Substitution Principle
+I — Interface Segregation Principle
+D — Dependency Inversion Principle.
+
+Single Responsibility Principle (SRP)
+Each Python module should have a single responsibility that is clear to users at every point. 
+The boundaries around responsibilities can be fuzzy, so one way to apply SRP is to ask yourself 
+if you’d be OK with your application breaking if part of your module were removed.
+❌Bad way:
+class Animal:
+    def __init__(self, name: str):
+        self.name = name
+    def get_name(self) -> str:
+        pass
+    def save(self, animal: Animal):
+        pass
+✅Good way:
+class Animal:
+    def __init__(self, name: str):
+            self.name = name
+    def get_name(self):
+        pass  
+class AnimalDB:
+    def get_animal(self) -> Animal:
+        pass
+    def save(self, animal: Animal):
+        pass
+
+Open/Closed Principle (OCP)
+Unlike OOD which is concerned with objects that know how to do certain things (open), 
+OCP is concerned with interfaces that can be extended or modified without changing how they work (closed).
+❌Bad way:
+class Discount:
+    def __init__(self, customer, price):
+        self.customer = customer
+        self.price = price
+    def give_discount(self):
+            if self.customer == 'fav':
+                return self.price * 0.2
+            if self.customer == 'vip':
+                return self.price * 0.4
+✅Good way:
+class Discount:
+    def __init__(self, customer, price):
+        self.customer = customer
+        self.price = price
+    def get_discount(self):
+            return self.price * 0.2
+class VIPDiscount(Discount):
+    def get_discount(self):
+        return super().get_discount() * 2
+        
+        
+Liskov Substitution Principle (LSP)
+The Liskov Substitution Principle is used when writing code. 
+It is used to make sure that objects are usable in place of their parent class. 
+In Python, LSP allows subclasses to extend their parent class functionality while still being usable 
+by an object’s original interface (i.e., in place of their parent).
+❌Bad way:
+def animal_leg_count(animals: list):
+    for animal in animals:
+        if isinstance(animal, Lion):
+            print(lion_leg_count(animal))
+        elif isinstance(animal, Mouse):
+            print(mouse_leg_count(animal))
+        elif isinstance(animal, Pigeon):
+            print(pigeon_leg_count(animal))
+animal_leg_count(animals)
+✅Good way:
+def animal_leg_count(animals: list):
+    for animal in animals:
+        print(animal.leg_count())
+animal_leg_count(animals)
+
+In other words, objects should act as a proper subset of those in their superclass or category.
+
+Interface Segregation Principle (ISP)
+If a class is dependent on another class, it’s always advisable to use IS. 
+If a class depends only on one interface not multiple interfaces then that can be treated as an example of ISP.
+❌Bad way:
+class IShape:
+    def draw_square(self):
+        raise NotImplementedError
+    def draw_rectangle(self):
+        raise NotImplementedError
+    def draw_circle(self):
+        raise NotImplementedError
+✅Good way:
+class IShape:
+    def draw(self):
+        raise NotImplementedError
+class Circle(IShape):
+    def draw(self):
+        pass
+class Square(IShape):
+    def draw(self):
+        pass
+class Rectangle(IShape):
+    def draw(self):
+        pass
+        
+Dependency Inversion Principle (DIP)
+The Dependency Inversion Principle: It says that high-level modules should not depend on low-level modules. 
+Both should depend on abstractions.
+❌Bad way:
+class XMLHttpService(XMLHttpRequestService):
+    pass
+class Http:
+    def __init__(self, xml_http_service: XMLHttpService):             
+        self.xml_http_service = xml_http_service
+    def get(self, url: str, options: dict):
+        self.xml_http_service.request(url, 'GET')
+    def post(self, url, options: dict):        
+        self.xml_http_service.request(url, 'POST')
+✅Good way:
+class Http:
+    def __init__(self, http_connection: Connection):
+        self.http_connection = http_connection
+    def get(self, url: str, options: dict):
+        self.http_connection.request(url, 'GET')
+    def post(self, url, options: dict):
+        self.http_connection.request(url, 'POST')
+
+Abstractions should not depend upon details. Details should depend upon abstractions.                
+"""
+
+
 
 ########################################
 ########################################
