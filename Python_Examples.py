@@ -3740,6 +3740,35 @@ area_rectangle("some_other_rectangle") #output: area_rectangle only takes number
 print("========================")
 print("DECORATORS EXPLAINED")
 
+"""
+def decorator(func):
+    def inner():
+        print("run something before actual function")
+        func()
+        print("run something after actual function")
+    return inner
+
+
+def func():
+    print("something...")
+
+
+decorated_func = decorator(func)
+decorated_func()
+## replaced by:
+@decorator
+def func():
+    print("something...")
+##
+
+''
+run something before actual function
+something...
+run something after actual function
+''
+"""
+
+
 import functools
 
 # Simple Decorator
