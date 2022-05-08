@@ -438,6 +438,7 @@ print(f"d>f<e is {d > f < e}")
 
 # Use 'is' or 'is not' to compare variable addresses (by their id)
 # Use '==' ór '!=' to compare variable values
+# Recommended when need to compare to None - to verify if exist or not, Null or not - prefer 'is None' to '== None'
 
 a = [1, 2, 3]
 b = [1, 2, 3]
