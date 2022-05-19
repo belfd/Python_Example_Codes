@@ -4398,6 +4398,20 @@ class Student:
 Yang = Student.get_from_string('yang zhou')
 print(Yang.first_name) # yang
 print(Yang.last_name) # zhou
+
+Another example:
+class Count:
+   total_instances = 0
+   def __init__(self):
+      self.increment_count()
+      pass
+   @classmethod
+   def increment_count(cls):
+      cls.total_instances += 1
+
+object_1 = Count()
+object_2 = Count()
+print(Count.total_instances) #output: 2
 '''
 ### STATIC VAR AND METHOD IN CLASS ###
 print("===============")
@@ -6179,6 +6193,8 @@ for _ in range(5):
 #### ASSERT ####
 print("=====================")
 print("ASSERT")
+### **** NOTICE: assert should not come with () - because assert(True == False, 'This would never fail')
+### will always be true - because there is tuple: (True ==...) and it is not empty, it is true always!!!
 
 x = "hello"
 # if condition returns True, then nothing happens:
@@ -6271,6 +6287,31 @@ print(timeit.timeit('[func(42) for func in (f,g,h)]', globals=globals()))
 print("=====================")
 print("REPLACEMENT to SWITCH CASE")
 
+"""
+Emulate switch case as Dictionary:
+Original function:
+def calculator(operator, x, y):
+   if operator == 'add':
+      add(x, y)
+   elif operator == 'sub':
+      sub(x, y)
+   elif operator == 'mul':
+      mul(x, y)
+   elif operator == 'div':
+      div(x, y)
+   else:
+      return None
+
+Becomes:
+def calculator(operator, x, y):
+   return {
+      'add': lambda: x + y,
+      'sub': lambda: x - y,
+      'mul': lambda: x * y,
+      'div': lambda: x / y,
+   }.get(operator, lambda: None)()
+"""
+
 '''
 {'option1': function1,
  'option2': function2,
@@ -6311,6 +6352,8 @@ def f(x):
 
 
 print(f('c'))  # output: 3
+
+
 
 ### MUTABLE DEFAULT PROBLEM!!! ######
 print("=====================")
@@ -9590,6 +9633,148 @@ def _handle_request(action: str, customer_name: str) -> None:
     action_handler = ACTION_MAPPING.get(action)
     # handle action
     action_handler(customer_name)
+
+''''
+Read this article: https://formus14.medium.com/how-to-implement-a-timeout-functionality-in-python-d578d7ad985a
+'''
+''''  Working with one Thread
+import threading
+import time
+
+
+class Demo:
+    def __init__(self):
+        self._KillTask = False
+
+    def OnTimeout(self):
+        self._KillTask = True
+        print("Timeout!")
+
+    def Counter(self, timeout):
+        print("Counter() starts!")
+        totalSleepTime = 0
+        while (self._KillTask is False):
+            totalSleepTime = totalSleepTime + 1
+            time.sleep(1)
+            if totalSleepTime == timeout:
+                self.OnTimeout()
+
+    def Function(self):
+        while self._KillTask is False:
+            # do any logic here
+            print("Function is running till it timeout..")
+            time.sleep(0.5)  # just a demo delay for the printed log on the terminal
+        print("Function() timed out!")
+        self._KillTask = True
+
+
+if __name__ == '__main__':
+    ## Main starts here
+    print("Demo for Timeout - by Omar")
+    Obj = Demo()
+
+    ## Start thread2
+    thread2 = threading.Thread(target=Obj.Counter, args=(5,))
+    try:
+        thread2.start()
+    except Exception:
+        print("Error Starting the Thread")
+
+    ## Proceed with the logic of thread 1 -(Main thread)
+    Obj.Function()
+'''
+''''  Working with multiple Threads
+import threading
+import time
+
+
+class Demo:
+    def __init__(self):
+        self.mutex = threading.Lock()
+        self.SetKillTask(False)
+
+    def OnTimeout(self):
+        self.SetKillTask(True)
+        print("Timeout!")
+
+    def Counter(self, timeout):
+        print("Counter() starts!")
+        totalSleepTime = 0
+        while (self._KillTask is False):
+            totalSleepTime = totalSleepTime + 1
+            time.sleep(1)
+            if totalSleepTime == timeout:
+                self.OnTimeout()
+
+    def Function(self):
+        while self._KillTask is False:
+            # do any logic here
+            print("Function is running till it timeout..")
+            time.sleep(0.5)  # just a demo delay for the printed log on the terminal
+        print("Function() timed out!")
+        self.SetKillTask(True)
+
+    def SetKillTask(self, value):
+        self.mutex.acquire()
+        self._KillTask = value
+        self.mutex.release()
+
+
+if __name__ == '__main__':
+    ## Main starts here
+    print("Demo for Timeout - by Omar")
+    Obj = Demo()
+
+    ## Start thread2
+    thread2 = threading.Thread(target=Obj.Counter, args=(5,))
+    try:
+        thread2.start()
+    except Exception:
+        print("Error Starting the Thread")
+
+    ## Proceed with the logic of thread 1 -(Main thread)
+    Obj.Function()
+'''
+''''
+import threading
+import time
+
+
+class Demo:
+    def __init__(self):
+        self._KillTask = False
+
+    def Function(self, timeout):
+        timeout = time.time() + timeout
+        while (time.time() < timeout):
+            # do any logic here
+            print("Function is running till it timeout..")
+            time.sleep(0.5)  # just a demo delay for the printed log on the terminal
+        print("Function() timed out!")
+
+    def OtherFunction(self):
+        for _ in range(15):
+            print("Other Function is running now ..")
+            time.sleep(0.5)  # just a demo delay for the printed log on the terminal
+
+
+if __name__ == '__main__':
+    ## Main starts here
+    print("Demo for Timeout - by Omar")
+    Obj = Demo()
+
+    ## Start thread2
+    timeout = 5
+    thread2 = threading.Thread(target=Obj.Function, args=[timeout])
+    try:
+        thread2.start()
+    except Exception:
+        print("Error Starting the Thread")
+
+    ## Proceed with the logic of thread 1 -(Main thread)
+    Obj.OtherFunction()
+'''
+
 
 ###########################################################
 
