@@ -25,7 +25,7 @@ Python Quick Reference - edited in GitHub
 # Cheatsheet : https://perso.limsi.fr/pointal/_media/python:cours:mementopython3-english.pdf
 '''
 # Variable lower_snake
-firstName = 'Dan Belfer'
+first_name = 'Dan Belfer'
 
 # Class and module CamelCase
 class UserDetails:
@@ -113,7 +113,7 @@ a = 10
 print(hex(id(a)))  # HEX address where a points to: 0x7ffc9daab470
 b = a
 print(hex(id(b)))  # HEX address where a points to: 0x7ffc9daab470 the same address!!!
-a = 5  # Now the a variable is pointing to other place
+a = 5  # Now the variable is pointing to other place
 print(hex(id(a)))  # output: 0x7ffcaea1b3d0 meaning the assignment moved var a from pointing to place of 10
 # to new place of 5
 print(f"b is {b}")  # output: b is 10 because the assignment still to 10 in memory
