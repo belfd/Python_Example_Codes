@@ -5279,6 +5279,99 @@ a.disconnect()
 connecting TPU
 disconnecting TPU
 '''
+'''
+We can say that there are two types of implementation: overloading (@ compile-time) and overriding (@ runtime). 
+Overloading is not supported in Python, however, we can use a Python package, multipledispatch that does overloading.
+
+Overriding
+Methods owned by parent classes are rewritten in child classes and customized according 
+to the intended use of these child classes. 
+Now let me explain the subject with an example. 
+I have a method, it accepts a device and opens it by pressing the button as long as the device has a device.
+@@ Example:
+
+from abc import ABC
+
+class ADevice(ABC):
+    @abc.abstractclassmethod
+    def press_button(self):
+        pass
+
+class Device(ADevice):
+    def press_button(self):
+        print("Starting Device..")
+
+def open_device(device):
+    try:
+        device.press_button()
+    except AttributeError:
+        print("This device has no button to open..")
+
+class Laptop(Device):
+    def press_button(self):
+        print("Starting CPU..")
+
+class Television(Device):
+    def press_button(self):
+        print("Starting Screen..")
+
+class Speaker(Device):
+    def press_button(self):
+        print("Playing Sound..")
+
+L,T,S = Laptop(),Television(),Speaker()
+device_list = [L,T,S]
+
+for d in device_list:
+    open_device(d)
+
+## output:
+#Starting CPU..
+#Starting Screen..
+#Playing Sound..
+'''
+'''
+Overloading in Python
+Python doesn’t support overloading as Java does. It can be applied indirectly. I will use multipledispatch package.
+
+from multipledispatch import dispatch
+
+class Car:
+    def __init__(self):
+        self.speed=100
+
+    @dispatch()
+    def accelerate(self):
+        self.speed+=10
+
+    @dispatch(int)
+    def accelerate(self,acc):
+        self.speed+=acc
+
+    @dispatch(float)
+    def accelerate(self,acc):
+        self.speed+=(self.speed*acc)
+
+    @dispatch(int,float)
+    def accelerate(self,acc,percentage):
+        acc*=percentage
+        self.speed+=acc
+
+    def get_speed(self):
+        print(f"Current speed is: {self.speed}")
+
+C = Car()
+C.accelerate()
+C.get_speed() #output: Current speed is: 110
+C.accelerate(20)
+C.get_speed() #output: Current speed is: 130
+C.accelerate(0.1)
+C.get_speed() #output: Current speed is: 143.0
+C.accelerate(50,0.1)
+C.get_speed() #output: Current speed is: 148.0
+'''
+
+
 
 
 # ITERATORS VS ITERABLES
