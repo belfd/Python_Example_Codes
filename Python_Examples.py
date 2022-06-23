@@ -486,6 +486,29 @@ if n == 0 or n == 1 or n == 2 or n == 3 or n == 4 or n == 5:
 if n in [0, 1, 2, 3, 4, 5]:
     pass
 
+''''
+The Walrus(:=) Operator
+Walrus operators is one of the latest additions to Python. 
+It was recently added to Python in Python version 3.8. 
+It is an assignment expression that allows assignment directly in the expression.
+
+Normal Way :
+
+xs = [1,2,3]
+n=len(xs)
+if n>2:
+    print(n)
+Here in this example, we declare a list and then declare a variable ’n’ to assign the value of the length of the list.
+
+Using walrus operators,
+
+xs = [1,2,3]
+if (n:=len(xs)>2):
+    print(n)
+Here, we declare and assign the value at the same time. That’s the power of the Walrus operator.
+'''
+
+
 ### LISTS ###
 ## properties: ordered, iterable, mutable, can contain multiple data types
 print("===============")
