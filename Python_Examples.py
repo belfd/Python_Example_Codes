@@ -1179,7 +1179,7 @@ dict = collections.defaultdict(type)          # Creates a dict with default valu
 dict = collections.defaultdict(lambda: 1)     # Creates a dict with default value 1.
 
 dict = dict(collection)                       # Creates a dict from coll. of key-value pairs.
-dict = dict(zip(keys, values))                # Creates a dict from two collections.
+dict = dict(zip(keys, values))                # Creates a dict from two collections = convert lists to dictionary
 dict = dict.fromkeys(keys [, value])          # Creates a dict from collection of keys.
 
 dict.update(dict)                             # Adds items. Replaces ones with matching keys.
@@ -4212,6 +4212,67 @@ tea = Tea(kind="white tea", temp=93)
 coffee = Coffee(kind="Yunnan", temp=98)
 print(boil(tea))    # output: Successfully boiled tea!
 print(boil(coffee)) # output: Successfully boiled coffee!
+
+''''
+# Another SingleDispatch example:
+Python@functools.singledispatch help to create a generic function composed of multiple functions implementing 
+the same operation for different types. Which functions should be used during a call is determined 
+by the dispatch algorithm.
+### Without SingleDispatch ###
+def func1(param):
+    pass
+
+def func2(param):
+    pass
+
+def func3(param):
+    pass
+
+def func4(param):
+    pass
+
+def main(param):
+    if isinstance(param, int):
+        return func1(param)
+    elif isinstance(param, float):
+        return func2(param)
+    elif isinstance(param, str):
+        return fun3(param)
+    elif isinstance(param, list):
+        return fun4(param)
+##################
+With SingleDispatch:
+from functools import singledispatch
+
+@singledispatch
+def main(param=None):
+    raise NotImplementedError("Implement process function.")
+    
+@main.register
+def func1(param:int):
+    return f"{param} is interger type. "
+
+@main.register
+def func2(param:float):
+    return f"{param} is float type"
+
+@main.register
+def func3(param:str):
+    return f"{param} is str type"
+
+@main.register
+def func4(param:list):
+    return f"{param} is list type"
+
+print(main(12))
+print(main(12.3))
+print(main("test"))
+print(main([1,2,3,4]))
+
+
+
+'''
+
 
 
 
