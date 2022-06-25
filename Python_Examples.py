@@ -20,6 +20,7 @@ Python Quick Reference - edited in GitHub
  checks the address in this case.
 """
 # Cheatsheet : https://github.com/gto76/python-cheatsheet
+# Cheatsheet : https://github.com/AbdulMalikDev/PythonCheatSheet
 # Cheatsheet : https://www.pythoncheatsheet.org/#Virtual-Environment
 # Cheatsheet : https://cheatography.com/davechild/cheat-sheets/python/
 # Cheatsheet : https://perso.limsi.fr/pointal/_media/python:cours:mementopython3-english.pdf
@@ -5469,7 +5470,38 @@ C.accelerate(50,0.1)
 C.get_speed() #output: Current speed is: 148.0
 '''
 
+'''
+How to create a Python class without using the class keyword!
+The ‘type’ Function With 3 Arguments
+NewClass = type(name, bases, dict)
+If we pass in 3 arguments into the type function, it dynamically creates and returns a new class for us.
 
+name → The name of the class, accessible by __name__
+bases → A tuple that contains the base classes that our new class inherits from, accessible by __bases__.
+dict → A dictionary containing attributes and methods of our new class, accessible by __dict__.
+SO:
+Regular way:
+Dog Class To Inherit From Animal Class
+class Animal:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def speak(self):
+        print("hi")
+class Dog(Animal):
+    def speak(self):
+        print("woof")
+        
+Without 'class':
+class Animal:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def speak(self):
+        print("hi")
+Dog = type("Dog", (Animal,), {"speak":lambda self:print("woof")})
+
+'''
 
 
 # ITERATORS VS ITERABLES
