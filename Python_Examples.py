@@ -6185,8 +6185,8 @@ if number in [1, 2, 3, 4]:
 """
 
 ''''
-Python supports the most common if/elseconditional statements, 
-but it lacks switch/casestatements support which is common in other programming languages.
+Python supports the most common if/else conditional statements, 
+but it lacks switch/case statements support which is common in other programming languages.
 ## Avoid Multi-level Conditional Statements ##
 Too deep branch nesting is one of the most common mistakes many novice programmers make. 
 If a new programmer writes many levels of branch nesting, 
@@ -6332,7 +6332,22 @@ def all_numbers_larger_than_ten(numbers):
     return bool(numbers) and all(n > 10 for n in numbers)
 
 '''
+''''
+Improve Readability By Defining Temporary Variables
+As business logic becomes complex, some complex expressions often appear in our code, like the following:
 
+if user.is_active and (user.sex == 'female' or user.level > 3):
+    user.add_points(000)
+    return
+Kind of hard to read, right? But although the logic is so, 
+it does not mean that we have to write the code directly in this way. 
+The code can be made more readable if the complex expression that follows is assigned to a temporary variable:
+
+user_is_eligible = user.is_active and (user.sex == 'female' or user.level > 3):
+if user_is_eligible:
+    user.add_points(100)
+    return
+'''
 
 ## Using * and ** for Function Argument Unpacking ##
 print("=====================")
