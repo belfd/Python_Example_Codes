@@ -6184,6 +6184,156 @@ if number in [1, 2, 3, 4]:
     do_smt()    
 """
 
+''''
+Python supports the most common if/elseconditional statements, 
+but it lacks switch/casestatements support which is common in other programming languages.
+## Avoid Multi-level Conditional Statements ##
+Too deep branch nesting is one of the most common mistakes many novice programmers make. 
+If a new programmer writes many levels of branch nesting, 
+you may see levels of curly braces: if { if { if { ... }}}. Commonly known as "Nested If Statement Hell" .
+Since Python uses indentation instead of {} , deeply nested branches can have more serious consequences. 
+Let’s take a look at the following bad example:
+
+def buy_car(customer, store):
+    if store.is_open():
+        if store.has_stocks("car"):
+            if customer.can_afford(store.price("car", amount=1)):
+                customer.buy(store, "car", amount=1)
+                return
+            else:
+                customer.not_buy()
+                return
+        else:
+            raise CarBuyingException("no car in store!")
+    else:
+        raise CarBuyingException("store is closed!")
+        
+        
+One technique called “Early termination” can be used here:
+
+def buy_car(customer, store):
+    if not store.is_open():
+        raise CarBuyingException("store is closed!")
+
+    if not store.has_stocks("car"):
+        raise CarBuyingException("no car in store!")
+
+    if customer.can_afford(store.price("car", amount=1)):
+        customer.buy(store, "car", amount=1)
+        return
+    else:
+        customer.go_home()
+        return
+        
+“Early termination” means: using return or raisestatement to end a function early within a branch. 
+For example, in the new buy_car function , when the branch condition is not satisfied, 
+we directly throw an exception to end this code branch. Such code has no nested branches, 
+is more direct and easier to read.
+
+## Encapsulate Over Complex Logicals ##
+If the expression in the conditional branch is too complex and there are too many not/and/or, 
+the readability of this code will be greatly reduced, such as the following code:
+
+if activity.is_active and activity.remaining > 10 and \
+        user.is_active and (user.sex == 'female' or user.level > 3):
+    user.add_points(100)
+    return
+
+For such code, we can consider encapsulating specific branch logic into functions or methods to simplify the code:
+
+if activity.allow_new_user() and user.match_activity_condition():
+    user.add_points(100)
+    return
+    
+## Avoid Duplicate Code ##
+Duplicate code is the natural enemy of code quality, 
+and conditional branch statements are very easy to become the hardest hit area for duplicate code. 
+Therefore, when we write conditional branch statements, 
+we need to pay special attention not to produce unnecessary duplication of code.
+
+Let’s take a look at the following code example:
+
+if user.no_profile_exists:
+    create_user_profile(
+        username=user.username,
+        email=user.email,
+        age=user.age,
+        address=user.address,
+        points=0,
+        created=now(),
+    )
+else:
+    update_user_profile(
+        username=user.username,
+        email=user.email,
+        age=user.age,
+        address=user.address,
+        updated=now(),
+    )
+
+In the above code, we can see at a glance that under different branches, 
+the program calls different functions and does different things. 
+However, because of the existence of those repetitive codes, 
+it is difficult for us to simply distinguish the difference between the two.
+
+In fact, thanks to the dynamic nature of Python, the above code can be rewritten into:
+
+if user.no_profile_exists:
+    profile_func = create_user_profile
+    extra_args = {'points': 0, 'created': now()}
+else:
+    profile_func = update_user_profile
+    extra_args = {'updated': now()}
+
+profile_func(
+    username=user.username,
+    email=user.email,
+    age=user.age,
+    address=user.address,
+    **extra_args
+)
+
+## De Morgan’s Law ##
+In simple words, De Morgan’s law means:
+
+not (A or B) = (not A) and (not B)
+not (A and B) = (not A) or (not B)
+Sometimes if you see code like the following:
+
+if not user.has_logged_in or not user.is_from_chrome:
+    return "our service is only available for chrome logged in user"
+
+You can use De Morgan’s law to improve the readability, by rewritten the above code to:
+
+if not (user.has_logged_in and user.is_from_chrome):
+    return "our service is only available for chrome logged in user"
+        
+## Use all() and any() ##
+The all() and any()two functions are very suitable for use in conditional judgments. 
+These two functions take an iterable and return a boolean where:
+
+all(seq): return only seq if all objects in are boolean true True, otherwise return False
+any(seq): Return as long seq as any object in is boolean true True, otherwise return False
+For example, suppose we have the following code:
+
+def all_numbers_larger_than_ten(numbers):
+    if not numbers:
+        return False
+
+    for n in numbers:
+        if n <= 10:
+            return False
+    return True
+
+Using the all()built -in function, combined with a simple generator expression, 
+the above code can be written like this:
+
+def all_numbers_larger_than_ten(numbers):
+    return bool(numbers) and all(n > 10 for n in numbers)
+
+'''
+
+
 ## Using * and ** for Function Argument Unpacking ##
 print("=====================")
 print("Using * and ** for Function Argument Unpacking")
