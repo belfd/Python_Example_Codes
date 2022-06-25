@@ -7316,6 +7316,45 @@ def Hex_To_Rgb(hex):
 print(f"FF5733 is: {Hex_To_Rgb('FF5733')}") # (255, 87, 51)
 print(f"33D8FF is: {Hex_To_Rgb('33D8FF')}") # (51, 216, 255)
 
+## Convert List of Lists to a Single List ##
+import itertools
+mylist = [[-2, -3], [10, 30], ['apple', 'orange']]
+
+print(list(itertools.chain.from_iterable(mylist)))
+# Output:
+# [-2, -3, 10, 30, 'apple', 'orange']
+
+## Convert Two Lists into a Dictionary
+def list_to_dictionary(keys, values):
+    return dict(zip(keys, values))
+
+list1 = ["Name", "Age", "City"]
+list2 = ['Roy', 26, "New York"]
+
+print(list_to_dictionary(list1, list2))
+#output: {'Name': 'Roy', 'Age': 26, 'City': 'New York'}
+##
+
+## Merge Two Dictionaries
+dictionary1 = {"name": "Jeff", "age": 26}
+dictionary2 = {"name": "Jeff", "city": "New York"}
+
+merged_dict = {**dictionary1, **dictionary2}
+
+print("Merged dictionary is:", merged_dict)
+#output: Merged dictionary is: {'name': 'Jeff', 'age': 26, 'city': 'New York'}
+
+## Convert any class into a dictionary
+# Classes have an inbuilt attribute __dict__ which means objects that are created are dictionaries
+# and can be used like one when needed.
+
+class Obj:
+ def __init__(self, a = 'test', b = 108):
+    self.a = a
+    self.b = b
+obj = Obj()
+print(vars(obj)) # vars() is pythonic way to convert to dictionary
+# output: {'a': 'test', 'b': 108}
 
 ## Quick Sort in one line
 print("===========================")

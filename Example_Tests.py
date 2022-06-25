@@ -185,6 +185,12 @@ C.accelerate(50,0.1)
 C.get_speed() #output: Current speed is: 148.0
 '''
 
+class Obj:
+ def __init__(self, a = 'test', b = 108):
+    self.a = a
+    self.b = b
+obj = Obj()
+print(vars(obj)) # vars() is pythonic way to convert to dictionary
 
 
 
