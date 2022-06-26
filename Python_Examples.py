@@ -2445,7 +2445,41 @@ Syntax (if & else both): [expression if condition else expression for item in it
 Syntax (Nested Loops): [(x,y) for x in iterable1 for y in iterable 2]
 Syntax (Multiple if ): [x for x in iterable if condition1 and condition2]
 Syntax (Multiple if & else): [x if condition1 and condition2 else condition for x in iterable]        
-        
+
+List Comprehension Syntax
+[element for i in iterable if condition]
+Breaking Down A List Comprehension:
+Step 1 — Dividing into 3 main parts
+At its base, a list comprehension is divided into 3 portions:
++ The element element
++ The for loop for i in iterable
++ The condition if condition (optional)
+
+For example:   [i if i%2==1 else -i for i in range(1,101) if "1" in str(i)]
+Using this as an example, let’s break this down:
++The element i if i%2==1 else -i
++The for loop for i in range(1,101)
++The condition if "1" in str(i)
+
+Step 2 — Converting to a normal for loop
+x = [element for i in iterable if condition]
+Generally translates to:
+x = []
+for i in iterable:
+    if condition:
+        x.append(element)
+
+So it is:
+x = []
+for i in range(1, 101):
+    if "1" in str(i):
+        x.append(i if i%2==1 else -i)
+# [1, -10, 11, -12, 13, -14, 15, -16, 17, -18, 19, 21, 31, 41, 51, 61, 71, 81, 91, -100]
+
+Finding squares of numbers from 1 to 10:  x = [i**2 for i in range(1,11)]
+Finding numbers from 1 to 100 that contain a digit 1:  x = [i for i in range(1,101) if "1" in str(i)]
+Finding squares and cubes of numbers from 1 to 5:  x = [i**n for i in range(1,6) for n in [2,3]]
+Creating a 2-dimensional list:  x = [[i*n for n in [1,10,100]] for i in range(1,6)]
 '''
 
 # for loop to create a list of cubes
