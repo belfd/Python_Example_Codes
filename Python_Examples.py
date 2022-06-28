@@ -48,7 +48,8 @@ if sys.version_info < (3, 5):
 print(f"Python version is: {sys.version_info}")
 
 ### IMPORTS ####
-print("IMPORTS")
+print("===============")
+print("===IMPORTS===")
 # 'generic import' of math module
 import math
 
@@ -89,11 +90,10 @@ def func1():
     ...
 
 
-# INPUTS
+### INPUTS ###
 print("================")
-print("INPUTS")
-print("Multiple User input")
-
+print("===INPUTS===")
+# print("Multiple User input")
 # normal way
 # a = input("Enter name: ")
 # b = input("Enter age: ")
@@ -101,15 +101,16 @@ print("Multiple User input")
 # a, b = input("Enter name and age: ").split()
 
 
-# VARIABLES
+### VARIABLES ###
 print("===============")
-print("VARIABLES")
+print("===VARIABLES===")
 
 # all variables/functions/class instances etc - are objects!!!
 # Variables are pointer to address in memory - they hold the address in memory not actually the value
 # addresses of objects can be revealed by function id()
 # Each assignment to a var changes the reference even if you do my_var = ny_var+5 it means my_var is now pointing to new
 # address in memory
+'''
 a = 10
 print(hex(id(a)))  # HEX address where a points to: 0x7ffc9daab470
 b = a
@@ -120,14 +121,16 @@ print(hex(id(a)))  # output: 0x7ffcaea1b3d0 meaning the assignment moved var a f
 print(f"b is {b}")  # output: b is 10 because the assignment still to 10 in memory
 b = b + 5  # b is now 15 meaning value changed - it means b is now pointing to other place
 print(hex(id(b)))  # HEX address where a points to: 0x7ffcaea1b510 a different address.
+'''
 ### values of integer -5 till 256 will point always to same variables
+'''
 k1 = 2
 k2 = 2
 print(f"k1 is k2: {k1 is k2} because k1 id is: {id(k1)} and it equal to id of: {id(k2)}")
-
+'''
 ### DATA TYPES ###
 print("===============")
-print("DATA TYPES")
+print("===DATA TYPES===")
 # determine the type of an object
 type(2)  # returns 'int'
 type(2.0)  # returns 'float'
@@ -135,12 +138,13 @@ type('two')  # returns 'str'
 type(True)  # returns 'bool'
 type(None)  # returns 'NoneType'
 
-# python is dynamic typed - var as pointer(reference) to address type is according to what is been pointed to
+# python is dynamic typed - var as pointer(reference) to address type is according to what is being pointed to
+''''
 a = 10
-print(f"type of a is: {type(a)} and its val is {a}")
+print(f"type of a is: {type(a)} and its val is {a}") #output: type of a is: <class 'int'> and its val is 10
 a = "Hello"
-print(f"type of a is: {type(a)}  and its val is {a}")
-
+print(f"type of a is: {type(a)}  and its val is {a}") #output: type of a is: <class 'str'>  and its val is Hello
+'''
 # check if an object is of a given type
 isinstance(2.0, int)  # returns False
 isinstance(2.0, (int, float))  # returns True
@@ -165,10 +169,11 @@ bool([2])
 # Object that can be changed internally (its state = its data) is called mutable
 # Object that can NOT be changed internally (its state = its data) is called immutable
 # Numbers (int,float,Boolean),string,tuple,Frozen set,user defined classes are *immutables!*
-# list,set,dictionary,user defined classes are *mutables!*
+# list,set,dictionary,user defined classes are *mutable!*
 
 # Notice: t is tuple of list a and b it means it is immutable but a and b are mutable,
 # you cannot add new element to t but you can change the element in a and b inside the t
+''''
 a = [1, 2]
 b = [5, 6]
 t = (a, b)
@@ -204,51 +209,43 @@ c = b
 print(f"address of c is {hex(id(c))}")  # output: 0x2484852fbc8 meaning - in this case same address is shared
 c.append(100)  # will cause c to add 100 to list and also b to add 100
 print(f"b val is: {b}")  # output: b val is: [1, 2, 3, 100]
-
-#### Mutable and Imutable Explained ####
-print("Mutable and Imutable Explained")
-print("==============================")
+'''
+####MUTABLE and IMMUTABLE####
+print("=====================================")
+print("===MUTABLE and IMMUTABLE===")
 '''
 the mutable objects can be changed after creation. The immutable objects cannot be changed after creation. 
 Let’s check it out by two examples:
 leaders = ["Elon Mask"]
-print(leaders, id(leaders))
-# ['Elon Mask'] 140700341254336
-leaders.append("Dan Belfer")
-print(leaders, id(leaders))  # Same id
-# ['Elon Mask', 'Dan Belfer'] 140700341254336
+print(leaders, id(leaders)) #output: ['Elon Mask'] 140700341254336
+leaders.append("Dan Belfer") 
+print(leaders, id(leaders))  # Same id - #output: ['Elon Mask', 'Dan Belfer'] 140700341254336
 
 if we changed the leaders list, its content will be changed but its identity won’t be changed. 
 Because the list object in Python is mutable, we can do the in-place modifications on it.
 
 Leader = "dan"
-print(Leader, id(Leader))
-# dan 139713044786288
+print(Leader, id(Leader)) #output: dan 139713044786288
 
 Leader.capitalize()
-print(Leader, id(Leader))  # the Leader itself wasn't changed
-# dan 139713044786288
+print(Leader, id(Leader))  #the Leader itself wasn't changed output: dan 139713044786288
 
 ### since a string is an immutable object in Python, we can not change anything on it, 
 ### even just capitalize its first letter. 
 ### We must assign the result of Leader.capitalize() to a new string.
 Cap_Leader = Leader.capitalize()
-print(Cap_Leader, id(Cap_Leader))
-# Dan 139713044502768
+print(Cap_Leader, id(Cap_Leader)) #output: Dan 139713044502768
 
 list/Dict/Set are mutable (can be modified after initialized) all rest(tuple,string,number...) cannot be modified.
 The '=' will create new object and label will be attached to the new object.
 **Everything in Python is an object and the assignment operation is just binding a name to an object**
 
 leaders = ["Elon Mask"]
-print(leaders, id(leaders))
-# ['Elon Mask'] 140009549940864
+print(leaders, id(leaders)) #output: ['Elon Mask'] 140009549940864
 leaders.append("Dan Belfer")
-print(leaders, id(leaders))  # Same id
-# ['Elon Mask', 'Dan Belfer'] 140009549940864
+print(leaders, id(leaders))  # Same id - output: ['Elon Mask', 'Dan Belfer'] 140009549940864
 leaders = ["Mark Zuckerberg"]
-print(leaders, id(leaders))  # the id changed!
-# ['Mark Zuckerberg'] 140009549461184
+print(leaders, id(leaders))  # the id changed! - output: ['Mark Zuckerberg'] 140009549461184
 
 ## The ["Mark Zuckerberg"] is another list object, and the name leaders will be bound to this object 
 ## when we run leaders = ["Mark Zuckerberg"].
@@ -266,7 +263,7 @@ print(B, A)             # ['Elon', 'Dan', 'Mark'] ['Elon', 'Dan', 'Mark']
 print(id(B) == id(A))   # True
 
 B = ["Mark"]   # the '=' attach name to new object
-print(B, A)             # ['Mark'] ['Elon', 'Yang', 'Mark']
+print(B, A)             # ['Mark'] ['Elon', 'Dan', 'Mark']
 print(id(B) == id(A))   # False
 
 ## As the above example shown, when B and A are bound to the same object, 
@@ -321,8 +318,21 @@ def func(vals):
 func(L)  # [7, 8, 9] 
 print(L) # [1, 2, 3]
 
+
 ## after the 'vals' = [7,8,9] was executed, the name 'vals' had been bound to another list object — [7,8,9]. 
 ## Since the 'vals' and 'L' were bound to different list objects, the modification of 'vals' would not affect 'L'.
+## IF insted of using '=' we modified the list in other way , like append the L and Vals are the same:
+L = [1, 2, 3]
+
+def func(vals):
+    vals.append(4)
+    print(f"id(vals): {id(vals)}") #output: id(vals): 2937882611520
+    print(vals) #output: [1, 2, 3, 4]
+
+func(L)  # [7, 8, 9]
+print(f"id(L): {id(L)}") #output: id(L): 2937882611520
+print(L) # [1, 2, 3] #output: [1, 2, 3, 4]
+### L and Vals remain the same because there is no new assignment
 
 Be Aware of the Mutability of Nested Objects
 # we should know that the mutability of nested objects depends on each object itself. For instance:
@@ -336,10 +346,10 @@ print(tp)  # ([1, 2, 3, 4], 4, 5)
 '''
 
 ### F-STRING ###
-print("===============")
-print("F-STRING PRINTING")
+print("=======================")
+print("===F-STRING PRINTING===")
 
-import datetime
+''''import datetime
 
 now = datetime.datetime.now()
 val = 12.3
@@ -361,12 +371,13 @@ print(f"{a:e}")  # output: 3.000000e+02
 val = 10000000000000000
 print(f"{val:_}")  # output: 10_000_000_000_000_000
 print(f"{val:,}")  # output: 10,000,000,000,000,000
-
+'''
 '''
 f-strings can also be used to self-document code using the = character.
 What this means in practice is that when you’re printing a variable’s value to the console, 
 you no longer need to write f"variable_name = {variable_name}".
 '''
+''''
 some_variable = "HELLO!"
 print(f"some_variable={some_variable}")  # output: some_variable=HELLO!
 
@@ -374,7 +385,7 @@ print(f"some_variable={some_variable}")  # output: some_variable=HELLO!
 some_variable = "HELLO!"
 print(f"{some_variable=}")  # output: some_variable=HELLO!
 
-# Printing on the Same Line - if need several string on same line
+# Printing on the Same Line - if needed several strings on same line
 print("Python ", end="")
 print("Programming")
 # output: Python Programming
@@ -382,8 +393,9 @@ print("Programming")
 print(f"{'Right Aligned' : >30}")
 print(f"{'Left Aligned' : <30}")
 print(f"{'Centered' : ^30}")
+
 # output:
-'''
+
                 Right Aligned
 Left Aligned                  
            Centered           
@@ -391,7 +403,7 @@ Left Aligned
 
 ### MATH ###
 print("===============")
-print("MATH")
+print("===MATH===")
 # basic operations
 10 + 4  # add (returns 14)
 10 - 4  # subtract (returns 6)
@@ -406,9 +418,10 @@ print("MATH")
 10 / 4  # true division (returns 2.5)
 10 // 4  # floor division (returns 2)
 
-### COMPARISONS AND BOOLEAN OPERATIONS ###
-print("===============")
-print("COMPARISONS AND BOOLEAN OPERATIONS")
+### BOOLEAN OPERATIONS ###
+print("========================")
+print("===BOOLEAN OPERATIONS===")
+''''
 # assignment statement
 x = 5
 
@@ -424,11 +437,11 @@ x == 5
 not False
 False or not False and True  # evaluation order: not, and, or
 
-a = 1;
-b = 2;
+a = 1
+b = 2
 c = 3
-d = 5;
-e = 5;
+d = 5
+e = 5
 f = 3
 print("a=1;b=2;c=3\nd=5;e=5;f=3\n")
 print(f"a<b<c is {a < b < c}")
@@ -443,15 +456,16 @@ print(f"d>f<e is {d > f < e}")
 
 a = [1, 2, 3]
 b = [1, 2, 3]
-print(f"a value is: {a} and id is: {hex(id(a))}")
-print(f"b value is: {b} and id is: {hex(id(b))}")
-print(f"a is b : {a is b}")  # False - they do not have same id(address in memory)
-print(f"a == b : {a == b}")  # True - there is value is the same
+print(f"a value is: {a} and id is: {hex(id(a))}") # output: a value is: [1, 2, 3] and id is: 0x22412660f00
+print(f"b value is: {b} and id is: {hex(id(b))}") # output: b value is: [1, 2, 3] and id is: 0x22412665440
+print(f"a is b : {a is b}")  # output: a is b : False - these do not have same id(address in memory)
+print(f"a == b : {a == b}")  # output: a == b : True  - here the value is the same
+'''
 
 ### CONDITIONAL STATEMENTS ###
-print("===============")
-print("CONDITIONAL STATEMENTS")
-
+print("============================")
+print("===CONDITIONAL STATEMENTS===")
+''''
 # if statement
 if x > 0:
     print('positive')
@@ -472,13 +486,15 @@ else:
 
 # single-line if statement (sometimes discouraged)
 if x > 0: print('positive')
+'''
 
 # single-line if/else statement (sometimes discouraged)
 # known as a 'ternary operator'
 # value_if_true if condition else value_if_false
+x = 10
 'positive' if x > 0 else 'zero or negative'
 
-# simple if-statement coniditions:
+# simple if-statement condition:
 n = 10
 # instead of:
 if n == 0 or n == 1 or n == 2 or n == 3 or n == 4 or n == 5:
@@ -509,6 +525,101 @@ if (n:=len(xs)>2):
 Here, we declare and assign the value at the same time. That’s the power of the Walrus operator.
 '''
 
+''''
+Avoid large conditions — All
+long conditionals are not easy to catch in the first time; 
+so, when possible, we have to avoid large conditions. For example:
+if condition1 and condition2 and condition3 and condition4:
+    do_something()
+# same case, different syntax
+if condition1:
+    if condition2:
+        if condition3:
+            if condition4:
+                do_something()
+You can avoid them this way:
+conditions = [condition1, condition2, condition3, condition4]
+if all(conditions):
+    do_something()    
+'''
+
+
+
+# 'all' return True if all elements of iterable are true (or iterable empty)
+# 'all' behaves like a series of AND conditions
+all([0, 1, 2, 3])  # False
+all([char for char in 'eio' if char in 'aeiou'])
+all([num for num in [4, 2, 10, 6, 8] if num % 2 == 0])  # True
+# 'any' return True if any element of iterable is true. If iterable is empty ,returns False
+# 'any' behaves like a series of OR conditions
+
+
+''''
+Avoid large conditions — Any
+Sometimes, conditions are not followed just by and operators. In case of or operator:
+if condition1 or condition2 or condition3 or condition4:
+    do_something()
+you can use any()
+conditions = [condition1, condition2, condition3, condition4]
+if any(conditions):
+    do_something()
+'''
+
+any([0, 1, 2, 3])  # True
+any([val for val in [1, 2, 3] if val > 2])  # True
+any([val for val in [1, 2, 3] if val > 5])  # False
+
+'''
+When you need many conditions to be fulfilled in your code, 
+then you can use Conditional List and All to check all the conditions. 
+We can write all the conditions in the list and apply All to check if all the conditions are true.
+Instead of using the if statement and writing all the conditions separated by and operator, 
+we can write all the conditions in the list and apply All.
+'''
+physics = 49
+chemistry = 51
+mathematics = 57
+
+list_condition = [physics > 50, chemistry > 50, mathematics > 50]
+("Pass" if all(list_condition) else "Fail")  # output: Fail
+
+'''
+We can use a Conditional List and Any together when we want to check even if one of the many conditions is True.
+Instead of using if statement and checking conditions separated by or operator, 
+we can write all the conditions in the list and pass it to Any.
+'''
+
+physics = 49
+chemistry = 51
+mathematics = 47
+
+list_condition = [physics > 50, chemistry > 50, mathematics > 50]
+("Pass" if any(list_condition) else "Fail")  # output: Pass
+
+''''Another example for any and all'''
+# Assume some complex conditions
+condition1 =  5==6
+condition2 =  5<7
+condition3 =  10>0
+condition4 =  10!=10
+condition5 =  20>10
+# without any
+if condition1 or condition2 or condition3 or condition4 or condition5:
+    print("without any")
+#with any
+lst = [condition1,condition2,condition3,condition4,condition5]
+if any(lst):
+    print("with any")
+
+# without all
+if condition3 and condition5:
+    print("without and")
+#with all
+lst = [condition3,condition5]
+if all(lst):
+    print("with all")
+
+#### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### LISTS ###
 ## properties: ordered, iterable, mutable, can contain multiple data types
@@ -2690,9 +2801,9 @@ print(list(filter(lambda y: y < 25, map(lambda x: x ** 2, l))))  # output: [0, 1
 # easy to use list comprehension
 print("list comprehension:")
 print([x ** 2 for x in range(10) if x ** 2 < 25])  # output: [0, 1, 4, 9, 16]
-# Another list comprehention but with conditions:
+# Another list comprehension but with conditions:
 Genius = ["Jerry", "Jack", "tom", "Dan"]
-print("List Cmprehnsion with conditions:")
+print("List Comprehension with conditions:")
 L1 = [name if name.startswith('D') else 'Not Genius' for name in Genius]
 print(L1)  # ['Not Genius', 'Not Genius', 'Not Genius', 'Dan']
 
@@ -2719,98 +2830,6 @@ Genius = ["Jerry", "Jack", "tom", "Dan"]
 L1 = [char for name in Genius for char in name]
 print(L1)  # output: ['J', 'e', 'r', 'r', 'y', 'J', 'a', 'c', 'k', 't', 'o', 'm', 'D', 'a', 'n']
 
-"""
-Avoid large conditions — All
-long conditionals are not easy to catch in the first time; 
-so, when possible, we have to avoid large conditions. For example:
-if condition1 and condition2 and condition3 and condition4:
-    do_something()
-# same case, different syntax
-if condition1:
-    if condition2:
-        if condition3:
-            if condition4:
-                do_something()
-You can avoid them this way:
-conditions = [condition1, condition2, condition3, condition4]
-if all(conditions):
-    do_something()    
-"""
-
-
-
-# 'all' return True if all elements of iterable are true (or iterable empty)
-# 'all' behaves like a series of AND conditions
-all([0, 1, 2, 3])  # False
-all([char for char in 'eio' if char in 'aeiou'])
-all([num for num in [4, 2, 10, 6, 8] if num % 2 == 0])  # True
-# 'any' return True if any element of iterable is true. If iterable is empty ,returns False
-# 'any' behaves like a series of OR conditions
-
-"""
-Avoid large conditions — Any
-Sometimes, conditions are not followed just by and operators. In case of or operator:
-if condition1 or condition2 or condition3 or condition4:
-    do_something()
-you can use any()
-conditions = [condition1, condition2, condition3, condition4]
-if any(conditions):
-    do_something()
-"""
-
-any([0, 1, 2, 3])  # True
-any([val for val in [1, 2, 3] if val > 2])  # True
-any([val for val in [1, 2, 3] if val > 5])  # False
-
-'''
-When you need many conditions to be fulfilled in your code, 
-then you can use Conditional List and All to check all the conditions. 
-We can write all the conditions in the list and apply All to check if all the conditions are true.
-Instead of using the if statement and writing all the conditions separated by and operator, 
-we can write all the conditions in the list and apply All.
-'''
-physics = 49
-chemistry = 51
-mathematics = 57
-
-list_condition = [physics > 50, chemistry > 50, mathematics > 50]
-("Pass" if all(list_condition) else "Fail")  # output: Fail
-
-'''
-We can use a Conditional List and Any together when we want to check even if one of the many conditions is True.
-Instead of using if statement and checking conditions separated by or operator, 
-we can write all the conditions in the list and pass it to Any.
-'''
-
-physics = 49
-chemistry = 51
-mathematics = 47
-
-list_condition = [physics > 50, chemistry > 50, mathematics > 50]
-("Pass" if any(list_condition) else "Fail")  # output: Pass
-
-''''Another example for any and all'''
-# Assume some complex conditions
-condition1 =  5==6
-condition2 =  5<7
-condition3 =  10>0
-condition4 =  10!=10
-condition5 =  20>10
-# without any
-if condition1 or condition2 or condition3 or condition4 or condition5:
-    print("without any")
-#with any
-lst = [condition1,condition2,condition3,condition4,condition5]
-if any(lst):
-    print("with any")
-
-# without all
-if condition3 and condition5:
-    print("without and")
-#with all
-lst = [condition3,condition5]
-if all(lst):
-    print("with all")
 
 
 '''
