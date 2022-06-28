@@ -598,6 +598,7 @@ list_condition = [physics > 50, chemistry > 50, mathematics > 50]
 
 ''''Another example for any and all'''
 # Assume some complex conditions
+''''
 condition1 =  5==6
 condition2 =  5<7
 condition3 =  10>0
@@ -618,7 +619,7 @@ if condition3 and condition5:
 lst = [condition3,condition5]
 if all(lst):
     print("with all")
-
+'''
 #### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### LISTS ###
