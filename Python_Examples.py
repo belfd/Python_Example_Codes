@@ -6090,6 +6090,51 @@ def flat_check():
         return
     print("You have access")
 
+# Handling if-else logic in pro mode
+# You would usually write your if else logic like given below:
+
+TABLE_CREATION = 'table_creation'
+TABLE_DROP = 'table_drop'
+FETCH_ALL = 'fetch_all'
+def run_table_creation():
+    pass
+def run_table_drop():
+    pass
+def run_fetch_all():
+    pass
+def query_handler(status):
+    if status == TABLE_CREATION:
+       run_table_creation()
+    elif status == TABLE_DROP:
+       run_table_drop()
+    elif status == FETCH_ALL:
+       run_fetch_all()
+query_handler(TABLE_CREATION) # this would run table creation
+query_handler(TABLE_DROP) # this would run table drop
+query_handler(FETCH_ALL) # this would run fetch all
+
+# but you can rewrite this whole logic in a more pro more, her’s how:
+TABLE_CREATION = 'table_creation'
+TABLE_DROP = 'table_drop'
+FETCH_ALL = 'fetch_all'
+def run_table_creation():
+    pass
+def run_table_drop():
+    pass
+def run_fetch_all():
+    pass
+handlers = {
+    TABLE_CREATION: run_table_creation,
+    TABLE_DROP: run_table_drop,
+    FETCH_ALL: run_fetch_all
+}
+def query_handler(status):
+    handler = handlers[status]
+    handler()
+query_handler(TABLE_CREATION) # this would run table creation
+query_handler(TABLE_DROP) # this would run table drop
+query_handler(FETCH_ALL) # this would run fetch all
+
 
 # How to improve work with dictionary?
 name = {'first_name': 'Dan', 'last_name': 'Belfer'}
