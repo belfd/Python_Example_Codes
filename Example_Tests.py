@@ -184,14 +184,9 @@ C.get_speed() #output: Current speed is: 143.0
 C.accelerate(50,0.1)
 C.get_speed() #output: Current speed is: 148.0
 '''
-
-class Obj:
- def __init__(self, a = 'test', b = 108):
-    self.a = a
-    self.b = b
-obj = Obj()
-print(vars(obj)) # vars() is pythonic way to convert to dictionary
-
-
-
-
+a = [1, 2, 3]
+b = [1, 2, 3]
+print(f"a value is: {a} and id is: {hex(id(a))}")
+print(f"b value is: {b} and id is: {hex(id(b))}")
+print(f"a is b : {a is b}")  # False - they do not have same id(address in memory)
+print(f"a == b : {a == b}")  # True - there is value is the same

@@ -9707,6 +9707,44 @@ for i in range(10000):
     logger.info(i)
 '''
 
+##### Compare 2 Unordered lists #######
+''''
+from collections import Counter
+one = [33, 22, 11, 44, 55]
+two = [22, 11, 44, 55, 33]
+Counter(one) == Counter(two)
+# True
+sorted(one) == sorted(two)
+# True
+'''
+#### Difference between two lists #####
+''''
+list1 = ['Scott', 'Eric', 'Kelly', 'Emma', 'Smith']
+list2 = ['Scott', 'Eric', 'Kelly']
+set1 = set(list1)
+set2 = set(list2)
+list3 = list(set1.symmetric_difference(set2))
+# {'Smith', 'Emma'}
+# Or
+set1-set2
+# {'Smith', 'Emma'}
+'''
+
+#### Merge two dictionaries ###
+''''
+name = dict(first_name='Anand', last_name='Tripathi)
+details = dict(age=28, sex='Male')
+person = {**name, **details}
+'''
+
+### Converting lists into a dictionary ###
+''''
+user = [“Peter”, “John”, “Sam”]
+age = [23,19,34]
+dictionary = dict(zip(user, age))
+print(dictionary)
+'''
+
 '''
 Duck Typing
 To begin with let’s recall the definition of the duck test:
