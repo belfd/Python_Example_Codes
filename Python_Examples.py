@@ -318,7 +318,6 @@ print(B, A)            # ['Elon', 'Dan'] ['Elon', 'Dan']
 print(id(B) == id(A))  # True
 
 
-
 B.append("Mark")  # 'append' modifies the list itself 
 print(B, A)             # ['Elon', 'Dan', 'Mark'] ['Elon', 'Dan', 'Mark']
 print(id(B) == id(A))   # True
@@ -406,11 +405,11 @@ print(tp)  # ([1, 2, 3, 4], 4, 5)
 # Therefore, we can modify the first element of tp even if it’s an immutable object.
 '''
 
-### F-STRING ###
+# F-STRING
 print("=======================")
 print("===F-STRING PRINTING===")
 
-''''import datetime
+'''import datetime
 
 now = datetime.datetime.now()
 val = 12.3
@@ -438,7 +437,7 @@ f-strings can also be used to self-document code using the = character.
 What this means in practice is that when you’re printing a variable’s value to the console, 
 you no longer need to write f"variable_name = {variable_name}".
 '''
-''''
+'''
 some_variable = "HELLO!"
 print(f"some_variable={some_variable}")  # output: some_variable=HELLO!
 
@@ -462,10 +461,11 @@ Left Aligned
            Centered           
 '''
 
-### MATH ###
+# MATH
 print("===============")
 print("===MATH===")
 # basic operations
+'''
 10 + 4  # add (returns 14)
 10 - 4  # subtract (returns 6)
 10 * 4  # multiply (returns 40)
@@ -478,11 +478,11 @@ print("===MATH===")
 # from __future__ import division
 10 / 4  # true division (returns 2.5)
 10 // 4  # floor division (returns 2)
-
-### BOOLEAN OPERATIONS ###
+'''
+# BOOLEAN OPERATIONS
 print("========================")
 print("===BOOLEAN OPERATIONS===")
-''''
+'''
 # assignment statement
 x = 5
 
