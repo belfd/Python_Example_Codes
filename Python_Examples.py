@@ -607,14 +607,15 @@ if all(conditions):
 
 # 'all' return True if all elements of iterable are true (or iterable empty)
 # 'all' behaves like a series of AND conditions
+'''
 all([0, 1, 2, 3])  # False
 all([char for char in 'eio' if char in 'aeiou'])
 all([num for num in [4, 2, 10, 6, 8] if num % 2 == 0])  # True
 # 'any' return True if any element of iterable is true. If iterable is empty ,returns False
 # 'any' behaves like a series of OR conditions
+'''
 
-
-''''
+'''
 Avoid large conditions — Any
 Sometimes, conditions are not followed just by and operators. In case of or operator:
 if condition1 or condition2 or condition3 or condition4:
@@ -624,11 +625,11 @@ conditions = [condition1, condition2, condition3, condition4]
 if any(conditions):
     do_something()
 '''
-
+'''
 any([0, 1, 2, 3])  # True
 any([val for val in [1, 2, 3] if val > 2])  # True
 any([val for val in [1, 2, 3] if val > 5])  # False
-
+'''
 '''
 When you need many conditions to be fulfilled in your code, 
 then you can use Conditional List and All to check all the conditions. 
@@ -636,26 +637,27 @@ We can write all the conditions in the list and apply All to check if all the co
 Instead of using the if statement and writing all the conditions separated by and operator, 
 we can write all the conditions in the list and apply All.
 '''
+'''
 physics = 49
 chemistry = 51
 mathematics = 57
 
 list_condition = [physics > 50, chemistry > 50, mathematics > 50]
 ("Pass" if all(list_condition) else "Fail")  # output: Fail
-
+'''
 '''
 We can use a Conditional List and Any together when we want to check even if one of the many conditions is True.
 Instead of using if statement and checking conditions separated by or operator, 
 we can write all the conditions in the list and pass it to Any.
 '''
-
+'''
 physics = 49
 chemistry = 51
 mathematics = 47
 
 list_condition = [physics > 50, chemistry > 50, mathematics > 50]
 ("Pass" if any(list_condition) else "Fail")  # output: Pass
-
+'''
 ''''Another example for any and all'''
 # Assume some complex conditions
 ''''
