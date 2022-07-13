@@ -523,7 +523,7 @@ print(f"a is b : {a is b}")  # output: a is b : False - these do not have same i
 print(f"a == b : {a == b}")  # output: a == b : True  - here the value is the same
 '''
 
-### CONDITIONAL STATEMENTS ###
+# CONDITIONAL STATEMENTS
 print("============================")
 print("===CONDITIONAL STATEMENTS===")
 ''''
@@ -548,7 +548,7 @@ else:
 # single-line if statement (sometimes discouraged)
 if x > 0: print('positive')
 '''
-
+'''
 # single-line if/else statement (sometimes discouraged)
 # known as a 'ternary operator'
 # value_if_true if condition else value_if_false
@@ -563,8 +563,8 @@ if n == 0 or n == 1 or n == 2 or n == 3 or n == 4 or n == 5:
 # Type:
 if n in [0, 1, 2, 3, 4, 5]:
     pass
-
-''''
+'''
+'''
 The Walrus(:=) Operator
 Walrus operators is one of the latest additions to Python. 
 It was recently added to Python in Python version 3.8. 
@@ -586,7 +586,7 @@ if (n:=len(xs)>2):
 Here, we declare and assign the value at the same time. That’s the power of the Walrus operator.
 '''
 
-''''
+'''
 Avoid large conditions — All
 long conditionals are not easy to catch in the first time; 
 so, when possible, we have to avoid large conditions. For example:
@@ -603,7 +603,6 @@ conditions = [condition1, condition2, condition3, condition4]
 if all(conditions):
     do_something()    
 '''
-
 
 
 # 'all' return True if all elements of iterable are true (or iterable empty)
