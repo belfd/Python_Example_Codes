@@ -18,6 +18,54 @@ Python Quick Reference - edited in GitHub
  and its representation. Two instances of a dataclass having the same content will be equal to each other ,
  while two instances of a normal class will be not equal to each other as the equality operator
  checks the address in this case.
+
+*Module* is simply a .py file that can contain different functions, classes, or variables.
+As an example, let’s create a file named hello.py that has a hello_world function.
+def hello_world(year):
+  print(f"Hello World {year}")
+
+If we want to use the function hello_world in another .py file, we need to import the hello module first.
+import hello
+hello.hello_world(2022)
+
+*Package*
+Modules usually contain more items than our basic example,
+so it’s recommended to import only a specific function rather than the whole module.
+from hello import hello_world
+
+Some well-known Python modules are os, re, and datetime.
+
+When developing large applications, the number of modules you work with might increase.
+In such cases, we group the modules into a package.
+
+A package is a collection of modules that contain a file named __init__.py.
+We can have modules into packages and subpackages.
+
+To import a specific module (M1, M2, M3, or M4) from a package, we use the dot notation
+
+import package.subpackage.m1
+or
+from package.subpackage import m1
+
+Some well-known Python packages are pandas and numpy.
+
+*Library*
+Sometimes the term “library” is used interchangeably with “package” because both can contain modules and other packages.
+That said, a library is usually known as a collection of packages.
+
+Sometimes a library is created to share reusable code with the community,
+so others don’t have to start from scratch when working on a project.
+
+Some well-known Python libraries are requests, matplotlib and beautiful soup
+
+*Framework*
+Frameworks are similar to libraries but frameworks contain a basic workflow and architecture of an application.
+A library doesn’t usually enforce a workflow on your code,
+but a framework has already a skeleton that you need to fill in.
+If you ever used Python frameworks such as Django or Flask,
+you might’ve noticed that the essential building blocks
+are already provided and you need to follow some guidelines to get things done.
+
 """
 # Cheatsheet : https://github.com/gto76/python-cheatsheet
 # Cheatsheet : https://github.com/AbdulMalikDev/PythonCheatSheet
