@@ -66,12 +66,13 @@ If you ever used Python frameworks such as Django or Flask,
 you might’ve noticed that the essential building blocks
 are already provided and you need to follow some guidelines to get things done.
 
+Cheatsheet : https://github.com/gto76/python-cheatsheet
+Cheatsheet : https://github.com/AbdulMalikDev/PythonCheatSheet
+Cheatsheet : https://www.pythoncheatsheet.org/#Virtual-Environment
+Cheatsheet : https://cheatography.com/davechild/cheat-sheets/python/
+Cheatsheet : https://perso.limsi.fr/pointal/_media/python:cours:mementopython3-english.pdf
+
 """
-# Cheatsheet : https://github.com/gto76/python-cheatsheet
-# Cheatsheet : https://github.com/AbdulMalikDev/PythonCheatSheet
-# Cheatsheet : https://www.pythoncheatsheet.org/#Virtual-Environment
-# Cheatsheet : https://cheatography.com/davechild/cheat-sheets/python/
-# Cheatsheet : https://perso.limsi.fr/pointal/_media/python:cours:mementopython3-english.pdf
 '''
 # Variable lower_snake
 first_name = 'Dan Belfer'
@@ -88,14 +89,14 @@ if USER_AGE > 18:
 '''
 
 
-### CHECK PYTHON VERSION ### do verifications for customer version awareness
+# CHECK PYTHON VERSION ### do verifications for customer version awareness
 import sys
 
 if sys.version_info < (3, 5):
     print(f"Dear customer you are running old python")
 print(f"Python version is: {sys.version_info}")
 
-### IMPORTS ####
+# IMPORTS
 print("===============")
 print("===IMPORTS===")
 # 'generic import' of math module
@@ -109,15 +110,16 @@ from math import sqrt
 sqrt(25)  # no longer have to reference the module
 
 # import multiple functions at once
-from math import cos, floor
+'''from math import cos, floor'''
 
 # import all functions in a module (generally discouraged)
-from csv import *
+'''from csv import *'''
 
 # define an alias
-import datetime as dt
+'''import datetime as dt
 
-print(dt.date.today())
+print(dt.date.today())'''
+
 # show all functions in math module
 # print(dir(math))
 # show help on math module
@@ -126,7 +128,7 @@ print(dt.date.today())
 # define an alias to specific func from module
 from math import sqrt as sq
 
-print(f"sqrt(81) is {sq(81)}")
+# print(f"sqrt(81) is {sq(81)}")
 
 
 # PLACEHOLDER - a placeholder in a function that you haven’t implemented
@@ -138,7 +140,7 @@ def func1():
     ...
 
 
-### INPUTS ###
+# INPUTS
 print("================")
 print("===INPUTS===")
 # print("Multiple User input")
@@ -149,16 +151,17 @@ print("===INPUTS===")
 # a, b = input("Enter name and age: ").split()
 
 
-### VARIABLES ###
+# VARIABLES
 print("===============")
 print("===VARIABLES===")
-
-# all variables/functions/class instances etc - are objects!!!
-# Variables are pointer to address in memory - they hold the address in memory not actually the value
-# addresses of objects can be revealed by function id()
-# Each assignment to a var changes the reference even if you do my_var = ny_var+5 it means my_var is now pointing to new
-# address in memory
 '''
+all variables/functions/class instances etc - are objects!!!
+Variables are pointer to address in memory - they hold the address in memory not actually the value
+addresses of objects can be revealed by function id()
+Each assignment to a var changes the reference even if you do 
+my_var = ny_var+5 it means my_var is now pointing to new
+address in memory
+
 a = 10
 print(hex(id(a)))  # HEX address where a points to: 0x7ffc9daab470
 b = a
@@ -170,21 +173,23 @@ print(f"b is {b}")  # output: b is 10 because the assignment still to 10 in memo
 b = b + 5  # b is now 15 meaning value changed - it means b is now pointing to other place
 print(hex(id(b)))  # HEX address where a points to: 0x7ffcaea1b510 a different address.
 '''
-### values of integer -5 till 256 will point always to same variables
+# values of integer -5 till 256 will point always to same variables
 '''
 k1 = 2
 k2 = 2
 print(f"k1 is k2: {k1 is k2} because k1 id is: {id(k1)} and it equal to id of: {id(k2)}")
 '''
-### DATA TYPES ###
+# DATA TYPES
 print("===============")
 print("===DATA TYPES===")
-# determine the type of an object
+# determine an object type
+'''
 type(2)  # returns 'int'
 type(2.0)  # returns 'float'
 type('two')  # returns 'str'
 type(True)  # returns 'bool'
 type(None)  # returns 'NoneType'
+'''
 
 # python is dynamic typed - var as pointer(reference) to address type is according to what is being pointed to
 ''''
@@ -194,33 +199,41 @@ a = "Hello"
 print(f"type of a is: {type(a)}  and its val is {a}") #output: type of a is: <class 'str'>  and its val is Hello
 '''
 # check if an object is of a given type
+'''
 isinstance(2.0, int)  # returns False
 isinstance(2.0, (int, float))  # returns True
+'''
 
 # convert an object to a given type
+'''
 float(2)
 int(2.9)
 str(2.9)
+'''
 
 # zero, None, and empty containers are converted to False
+'''
 bool(0)
 bool(None)
 bool('')  # empty string
 bool([])  # empty list
 bool({})  # empty dictionary
+'''
 
 # non-empty containers and non-zeros are converted to True
-bool(2)
-bool('two')
-bool([2])
+'''
+bool(2) # is True
+bool('two') # is True
+bool([2]) # is True
+'''
 
-# Object that can be changed internally (its state = its data) is called mutable
+# Object that can be changed internally (its state = its data) is called mutable (like mutants in English)
 # Object that can NOT be changed internally (its state = its data) is called immutable
-# Numbers (int,float,Boolean),string,tuple,Frozen set,user defined classes are *immutables!*
+# Numbers (int,float,Boolean),string,tuple,Frozen set are *immutables!*
 # list,set,dictionary,user defined classes are *mutable!*
 
-# Notice: t is tuple of list a and b it means it is immutable but a and b are mutable,
-# you cannot add new element to t but you can change the element in a and b inside the t
+# Notice: if t is tuple of and a,b are lists -->> it means it is immutable but a and b are mutable,
+# you cannot add new element to t *but* you can change the elements in a and b inside the t
 ''''
 a = [1, 2]
 b = [5, 6]
@@ -258,7 +271,7 @@ print(f"address of c is {hex(id(c))}")  # output: 0x2484852fbc8 meaning - in thi
 c.append(100)  # will cause c to add 100 to list and also b to add 100
 print(f"b val is: {b}")  # output: b val is: [1, 2, 3, 100]
 '''
-####MUTABLE and IMMUTABLE####
+# MUTABLE and IMMUTABLE
 print("=====================================")
 print("===MUTABLE and IMMUTABLE===")
 '''
