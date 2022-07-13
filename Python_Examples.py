@@ -126,20 +126,21 @@ print(dt.date.today())'''
 # help(math)
 
 # define an alias to specific func from module
+'''
 from math import sqrt as sq
 
-# print(f"sqrt(81) is {sq(81)}")
-
+print(f"sqrt(81) is {sq(81)}")
+'''
 
 # PLACEHOLDER - a placeholder in a function that you haven’t implemented
+'''
 def func():
     pass
 
 
 def func1():
     ...
-
-
+'''
 # INPUTS
 print("================")
 print("===INPUTS===")
