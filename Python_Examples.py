@@ -4069,7 +4069,6 @@ print("==========================")
 print("CLASS DECORATOR EXPLAINED")
 
 # Here is a class that is decorator for a function, receive no arguments
-
 class Power(object):
 	def __init__(self, arg):
 		self._arg = arg
@@ -4126,6 +4125,39 @@ print(multiply_together1(2, 2)) #output: 16 = (2*2)^2
 print(multiply_together2(2, 2)) #output: 256 = (2*2)^4
 
 #######################################
+
+''''
+*We Can Use Classes As Decorators*
+Let’s say we have a simple function that greets someone
+
+def hello(name):
+    return "hello " + name
+print(hello("fifi"))    # hello fifi
+
+Let’s write our decorator class, and use it when defining our hello function
+
+class append():
+    def __init__(self, char):
+        self.char = char
+    def __call__(self, function):
+        def inner(*args):
+            return function(*args) + self.char
+        return inner
+
+@append("!")
+def hello(name):
+    return "hello " + name
+print(hello("fifi"))    # hello fifi!
+We can use multiple decorators on 1 function too:
+
+@append("?")
+@append("!")
+def hello(name):
+    return "hello " + name
+print(hello("fifi"))    # hello fifi!?
+'''
+
+
 
 ### SINGLE DISPATCH GENERIC FUNCTION ####
 print("=====================")
@@ -4921,9 +4953,11 @@ derived protected
 Explain:
 derived is not implementing public so public is Base
 Because __private is a private method, only the object itself could use it, 
-there is no naming conflict for a private method. Calling d.__prvate() will cause an Error
+there is no naming conflict for a private method. Calling d.__private() will cause an Error
 derive protected related to self of derived is chosen
 '''
+
+
 
 # Single inheritance enables a derived class to inherit properties from a single parent class,
 # thus enabling code reusability and the addition of new features to existing code.
@@ -5041,6 +5075,36 @@ assert inherited.method_from_b(10) == 10
 assert inherited.shared_method() == "This is B"  ## This is true only because of MRO rule,
 # if a method is defined both in BaseClassA and BaseClassB, it will take the method from BaseClassB,
 # as it is defined first.
+
+''''
+## Private Variables In Classes Are Not Really Private ##
+class Dog():
+    def __init__(self, name):
+        self.__name = name
+    @property
+    def name(self):
+        return self.__name
+        
+In this Dog class, the __name attribute has a getter method but not a setter method. 
+By right, we as users should only be able to read the __name attribute and not have permission 
+to set a new name for our Dog object. But private variables are not that private.
+
+dog = Dog("rocky")
+print(dog.__dict__)   # {'_Dog__name': 'rocky'}
+
+The __dict__ attribute contains all attributes of the object. 
+Using the __dict__ attribute, we can control even variables and attributes that we aren’t supposed to have access to.
+
+dog.__dict__["_Dog__name"] = "fifi"
+print(dog.name)
+# fifi 
+'''
+
+
+
+
+
+
 ##########################################
 
 ####################
