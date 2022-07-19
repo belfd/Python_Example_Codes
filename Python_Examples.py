@@ -1721,7 +1721,7 @@ def min_max(nums):
 nums = [1, 2, 3]
 min_max_num = min_max(nums)  # min_max_num = (1, 3)
 
-# return values can be assigned into multiple variables using *tuple unpacking*
+# return values can be assigned multiple variables using *tuple unpacking* also called 'Assigning multiple variables'
 min_num, max_num = min_max(nums)  # min_num = 1, max_num = 3
 
 # 6 ways to find the largest number in the list
