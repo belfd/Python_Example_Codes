@@ -1489,7 +1489,7 @@ rev2 = {value: key for key, value in mydict.items()}
 print(rev2)  # {'ab': 1, 'bc': 2, 'cd': 3, 'de': 4}
 
 '''
-5 ways to Sort Dictionaries
+5 ways to Sort Dictionaries / Sort Dictionary
 '''
 print("~#~ 5 ways to Sort Dictionaries ~#~")
 ### Using sorted() function ###
@@ -1546,6 +1546,18 @@ d1={'cherry':1,'apple':2,'banana':3}
 sort_keys={k:v for k,v in sorted(d1.items())}
 print(sort_keys)
 #Output:{'apple': 2, 'banana': 3, 'cherry': 1}
+
+'''
+# Sort dictionary by keys
+product_prices = {'Z': 9.99, 'Y': 9.99, 'X': 9.99}
+print({key:product_prices[key] for key in sorted(product_prices.keys())})
+# output: {'X': 9.99, 'Y': 9.99, 'Z': 9.99}
+
+# Sort dictionary by values
+population = {'USA':329.5, 'Brazil': 212.6, 'UK': 67.2}
+print( {k:v for k, v in sorted(population.items(), key=lambda x:x[1])} )
+# output: {'UK': 67.2, 'Brazil': 212.6, 'USA': 329.5}
+'''
 
 # Sorting dictionary based on values and returns a sorted dictionary
 d1={'cherry':1,'apple':12,'banana':3}
