@@ -770,6 +770,7 @@ print(numbers[3:])  # elements 3, 4, 5, 6, 7, 8, 9
 print(numbers[-1])  # last element (element 9)
 print(numbers[::2])  # every 2nd element [0, 2, 4, 6, 8]
 print(numbers[::-1])  # backwards [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+print(numbers[::-1][::-1]) # list is like original ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 # alternative method for returning the list backwards
 list(reversed(numbers))
