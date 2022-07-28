@@ -1212,10 +1212,10 @@ init
 call
 '''
 '''
-# When we pass immutable items as arguments to the function, it uses pass by value. For e.g:
+# When we pass immutable(cannot change) items as arguments to the function, it uses pass by value. For e.g:
 def set_list(value):
-  value= "Changed string"
-  return value
+  value= "Changed string" # the assignment created new object in memory, it is different than value in input
+  return value  #Because string is immutable there is no existing method to change the string
 s = "Hello"
 print(set_list(s))
 print(s)
@@ -1223,8 +1223,6 @@ Output:
 Changed string
 Hello
 
-# You can see that the string has changed only in the function scope and not the outside one.
-# So, only the value is passed on to the function.
 
 # When we pass mutables like list in the function arguments, it uses pass by reference.
 def change(my_list):
@@ -1239,7 +1237,7 @@ print(my_list)
 # [10, 20, 5]
 
 # The list passed in the function also changed its value outside the function, when a number was appended.
-# But there is a catch!
+# But there is a catch! Always using '=' is not assignment - it creates new object in memory!!!
 
 # When we assign a new value to the list passed in the function, it uses pass by value.
 def assign_list(my_list):
@@ -1260,15 +1258,14 @@ print(my_list)
 # Enable adding documentation to functions - can be activated by __doc__
 print("===============")
 print("DOCSTRING FUNCTIONS")
-
-
+''''
 def func_doc_string(something):
-    '''This is doctring that expalins func_doc_string'''
+    """This is doctring that explains func_doc_string"""
     return something
 
 
 func_doc_string('Hi')
-print(func_doc_string.__doc__)
+print(func_doc_string.__doc__) #output: This is doctring that explains func_doc_string
 
 # Docstrings can be considered formal documentations of functions. It generally has four essential components.
 # Overall description: one sentence to describe the function’s operation, intended purpose, etc.
@@ -1284,6 +1281,188 @@ def calculate_fraction(a, b):
     :raise: ZeroDivisionError (when b is zero)
     """
     return a / b
+'''
+
+# ANONYMOUS (LAMBDA) FUNCTIONS
+# primarily used to temporarily define a function for use by another function - like inline functions
+# This is a real function with anonymous name , structure: lambda [param list] : expression
+# The expression returns function object when it is called, param list is optional can be empty
+# Lambda expression MUST be assigned to variable OR passed as argument to function
+print("===============")
+print("LAMBDA FUNCTIONS")
+
+'''
+# Lambda
+function = lambda: return_value
+function = lambda argument_1, argument_2: return_value
+
+
+my_func = lambda x: x ** 2
+# my_func(3) ->9
+my_func = lambda x, y: x + y
+# my_func(3,5) ->8
+my_func = lambda: 'hello'
+print(my_func())  # output: hello
+
+# another example
+def make_adder(n):
+     return lambda x: x + n
+
+>>> plus_3 = make_adder(3)
+>>> plus_5 = make_adder(5)
+
+>>> plus_3(4)
+# 7
+>>> plus_5(4)
+# 9
+
+# define a function the "usual" way
+def squared(x):
+    return x ** 2
+
+
+# define an identical function using lambda
+squared = lambda x: x ** 2
+
+
+# print(squared(5)) #output: 25
+
+## lambda as argument to function
+def apply_func(x, fn):
+    return fn(x)
+
+
+print(apply_func(3, lambda x: x ** 2))  # output: 9
+print(apply_func(2, lambda x: x + 2))  # output: 4
+
+f = lambda x, y=10: x + y
+print(f(1, 2))  # output:3
+print(f(1))  # output:11
+f = lambda x, *args, y, **kwargs: (x, args, y, kwargs)
+print(f(1, 'a', 'b', y=100, a=10, b=20))  # output: (1, ('a', 'b'), 100, {'a': 10, 'b': 20})
+
+l = ['C', 'B', 'a', 'd']
+print(sorted(l))  # output: ['B', 'C', 'a', 'd']  this sort is only by ord(x) value
+# Need to do sorting by same type of letter for example all are upper()
+print(sorted(l, key=lambda s: s.upper()))  # output: ['a', 'B', 'C', 'd'] as expected
+
+d = {'abc': 200, 'def': 300, 'ghi': 100}
+print(sorted(d))  # output:['abc', 'def', 'ghi']
+# we want to sort by the value not the key
+print(sorted(d, key=lambda e: d[e]))  # output: ['ghi', 'abc', 'def']  as we want by value
+
+# sort a list of strings by the last letter (without using lambda)
+simpsons = ['homer', 'marge', 'bart']
+
+
+def last_letter(word):
+    return word[-1]
+
+
+sorted(simpsons, key=last_letter)
+
+# sort a list of strings by the last letter (using lambda)
+sorted(simpsons, key=lambda word: word[-1])
+
+import random
+
+# randomize sorting of 10 numbers
+l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+print(sorted(l, key=lambda x: random.random()))
+
+
+# sorted() method can be used to sort any iterable in Python
+# We have passed a lambda function as a key to sort the dictionary by age
+
+
+data = [{'name': 'John', 'age': 21},
+        {'name': 'Max', 'age': 19},
+        {'name': 'Lisa', 'age': 22}
+        ]
+sorted_data = sorted(data, key=lambda x: x['age'])
+print("Using sorted on dictionary by age:")
+print(sorted_data)  # [{'name': 'Max', 'age': 19}, {'name': 'John', 'age': 21}, {'name': 'Lisa', 'age': 22}]
+'''
+'''
+# Lambda extract dictionary values or keys for sorting
+# Lambda function can also be used in sorted, sort, min,max, largest function.
+# A typical usage is to sort a dictionary by its key or value.
+
+# Here is the sequence:
+dic = {'the':4, 'day':1, 'is':3, 'sunny':2}
+# dic.items() --> decomposes dictionary into list of tuples
+print(dic.items())  # dict_items([('the', 4), ('day', 1), ('is', 3), ('sunny', 2)])
+print(sorted(dic.items(), key=lambda item: item[1]))  # [('day', 1), ('sunny', 2), ('is', 3), ('the', 4)]
+
+# lambda reads the list of tuples and extract the value (item[1]) which output to key.
+# after the list of values are complete, Sorted function sorts the dictionary by its values in ascending order
+# and returns the sorted dictionary
+# likewise, you could sort the dictionary by its key (item[0]) in ascending order.
+'''
+
+
+# FUNCTION ATTRIBUTES
+print("=================")
+print("FUNCTION ATTRIBUTES")
+'''
+Everything in Python is an object, and almost everything has attributes and methods. 
+In python, functions too are objects. So they have attributes like other objects. 
+All functions have a built-in attribute __doc__, which returns the doc string defined in the function source code. 
+We can also assign new attributes to them, as well as retrieve the values of those attributes.
+
+For handling attributes, Python provides us with “getattr” and “setattr”, a function that takes three arguments. 
+There is no difference between “setattr” and using the dot-notation on the left side of the = assignment operator:
+
+The given code can be written as follows to assign and retrieve attributes.
+
+Example
+def foo():
+    pass
+setattr(foo, 'age', 23 )
+setattr(foo, 'name', 'John Doe' )
+print(getattr(foo, 'age'))
+foo.gender ='male'
+print(foo.gender)
+print(foo.name)
+print(foo.age)
+Output:
+male
+John Doe
+23
+'''
+'''
+import inspect
+
+def my_func(a: "first",
+            b: "optional" = 1,
+            c=2,
+            *args: "args here",
+            kw1,
+            kw2=100,
+            kw3=200,
+            **kwargs: "extra kw ") -> "do nothing":
+    """This is a function for explanation"""
+    i = 10
+    j = 20
+
+
+print(my_func.__doc__)  # output: This is a function for explanations
+print(my_func.__annotations__)
+# output: {'a': 'first', 'b': 'optional', 'args': 'args here', 'kwargs': 'extra kw ', 'return': 'do nothing'}
+my_func.short_description = "added attribute to the function"
+## all attributes of function can be seen with dir(func) method
+print(my_func.__name__)  # output: my_func
+print(my_func.__defaults__)  # output: (1,2) --> match to b=1,c=2
+print(my_func.__kwdefaults__)  # output: {'kw2': 100, 'kw3': 200}
+# function has attribute named: __code__ which is object that we can do dir(my_func.__code__)
+print(my_func.__code__.co_name)  # output: my_func
+print(my_func.__code__.co_argcount)  # output: 3 for a,b,c - show only positional arguments
+print(my_func.__code__.co_varnames)  # output: ('a', 'b', 'c', 'kw1', 'kw2', 'kw3', 'args', 'kwargs', 'i', 'j')
+print(inspect.getdoc(my_func))  # output: This is a function for explanation
+# print(inspect.signature(my_func).parameters) # output will be all parameters
+# for k,v in inspect.signature(my_func).parameters.items():
+#    print(f"{k} : {v} ") #output: all the params with values
+'''
 
 #### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2672,150 +2851,8 @@ def func(l: List[int]) -> list[int]:
 lst = [1, 2, 3, 4]
 print(func(lst))
 
-### ANONYMOUS (LAMBDA) FUNCTIONS ###
-## primarily used to temporarily define a function for use by another function - like inline functions
-## This is a real function with anonymous name , structure: lambda [param list] : expression
-## The expression returns function object when it is called, param list is optional can be empty
-## Lambda expression MUST be assigned to variable OR passed as argument to function
-print("===============")
-print("LAMBDA FUNCTIONS")
-
-'''
-# Lambda
-function = lambda: return_value
-function = lambda argument_1, argument_2: return_value
-'''
-
-my_func = lambda x: x ** 2
-# my_func(3) ->9
-my_func = lambda x, y: x + y
-# my_func(3,5) ->8
-my_func = lambda: 'hello'
-print(my_func())  # output: hello
 
 
-# define a function the "usual" way
-def squared(x):
-    return x ** 2
-
-
-# define an identical function using lambda
-squared = lambda x: x ** 2
-
-
-# print(squared(5)) #output: 25
-
-## lambda as argument to function
-def apply_func(x, fn):
-    return fn(x)
-
-
-print(apply_func(3, lambda x: x ** 2))  # output: 9
-print(apply_func(2, lambda x: x + 2))  # output: 4
-
-f = lambda x, y=10: x + y
-print(f(1, 2))  # output:3
-print(f(1))  # output:11
-f = lambda x, *args, y, **kwargs: (x, args, y, kwargs)
-print(f(1, 'a', 'b', y=100, a=10, b=20))  # output: (1, ('a', 'b'), 100, {'a': 10, 'b': 20})
-
-l = ['C', 'B', 'a', 'd']
-print(sorted(l))  # output: ['B', 'C', 'a', 'd']  this sort is only by ord(x) value
-# Need to do sorting by same type of letter for example all are upper()
-print(sorted(l, key=lambda s: s.upper()))  # output: ['a', 'B', 'C', 'd'] as expected
-
-d = {'abc': 200, 'def': 300, 'ghi': 100}
-print(sorted(d))  # output:['abc', 'def', 'ghi']
-# we want to sort by the value not the key
-print(sorted(d, key=lambda e: d[e]))  # output: ['ghi', 'abc', 'def']  as we want by value
-
-# sort a list of strings by the last letter (without using lambda)
-simpsons = ['homer', 'marge', 'bart']
-
-
-def last_letter(word):
-    return word[-1]
-
-
-sorted(simpsons, key=last_letter)
-
-# sort a list of strings by the last letter (using lambda)
-sorted(simpsons, key=lambda word: word[-1])
-
-import random
-
-# randomize sorting of 10 numbers
-l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-print(sorted(l, key=lambda x: random.random()))
-
-'''
-sorted() method can be used to sort any iterable in Python
-We have passed a lambda function as a key to sort the dictionary by age
-'''
-
-data = [{'name': 'John', 'age': 21},
-        {'name': 'Max', 'age': 19},
-        {'name': 'Lisa', 'age': 22}
-        ]
-sorted_data = sorted(data, key=lambda x: x['age'])
-print("Using sorted on dictionary by age:")
-print(sorted_data)  # [{'name': 'Max', 'age': 19}, {'name': 'John', 'age': 21}, {'name': 'Lisa', 'age': 22}]
-
-"""
-following lambda function completed three operations:
-1) remove the last "+"
-2) remove ',' from the string and
-3) convert string into integer
-one liner lambda function example
-df[‘installs_clean’]= df['installs'].apply(lambda x:int(x[:-1].replace(‘,’,’’)))
-
-#Use if condition in lambda function example:
-train[‘pop’]=train[‘popularity’].apply(lambda x: 1 if x==’High’ else 0)
-
-Lambda extract dictionary values or keys for sorting
-Lambda function can also be used in sorted, sort, min,max, largest function.
-A typical usage is to sort a dictionary by its key or value.
-
-sorted(dic.items(), key=lambda item: item[1])
-Here is the sequence:
-dic.items() decomposes dictionary into list of tuples
-"""
-
-### FUNCTION ATTRIBUTES ####
-print("=================")
-print("FUNCTION ATTRIBUTES")
-import inspect
-
-
-def my_func(a: "first",
-            b: "optional" = 1,
-            c=2,
-            *args: "args here",
-            kw1,
-            kw2=100,
-            kw3=200,
-            **kwargs: "extra kw ") -> "do nothing":
-    """This is a function for explanation"""
-    i = 10
-    j = 20
-
-
-print(my_func.__doc__)  # output: This is a function for explanations
-print(my_func.__annotations__)
-# output: {'a': 'first', 'b': 'optional', 'args': 'args here', 'kwargs': 'extra kw ', 'return': 'do nothing'}
-my_func.short_description = "added attribute to the function"
-## all attributes of function can be seen with dir(func) method
-print(my_func.__name__)  # output: my_func
-print(my_func.__defaults__)  # output: (1,2) --> match to b=1,c=2
-print(my_func.__kwdefaults__)  # output: {'kw2': 100, 'kw3': 200}
-# function has attribute named: __code__ which is object that we can do dir(my_func.__code__)
-print(my_func.__code__.co_name)  # output: my_func
-print(my_func.__code__.co_argcount)  # output: 3 for a,b,c - show only positional arguments
-print(my_func.__code__.co_varnames)  # output: ('a', 'b', 'c', 'kw1', 'kw2', 'kw3', 'args', 'kwargs', 'i', 'j')
-print(inspect.getdoc(my_func))  # output: This is a function for explanation
-# print(inspect.signature(my_func).parameters) # output will be all parameters
-# for k,v in inspect.signature(my_func).parameters.items():
-#    print(f"{k} : {v} ") #output: all the params with values
 
 
 
@@ -6240,6 +6277,7 @@ Using Generator Comprehensions, we can save our memory.
 It works the same as List Comprehension, but instead of creating a list and keeping the whole sequence in memory, 
 the generator generates the next item in demand.
 '''
+import sys
 print("Compare list comprehension and generator comprehension: ")
 # list comprehension
 my_list = [i for i in range(1000)]
@@ -10020,6 +10058,19 @@ print(list(reversed(numbers_lst))[0])
 # Another nice shortcut for this approach should be this:
 print(numbers_lst[::-1][0])
 '''
+# one liner lambda function example
+'''
+Write lambda function that completes three operations:
+1) remove the last "+"
+2) remove ',' from the string and
+3) convert string into integer
+
+inp = '1,234+'
+lam = lambda x: int(x[:-1].replace(",", ""))
+print(lam(inp)) #output: 1234
+'''
+
+
 ##### Compare 2 Unordered lists #######
 ''''
 from collections import Counter
