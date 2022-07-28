@@ -72,6 +72,8 @@ Cheatsheet : https://www.pythoncheatsheet.org/#Virtual-Environment
 Cheatsheet : https://cheatography.com/davechild/cheat-sheets/python/
 Cheatsheet : https://perso.limsi.fr/pointal/_media/python:cours:mementopython3-english.pdf
 
+Reference to this file: Cheatsheet : https://www.pythoncheatsheet.org/cheatsheet
+
 """
 '''
 # Variable lower_snake
