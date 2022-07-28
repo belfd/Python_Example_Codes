@@ -569,6 +569,24 @@ if n in [0, 1, 2, 3, 4, 5]:
 # value_if_true if condition else value_if_false
 x = 10
 'positive' if x > 0 else 'zero or negative'
+
+
+# Chained Ternary:
+age = 15
+
+# this ternary operator:
+print('kid' if age < 13 else 'teen' if age < 18 else 'adult')
+
+# is equivalent to this if statement:
+if age < 18:
+     if age < 13:
+         print('kid')
+     else:
+         print('teen')
+else:
+     print('adult')
+
+# output: teen
 '''
 '''
 The Walrus(:=) Operator
