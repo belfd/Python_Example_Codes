@@ -90,6 +90,7 @@ if USER_AGE > 18:
 
 
 # CHECK PYTHON VERSION ### do verifications for customer version awareness
+'''
 import sys
 
 if sys.version_info < (3, 5):
@@ -108,7 +109,7 @@ math.sqrt(25)
 from math import sqrt
 
 sqrt(25)  # no longer have to reference the module
-
+'''
 # import multiple functions at once
 '''from math import cos, floor'''
 
@@ -548,14 +549,8 @@ else:
 
 # single-line if statement (sometimes discouraged)
 if x > 0: print('positive')
-'''
-'''
-# single-line if/else statement (sometimes discouraged)
-# known as a 'ternary operator'
-# value_if_true if condition else value_if_false
-x = 10
-'positive' if x > 0 else 'zero or negative'
 
+# Condition using in
 # simple if-statement condition:
 n = 10
 # instead of:
@@ -564,6 +559,16 @@ if n == 0 or n == 1 or n == 2 or n == 3 or n == 4 or n == 5:
 # Type:
 if n in [0, 1, 2, 3, 4, 5]:
     pass
+
+
+'''
+# Ternary Operator like 'a>b ? a:b' in c++
+'''
+# single-line if/else statement (sometimes discouraged)
+# known as a 'ternary operator'
+# value_if_true if condition else value_if_false
+x = 10
+'positive' if x > 0 else 'zero or negative'
 '''
 '''
 The Walrus(:=) Operator
@@ -630,6 +635,9 @@ if any(conditions):
 any([0, 1, 2, 3])  # True
 any([val for val in [1, 2, 3] if val > 2])  # True
 any([val for val in [1, 2, 3] if val > 5])  # False
+# if need to validate a specific value in the collection/iterable:
+if 2 in [0,1,2,3]:
+    pass
 '''
 '''
 When you need many conditions to be fulfilled in your code, 
