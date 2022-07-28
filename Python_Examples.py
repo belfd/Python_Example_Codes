@@ -715,10 +715,39 @@ print("===============")
 print("FOR WHILE LOOPS // ENUM")
 
 ''''
-# range returns a list of integers (Python 2) or a sequence (Python 3)
+# The for loop iterates over a list, tuple, dictionary, set or string
+# range returns a sequence (Python 3) of integers
 range(0, 3)  # returns [0, 1, 2]: includes start value but excludes stop value
 range(3)  # equivalent: default start value is 0
 range(0, 5, 2)  # returns [0, 2, 4]: third argument is the step value
+
+# break: If the execution reaches a break statement, it immediately exits the while loop’s clause
+while True:
+    name = input('Please type your name: ')
+    if name == 'your name':
+        break
+
+>>> print('Thank you!')
+# Please type your name: your name
+# Thank you!
+
+# continue: When the program execution reaches a continue statement, the program execution immediately 
+# jumps back to the start of the loop.
+
+while True:
+     name = input('Who are you? ')
+     if name != 'Joe':
+         continue
+     password = input('Password? (It is a fish.): ')
+     if password == 'swordfish':
+         break
+
+>>> print('Access granted.')
+# Who are you? Charles
+# Who are you? Debora
+# Who are you? Joe
+# Password? (It is a fish.): swordfish
+# Access granted.
 
 # for loop (not the recommended style)
 fruits = ['apple', 'banana', 'cherry']
