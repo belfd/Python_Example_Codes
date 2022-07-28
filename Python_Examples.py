@@ -709,6 +709,175 @@ lst = [condition3,condition5]
 if all(lst):
     print("with all")
 '''
+
+# FOR LOOPS AND WHILE LOOPS // ENUM
+print("===============")
+print("FOR WHILE LOOPS // ENUM")
+
+''''
+# range returns a list of integers (Python 2) or a sequence (Python 3)
+range(0, 3)  # returns [0, 1, 2]: includes start value but excludes stop value
+range(3)  # equivalent: default start value is 0
+range(0, 5, 2)  # returns [0, 2, 4]: third argument is the step value
+
+# for loop (not the recommended style)
+fruits = ['apple', 'banana', 'cherry']
+for i in range(len(fruits)):
+    print(fruits[i].upper())
+
+# for loop (recommended style)
+for fruit in fruits:
+    print(fruit.upper())
+
+# iterate through two things at once (using tuple unpacking)
+family = {'dad': 'homer', 'mom': 'marge', 'size': 6}
+for key, value in family.items():
+    print(key, value)
+
+# use enumerate if you need to access the index value within the loop
+for index, fruit in enumerate(fruits):
+    print(index, fruit)
+
+# for/else loop - #else will happen if for loop finishes completely and not stopped by break
+for fruit in fruits:
+    if fruit == 'banana':
+        print('Found the banana!')
+        break  # exit the loop and skip the 'else' block
+else:
+    # this block executes ONLY if the for loop completes without hitting 'break'
+    print("Can't find the banana")
+
+# while loop
+count = 0
+while count < 5:
+    print('This will print 5 times')
+    count += 1  # equivalent to 'count = count + 1'
+
+# 'else' command after while will be execute after while finishes
+# else will happen if while loop finishes completely and not stopped by break
+x = 5
+while x > 0:
+    print(x)
+    if x < 0:
+        break
+    x -= 1
+else:
+    print('Done')
+'''
+# ENUMERATION
+print("===============")
+print("ENUMERATIONS")
+
+'''
+range_name = range(to_exclusive)
+range_name = range(from_inclusive, to_exclusive)
+range_name = range(from_inclusive, to_exclusive, ± step_size)
+
+
+for i, el in enumerate(collection [, i_start]):
+    ...
+'''
+'''
+
+class Direction:
+    NORTH = 1
+    EAST = 2
+    SOUTH = 3
+    WEST = 4
+
+
+def move(direction):
+    if direction == Direction.NORTH:
+        print("Moving North")
+    elif direction == Direction.EAST:
+        print("Moving East")
+    elif direction == Direction.SOUTH:
+        print("Moving South")
+    elif direction == Direction.WEST:
+        print("Moving West")
+
+
+# ENUMERATE SAMPLE with Start argument
+print("Example of Enum with Start value:")
+mylist = ['a', 'b', 'd', 'c', 'g', 'e']
+print("Regular Enum:")
+for i, item in enumerate(mylist):
+    print(i, item)  # output: 0 a 1 b 2 d 3 c 4 g 5 e
+
+# but, you can add a start for enumeration:
+print("Enum start with index from 16...")
+for i, item in enumerate(mylist, 16):
+    print(i, item)  # output: 16 a 17 b 18 d 19 c 20 g 21 e
+print("\n")
+
+# Another way to use Enum
+
+from enum import Enum
+
+
+class WeekDay(Enum):
+    Monday = 1
+    Tuesday = 2
+    Wednesday = 3
+    Thursday = 4
+    Friday = 5
+    Saturday = 6
+    Sunday = 7
+
+
+day = WeekDay.Friday
+intDay = day.value  # This will be 5
+print(f"day is: {day} and {intDay}")  # output: day is: WeekDay.Friday and 5
+
+# Another example for using Enum:
+from enum import Enum
+
+
+class ProgrammingLanguage(Enum):
+    PYTHON = "Python"
+    JAVA = "Java"
+    C = "C"
+    JAVASCRIPT = "JavaScript"
+    PHP = "Php"
+
+
+print(f"The language I write is: {ProgrammingLanguage.PYTHON.value}")
+
+'''
+'''
+from dataclasses import dataclass
+from enum import Enum
+
+class StateTax(Enum):
+    OR = 0.05
+    WA = 0.10
+    CA = 0.08
+    NY = 0.15  # Just need to update here to add more states
+
+@dataclass
+class Car:
+    model: str
+    price: float
+    tax: StateTax
+
+    def total_cost(self) -> float:
+        return  self.price + (self.price * self.tax.value)       
+
+    def get_tax(self):
+        return self.tax.value
+
+
+car1 = Car(model="RAV4", price=30000, tax=StateTax.OR)
+car2 = Car(model="RAV4", price=30000, tax=StateTax.WA)
+car3 = Car(model="RAV4", price=30000, tax=StateTax.CA)
+car4 = Car(model="RAV4", price=30000, tax=StateTax.NY)  # create new instance
+
+print(car1.total_cost()) # 31500.0
+print(car2.total_cost()) # 33000.0
+print(car3.total_cost()) # 32400.0
+print(car4.total_cost()) # 34500.0
+'''
+
 #### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### LISTS ###
@@ -2481,166 +2650,6 @@ print(inspect.getdoc(my_func))  # output: This is a function for explanation
 # for k,v in inspect.signature(my_func).parameters.items():
 #    print(f"{k} : {v} ") #output: all the params with values
 
-
-### FOR LOOPS AND WHILE LOOPS // ENUM ###
-print("===============")
-print("FOR WHILE LOOPS // ENUM")
-
-# range returns a list of integers (Python 2) or a sequence (Python 3)
-range(0, 3)  # returns [0, 1, 2]: includes start value but excludes stop value
-range(3)  # equivalent: default start value is 0
-range(0, 5, 2)  # returns [0, 2, 4]: third argument is the step value
-
-# for loop (not the recommended style)
-fruits = ['apple', 'banana', 'cherry']
-for i in range(len(fruits)):
-    print(fruits[i].upper())
-
-# for loop (recommended style)
-for fruit in fruits:
-    print(fruit.upper())
-
-# iterate through two things at once (using tuple unpacking)
-family = {'dad': 'homer', 'mom': 'marge', 'size': 6}
-for key, value in family.items():
-    print(key, value)
-
-# use enumerate if you need to access the index value within the loop
-for index, fruit in enumerate(fruits):
-    print(index, fruit)
-
-# for/else loop - #else will happen if for loop finishes completely and not stopped by break
-for fruit in fruits:
-    if fruit == 'banana':
-        print('Found the banana!')
-        break  # exit the loop and skip the 'else' block
-else:
-    # this block executes ONLY if the for loop completes without hitting 'break'
-    print("Can't find the banana")
-
-# while loop
-count = 0
-while count < 5:
-    print('This will print 5 times')
-    count += 1  # equivalent to 'count = count + 1'
-
-# 'else' command after while will be execute after while finishes
-# else will happen if while loop finishes completely and not stopped by break
-x = 5
-while x > 0:
-    print(x)
-    if x < 0:
-        break
-    x -= 1
-else:
-    print('Done')
-
-### ENUMERATION ###
-print("===============")
-print("ENUMERATIONS")
-
-'''
-range_name = range(to_exclusive)
-range_name = range(from_inclusive, to_exclusive)
-range_name = range(from_inclusive, to_exclusive, ± step_size)
-
-
-for i, el in enumerate(collection [, i_start]):
-    ...
-'''
-
-class Direction:
-    NORTH = 1
-    EAST = 2
-    SOUTH = 3
-    WEST = 4
-
-
-def move(direction):
-    if direction == Direction.NORTH:
-        print("Moving North")
-    elif direction == Direction.EAST:
-        print("Moving East")
-    elif direction == Direction.SOUTH:
-        print("Moving South")
-    elif direction == Direction.WEST:
-        print("Moving West")
-
-
-# ENUMERATE SAMPLE with Start argument
-print("Example of Enum with Start value:")
-mylist = ['a', 'b', 'd', 'c', 'g', 'e']
-print("Regular Enum:")
-for i, item in enumerate(mylist):
-    print(i, item)  # output: 0 a 1 b 2 d 3 c 4 g 5 e
-
-# but, you can add a start for enumeration:
-print("Enum start with index from 16...")
-for i, item in enumerate(mylist, 16):
-    print(i, item)  # output: 16 a 17 b 18 d 19 c 20 g 21 e
-print("\n")
-
-# Another way to use Enum
-
-from enum import Enum
-class WeekDay(Enum):
-  Monday = 1
-  Tuesday = 2
-  Wednesday = 3
-  Thursday = 4
-  Friday = 5
-  Saturday = 6
-  Sunday = 7
-
-
-day = WeekDay.Friday
-intDay = day.value # This will be 5
-print(f"day is: {day} and {intDay}")  #output: day is: WeekDay.Friday and 5
-
-# Another example for using Enum:
-from enum import Enum
-class ProgrammingLanguage(Enum):
-    PYTHON = "Python"
-    JAVA = "Java"
-    C = "C"
-    JAVASCRIPT = "JavaScript"
-    PHP = "Php"
-
-print(f"The language I write is: {ProgrammingLanguage.PYTHON.value}")
-
-'''
-from dataclasses import dataclass
-from enum import Enum
-
-class StateTax(Enum):
-    OR = 0.05
-    WA = 0.10
-    CA = 0.08
-    NY = 0.15  # Just need to update here to add more states
-
-@dataclass
-class Car:
-    model: str
-    price: float
-    tax: StateTax
-
-    def total_cost(self) -> float:
-        return  self.price + (self.price * self.tax.value)       
-    
-    def get_tax(self):
-        return self.tax.value
-
-
-car1 = Car(model="RAV4", price=30000, tax=StateTax.OR)
-car2 = Car(model="RAV4", price=30000, tax=StateTax.WA)
-car3 = Car(model="RAV4", price=30000, tax=StateTax.CA)
-car4 = Car(model="RAV4", price=30000, tax=StateTax.NY)  # create new instance
-
-print(car1.total_cost()) # 31500.0
-print(car2.total_cost()) # 33000.0
-print(car3.total_cost()) # 32400.0
-print(car4.total_cost()) # 34500.0
-'''
 
 
 
