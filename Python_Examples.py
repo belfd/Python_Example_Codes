@@ -907,6 +907,384 @@ print(car3.total_cost()) # 32400.0
 print(car4.total_cost()) # 34500.0
 '''
 
+# FUNCTIONS
+print("===============")
+print("FUNCTIONS")
+
+''''
+# define a function with no arguments and no return values
+def print_text():
+    print('this is text')
+
+
+# call the function
+print_text()
+
+
+# define a function with one argument and no return values
+def print_this(x):
+    print(x)
+
+
+# call the function
+print_this(3)  # prints 3
+n = print_this(3)  # prints 3, but doesn't assign 3 to n
+#   because the function has no return statement
+
+# define a function with one argument and one return value
+def square_this(x):
+    return x ** 2
+
+
+# include an optional docstring to describe the effect of a function
+def square_this(x):
+    """Return the square of a number."""
+    return x ** 2
+
+
+# call the function
+square_this(3)  # prints 9
+var = square_this(3)  # assigns 9 to var, but does not print 9
+
+# Keyword Arguments: To improve or code readability, we should be as explicit as possible. 
+# We can achieve this in our functions by using Keyword Arguments:
+
+def say_hi(name, greeting):
+    print(f"{name} {greeting}")
+
+>>> # without keyword arguments
+>>> say_hi('John', 'Hello')
+# Hello John
+
+>>> # with keyword arguments
+>>> say_hi(name='Anna', greeting='Hi')
+# Hi Anna
+
+# define a function with two 'positional arguments' (no default values) and
+# one 'keyword argument' (has a default value)
+def calc(a, b, op='add'):
+    if op == 'add':
+        return a + b
+    elif op == 'sub':
+        return a - b
+    else:
+        print('valid operations are add and sub')
+
+
+# call the function
+calc(10, 4, op='add')  # returns 14
+calc(10, 4, 'add')  # also returns 14: unnamed arguments are inferred by position
+calc(10, 4)  # also returns 14: default for 'op' is 'add'
+calc(10, 4, 'sub')  # returns 6
+calc(10, 4, 'div')  # prints 'valid operations are add and sub'
+
+
+# Notice: Default parameter will be assigned to param and all rest of params after it also should have default value
+def func(a, b=1, c=2):
+    pass
+
+def func(a=0,b,c=2):  # cause error
+    pass
+
+func(100)  # meaning a receives 100 and b is 1 and c is 2
+# Named argument can enable to choose which val go to which param even if not in same order
+func(c=10, a=3)  # will give a=3,b=1,c10  --> b received 1 as default
+
+
+# use 'pass' as a placeholder if you haven't written the function body
+def stub():
+    pass
+
+
+# return two values from a single function
+def min_max(nums):
+    return min(nums), max(nums)
+
+
+# return values can be assigned to a single variable as a tuple
+nums = [1, 2, 3]
+min_max_num = min_max(nums)  # min_max_num = (1, 3)
+
+# return values can be assigned multiple variables using *tuple unpacking* also called 'Assigning multiple variables'
+min_num, max_num = min_max(nums)  # min_num = 1, max_num = 3
+
+# Chained function call
+def add(a, b):
+    return a + b
+
+
+def subtract(a, b):
+    return a - b
+
+
+a, b = 5, 10
+
+print(f"Chained Function calls: {(add if b > a else subtract)(a, b)}")  # output: Chained Function calls: 15
+
+# Python is 'Pass by Object Reference' (not by value and not by reference)
+def set_list(list):
+    list = ["A", "B", "C"]  # here a new assignment will create object
+    return list
+
+def add(list):
+    list.append("D") # here we use the original object to extend its value
+    return list
+
+
+my_list = ["E"]
+print(f"id of my_list: {id(my_list)}")  #output: id of my_list: 1732001661184
+x1 = set_list(my_list)
+x2 = add(my_list)
+print(f"id of my_list is {id(x1)} and value is: {x1}") # id of my_list is 1732001830400 and value is: ['A', 'B', 'C']
+print(f"id of my_list is {id(x2)} and value is: {x2}") # id of my_list is 1732001661184 and value is: ['E', 'D']
+'''
+
+# GLOBAL LOCAL SCOPES
+print("===============")
+print("GLOBAL LOCAL SCOPES")
+'''''
+# Python is familiar with scopes. The highest is Builtin scope (where defined True,list,print etc...)
+# Next there is Global scope - all space that is outside of main() or any function
+# Local scope is inside the function we work with
+# When python encounter a function at complie-time it will scan for any variables that have values assigned to them
+# It will search them anywhere in the function, if the variable has not been specified as global,then it is local
+# If the variable is not found - only at run-time python will start looking higher in hierarchy to find the vars.
+# You cannot change the value of a global variable just by mentioning it inside a function, you need to use 'global'
+# Code in the global scope cannot use any local variables.
+# However, a local scope can access global variables.
+# Code in a function’s local scope cannot use variables in any other local scope.
+# You can use the same name for different variables if they are in different scopes. 
+# That is, there can be a local variable named spam and a global variable also named spam.
+
+global_variable = 'I am available everywhere'
+def some_function():
+    print(global_variable)  # because is global
+    local_variable = "only available within this function"
+    print(local_variable)
+
+>>> # the following code will trow error because
+>>> # 'local_variable' only exists inside 'some_function'
+>>> print(local_variable)
+Traceback (most recent call last):
+  File "<stdin>", line 10, in <module>
+NameError: name 'local_variable' is not defined
+
+The global Statement: If you need to modify a global variable from within a function, use the global statement
+def spam():
+    global eggs
+    eggs = 'spam'
+
+>>> eggs = 'global'
+>>> spam()
+>>> print(eggs)
+There are four rules to tell whether a variable is in a local scope or global scope:
+If a variable is being used in the global scope (that is, outside all functions), then it is always a global variable.
+If there is a global statement for that variable in a function, it is a global variable.
+Otherwise, if the variable is used in an assignment statement in the function, it is a local variable.
+But if the variable is not used in an assignment statement, it is a global variable.
+'''
+''''
+a = 10
+
+def func1():
+    print("Inside func1")
+    print(f"a: {a}")  # there is no assignment or definition locally so it will print a: 10
+
+def func2():
+    print("Inside func2")
+    a = 100  # Here python identifies a locally and the val is 100
+    print(f"a: {a}")  # output: a:100
+
+def func3():
+    global a
+    a = 200  # Here the assignment with global means we refer to a from globla scope so assignment of a = 200
+
+def func4():
+    # print(a)  #This will cause run-time error - because a is defined in the local scope but not yet, there is no
+    # need to bring value from global scope where it exists, it is only run-time error ,at compile time it works
+    print("Inside func4")
+    a = 100
+    print(f"a: {a}")  # output a:100  --> local
+
+print(f"a: {a}")
+func1()
+func2()
+func3()
+print("after func3")
+print(f"a: {a}")
+func4()
+print("after func4")
+print(f"a: {a}")
+
+print("## NONLOCAL EXAMPLE ##")
+'''
+
+# When working with nested functions - nonlocal means we are working on variable that is not defined locally but one
+# level scope above. ''nonlocal'' is not ''global''
+''''
+def outer():
+    x = 'hello'
+
+    def inner1():
+        x = 'python'
+
+        def inner2():
+            nonlocal x  # this means it is closure - x inside inner2 refers to x in inner1
+            x = 'monty'
+
+        print(f"inner before {x}")  # output: inner before python --> here x is still python
+        inner2()
+        print(f"inner after {x}")  # outpt: inner after monty --> inside inner2() the globla to inner2 is x from inner1
+
+    inner1()
+    print(f"outer {x}")  # output: outer hello -->The x of most global is not modified
+    # - nonlocal of inner2 only relates to inner1
+
+
+outer()
+'''
+print("==============================")
+print("## ANOTHER NONLOCAL EXAMPLE ##")
+'''
+def outer():
+    x = 'hello'
+
+    def inner1():
+        nonlocal x
+        x = 'python'
+
+        def inner2():
+            nonlocal x
+            x = 'monty'
+
+        print(f"inner before {x}")  # output: inner before python --> here x python and it changed x with 'hello'
+        inner2()
+        print(f"inner after {x}")  # outpt: inner after monty --> inside inner2() the globla to inner2 is x from inner1
+
+    inner1()
+    print(
+        f"outer {x}")  # output: outer monty -->The x of most global was modified because of nonlocal defined in inner1
+
+outer()
+'''
+print("========================")
+print("## THIRD NONLOCAL EXAMPLE ##")
+'''
+x = 100
+
+def outer():
+    x = 'python'
+
+    def inner1():
+        nonlocal x
+        x = 'monty'
+
+        def inner2():
+            global x
+            x = 'hello'
+
+        print(f"inner before {x}")  # output: inner before monty --> here x python and it changed x to monthy
+        inner2()
+        print(f"inner after {x}")  # outpt: inner after monty --> inside inner2() the global x 100 became hello
+
+    inner1()
+    print(f"outer {x}")  # output: outer monty -->The x is still monty
+
+outer()
+print(f"After outer call x is {x}")  # output: After outer call x is hello
+'''
+
+# Objects Can Behave Like Functions
+'''
+While all functions are objects in Python, the reverse isn’t true. Objects aren’t functions. But they can be made 
+callable, which allows us to treat them like functions in many cases.
+If an object is callable it means we can use the round parentheses function call syntax on it and even pass in function 
+call arguments. This is all powered by the __call__ dunder method.
+Here’s an example of class defining a callable object:
+class Foo:
+    def __init__(self):
+        print("init")
+    def __call__(self):
+        print("call")
+>>> obj = Foo()
+init
+>>> obj()
+call
+'''
+'''
+# When we pass immutable items as arguments to the function, it uses pass by value. For e.g:
+def set_list(value):
+  value= "Changed string"
+  return value
+s = "Hello"
+print(set_list(s))
+print(s)
+Output:
+Changed string
+Hello
+
+# You can see that the string has changed only in the function scope and not the outside one.
+# So, only the value is passed on to the function.
+
+# When we pass mutables like list in the function arguments, it uses pass by reference.
+def change(my_list):
+   my_list.append(5)
+   return my_list
+
+my_list = [10, 20]
+print(change(my_list))
+print(my_list)
+# Output:
+# [10, 20, 5]
+# [10, 20, 5]
+
+# The list passed in the function also changed its value outside the function, when a number was appended.
+# But there is a catch!
+
+# When we assign a new value to the list passed in the function, it uses pass by value.
+def assign_list(my_list):
+   my_list= ["A", "B", "C"]
+   return my_list
+my_list = [10, 20]
+print(assign_list(my_list))
+print(my_list)
+# Output:
+# ['A', 'B', 'C']
+# [10, 20]
+
+# Here, python created a new variable(within function scope) pointing to [“A”, “B”, “C”].
+
+'''
+
+# DOCSTRING FUNCTIONS
+# Enable adding documentation to functions - can be activated by __doc__
+print("===============")
+print("DOCSTRING FUNCTIONS")
+
+
+def func_doc_string(something):
+    '''This is doctring that expalins func_doc_string'''
+    return something
+
+
+func_doc_string('Hi')
+print(func_doc_string.__doc__)
+
+# Docstrings can be considered formal documentations of functions. It generally has four essential components.
+# Overall description: one sentence to describe the function’s operation, intended purpose, etc.
+# Parameter list: describe each of the parameters
+# Return value: what the function returns
+# Exceptions (optional): describe what exceptions that the function can raise.
+def calculate_fraction(a, b):
+    """
+    Calculate a fraction of two numbers
+    :param a: int or float, the numerator of the fraction
+    :param b: int or float, the denominator of the fraction
+    :return: float, calculated as a /b
+    :raise: ZeroDivisionError (when b is zero)
+    """
+    return a / b
+
 #### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### LISTS ###
@@ -1872,246 +2250,6 @@ sorted(set([9, 0, 2, 1, 0]))  # returns [0, 1, 2, 9]
 # remove a duplication in list
 my_list = [1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5, 1, 1, 2]
 print(list(set(my_list)))  # output: [1, 2, 3, 4, 5]
-
-### DEFINING FUNCTIONS ###
-print("===============")
-print("FUNCTIONS")
-
-
-# define a function with no arguments and no return values
-def print_text():
-    print('this is text')
-
-
-# call the function
-print_text()
-
-
-# define a function with one argument and no return values
-def print_this(x):
-    print(x)
-
-
-# call the function
-print_this(3)  # prints 3
-n = print_this(3)  # prints 3, but doesn't assign 3 to n
-
-
-#   because the function has no return statement
-
-# define a function with one argument and one return value
-def square_this(x):
-    return x ** 2
-
-
-# include an optional docstring to describe the effect of a function
-def square_this(x):
-    """Return the square of a number."""
-    return x ** 2
-
-
-# call the function
-square_this(3)  # prints 9
-var = square_this(3)  # assigns 9 to var, but does not print 9
-
-
-# define a function with two 'positional arguments' (no default values) and
-# one 'keyword argument' (has a default value)
-def calc(a, b, op='add'):
-    if op == 'add':
-        return a + b
-    elif op == 'sub':
-        return a - b
-    else:
-        print('valid operations are add and sub')
-
-
-# call the function
-calc(10, 4, op='add')  # returns 14
-calc(10, 4, 'add')  # also returns 14: unnamed arguments are inferred by position
-calc(10, 4)  # also returns 14: default for 'op' is 'add'
-calc(10, 4, 'sub')  # returns 6
-calc(10, 4, 'div')  # prints 'valid operations are add and sub'
-
-
-# Notice: Default parameter will be assigned to param and all rest of params after it also should have default value
-def func(a, b=1, c=2):
-    pass
-
-
-func(100)  # meaning a receives 100 and b is 1 and c is 2
-# Named argument can enable to choose which val go to which param even if not in same order
-func(c=10, a=3)  # will give a=3,b=1,c10  --> b received 1 as default
-
-
-# use 'pass' as a placeholder if you haven't written the function body
-def stub():
-    pass
-
-
-# return two values from a single function
-def min_max(nums):
-    return min(nums), max(nums)
-
-
-# return values can be assigned to a single variable as a tuple
-nums = [1, 2, 3]
-min_max_num = min_max(nums)  # min_max_num = (1, 3)
-
-# return values can be assigned multiple variables using *tuple unpacking* also called 'Assigning multiple variables'
-min_num, max_num = min_max(nums)  # min_num = 1, max_num = 3
-
-# 6 ways to find the largest number in the list
-print("##### 6 ways to find largest nmber in list: #####")
-numbers_lst = [1, 2, 3, 4, 50, 6, 3, 2, 3, 8]
-# 1- Fast approach using built in max function
-print("Using Max Built-in function: ", max(numbers_lst))
-# 2- Manual Approach iterating all the elements of the list
-max_num = numbers_lst[0]
-for n in numbers_lst:
-    max_num = n if n >= max_num else max_num
-print("Manual Iteration: ", max_num)
-# 3- Using comprehensions, in this case for the list
-max_num = numbers_lst[0]
-[max_num := n for n in numbers_lst if n >= max_num]
-print("List Comprehension: ", max_num)
-# 4- Sort the list in ascending order and print the last element in the list.
-numbers_lst.sort()
-# printing the last element, which is in this case the largest one
-print("Using the sort list method:", numbers_lst[-1])
-# 5 - Using the built in sorted function and getting
-# the last list element afterwards
-sorted_lst = sorted(numbers_lst, reverse=True)
-max_num = sorted_lst[0]
-print("Sorted List: ", max_num)
-# 6 - Using the built-in reversed function to reverse
-# the list, convert it to a list and print first item
-print(list(reversed(numbers_lst))[0])
-# Another nice shortcut for this approach should be this:
-print(numbers_lst[::-1][0])
-
-
-# Chained function call
-def add(a, b):
-    return a + b
-
-
-def subtract(a, b):
-    return a - b
-
-
-a, b = 5, 10
-
-print(f"Chained Function calls: {(add if b > a else subtract)(a, b)}")  # output: Chained Function calls: 15
-
-# Python is 'Pass by Object Reference' (not by value and not by reference)
-def set_list(list):
-    list = ["A", "B", "C"]  # here a new assignment will create object
-    return list
-
-def add(list):
-    list.append("D") # here we use the original object to extend its value
-    return list
-
-
-my_list = ["E"]
-print(f"id of my_list: {id(my_list)}")
-x1 = set_list(my_list)
-x2 = add(my_list)
-print(f"id of my_list is {id(x1)} and value is: {x1}")
-print(f"id of my_list is {id(x2)} and value is: {x2}")
-
-
-# Objects Can Behave Like Functions
-'''
-While all functions are objects in Python, the reverse isn’t true. Objects aren’t functions. But they can be made 
-callable, which allows us to treat them like functions in many cases.
-If an object is callable it means we can use the round parentheses function call syntax on it and even pass in function 
-call arguments. This is all powered by the __call__ dunder method.
-Here’s an example of class defining a callable object:
-class Foo:
-    def __init__(self):
-        print("init")
-    def __call__(self):
-        print("call")
->>> obj = Foo()
-init
->>> obj()
-call
-'''
-'''
-# When we pass immutable items as arguments to the function, it uses pass by value. For e.g:
-def set_list(value):
-  value= "Changed string"
-  return value
-s = "Hello"
-print(set_list(s))
-print(s)
-Output:
-Changed string
-Hello
-
-# You can see that the string has changed only in the function scope and not the outside one.
-# So, only the value is passed on to the function.
-
-# When we pass mutables like list in the function arguments, it uses pass by reference.
-def change(my_list):
-   my_list.append(5)
-   return my_list
-
-my_list = [10, 20]
-print(change(my_list))
-print(my_list)
-# Output:
-# [10, 20, 5]
-# [10, 20, 5]
-
-# The list passed in the function also changed its value outside the function, when a number was appended.
-# But there is a catch!
-
-# When we assign a new value to the list passed in the function, it uses pass by value.
-def assign_list(my_list):
-   my_list= ["A", "B", "C"]
-   return my_list
-my_list = [10, 20]
-print(assign_list(my_list))
-print(my_list)
-# Output:
-# ['A', 'B', 'C']
-# [10, 20]
-
-# Here, python created a new variable(within function scope) pointing to [“A”, “B”, “C”].
-
-'''
-
-### DOCSTRING FUNCTIONS ###
-### Enable adding documentation to functions - can be activated by __doc__ ###
-print("===============")
-print("DOCSTRING FUNCTIONS")
-
-
-def func_doc_string(something):
-    '''This is doctring that expalins func_doc_string'''
-    return something
-
-
-func_doc_string('Hi')
-print(func_doc_string.__doc__)
-
-# Docstrings can be considered formal documentations of functions. It generally has four essential components.
-# Overall description: one sentence to describe the function’s operation, intended purpose, etc.
-# Parameter list: describe each of the parameters
-# Return value: what the function returns
-# Exceptions (optional): describe what exceptions that the function can raise.
-def calculate_fraction(a, b):
-    """
-    Calculate a fraction of two numbers
-    :param a: int or float, the numerator of the fraction
-    :param b: int or float, the denominator of the fraction
-    :return: float, calculated as a /b
-    :raise: ZeroDivisionError (when b is zero)
-    """
-    return a / b
 
 
 ### *ARGS ###
@@ -3354,132 +3492,7 @@ print(f"Min Value in list is {min_result}")
 max_result = reduce(lambda a, b: a if a > b else b, l)
 print(f"Max Value in list is {max_result}")
 
-### GLOBAL LOCAL SCOPES ####
-print("===============")
-print("GLOBAL LOCAL SCOPES")
-# Python is familiar with scopes. The highest is Builtin scope (where defined True,list,print etc...)
-# Next there is Global scope - all space that is outside of main() or any function
-# Local scope is inside the function we work with
-# When python encounter a function at complie-time it will scan for any variables that have values assigned to them
-# It will search them anywhere in the function, if the variable has not been specified as global,then it is local
-# If the variable is not found - only at run-time python will start looking higher in hierarchy to find the vars.
-# You cannot change the value of a global variable just by mentioning it inside a function, you need to use 'global'
 
-
-a = 10
-
-
-def func1():
-    print("Inside func1")
-    print(f"a: {a}")  # there is no assignment or definition locally so it will print a: 10
-
-
-def func2():
-    print("Inside func2")
-    a = 100  # Here python identifies a locally and the val is 100
-    print(f"a: {a}")  # output: a:100
-
-
-def func3():
-    global a
-    a = 200  # Here the assignment with global means we refer to a from globla scope so assignment of a = 200
-
-
-def func4():
-    # print(a)  #This will cause run-time error - because a is defined in the local scope but not yet, there is no
-    # need to bring value from global scope where it exists, it is only run-time error ,at compile time it works
-    print("Inside func4")
-    a = 100
-    print(f"a: {a}")  # output a:100  --> local
-
-
-print(f"a: {a}")
-func1()
-func2()
-func3()
-print("after func3")
-print(f"a: {a}")
-func4()
-print("after func4")
-print(f"a: {a}")
-
-print("## NONLOCAL EXAMPLE ##")
-
-
-# When working with nested functions - nonlocal means we are working on variable that is not defined locally but one
-# level scope above. ''nonlocal'' is not ''global''
-def outer():
-    x = 'hello'
-
-    def inner1():
-        x = 'python'
-
-        def inner2():
-            nonlocal x  # this means it is closure - x inside inner2 refers to x in inner1
-            x = 'monty'
-
-        print(f"inner before {x}")  # output: inner before python --> here x is still python
-        inner2()
-        print(f"inner after {x}")  # outpt: inner after monty --> inside inner2() the globla to inner2 is x from inner1
-
-    inner1()
-    print(f"outer {x}")  # output: outer hello -->The x of most global is not modified
-    # - nonlocal of inner2 only relates to inner1
-
-
-outer()
-print("==============================")
-print("## ANOTHER NONLOCAL EXAMPLE ##")
-
-
-def outer():
-    x = 'hello'
-
-    def inner1():
-        nonlocal x
-        x = 'python'
-
-        def inner2():
-            nonlocal x
-            x = 'monty'
-
-        print(f"inner before {x}")  # output: inner before python --> here x python and it changed x with 'hello'
-        inner2()
-        print(f"inner after {x}")  # outpt: inner after monty --> inside inner2() the globla to inner2 is x from inner1
-
-    inner1()
-    print(
-        f"outer {x}")  # output: outer monty -->The x of most global was modified because of nonlocal defined in inner1
-
-
-outer()
-print("========================")
-print("## THIRD NONLOCAL EXAMPLE ##")
-
-x = 100
-
-
-def outer():
-    x = 'python'
-
-    def inner1():
-        nonlocal x
-        x = 'monty'
-
-        def inner2():
-            global x
-            x = 'hello'
-
-        print(f"inner before {x}")  # output: inner before monty --> here x python and it changed x to monthy
-        inner2()
-        print(f"inner after {x}")  # outpt: inner after monty --> inside inner2() the global x 100 became hello
-
-    inner1()
-    print(f"outer {x}")  # output: outer monty -->The x is still monty
-
-
-outer()
-print(f"After outer call x is {x}")  # output: After outer call x is hello
 
 ### Difference between copy() and deepcopy() ###
 print("========================")
@@ -9974,7 +9987,39 @@ logger.addHandler(handler)
 for i in range(10000):
     logger.info(i)
 '''
-
+# EXAMPLES
+print("========================================================")
+print("================### EXAMPLES###=========================")
+''''
+# 6 ways to find the largest number in the list
+print("##### 6 ways to find largest nmber in list: #####")
+numbers_lst = [1, 2, 3, 4, 50, 6, 3, 2, 3, 8]
+# 1- Fast approach using built in max function
+print("Using Max Built-in function: ", max(numbers_lst))
+# 2- Manual Approach iterating all the elements of the list
+max_num = numbers_lst[0]
+for n in numbers_lst:
+    max_num = n if n >= max_num else max_num
+print("Manual Iteration: ", max_num)
+# 3- Using comprehensions, in this case for the list
+max_num = numbers_lst[0]
+[max_num := n for n in numbers_lst if n >= max_num]
+print("List Comprehension: ", max_num)
+# 4- Sort the list in ascending order and print the last element in the list.
+numbers_lst.sort()
+# printing the last element, which is in this case the largest one
+print("Using the sort list method:", numbers_lst[-1])
+# 5 - Using the built in sorted function and getting
+# the last list element afterwards
+sorted_lst = sorted(numbers_lst, reverse=True)
+max_num = sorted_lst[0]
+print("Sorted List: ", max_num)
+# 6 - Using the built-in reversed function to reverse
+# the list, convert it to a list and print first item
+print(list(reversed(numbers_lst))[0])
+# Another nice shortcut for this approach should be this:
+print(numbers_lst[::-1][0])
+'''
 ##### Compare 2 Unordered lists #######
 ''''
 from collections import Counter
