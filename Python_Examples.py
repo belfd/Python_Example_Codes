@@ -76,6 +76,7 @@ Reference to this file: Cheatsheet : https://www.pythoncheatsheet.org/cheatsheet
 
 """
 '''
+# PYTHON TEXT FORMAT
 # Variable lower_snake
 first_name = 'Dan Belfer'
 
@@ -98,10 +99,12 @@ import sys
 if sys.version_info < (3, 5):
     print(f"Dear customer you are running old python")
 print(f"Python version is: {sys.version_info}")
+'''
 
 # IMPORTS
 print("===============")
 print("===IMPORTS===")
+"""
 # 'generic import' of math module
 import math
 
@@ -111,7 +114,7 @@ math.sqrt(25)
 from math import sqrt
 
 sqrt(25)  # no longer have to reference the module
-'''
+"""
 # import multiple functions at once
 '''from math import cos, floor'''
 
@@ -5549,9 +5552,9 @@ Polymorphism means more than one form, the same object performing different oper
 Polymorphism can be achieved by using two ways, those are
 Method overriding
 Method overloading
-Method overloading means writing two or more methods in the same class by using same method name, 
+Method overloading means writing two or more methods *in the same class* by using same method name, 
 but the passing parameters is different.
-Method overriding means we use the method names in the different classes, which means parent class method 
+Method overriding means we use the method names *in the different classes*, which means parent class method 
 is used in the child class.
 
 Method Overloading in Python
@@ -7918,6 +7921,17 @@ i=0 and j=1
 i=1 and j=0
 i=1 and j=1
 '''
+
+# Use itertools chain example
+from itertools import chain
+
+li = ['ABC', 'DEF', 'GHI', 'JKL']
+# using chain-single iterable.
+res1 = list(chain(li))
+res2 = list(chain.from_iterable(li))
+print("using chain :", res1, end ="\n\n")  # output: ['ABC', 'DEF', 'GHI', 'JKL']
+print("using chain.from_iterable :", res2) # output: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']
+
 
 ## tee usage - Compare or apply some operation between each pair of adjacent elements
 from itertools import tee
