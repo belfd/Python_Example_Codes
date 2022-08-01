@@ -6069,7 +6069,68 @@ for num in my_nums1:
   print(num)  # 1 4 9 16 25
         
 '''
+'''
+The yield in Python can be used like the return statement in a function. 
+However, there is a slight difference. The yield statement returns a generator object to the one 
+who calls the function which contains yield, instead of simply returning a value
+yield keyword inside a generator function returns a generator object instead of values. 
+On the other hand, if we have used the return statement, which returned an array of values, 
+this would have consumed a lot of memory. Hence, yield is always recommended over the return in such cases.
+The yield statement suspends a function’s execution and sends a value back to the caller when the caller iterates 
+over the generator object. 
+This results in increases in the overall efficiency of the program by less memory consumption.
+Example 1:
+def generator_func():
+    yield "lets"
+    yield "Learn "
+    yield "python"
+gen_object = generator_func()
+print(type(gen_object))
+print(next(gen_object))
+print(next(gen_object))
+print(next(gen_object))
+gen_object = generator_func()
+for value in gen_object:
+    print(value)
+#output: 
+<class generator>
+lets
+learn
+python
+lets
+learn
+python
 
+Example 2:
+Here we are going to create a get_even() function, which takes an iterator as input and return agenerator object. 
+Which we can iterate over by list() and for-loop and next() to get each number at a time.
+
+from typing import Iterable
+def get_even(numbers:Iterable):
+    for number in numbers:
+        if(number%2==0):
+            yield number
+            
+even_numbers = get_even([1,3,4,5,5,6,7,8,9])            
+print(list(even_numbers))
+#output: [4,6,8]
+
+
+even_numbers = get_even(range(20))
+print(list(even_numbers))
+#output: [2,4,6,8,10,12,14,16,18]
+
+even_numbers = get_even(range(10))
+for num in even_numbers:
+    print(num)
+
+output:
+0
+2
+4
+6
+8
+'''
 
 # Generator functions are functions but do not use 'return' they use 'yield'
 # Generator functions are not return once like regular functions but can yield multiple times
