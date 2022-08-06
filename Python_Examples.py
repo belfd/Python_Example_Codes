@@ -2184,7 +2184,7 @@ empty_dict = dict()
 
 # create a dictionary (two ways)
 family = {'dad': 'homer', 'mom': 'marge', 'size': 6}
-family = dict(dad='homer', mom='marge', size=6)
+family = dict(dad='homer', mom='marge', size=6) #prefered way
 
 # convert a list of tuples into a dictionary
 list_of_tuples = [('dad', 'homer'), ('mom', 'marge'), ('size', 6)]
