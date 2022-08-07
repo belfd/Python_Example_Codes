@@ -1465,6 +1465,71 @@ print(inspect.getdoc(my_func))  # output: This is a function for explanation
 # for k,v in inspect.signature(my_func).parameters.items():
 #    print(f"{k} : {v} ") #output: all the params with values
 '''
+""""
+container = nothing but a data structure that can hold elements or values. 
+Lists, dicts, tuples or even strings are examples of containers.
+
+iterable = an object that can return an iterator. 
+It holds the value or the items itself, the reference to the values or the logic to generate these values. 
+The first thing that becomes evident is that - all containers can be treated as iterables.
+
+iterator = generates the values and perform operations on them that fill the iterable. 
+Iterators are used to “generate” the value and not simply “get” the values. 
+Iterators may not know about the values in advance. All they are supposed to know about is to return the next value 
+when asked for it.
+Example:
+my_list = ["item #1", "item #2", "item #3", "item #4"]
+my_list_iter = iter(my_list)
+
+print(type(my_list))        # <class 'list'>
+print(my_list)              # ['item #1', 'item #2', 'item #3', 'item #4']
+
+print(type(my_list_iter))   # <class 'list_iterator'>
+print(my_list_iter)         # <list_iterator object at 0x10aa87d60>
+
+print(next(my_list_iter))   # item #1
+print(next(my_list_iter))   # item #2
+print(next(my_list_iter))   # item #3
+print(next(my_list_iter))   # item #4
+print(next(my_list_iter))   # Exception: StopIteration
+
+An iterator object should support, at minimum, the methods - __iter__ to get an iterator object 
+as well as __next__ to get the next item or value. These are collectively known as the iterator protocol.
+An iterator can be a finite one which throws the StopIteration exception when it reaches the end of its cycle. 
+
+Example of finit iterator:
+class FibonacciTill20:
+    
+    def __init__(self):
+        self.n1, self.n2 = 0, 1
+        self.max = 20
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        self.n1, self.n2 = self.n2, self.n1 + self.n2
+        if self.n2 <= self.max:
+            return self.n2
+        else:
+            raise StopIteration 
+            
+fib = FibonacciTill20()
+
+print(next(fib))    # 1
+print(next(fib))    # 2
+print(next(fib))    # 3
+print(next(fib))    # 5
+print(next(fib))    # 8
+print(next(fib))    # 13
+print(next(fib))    # Exception: StopIteration
+
+generators and iterators seem to have overlapping features. They both seem to do the same job of generating 
+values at run time, when it is needed rather than precomputing and maintaining them.
+
+A generator is a specialised form of iterator.
+"""
+
 
 #### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
