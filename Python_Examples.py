@@ -5167,6 +5167,27 @@ with obj:
 # but when __init__ is called; the instance was already created.
 # __new__ is the *real* constructor, it is here where the instance is created.
 
+''''
+Example - how __new__ creates object and __init__ initializes:
+class Employee(object):
+    def __new__(cls,fname,lname):
+        print("Creating new object of Employee Class ")
+        return object.__new__(cls)
+    
+    def __init__(self,fname, lname):
+        print("Initializing the object of Employee class")
+        self.fname = fname
+        self.lname = lname
+  
+emp = Employee('Dan', 'Belfer')
+print(emp.fname , emp.lname)
+
+#output:
+Creating new object of Employee Class
+Initializing the object of Employee class
+Dan Belfer
+'''
+
 
 ### INHERITANCE ###
 print("===============")
