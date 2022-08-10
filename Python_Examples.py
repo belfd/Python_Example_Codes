@@ -2322,6 +2322,14 @@ print(capital)  # output: None
 capital = data.get('Germany', '??')
 print(capital)  # output: ??
 
+# Converting Dictionary to list
+games = {"Rockstar":"GTA", "UBISOFT":"AC", "BT":"DOOM"}
+studio = list(games.keys())
+title = list(games.values())
+print(studio) # ['Rockstar', 'UBISOFT', 'BT']
+print(title) # ['GTA', 'AC', 'DOOM']
+
+
 '''
 The advantage of these functions is that these functions do not throw errors 
 if the item with a specified key does not exist.
