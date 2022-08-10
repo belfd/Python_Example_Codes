@@ -2323,12 +2323,11 @@ capital = data.get('Germany', '??')
 print(capital)  # output: ??
 
 # Converting Dictionary to list
-games = {"Rockstar":"GTA", "UBISOFT":"AC", "BT":"DOOM"}
+games = {"Rockstar": "GTA", "UBISOFT": "AC", "BT": "DOOM"}
 studio = list(games.keys())
 title = list(games.values())
-print(studio) # ['Rockstar', 'UBISOFT', 'BT']
-print(title) # ['GTA', 'AC', 'DOOM']
-
+print(studio)  # ['Rockstar', 'UBISOFT', 'BT']
+print(title)  # ['GTA', 'AC', 'DOOM']
 
 '''
 The advantage of these functions is that these functions do not throw errors 
@@ -3271,6 +3270,14 @@ for name in Genius:
         L2.append('Not Genius')
 
 print(L2)  # ['Not Genius', 'Not Genius', 'Not Genius', 'Dan']
+
+
+# Remove False values
+def compact(inp_list):
+    return list(filter(None, inp_list))
+
+
+print(compact(['a', 'b', 0, 1, '', False, 'f', 4, 9, 0]))  # ['a', 'b', 1, 'f', 4,9]
 
 # Use Nested For-Loops to Handle Nested Iterables
 Genius = ["Jerry", "Jack", "tom", "Dan"]
