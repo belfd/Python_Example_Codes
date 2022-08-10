@@ -1530,7 +1530,6 @@ values at run time, when it is needed rather than precomputing and maintaining t
 A generator is a specialised form of iterator.
 """
 
-
 #### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### LISTS ###
@@ -3090,6 +3089,27 @@ for i in mylist:
     else:
         flat.append(i)  # add single element
 print(flat)  # output: [10, 12, 36, 41, 59, 63, 77, 81, 93]
+
+
+# flattening list
+def deep_flatten1(inp):
+    if len(inp) == 0:
+        return inp
+    if isinstance(inp[0], list):
+        return deep_flatten1(inp[0]) + deep_flatten1(inp[1:])
+    return inp[:1] + deep_flatten1(inp[1:])
+
+
+print(deep_flatten1([1, 2, [3, 5, [34, 56]], [23]]))  # [1, 2, 3, 5, 34, 56, 23]
+
+
+# flattening list
+def deep_flatten2(lst):
+    return ([a for i in lst for a in
+             deep_flatten2(i)] if isinstance(lst, list) else [lst])
+
+
+print(deep_flatten2([1, 2, [3, 5, [34, 56]], [23]]))  # [1, 2, 3, 5, 34, 56, 23]
 
 # equivalent list comprehension
 items = [item for row in matrix for item in row]  # [1, 2, 3, 4]
@@ -5209,7 +5229,6 @@ Creating new object of Employee Class
 Initializing the object of Employee class
 Dan Belfer
 '''
-
 
 ### INHERITANCE ###
 print("===============")
@@ -10073,8 +10092,6 @@ print(longest)  # Python
 string_list = ["hello", "world", "let's", "learn", "some", "Python"]
 longest = max(string_list, key=len)
 print(longest)  # Python
-
-
 
 print("### Convert String to List of Characters ###")
 # Method 1: Iterate through the string using a for loop
