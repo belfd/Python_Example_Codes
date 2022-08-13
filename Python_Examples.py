@@ -4918,6 +4918,147 @@ print(my_circle.color)  # output: 1
 print(my_circle.area)  # output: 78.5
 
 '''
+''''
+Example of Multi-Level Inheritance:
+class Creature():
+    def __init__(self, age):
+        self.age = age
+    def live(self):
+        print(self.age, "years of life")
+        print("it needs energy to survive")
+
+class Animal(Creature):
+    def __init__(self, age):
+        super().__init__(age)
+    def eat(self):
+        print("animal needs to eat food to produce energy")
+
+class Dog(Animal):
+    def eat_habbit(self):
+        print("dog eats meat")
+
+dog_1 = Dog(10)
+dog_1.live() #inherited from Creature
+dog_1.eat() # inherited from Animal
+dog_1.eat_habbit()  # belongs only to Dog
+---output---
+10 years of life
+it needs energy to survive
+animal needs to eat food to produce energy
+dog eats meat
+
+
+Example of Multiple Inheritance:
+class Doctor():
+    def help(self):
+        print("doctor helps patient.")
+    
+    def place(self):
+        print("work in hospital")
+
+class Professor():
+    def teach(self):
+        print("professor teaches student.")
+    def place(self):
+        print("work in college")
+
+class Father(Professor, Doctor):
+    def take_care(self):
+        print("my father takes care of the kids.")
+
+peter = Father()
+peter.help()
+peter.teach()
+peter.take_care()
+peter.place()
+---output--- 
+doctor helps patient.
+professor teaches student.
+my father takes care of the kids.
+work in college   *notice = because in definition proffesor is left, the function overriden to it!*
+
+
+Another Example:
+class Child():
+    def __init__(self):
+        self.year = 10
+class Student():
+    def __init__(self):
+        self.id = 'K12345'
+    
+    def do(self):
+        self.behavior = 'study'  # object instance defined here not in __init__
+class Adult(Child, Student):
+    def __init__(self):
+        super().__init__()
+        super(Child, self).__init__()  # notice how init chosen for each parent
+        super(Student, self).__init__() # notice how init chosen for each parent
+kevin = Adult()
+print(kevin.id)
+print(kevin.year)
+kevin.do()
+print(kevin.behavior)
+---output---
+K12345
+10
+study
+
+EXample for Encasulation:
+class Person():
+    def __init__(self):
+        self.__organ = 'lung'
+    def __life(self):
+        print("100 years")
+    def behavior(self):
+        print("walk")
+    def get_detail(self):
+        print(self.__organ) # As seen here:  can access self.__organ 
+        self.__life()
+Jason = Person()
+Jason.behavior()
+Jason.get_detail()
+#print(Jason.__organ)  #  Jason.__organ() tried to access it, an error of attribute occurred
+---output---
+walk
+lung
+100 years
+#AttributeError: 'person' object has no attribute '__organ'
+
+Example of Abstract class:
+from abc import ABC, abstractmethod
+class Say(ABC):
+    @abstractmethod
+    def say(self):
+        pass
+test = Say()
+--output--
+TypeError: Can't instantiate abstract class Say with abstract methods say
+
+from abc import ABC, abstractmethod
+class PersonSay(ABC):
+    @abstractmethod
+    def say(self):
+        pass
+
+class JasonSay(PersonSay):
+    def say(self):
+        print("Jason says")
+
+class MattSay(PersonSay):
+    def say(self):
+        print("Matt says")
+jason = JasonSay()
+matt = MattSay()
+jason.say()
+matt.say()
+--output--
+Jason says
+Matt says
+
+
+
+'''
+
 
 
 # regular class
@@ -7063,6 +7204,21 @@ if user_is_eligible:
     user.add_points(100)
     return
 '''
+''''
+Since Python 3.10 we have switch/case - using verb 'match':
+def foodmenu(order):
+    match order:
+        case 43:
+            return "Thai noodles"
+        case 56:
+            return "Fallafel"
+        case 12:
+            return "Croissant"
+        case _:
+            return "Sorry, the waiter is on holiday."
+'''
+
+
 
 ## Using * and ** for Function Argument Unpacking ##
 print("=====================")
@@ -11492,4 +11648,7 @@ Abstractions should not depend upon details. Details should depend upon abstract
 7.11. Transform data type? -> <something>_to_<something_else>
 7.12. None of the above, but still works with data? -> Check one of those: morph, compose, prepare, extract, generate, 
 initialize, filter, map, aggregate, export, import, normalize, calculate .
+
+Clean Code exaplained:
+https://borntowinuk.medium.com/general-best-practices-and-writing-clean-code-in-python-351476806c94
 '''
