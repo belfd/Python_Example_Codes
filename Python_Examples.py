@@ -2294,7 +2294,7 @@ empty_dict = dict()
 
 # create a dictionary (two ways)
 family = {'dad': 'homer', 'mom': 'marge', 'size': 6}
-family = dict(dad='homer', mom='marge', size=6)
+family = dict(dad='homer', mom='marge', size=6) # better way less times of '
 
 # convert a list of tuples into a dictionary
 list_of_tuples = [('dad', 'homer'), ('mom', 'marge'), ('size', 6)]
@@ -11623,7 +11623,7 @@ Abstractions should not depend upon details. Details should depend upon abstract
 
 ########################################
 ########################################
-#### Choosing Function names rules..####
+# Choosing Function names rules..#
 ########################################
 '''
 1. Is the function a test? -> test_<entity>_<behavior>.
