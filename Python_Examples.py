@@ -387,7 +387,7 @@ print(L) # [1, 2, 3]
 
 ## after the 'vals' = [7,8,9] was executed, the name 'vals' had been bound to another list object — [7,8,9]. 
 ## Since the 'vals' and 'L' were bound to different list objects, the modification of 'vals' would not affect 'L'.
-## IF insted of using '=' we modified the list in other way , like append the L and Vals are the same:
+## If instead of using '=' we modified the list in other way , like append the L and Vals are the same:
 L = [1, 2, 3]
 
 def func(vals):
@@ -1562,10 +1562,8 @@ values at run time, when it is needed rather than precomputing and maintaining t
 A generator is a specialised form of iterator.
 """
 
-#### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-### LISTS ###
-## properties: ordered, iterable, mutable, can contain multiple data types
+# LISTS
+# properties: ordered, iterable, mutable, can contain multiple data types
 print("===============")
 print("LISTS")
 
@@ -1588,7 +1586,7 @@ flatter_list     = list(itertools.chain.from_iterable(list))
 product_of_elems = functools.reduce(lambda out, el: out * el, collection)
 list_of_chars    = list(str)
 
-# Module operator provides functions itemgetter() and mul() that offer the same functionality as lambda expressions above.
+# Module operator provides functions itemgetter() and mul() that offer the same as lambda expressions above.
 int = list.count(el)         # Returns number of occurrences. Also works on strings.
 index = list.index(el)       # Returns index of first occurrence or raises ValueError.
 list.insert(index, el)       # Inserts item at index and moves the rest to the right.
@@ -1596,20 +1594,21 @@ el = list.pop([index])       # Removes and returns item at index or from the end
 list.remove(el)              # Removes first occurrence of item or raises ValueError.
 list.clear()                 # Removes all items. Also works on dictionary and set.
 '''
+'''
 # create an empty list (two ways)
 empty_list = []
 empty_list = list()
 
 # Check empty list
-mylst = []
+my_list = []
 # way 1
-if len(mylst) == 0:
+if len(my_list) == 0:
     print("Empty!")
 # way 2
-if not mylst:
+if not my_list:
     print("Empty!")
 # way 3
-if mylst == []:
+if my_list == []:
     print("Empty!")
 
 # create a list
@@ -1669,8 +1668,8 @@ print(steps)
 # This works on strings too. In Python,
 # you can treat a string like a list of
 # letters:
-mystring = "abcdefdn nimt"[::2]
-print(mystring)
+my_string = "abcdefdn nimt"[::2]
+print(my_string)
 # 'aced it'
 
 # sort a list in place (modifies but does not return the list)
@@ -1743,7 +1742,6 @@ num == new_num  # returns True
 # In this case, we’ll define a function and filter a list.
 original_list = [1, 2, 3, 4, 5]
 
-
 def filter_three(number):
     return number > 3
 
@@ -1760,10 +1758,8 @@ print(filtered_list)  # Return [4,5]
 # The Python Map function allows us to apply a function to every item in an iterable object.
 original_list = [1, 2, 3, 4, 5]
 
-
 def square(number):
     return number ** 2
-
 
 squares = map(square, original_list)
 squares_list = list(squares)
@@ -1771,7 +1767,6 @@ print(squares)  # Returns [1, 4, 9, 16, 25]
 
 # with list comprehension:
 original_list = [1, 2, 3, 4, 5]
-
 squares_list = [number ** 2 for number in original_list]
 print(squares_list)  # Returns [1,4,9,16,25]
 
@@ -1792,7 +1787,6 @@ print(reversed_list)  # Returns: [5,4,3,2,1]
 # There may be times when you want to see if an item exists in a list.
 # You can do this simply by using the in operator.
 games = ['Yankees', 'Yankees', 'Cubs', 'Blue Jays', 'Giants']
-
 
 def isin(item, list_name):
     if item in list_name:
@@ -1821,20 +1815,19 @@ print(flat_list)  # Returns [1, 2, 3, 4, 5, 6, 7, 8, 9]
 list1 = [1, 2, 3, 4, 5]
 list2 = [1, 1, 2, 3, 4]
 
-
-def isunique(list):
+def is_unique(list):
     if len(list) == len(set(list)):
         print('Unique!')
     else:
         print('Not Unique!')
 
-
-isunique(list1)
-isunique(list2)
+is_unique(list1)
+is_unique(list2)
 # Returns:  Unique!
+'''
+#### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-### DEQUES ###
+# DEQUES
 print("======================")
 print("DEQUES")
 '''
@@ -2216,7 +2209,7 @@ palindrome = bool(w.find(w[:: -1]) + 1)
 print(f"Is {w} is palindrom? {palindrome}")
 
 
-# write a program to find the largest word in a text file?
+# write a program to find the [longest] word in a text file?
 def longest_word(filename):
     with open(filename, 'r') as infile:
         words = infile.read().split()
