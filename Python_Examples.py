@@ -7286,6 +7286,24 @@ With these four methods, you can cover the majority of your file reading/writing
 repeatedly writing with open(...) context managers.
 As you start working more withPath objects, you’ll also find that Path objects can augment 
 and improve on functions you’re used to importing from the os module.
+
+Open & read multiple files simultaneously using [with] in Python
+Example:
+with open("first.txt") as file_1, open("second.txt") as file_2, open("third.txt") as file_3:
+    f1 = file_1.read()
+    f2 = file_2.read()
+    f3 = file_3.read()
+
+    for lines in f1, f2, f3:
+        print(lines)
+        
+OR:
+import fileinput
+
+with fileinput.input(files=('first.txt', 'second.txt','third.txt')) as f:
+    for line in f:
+        print(line)
+
 '''
 
 #### CONTEXT MANAGER ####
