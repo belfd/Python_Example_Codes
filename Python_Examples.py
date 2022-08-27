@@ -2047,7 +2047,7 @@ stooges = ['larry', 'curly', 'moe']
 # join with filter
 words = ['PYTHON','is','NOT','an','easy','language']
 sentence = " ".join(filter(lambda x:x!='NOT',words))
-#above will filter 'NOT' from words and join with spaces
+# above will filter 'NOT' from words and join with spaces
 print(sentence) # output: PYTHON is an easy language
 
 # we want to rip a number from a string
@@ -11257,7 +11257,23 @@ you couldn’t write w.z = 2 without causing an error.
 The biggest higher-level reasons to use __slots__ are 1) faster attribute getting and setting due to data 
 structure optimization and 2) reduced memory usage for class instances. 
 Some reasons you wouldn’t want to use it is if your class has attributes that change during 
-run-time (dynamic attributes) or if there’s a complicated object inheritance tree.        
+run-time (dynamic attributes) or if there’s a complicated object inheritance tree.
+
+We can force Python classes to accept only certain attributes
+We can achieve this using the __slots__ special attribute
+
+class Dog():
+    __slots__ = ["name", "age"]
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+Here, setting __slots__ as ["name", "age"] means that our Dog object can only have these 2 attributes.
+
+dog = Dog("rocky", 5)    # ok
+dog.name = "fifi"        # ok
+dog.age = 6              # ok
+dog.breed = "mongrel"    # error
+        
 '''
 
 # long lines are BAD - Use parentheses, not backslashes, to fix longer lines:
