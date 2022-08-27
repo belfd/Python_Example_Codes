@@ -2295,6 +2295,15 @@ empty_dict = dict()
 family = {'dad': 'homer', 'mom': 'marge', 'size': 6}
 family = dict(dad='homer', mom='marge', size=6) # better way less times of '
 
+# The dict.fromkeys method allows us to create dictionaries with default values
+# fruits = ["apple", "orange", "pear"]
+# we wish to initialize the dictionary below, each key having the same default value:
+# {"apple":0, "orange":0, "pear":0}
+# We can do this using a dictionary comprehension, OR we can use the built-in dict.fromkeys method.
+# d = dict.fromkeys(fruits, 0)
+# # d is {"apple":0, "orange":0, "pear":0}
+# Here, the 0 argument refers to the default value that we wish to assign to all keys.
+
 # convert a list of tuples into a dictionary
 list_of_tuples = [('dad', 'homer'), ('mom', 'marge'), ('size', 6)]
 family = dict(list_of_tuples)
