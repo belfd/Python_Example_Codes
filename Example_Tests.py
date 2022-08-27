@@ -1,6 +1,4 @@
-list = ['foo', 'bar', 1, 2]
-dict = {'foo':1, 'bar':2}
-
-print(*list)
-print(*dict.values())
-print("\N{grinning face}")
+words = ['PYTHON','is','NOT','an','easy','language']
+sentence = " ".join(filter(lambda x:x!='NOT',words))
+#above will filter 'NOT' from words and join with spaces
+print(sentence) # output: PYTHON is an easy language

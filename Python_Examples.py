@@ -2044,6 +2044,12 @@ print(s.partition('like'))
 stooges = ['larry', 'curly', 'moe']
 ' '.join(stooges)  # returns 'larry curly moe'
 
+# join with filter
+words = ['PYTHON','is','NOT','an','easy','language']
+sentence = " ".join(filter(lambda x:x!='NOT',words))
+#above will filter 'NOT' from words and join with spaces
+print(sentence) # output: PYTHON is an easy language
+
 # we want to rip a number from a string
 x = "BTC is $48000.12"
 x = ''.join([c for c in x if c in '1234567890.'])
