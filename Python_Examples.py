@@ -8439,6 +8439,10 @@ def window2(iterable: Iterable):
 l = [1, 2, 3, 4, 5, 6]
 window2(l)  # Is the same that: ((1,2), (2,3), (3, 4), ...)
 
+# Finding all subsets of a set in one line
+from itertools import combinations
+print(list(combinations([1, 2, 3, 4], 2)))
+
 ## FizzBuzz example ##
 print("===========================")
 print("MFizzBuzz example")
@@ -8477,6 +8481,10 @@ print(remove_duplicate(list1))
 result = []
 [result.append(x) for x in list1 if x not in result]
 print(result)
+
+## Decode a base64 encoded file
+import base64, sys
+base64.decode(open(sys.argv[1], "rb"), open(sys.argv[2], "wb"))
 
 ## Examples of one-liners:
 '''
@@ -10297,6 +10305,10 @@ with open('hackers.csv', 'w') as myCsvFile:
     writer.writerow({'column_name_1': 'Foo', 'column_name_2: 'Bar'})
 --code finished ---
 
+
+CSV to JSON
+import csv,json
+print (json.dumps(list(csv.reader(open('csv_file.csv')))))
 '''
 
 ##################################################
@@ -11662,6 +11674,50 @@ class Http:
 
 Abstractions should not depend upon details. Details should depend upon abstractions.                
 """
+
+########################################
+########################################
+# Clean Code Rules
+########################################
+'''
+1. Meaningful Names: 
+Use names in your code that are intention-revealing, that avoid disinformation, searchable and meaningful.
+2. Be careful with comments:
+Use comments only when strictly necessary and remember to update them whenever you make changes to the code.
+3. Don't Repeat Yourself
+There should not be two parts of the software performing the same function. 
+Each duplication in the code represents a missed opportunity for abstraction, 
+extract code to a separate function or class.
+
+4. Follow code patterns
+Patterns make the code much easier to understand. 
+Variations in naming, such as the usage of capital or lowercase letters should be standardized.
+
+5. The Boy Scout Rule
+Leave everything cleaner than you found it. It’s not enough to write the good code. 
+The code has to be kept clean over time. 
+
+6. Error Handling
+When we program, we must deal with errors. 
+Ensuring that our code performs what it is supposed to do. 
+Clean code must readable, but also be robust. 
+It must do what was planned, but if an error appears, it should be able to handle it.
+
+7. Keep tests clean
+Code is only considered clean after it passes the tests. 
+They must make sure that those tests were convenient to run for anyone else who needed to work with the code. 
+
+8. Keep functions small
+The first rule of functions is that they should be small. Functions should do only one thing and do it well. 
+If you have a function with more one concern (i.e. doing more than one thing), 
+that function can be split in smaller functions with meaningful names. 
+
+9. Think of your code as a book
+Your code must be easy to read and understand, like a regular book. 
+Other developers reading your code, must be able to recognize what each function does, 
+what each variable is used for and the general structure of the system.
+'''
+
 
 ########################################
 ########################################
