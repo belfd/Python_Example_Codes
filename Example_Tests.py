@@ -1,31 +1,55 @@
-import inspect
+# What defines tuples is not the () but ','
+# Therefor a,b,c is equivalent to (a,b,c) - thats why (a) is not tuple but (a,) is tuple
+# () is tuple to define empty one - although there is no ',' in it
+# can define empty tuple also with tuple()
 
-def my_func(a: "first",
-            b: "optional" = 1,
-            c=2,
-            *args: "args here",
-            kw1,
-            kw2=100,
-            kw3=200,
-            **kwargs: "extra kw ") -> "do nothing":
-    """This is a function for explanation"""
-    i = 10
-    j = 20
+# create a tuple
+digits = (0, 1, 'two')  # create a tuple directly
+digits = tuple([0, 1, 'two'])  # create a tuple from a list it means we cannot add other object to the tuple
+# but the list itself can be changed
+zero = (0,)  # trailing comma is required to indicate it's a tuple
+digits[2]  # returns 'two'
+len(digits)  # returns 3
+digits.count(0)  # counts the number of instances of that value, output: 1
+digits.index(1)  # returns the index of the first instance of that value, output: 1
 
+# elements of a tuple cannot be modified
+# digits[2] = 2       # throws an error
 
-print(my_func.__doc__)  # output: This is a function for explanations
-print(my_func.__annotations__)
-# output: {'a': 'first', 'b': 'optional', 'args': 'args here', 'kwargs': 'extra kw ', 'return': 'do nothing'}
-my_func.short_description = "added attribute to the function"
-## all attributes of function can be seen with dir(func) method
-print(my_func.__name__)  # output: my_func
-print(my_func.__defaults__)  # output: (1,2) --> match to b=1,c=2
-print(my_func.__kwdefaults__)  # output: {'kw2': 100, 'kw3': 200}
-# function has attribute named: __code__ which is object that we can do dir(my_func.__code__)
-print(my_func.__code__.co_name)  # output: my_func
-print(my_func.__code__.co_argcount)  # output: 3   ; for a,b,c - show only positional arguments
-print(my_func.__code__.co_varnames)  # output: ('a', 'b', 'c', 'kw1', 'kw2', 'kw3', 'args', 'kwargs', 'i', 'j')
-print(inspect.getdoc(my_func))  # output: This is a function for explanation
-# print(inspect.signature(my_func).parameters) # output will be all parameters
-# for k,v in inspect.signature(my_func).parameters.items():
-#    print(f"{k} : {v} ") #output: all the params with values
+# concatenate tuples - the '=' creates on left side new digits tuple
+# (or else we would have receive error - tuple = immutable)
+digits = digits + (3, 4)
+
+# create a single tuple with elements repeated (also works with lists)
+(3, 4) * 2  # returns (3, 4, 3, 4)
+
+# sort a list of tuples
+tens = [(20, 60), (10, 40), (20, 30)]
+sorted(tens)  # sorts by first element in tuple, then second element
+#   returns [(10, 40), (20, 30), (20, 60)]
+
+# tuple unpacking = pulling values apart from a tuple
+bart = ('male', 10, 'simpson')  # create a tuple
+(sex, age, surname) = bart  # assign three values at once
+
+# Trick to append values to tuple because it is immutable (non changed)
+tuple1 = (1, 2, 3)
+lst = list(tuple1)
+lst.append(4)
+lst.append(5)
+tuple1 = tuple(lst)
+print(f"new tuple after appending: {tuple1}")  # (1, 2, 3, 4, 5)
+
+coords = 1, 2, 3, 4, 5, 6
+x, y, z, *rest = coords
+# Here 1 is assigned to x, 2 to y, 3 to z, and the rest of the values into rest.
+
+print(f"x: {x}")
+print(f"y: {y}")
+print(f"z: {z}")
+print(f"rest: {rest}")
+# Output:
+# x: 1
+# y: 2
+# z: 3
+# rest: [4, 5, 6]

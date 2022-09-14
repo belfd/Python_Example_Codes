@@ -1739,7 +1739,6 @@ is_unique(list1)
 is_unique(list2)
 # Returns:  Unique!
 '''
-#### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # DEQUES
 print("======================")
@@ -1750,6 +1749,7 @@ print("DEQUES")
  from both ends. 
  Thus, we shouldn’t limit our data model selection to only lists or other common data types. 
  When specific business needs (e.g. FIFO) arise, we should consider alternative data models.
+'''
 '''
 import collections
 
@@ -1781,34 +1781,41 @@ print(DoubleEnded)
 print("Reversing the deque: ")
 DoubleEnded.reverse()
 print(DoubleEnded)
+'''
 
-### TUPLES ###
-## properties: ordered, iterable, immutable, can contain multiple data types
-## like lists, but they don't change size
+# TUPLES
+# properties: ordered, iterable, immutable, can contain multiple data types
+# like lists, but they don't change size
 print("===============")
 print("TUPLES")
 
+# What defines tuples is not the () but ','
+# Therefor a,b,c is equivalent to (a,b,c) - thats why (a) is not tuple but (a,) is tuple
+# () is tuple to define empty one - although there is no ',' in it
+# can define empty tuple also with tuple()
+
+'''
 # create a tuple
 digits = (0, 1, 'two')  # create a tuple directly
 digits = tuple([0, 1, 'two'])  # create a tuple from a list it means we cannot add other object to the tuple
 # but the list itself can be changed
 zero = (0,)  # trailing comma is required to indicate it's a tuple
 
-# What defines tuples is not the () but the ,
-# Therefor a,b,c is equivalent to (a,b,c) - thats why (a) is not tuple but (a,) is tuple
-# () is tuple to define empty one - although there is no ',' in it
-# can define empty tuple also with tuple()
-
-# examine a tuple
+# create a tuple
+digits = (0, 1, 'two')  # create a tuple directly
+digits = tuple([0, 1, 'two'])  # create a tuple from a list it means we cannot add other object to the tuple
+# but the list itself can be changed
+zero = (0,)  # trailing comma is required to indicate it's a tuple
 digits[2]  # returns 'two'
 len(digits)  # returns 3
-digits.count(0)  # counts the number of instances of that value (1)
-digits.index(1)  # returns the index of the first instance of that value (1)
+digits.count(0)  # counts the number of instances of that value, output: 1
+digits.index(1)  # returns the index of the first instance of that value, output: 1
 
 # elements of a tuple cannot be modified
 # digits[2] = 2       # throws an error
 
-# concatenate tuples
+# concatenate tuples - the '=' creates on left side new digits tuple
+# (or else we would have receive error - tuple = immutable)
 digits = digits + (3, 4)
 
 # create a single tuple with elements repeated (also works with lists)
@@ -1819,7 +1826,7 @@ tens = [(20, 60), (10, 40), (20, 30)]
 sorted(tens)  # sorts by first element in tuple, then second element
 #   returns [(10, 40), (20, 30), (20, 60)]
 
-# tuple unpacking
+# tuple unpacking = pulling values apart from a tuple
 bart = ('male', 10, 'simpson')  # create a tuple
 (sex, age, surname) = bart  # assign three values at once
 
@@ -1831,51 +1838,68 @@ lst.append(5)
 tuple1 = tuple(lst)
 print(f"new tuple after appending: {tuple1}")  # (1, 2, 3, 4, 5)
 
-### NAMED TUPLES ####
+coords = 1, 2, 3, 4, 5, 6
+x, y, z, *rest = coords 
+# Here 1 is assigned to x, 2 to y, 3 to z, and the rest of the values into rest.
+
+print(f"x: {x}")
+print(f"y: {y}")
+print(f"z: {z}")
+print(f"rest: {rest}")
+# Output:
+# x: 1
+# y: 2
+# z: 3
+# rest: [4, 5, 6]
+'''
+
+# NAMED TUPLES
 print("=====================")
 print("### NAMED TUPLES ####")
 
-# namedtuple - a function which generates new class like class factory that inherites from tuple
-# because tuple are immutable and has elements and only with index can be reached
-# we need method to define the elements like in class so it is easy to work with
-# example: pt = (10,20)  meaning pt[0] is x coordinates and pt[1] is y coordinates
-# we can define class Point:
-#                   def __init__(self,x,y)
-#                       self.x=x
-#                       self.y=y
-# OR we can use namedtuple that arrives from module collections
-# namedtuple is class factory and we need to fulfill certain rules:
-# 1. class name we want to use ; 2. sequence of field names(strings) we want to assign in the order
-# of the elements in the tuple - names can be any valid name except they cannot start with '_'
-# the return value will be a class , we need to assign this class to a var name as instance
-# Example: Point2D = namedtuple('Point2D',['x','y'])  #notice ,this is a class we created
-# Now we can create instance: pt = Point2D(10,20)
-# Sequence of attributes can be a list or tuple, order matters, if you supply string seperate
-# the attributes with whitespace or comma
-# namedtuple('Point2D',['x','y'])
-# namedtuple('Point2D',('x','y'))
-# namedtuple('Point2D','x,y')
-# namedtuple('Point2D','x y')
-# initialization:
-# pt1 = Point2D(10,20) or pt2 = Point2D(x=10,y=20)
-# to access attributes - use index,slice or iterate
-# isinstance(pt1,tuple) ==>> True
-# x,y = pt1
-# x = pt1[0]
-# for e in pt1:
-#     print(e)
-# Or py1.x and pt1.y
-# Because namedtuple inherites from tuple - it is immutable! pt1.x = 100 -->> Error
-# To learn what fields belong to the namedtuple - use: _fields, Point2D._fields --> ('x','y')
-# Instance method _asdict() create dictionary of all named values in the tuple
-# pt1._asdict()  --> {'x':10,'y':20}
-# When working with modules and there is function to import that has attributes it will be easier to return
-# namedtuple because it will appear with name of attributes when calling the function
+'''
+namedtuple - a function which generates new class like class factory that inherites from tuple
+because tuple are immutable and has elements and only with index can be reached
+we need method to define the elements like in class so it is easy to work with
+example: pt = (10,20)  meaning pt[0] is x coordinates and pt[1] is y coordinates
+we can define class Point:
+                  def __init__(self,x,y)
+                      self.x=x
+                      self.y=y
+OR we can use namedtuple that arrives from module collections
+namedtuple is class factory and we need to fulfill certain rules:
+1. class name we want to use ; 2. sequence of field names(strings) we want to assign in the order
+of the elements in the tuple - names can be any valid name except they cannot start with '_'
+the return value will be a class , we need to assign this class to a var name as instance
+Example: Point2D = namedtuple('Point2D',['x','y'])  #notice ,this is a class we created
+Now we can create instance: pt = Point2D(10,20)
+Sequence of attributes can be a list or tuple, order matters, if you supply string seperate
+the attributes with whitespace or comma
+namedtuple('Point2D',['x','y'])
+namedtuple('Point2D',('x','y'))
+namedtuple('Point2D','x,y')
+namedtuple('Point2D','x y')
+initialization:
+pt1 = Point2D(10,20) or pt2 = Point2D(x=10,y=20)
+to access attributes - use index,slice or iterate
+isinstance(pt1,tuple) ==>> True
+x,y = pt1
+x = pt1[0]
+for e in pt1:
+    print(e)
+Or py1.x and pt1.y
+Because namedtuple inherites from tuple - it is immutable! pt1.x = 100 -->> Error
+To learn what fields belong to the namedtuple - use: _fields, Point2D._fields --> ('x','y')
+Instance method _asdict() create dictionary of all named values in the tuple
+pt1._asdict()  --> {'x':10,'y':20}
+When working with modules and there is function to import that has attributes it will be easier to return
+namedtuple because it will appear with name of attributes when calling the function
+'''
+'''
 from collections import namedtuple
 import math
 
 Polar_Coordinate = namedtuple('Polar_Coordinate', 'r theta')
-
 
 def convert_cartesian_to_polar(x, y):
     # Calculate Polar Cooordinates
@@ -1893,8 +1917,26 @@ print(box_position.r)  # output: 14.142135623730951
 print(box_position.theta)  # output: 45.0
 print(type(box_position))  # output: <class '__main__.Polar_Coordinate'>
 
-### STRINGS ###
-## properties: iterable, immutable
+# Another Example with namedtuple
+from random import randint
+from collections import namedtuple
+
+Color = namedtuple('Color', 'red green blue')
+
+
+def rand_colors():
+    red = randint(0, 255)
+    green = randint(0, 255)
+    blue = randint(0, 255)
+    return Color(red, green, blue)
+
+
+color = rand_colors()
+print(f"color is:{color}")
+'''
+
+# STRINGS
+# properties: iterable, immutable
 print("===============")
 print("### STRINGS ###")
 
@@ -1919,7 +1961,7 @@ str  = str.translate(table)                # Use `str.maketrans(dict)` to genera
 str  = chr(int)                            # Converts int to Unicode char.
 int  = ord(str)                            # Converts Unicode char to int.
 '''
-
+'''
 # create a string
 s = str(42)  # convert another data type into a string
 s = 'I like you'
@@ -2037,14 +2079,15 @@ print(f"capitlize is: {s.capitalize()}")  # output: This is a sentence
 
 # capitalize every word in a sentence - first char of each word in sentence
 s = 'this is a sentence.'
+
 # old way
-'''
 words = s.split(' ')
 words = [w[0].upper() + w[1:] for w in words]
 s = ' '.join(words)
-'''
-print(f"title() is: {s.title()}")  # output: This Is A Sentence
 
+print(f"title() is: {s.title()}")  # output: This Is A Sentence
+'''
+'''
 id_list = [
     '123',
     '45',
@@ -2061,7 +2104,7 @@ s = '1plus1'
 # import re
 # bool(re.match(r'^[\dA-Za-z]+$', s))
 s.isalnum()  # output: True
-
+'''
 '''
     If you want to match a string with letters only, use isalpha()
     If you want to match a string with digits only, use isdigit()
@@ -2071,14 +2114,16 @@ s.isalnum()  # output: True
 
 '''
 Sometimes we receive string with '\n' or '\t' and we want to remove leading spaces or tailing spaces.
-'''
+
 s = ' \nDan Belfer\t  '
 print(f"My name is {s.strip()}")  # output: My name is Dan Belfer
+'''
 
 # split lines
 '''
 When we want to break down a large chunk of string into lines by the newlines, 
 we can definitely use split()
+'''
 '''
 print("regular split:")
 print("123 \n 456 \r 789 \r\n abc".split('\n'))  # output: ['123 ', ' 456 \r 789 \r', ' abc']
@@ -2104,45 +2149,9 @@ data = ['alpha\n', 'beta\n', 'gamma\n']
 print(data)  # output: ['alpha\n', 'beta\n', 'gamma\n']
 data = [s.strip() for s in data]
 print(data)  # output:['alpha', 'beta', 'gamma']
+'''
 
-### namedtuple ####
-# namedtuple is better when importing modules because inner attributes are seen in new context
-from random import randint
-from collections import namedtuple
-
-Color = namedtuple('Color', 'red green blue')
-
-
-def rand_colors():
-    red = randint(0, 255)
-    green = randint(0, 255)
-    blue = randint(0, 255)
-    return Color(red, green, blue)
-
-
-color = rand_colors()
-print(f"color is:{color}")
-
-# Best way to find palindrom
-w = "Rotator".lower()
-palindrome = bool(w.find(w[:: -1]) + 1)
-print(f"Is {w} is palindrom? {palindrome}")
-
-
-# write a program to find the [longest] word in a text file?
-def longest_word(filename):
-    with open(filename, 'r') as infile:
-        words = infile.read().split()
-    max_len = len(max(words, key=len))
-    return [word for word in words if len(word) == max_len]
-
-
-# print(longest_word('test.txt'))
-
-# The split() method works great when we wish to disintegrate a string based on some delimiter.
-x = "mail.google.com"
-x.partition(".")  # ('mail', '.', 'google.com')
-print(x.partition(".")[0])  # output: 'mail'
+#### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### DICTIONARIES ###
 ## properties: unordered, iterable, mutable, can contain multiple data types
@@ -8433,6 +8442,28 @@ window2(l)  # Is the same that: ((1,2), (2,3), (3, 4), ...)
 # Finding all subsets of a set in one line
 from itertools import combinations
 print(list(combinations([1, 2, 3, 4], 2)))
+
+
+# Best way to find palindrom
+w = "Rotator".lower()
+palindrome = bool(w.find(w[:: -1]) + 1)
+print(f"Is {w} is palindrom? {palindrome}")
+
+
+# write a program to find the [longest] word in a text file?
+def longest_word(filename):
+    with open(filename, 'r') as infile:
+        words = infile.read().split()
+    max_len = len(max(words, key=len))
+    return [word for word in words if len(word) == max_len]
+
+
+# print(longest_word('test.txt'))
+
+# The split() method works great when we wish to disintegrate a string based on some delimiter.
+x = "mail.google.com"
+x.partition(".")  # ('mail', '.', 'google.com')
+print(x.partition(".")[0])  # output: 'mail'
 
 ## FizzBuzz example ##
 print("===========================")
