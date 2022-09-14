@@ -133,7 +133,6 @@ print(dt.date.today())'''
 # define an alias to specific func from module
 '''
 from math import sqrt as sq
-
 print(f"sqrt(81) is {sq(81)}")
 '''
 
@@ -142,20 +141,20 @@ print(f"sqrt(81) is {sq(81)}")
 def func():
     pass
 
-
 def func1():
     ...
 '''
 # INPUTS
 print("================")
 print("===INPUTS===")
-# print("Multiple User input")
-# normal way
-# a = input("Enter name: ")
-# b = input("Enter age: ")
-# Better way
-# a, b = input("Enter name and age: ").split()
-
+'''
+print("Multiple User input")
+normal way
+a = input("Enter name: ")
+b = input("Enter age: ")
+Better way
+a, b = input("Enter name and age: ").split()
+'''
 
 # VARIABLES
 print("===============")
@@ -188,6 +187,7 @@ print(f"k1 is k2: {k1 is k2} because k1 id is: {id(k1)} and it equal to id of: {
 # DATA TYPES
 print("===============")
 print("===DATA TYPES===")
+
 # determine an object type
 '''
 type(2)  # returns 'int'
@@ -1164,46 +1164,25 @@ def outer():
         x = 'python'
 
         def inner2():
-            nonlocal x  # this means it is closure - x inside inner2 refers to x in inner1
+            nonlocal x  # this means it is closure - In inner1 before inner2 x=python
             x = 'monty'
 
-        print(f"inner before {x}")  # output: inner before python --> here x is still python
+        print(f"In inner1 before inner2 x={x}")
+        # output: In inner1 before inner2 x=python --> here x is still python
         inner2()
-        print(f"inner after {x}")  # outpt: inner after monty --> inside inner2() the globla to inner2 is x from inner1
+        print(f"In inner1 after inner2 x={x}")
+        # output: In inner1 after inner2 x=monty --> inside inner2() the globl to inner2 is x from inner1
+        # so x become monty
 
     inner1()
-    print(f"outer {x}")  # output: outer hello -->The x of most global is not modified
+    print(f"outer is original {x}")  # output: outer is original hello -->The x of most global is not modified
     # - nonlocal of inner2 only relates to inner1
 
-
 outer()
 '''
-print("==============================")
-print("## ANOTHER NONLOCAL EXAMPLE ##")
-'''
-def outer():
-    x = 'hello'
 
-    def inner1():
-        nonlocal x
-        x = 'python'
-
-        def inner2():
-            nonlocal x
-            x = 'monty'
-
-        print(f"inner before {x}")  # output: inner before python --> here x python and it changed x with 'hello'
-        inner2()
-        print(f"inner after {x}")  # outpt: inner after monty --> inside inner2() the globla to inner2 is x from inner1
-
-    inner1()
-    print(
-        f"outer {x}")  # output: outer monty -->The x of most global was modified because of nonlocal defined in inner1
-
-outer()
-'''
 print("========================")
-print("## THIRD NONLOCAL EXAMPLE ##")
+print("## ANOTHER NONLOCAL EXAMPLE ##")
 '''
 x = 100
 
@@ -1286,14 +1265,14 @@ print(my_list)
 # [10, 20]
 
 # Here, python created a new variable(within function scope) pointing to [“A”, “B”, “C”].
-
 '''
 
 # DOCSTRING FUNCTIONS
 # Enable adding documentation to functions - can be activated by __doc__
 print("===============")
 print("DOCSTRING FUNCTIONS")
-''''
+
+'''
 def func_doc_string(something):
     """This is doctring that explains func_doc_string"""
     return something
@@ -1320,8 +1299,8 @@ def calculate_fraction(a, b):
 
 # ANONYMOUS (LAMBDA) FUNCTIONS
 # primarily used to temporarily define a function for use by another function - like inline functions
-# This is a real function with anonymous name , structure: lambda [param list] : expression
-# The expression returns function object when it is called, param list is optional can be empty
+# This is a real function with anonymous name , structure: lambda [param list] : expression with these param list
+# The expression returns a function object when it is called, param list is optional can be empty
 # Lambda expression MUST be assigned to variable OR passed as argument to function
 print("===============")
 print("LAMBDA FUNCTIONS")
@@ -1399,9 +1378,9 @@ sorted(simpsons, key=last_letter)
 # sort a list of strings by the last letter (using lambda)
 sorted(simpsons, key=lambda word: word[-1])
 
-import random
 
 # randomize sorting of 10 numbers
+import random
 l = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 print(sorted(l, key=lambda x: random.random()))
 
@@ -1417,8 +1396,7 @@ data = [{'name': 'John', 'age': 21},
 sorted_data = sorted(data, key=lambda x: x['age'])
 print("Using sorted on dictionary by age:")
 print(sorted_data)  # [{'name': 'Max', 'age': 19}, {'name': 'John', 'age': 21}, {'name': 'Lisa', 'age': 22}]
-'''
-'''
+
 # Lambda extract dictionary values or keys for sorting
 # Lambda function can also be used in sorted, sort, min,max, largest function.
 # A typical usage is to sort a dictionary by its key or value.
@@ -1497,70 +1475,6 @@ print(inspect.getdoc(my_func))  # output: This is a function for explanation
 # for k,v in inspect.signature(my_func).parameters.items():
 #    print(f"{k} : {v} ") #output: all the params with values
 '''
-""""
-container = nothing but a data structure that can hold elements or values. 
-Lists, dicts, tuples or even strings are examples of containers.
-
-iterable = an object that can return an iterator. 
-It holds the value or the items itself, the reference to the values or the logic to generate these values. 
-The first thing that becomes evident is that - all containers can be treated as iterables.
-
-iterator = generates the values and perform operations on them that fill the iterable. 
-Iterators are used to “generate” the value and not simply “get” the values. 
-Iterators may not know about the values in advance. All they are supposed to know about is to return the next value 
-when asked for it.
-Example:
-my_list = ["item #1", "item #2", "item #3", "item #4"]
-my_list_iter = iter(my_list)
-
-print(type(my_list))        # <class 'list'>
-print(my_list)              # ['item #1', 'item #2', 'item #3', 'item #4']
-
-print(type(my_list_iter))   # <class 'list_iterator'>
-print(my_list_iter)         # <list_iterator object at 0x10aa87d60>
-
-print(next(my_list_iter))   # item #1
-print(next(my_list_iter))   # item #2
-print(next(my_list_iter))   # item #3
-print(next(my_list_iter))   # item #4
-print(next(my_list_iter))   # Exception: StopIteration
-
-An iterator object should support, at minimum, the methods - __iter__ to get an iterator object 
-as well as __next__ to get the next item or value. These are collectively known as the iterator protocol.
-An iterator can be a finite one which throws the StopIteration exception when it reaches the end of its cycle. 
-
-Example of finit iterator:
-class FibonacciTill20:
-    
-    def __init__(self):
-        self.n1, self.n2 = 0, 1
-        self.max = 20
-    
-    def __iter__(self):
-        return self
-    
-    def __next__(self):
-        self.n1, self.n2 = self.n2, self.n1 + self.n2
-        if self.n2 <= self.max:
-            return self.n2
-        else:
-            raise StopIteration 
-            
-fib = FibonacciTill20()
-
-print(next(fib))    # 1
-print(next(fib))    # 2
-print(next(fib))    # 3
-print(next(fib))    # 5
-print(next(fib))    # 8
-print(next(fib))    # 13
-print(next(fib))    # Exception: StopIteration
-
-generators and iterators seem to have overlapping features. They both seem to do the same job of generating 
-values at run time, when it is needed rather than precomputing and maintaining them.
-
-A generator is a specialised form of iterator.
-"""
 
 # LISTS
 # properties: ordered, iterable, mutable, can contain multiple data types
@@ -2660,6 +2574,18 @@ name is louis
 Email is a@gmail.com
 Country is Wakanda
 Age is 25
+'''
+# range function with **kwarg
+'''
+def range(**args):
+    start = args["start"] if "start" in args else 0
+    end = args["end"] if "end" in args else 100
+    res = []
+    while start < end:
+        res.append(start)
+        start = start+1
+    return res
+print(range(start=10, end=20)) # [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 '''
 
 ### RETURN ###
@@ -6448,6 +6374,71 @@ x = ml[1]  # x is now 50
 # GENERATORS
 print("====================")
 print("GENERATORS")
+
+"""
+container = nothing but a data structure that can hold elements or values. 
+Lists, dicts, tuples or even strings are examples of containers.
+
+iterable = an object that can return an iterator. 
+It holds the value or the items itself, the reference to the values or the logic to generate these values. 
+The first thing that becomes evident is that - all containers can be treated as iterables.
+
+iterator = generates the values and perform operations on them that fill the iterable. 
+Iterators are used to “generate” the value and not simply “get” the values. 
+Iterators may not know about the values in advance. All they are supposed to know about is to return the next value 
+when asked for it.
+Example:
+my_list = ["item #1", "item #2", "item #3", "item #4"]
+my_list_iter = iter(my_list)
+
+print(type(my_list))        # <class 'list'>
+print(my_list)              # ['item #1', 'item #2', 'item #3', 'item #4']
+
+print(type(my_list_iter))   # <class 'list_iterator'>
+print(my_list_iter)         # <list_iterator object at 0x10aa87d60>
+
+print(next(my_list_iter))   # item #1
+print(next(my_list_iter))   # item #2
+print(next(my_list_iter))   # item #3
+print(next(my_list_iter))   # item #4
+print(next(my_list_iter))   # Exception: StopIteration
+
+An iterator object should support, at minimum, the methods - __iter__ to get an iterator object 
+as well as __next__ to get the next item or value. These are collectively known as the iterator protocol.
+An iterator can be a finite one which throws the StopIteration exception when it reaches the end of its cycle. 
+
+Example of finite iterator:
+class FibonacciTill20:
+
+    def __init__(self):
+        self.n1, self.n2 = 0, 1
+        self.max = 20
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.n1, self.n2 = self.n2, self.n1 + self.n2
+        if self.n2 <= self.max:
+            return self.n2
+        else:
+            raise StopIteration 
+
+fib = FibonacciTill20()
+
+print(next(fib))    # 1
+print(next(fib))    # 2
+print(next(fib))    # 3
+print(next(fib))    # 5
+print(next(fib))    # 8
+print(next(fib))    # 13
+print(next(fib))    # Exception: StopIteration
+
+generators and iterators seem to have overlapping features. They both seem to do the same job of generating 
+values at run time, when it is needed rather than precomputing and maintaining them.
+
+A generator is a specialised form of iterator.
+"""
 
 # Generators are iterators
 # Can be created with generator functions
