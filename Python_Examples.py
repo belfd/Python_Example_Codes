@@ -2151,13 +2151,11 @@ data = [s.strip() for s in data]
 print(data)  # output:['alpha', 'beta', 'gamma']
 '''
 
-#### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-### DICTIONARIES ###
-## properties: unordered, iterable, mutable, can contain multiple data types
-## made of key-value pairs
-## keys must be unique, and can be strings, numbers, or tuples
-## values can be any type
+# DICTIONARIES
+# properties: unordered, iterable, mutable, can contain multiple data types
+# made of key-value pairs
+# keys must be unique, and can be strings, numbers, or tuples
+# values can be any type
 print("===============")
 print("DICTIONARY")
 
@@ -2209,6 +2207,7 @@ genius = {
 n, s, j = genius.values()
 print(n, s, j)
 # Dan Male Programmer
+'''
 '''
 # create an empty dictionary (two ways)
 empty_dict = {}
@@ -2291,19 +2290,19 @@ studio = list(games.keys())
 title = list(games.values())
 print(studio)  # ['Rockstar', 'UBISOFT', 'BT']
 print(title)  # ['GTA', 'AC', 'DOOM']
-
 '''
-The advantage of these functions is that these functions do not throw errors 
-if the item with a specified key does not exist.
+
+# The advantage of these functions is that these functions do not throw errors
+# if the item with a specified key does not exist.
 '''
 print("get() and setdefault() functions for dictionary: ")
 dict1 = {1: 'one', 2: 'two', 4: 'four'}
 print(dict1.get(3))  # output: None
 print(dict1.setdefault(3, 'Default Value'))  # output: Default Value
 
-'''
-Swap dictionary key & values:
-'''
+
+# Swap dictionary key & values:
+
 mydict = {1: 11, 2: 22, 3: 33}
 mydict = {i: j for j, i in mydict.items()}
 print(mydict)  # output: {11: 1, 22: 2, 33: 3}
@@ -2313,7 +2312,7 @@ mydict = {i: j for j, i in mydict.items()}
 print(mydict)  # output: {'Tesla': 'John', 'BMW': 'Jane'}
 
 '''
-Reverse Dictionary
+# Reverse Dictionary
 '''
 mydict = {1: "ab", 2: "bc", 3: "cd", 4: "de"}
 # Way 1
@@ -2324,7 +2323,7 @@ rev2 = {value: key for key, value in mydict.items()}
 print(rev2)  # {'ab': 1, 'bc': 2, 'cd': 3, 'de': 4}
 
 '''
-5 ways to Sort Dictionaries / Sort Dictionary
+# 5 ways to Sort Dictionaries / Sort Dictionary
 '''
 print("~#~ 5 ways to Sort Dictionaries ~#~")
 ### Using sorted() function ###
@@ -2384,6 +2383,7 @@ print(sort_keys)
 
 '''
 # Sort dictionary by keys
+'''
 product_prices = {'Z': 9.99, 'Y': 9.99, 'X': 9.99}
 print({key:product_prices[key] for key in sorted(product_prices.keys())})
 # output: {'X': 9.99, 'Y': 9.99, 'Z': 9.99}
@@ -2395,6 +2395,7 @@ print( {k:v for k, v in sorted(population.items(), key=lambda x:x[1])} )
 '''
 
 # Sorting dictionary based on values and returns a sorted dictionary
+'''
 d1 = {'cherry': 1, 'apple': 12, 'banana': 3}
 # key parameter is given as second element which is dict values
 sort_values = {k: v for k, v in sorted(d1.items(), key=lambda x: x[1])}
@@ -2411,7 +2412,7 @@ print(Counter(d1))
 c = Counter(d1)
 print(c.most_common())
 # Output: [('apple', 12), ('banana', 3), ('cherry', 1)]
-
+'''
 
 # defaultdict
 print("### defaultdict ###")
@@ -2422,9 +2423,8 @@ defaultdict handles this error by building on top of dictionaries.
 It does not give a KeyError like the regular dictionaries. 
 However, whenever you try to access or “assign to” a key that is not there, it will create that key and give it 
 a default value that was already specified.
-'''
-from collections import defaultdict
 
+from collections import defaultdict
 
 # defaultdict requires a function telling it what to assign as a value if the key is not initially there.
 # In this case, Not Present Yet will be that default value:
@@ -2440,14 +2440,15 @@ print(mydict["cat"])  # output: 2
 print(mydict["dog"])  # output: 4
 print(mydict["pig"])  # output: Not Present Yet
 print(mydict["rabbit"])  # output: Not Present Yet
+'''
 
-### SETS ###
-## properties: unordered, iterable, mutable, can contain multiple data types
-## made of unique elements (strings, numbers, or tuples)
-## like dictionaries, but with keys only (no values)
+# SETS
+# properties: unordered, iterable, mutable, can contain multiple data types
+# made of unique elements (strings, numbers, or tuples)
+# like dictionaries, but with keys only (no values)
 print("===============")
 print("SETS")
-
+'''
 # create an empty set
 empty_set = set()
 
@@ -2483,12 +2484,23 @@ sorted(set([9, 0, 2, 1, 0]))  # returns [0, 1, 2, 9]
 # remove a duplication in list
 my_list = [1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5, 1, 1, 2]
 print(list(set(my_list)))  # output: [1, 2, 3, 4, 5]
-
-### *ARGS ###
-### an operator we can pass to functions, can be called whatever we want, gather remaining arguments as tuple ###
+'''
+# *ARGS
+# an operator we can pass to functions, can be called whatever we want, gather remaining arguments as tuple = Unpacking
+# TUPLE UNPACKING -- enable return of multiple vars from functions!
+# Use * before arguments to convert to tuple when passing them to functions
 print("===============")
-print("*ARGS")
+print("TUPLE UNPACKING *ARGS")
 
+'''
+def count_sevens(*args):
+    return args.count(7)
+
+
+nums = [90, 1, 35, 7, 67, 89, 20, 3, 1, 2, 3, 4, 5, 6, 9, 34, ]
+print(f"count_sevens() is {count_sevens(*nums)}")  # output: count_sevens() is 1
+'''
+'''
 l = [1, 2, 3, 4, 5, 6]
 a, b = l[0], l[1:]
 
@@ -2502,7 +2514,8 @@ print("-----------")
 print(f"c is: {c}")  # c is: 1
 print(f"d is: {d}")  # d is: [2, 3, 4, 5, 6]
 print(*d)  # output: 2 3 4 5 6
-### Notice: *param inside of method will removes the list structure and give list of elements
+
+# Notice: *param inside of method will removes the list structure and give list of elements
 
 
 l1 = [1, 2, 3, 4, 5, 6]
@@ -2529,7 +2542,6 @@ def sum_all_nums(*nums):
 
 print(f"sum of all nums is: {sum_all_nums(1, 2, 3, 4, 5, 6)}")  # 21
 
-
 def avg(*args):
     count = len(args)
     total = sum(args)
@@ -2537,14 +2549,26 @@ def avg(*args):
 
 
 print(avg(2, 2, 4, 4))  # output: (4,3.0)
+'''
 
-### **KWARGS ###
-### an operator we can pass to functions, gather remaining arguments as a dictionary ###
-### **kwargs is used when we want to pass a dictionary as an argument to a function. ###
+# **KWARGS
+# an operator we can pass to functions, gather remaining arguments as a dictionary
+# **kwargs is used when we want to pass a dictionary as an argument to a function.
+# Dictionary Unpacking
+# Use ** before arguments as params to functions to convert to disctionary
 print("===============")
-print("**KWARGS")
+print("DICTIONARY UNPACKING")
+
+'''
+def display_names(first, second):
+    print(f"{first} says hello to {second}")
 
 
+names = {"first": "Ram", "second": "Anat"}
+display_names(**names)  # output: Ram says hello to Anat
+'''
+
+'''
 def func(**kargs):
     print(kargs)
 
@@ -2572,7 +2596,8 @@ def intro(**data):
 
 intro(name="alex", Age=22, Phone=1234567890)
 intro(name="louis", Email="a@gmail.com", Country="Wakanda", Age=25)
-'''
+
+Output:
 Data type of argument: <class 'dict'>
 name is alex
 Age is 22
@@ -2584,6 +2609,7 @@ Email is a@gmail.com
 Country is Wakanda
 Age is 25
 '''
+
 # range function with **kwarg
 '''
 def range(**args):
@@ -2597,7 +2623,7 @@ def range(**args):
 print(range(start=10, end=20)) # [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 '''
 
-### RETURN ###
+# RETURN
 print("===============")
 print("RETURN")
 
@@ -2757,8 +2783,9 @@ unsupported operand type(s) for +: 'dict' and 'dict'
 '''
 
 
-### PARAMETER ORDERING - only when you use all types of follwing###
-### 1. params 2.*args 3.default params 4.**kwargs ###
+# PARAMETER ORDERING - only when you use all types of follwing
+# 1. params 2.*args 3.default params 4.**kwargs
+'''
 def display_info(a, b, *args, first_name='Dan', **kwargs):
     return [a, b, args, first_name, kwargs]
 
@@ -2769,35 +2796,10 @@ print(display_info(1, 2, 3, last_name="Belfer", jov="Programmer"))
 # *** NOTICE: if you pick arg nth place to receive default ,from it and till last - all rest args should have defaults
 # func(a, b=10,c='wow') is correct!! func(a,b=10,c) is WRONG!!!
 
-### output: [1, 2, (3,), 'Colt', {'last_name': 'Belfer', 'jov': 'Programmer'}] ###
+# output: [1, 2, (3,), 'Colt', {'last_name': 'Belfer', 'jov': 'Programmer'}] 
+'''
 
-### TUPLE UNPACKING ### -- enable return of multiple vars from functions!
-### Use * before arguments to convert to tuple when passing them to functions
-print("===============")
-print("TUPLE UNPACKING")
-
-
-def count_sevens(*args):
-    return args.count(7)
-
-
-nums = [90, 1, 35, 7, 67, 89, 20, 3, 1, 2, 3, 4, 5, 6, 9, 34, ]
-print(f"count_sevens() is {count_sevens(*nums)}")  # output: count_sevens() is 1
-
-### Dictionary Unpacking ###
-### Use ** before arguments as params to functions to convert to disctionary
-print("===============")
-print("DICTIONARY UNPACKING")
-
-
-def display_names(first, second):
-    print(f"{first} says hello to {second}")
-
-
-names = {"first": "Ram", "second": "Anat"}
-display_names(**names)  # output: Ram says hello to Anat
-
-### ANNOTATIONS ####
+# ANNOTATIONS
 # Function annotations give us additional way to document our functions
 # used with __annotations__ dunder
 # To give a type hint to the variables, you simply use the syntax: var_name: type.
@@ -2894,7 +2896,7 @@ def make_connection(ip: str,
 
 # def my_func(a:<expression>,b:<expression>)-><expression>:
 #     pass
-
+'''
 def func(a: str, b: int) -> str:
     return a * b
 
@@ -2916,8 +2918,9 @@ def func(l: List[int]) -> list[int]:
 
 lst = [1, 2, 3, 4]
 print(func(lst))
+'''
 
-### COMPREHENSIONS ###
+# COMPREHENSIONS
 print("===============")
 print("COMPREHENSIONS")
 
@@ -3003,7 +3006,8 @@ Finding numbers from 1 to 100 that contain a digit 1:  x = [i for i in range(1,1
 Finding squares and cubes of numbers from 1 to 5:  x = [i**n for i in range(1,6) for n in [2,3]]
 Creating a 2-dimensional list:  x = [[i*n for n in [1,10,100]] for i in range(1,6)]
 '''
-
+# list comprehensions instead of for loops examples
+'''
 # for loop to create a list of cubes
 nums = [1, 2, 3, 4, 5]
 cubes = []
@@ -3026,7 +3030,7 @@ else 'Fizz' if i % 4 == 0
 else i for i in range(1, 15)]
 print(my_list)  # output: [1, 2, 'Buzz', 'Fizz', 5, 'Buzz', 7, 'Fizz', 'Buzz', 10, 11, 'BuzzFizz', 13, 14]
 
-# equivalent to regular using of for loops:
+# equivalent to using of for loops:
 vals_exp = []
 for x in vals:
     for y in x:
@@ -3111,11 +3115,13 @@ print(custom_powers)  # output: [1, 4, 27, 16, 125, 36]
 
 #  Do use nested for loops if you have a nested structure for the iterable
 '''
+'''
 [expression for item_outer in iterable for item_inner in item_outer]
 # Equivalent to
 for item_outer in iterable:
     for item_inner in item_outer:
         expression
+'''
 '''
 # A list of tuples
 prices = [('$5.99', '$4.99'), ('$3.5', '$4.5')]
@@ -3135,8 +3141,9 @@ new_list = [x for x in range(10)]  # list comprehension
 new_dict = {x: x + 1 for x in range(10)}  # dictionary comprehension
 new_set = {x for x in range(10)}  # set comprehension
 new_gen = (x for x in range(10))  # generator comprehension
+'''
 
-### MAP AND FILTER REDUCE ALL AND ANY ###
+# MAP AND FILTER REDUCE ALL AND ANY
 print("===============")
 print("MAP AND FILTER REDUCE ALL AND ANY ")
 
@@ -3164,7 +3171,7 @@ for word in wordlist:
 A better way to write this code is:
 newlist = list(map(str.upper, wordlist))
 '''
-
+'''
 
 # map example
 def square(n): return n * n
@@ -3266,7 +3273,7 @@ print(L1)  # output: ['J', 'e', 'r', 'r', 'y', 'J', 'a', 'c', 'k', 't', 'o', 'm'
 Genius = ["Jerry", "Jack", "tom", "Dan"]
 L1 = [char for name in Genius for char in name]
 print(L1)  # output: ['J', 'e', 'r', 'r', 'y', 'J', 'a', 'c', 'k', 't', 'o', 'm', 'D', 'a', 'n']
-
+'''
 '''
 Python has some higher order functions such as map() , filter() and so on. 
 It’s a good habit to always use the list comprehension instead of higher order functions. 
@@ -3275,14 +3282,14 @@ Because it makes our programs more readable for others.
 
 # The map() method can always be replaced:
 # L = map(func, iterable)
-#### can be replaced to:
+# can be replaced to:
 # L = [func(a) for a in iterable]
 
 # The filter() method can be converted as well:
-###L = filter(condition_func, iterable)
+# L = filter(condition_func, iterable)
 # can be converted to
-###L = [a for a in iterable if condition]
-
+# L = [a for a in iterable if condition]
+'''
 Genius = ["Jerry", "Jack", "tom", "Daniel"]
 L1 = filter(lambda a: len(a) < 4, Genius)
 print(list(L1))
@@ -3296,15 +3303,15 @@ print(L2)
 x = [1, 2, 3, 2, 2, 2, 3, 4]
 lst = list(filter(lambda a: a != 2, x))  # remove element 2 form the list
 print(lst)  # output: [1, 3, 3, 4]
-
-### ZIP ###
+'''
+# ZIP
 print("===============")
 print("ZIP")
 
 # make an iterator that aggregates elements from each of the iterables, only works with iterators
 # for iterating over two data types at the same time, where needed the indexes to be equal
 # zip creates tuple where i-th element in the tuple is i-element of one iterator and second is i-th element in second..
-
+'''
 test_list = [1, 2, 3]
 zip_result = zip(test_list)
 for i in zip_result:
@@ -3332,10 +3339,11 @@ for el1, el2 in zip(list1, list2):  # loop through both list using zip
     y_intercept = el1 / el2
     averages.append(y_intercept)
 print(averages)  # output: [102.0, 102.0, 102.0, 102.0]
-
+'''
 '''
 You can do this with any data type or generator. 
 For instance, you could create dictionaries without looping over the separate lists, as such:
+'''
 '''
 keys = ['a', 'b', 'c']
 values = [1, 2, 3]
@@ -3421,7 +3429,10 @@ for prod, p, c in zip(products, price, cost):
 # The profit of a box of cherry is £1.5!
 # The profit of a box of strawberry is £1.5!
 # The profit of a box of banana is £3!
+'''
 
+print("===================================")
+print(" ---- ====  REGEX ==== ------")
 '''
 import re
 str   = re.sub(regex, new, text, count=0)  # Substitutes all occurrences with 'new'.
@@ -3432,10 +3443,9 @@ match = re.match(regex, text)              # Searches only at the beginning of t
 iter  = re.finditer(regex, text)           # Returns all occurrences as match objects.
 '''
 
-print("===================================")
-print(" ---- ====  REGEX ==== ------")
 
 # This findall() function returns a list of strings that are matched with the pattern.
+'''
 import re
 
 text = "Hello 12, how are you? This is 13"
@@ -3491,9 +3501,10 @@ text = "Namaste world. I prefer to work at night"
 pattern = "wo"
 result = re.subn(pattern, "~", text)
 print(result)  # Output: ('Namaste ~rld. I prefer to ~rk at night', 2)
+'''
 
-
-### 5 Uses of Asterisks in Python ###
+# 5 Uses of Asterisks in Python
+'''
 # 1. Mathematics
 # Single * for the multiplication operation.
 # Double ** for the exponentiation operation.
@@ -3593,8 +3604,9 @@ list(d.keys()) == [*d]  # True
 
 # unpacking whole dict
 d == {**d}  # True
+'''
 
-### REDUCE FUNCTIONS ###
+# REDUCE FUNCTIONS
 print("===============")
 print("REDUCE FUNCTIONS")
 
@@ -3607,6 +3619,7 @@ print("REDUCE FUNCTIONS")
 # result = max(result,a0)
 # result = max(result,a1)
 # ... till last element when result will be the max element in the list
+'''
 from functools import reduce
 
 l = [5, 2, 8, 6, 4, 9, 2, 1, 4]
@@ -3614,10 +3627,11 @@ min_result = reduce(lambda a, b: a if a < b else b, l)
 print(f"Min Value in list is {min_result}")
 max_result = reduce(lambda a, b: a if a > b else b, l)
 print(f"Max Value in list is {max_result}")
-
-### Difference between copy() and deepcopy() ###
+'''
+# Difference between copy() and deepcopy()
 print("========================")
 print("## Difference between copy() and deepcopy() ##")
+
 '''
 A shallow copy constructs a new compound object and then (to the extent possible) 
 inserts references into it to the objects found in the original.
@@ -3640,7 +3654,7 @@ print(data)
 --------------------------------
 [1,2,3,4,5,6]     ## new
 [1,2,3,4,5,6]     ## old
-'''
+
 # example of shallow copy
 first_list = [[1, 2, 3], ['a', 'b', 'c']]
 
@@ -3692,7 +3706,7 @@ print(f"m is: {m}")  # m is: [1, 6, {8, 7}, {3, 4}, 2]
 print(f"p is: {p}")  # p is: [1, 5, {8, 7}, {3, 4}]
 print(f"r is: {r}")  # r is: [1, 5, {7}, {3}]
 
-'''
+
 Assignment m = l does not create a copy, it merely gives our list another name. 
 All the modifications of l will be visible in m as well as they refer to the same object.
 The following methods of copying lists are equivalent: n = l[:], o = list(l) and p = copy.copy(l). 
@@ -3700,7 +3714,7 @@ Altering mutable elements of the original list l will affect these shallow copie
 (You can find more information about mutable and immutable variables here)
 The only truly independent copy is r = copy.deepcopy(l). Altering the elements (mutable or immutable) 
 in the original list l will not affect this copy.
-## Example of Deep Copy
+# Example of Deep Copy
 import copy
 data = [1,2,3,4,5]
 updated_data = copy.deepcopy(data)
@@ -3712,14 +3726,14 @@ print(data)
 [1,2,3,4,5]      ## old 
 '''
 
-### CLOSURE ####
+# CLOSURE
 print("========================")
 print("## CLOSURE ##")
 '''
 The closure is a concept in the context of nested functions.
 '''
 
-
+'''
 class Averager:  # class example
     def __init__(self):
         self.total = 0
@@ -3770,10 +3784,10 @@ print(f.__closure__)  # output: (<cell at 0x0000025113E77FD0: str object at 0x00
 print(f.__closure__[0].cell_contents)  # output: Dan Belfer
 del outer_func
 
-## Why its local variable [outer_func] is still alive after removing the function?
+# Why its local variable [outer_func] is still alive after removing the function?
 f()  # output: Dan Belfer
 # outer_func() # -- causes error : name 'outer_func' is not defined
-
+'''
 '''
 The closure in Python is a function which remembers values in its enclosing scope.
 The appearance of the closure must meet three conditions:
@@ -3785,10 +3799,13 @@ The outer_func is not a closure and its __closure__ attribute is None.
 In the other hand, the __closure__ of f contains a cell object which saves the “remembered” value.
 '''
 
-### DECORATORS ###
+# DECORATORS
 # Use this design pattern when 2 or more functions rely on another function
 # Use this design pattern when a function has multiple responsibilities
 # Use this design pattern when a function behavior needs to be extended
+print("========================")
+print("## DECORATORS ##")
+
 '''
 @awesome_decorator
 def my_function(agr1, agr2):
@@ -3824,12 +3841,8 @@ print(f"Complicated Computation: {complicated_function(-1, 15, 7)}")
 
 '''
 
-#
-print("===============")
-print("DECORATORS")
-
-
 # Definition of general decorator
+'''
 def dec(fn):
     print("Running Decorator")
 
@@ -4124,12 +4137,13 @@ area_rectangle(2, 4)  # output: 8
 area_square("some_str")  # output: area_square only takes numbers as the argument
 area_circle("some_other_str")  # output: area_circle only takes numbers as the argument
 area_rectangle("some_other_rectangle")  # output: area_rectangle only takes numbers as the argument
+'''
 
-##### DECORATORS EXPLAINED ############
+# DECORATORS EXPLAINED
 print("========================")
 print("DECORATORS EXPLAINED")
 
-"""
+'''
 def decorator(func):
     def inner():
         print("run something before actual function")
@@ -4148,15 +4162,14 @@ decorated_func()
 @decorator
 def func():
     print("something...")
-##
+'''
 
-''
+'''
 run something before actual function
 something...
 run something after actual function
-''
-"""
-
+'''
+'''
 import functools
 
 
@@ -4287,7 +4300,9 @@ def test():
 test()
 test()
 test()
-''' output:
+'''
+'''
+output:
 Ran for 1 time(s)
 Running
 Ran for 2 time(s)
@@ -4301,7 +4316,7 @@ Running
 # Singleton refers to an instance that is shared between calls, and would not duplicate for any reason.
 # In simple terms, at first, an instance is created. In the following calls to make an instance,
 # the existing instance will be returned.
-
+'''
 def singleton(cls):
     @functools.wraps(cls)
     def wrapped(*args, **kwargs):
@@ -4349,10 +4364,11 @@ test()
 test()
 test()
 
-''''
+'''
+
 # Perform Flow Control on Function Inputs
 # Check NOT Node
-
+'''
 def check_not_None(func):
   def check(x):
     if x is not None:
@@ -4378,12 +4394,12 @@ print(f2(None))   # 'is None'
 print(f3(4))      # 64
 '''
 
-#######################################
-## CLASS DECORATOR EXPLAINED ##
+
+# CLASS DECORATOR EXPLAINED
 print("==========================")
 print("CLASS DECORATOR EXPLAINED")
 
-
+'''
 # Here is a class that is decorator for a function, receive no arguments
 class Power(object):
     def __init__(self, arg):
@@ -4402,7 +4418,6 @@ def multiply_together(a, b):
 print(multiply_together(3, 2))
 
 
-################################
 # Class Decorator that receive an argument but can also be without argument
 class power(object):
     def __init__(self, arg):
@@ -4441,8 +4456,7 @@ def multiply_together2(a, b):
 
 print(multiply_together1(2, 2))  # output: 16 = (2*2)^2
 print(multiply_together2(2, 2))  # output: 256 = (2*2)^4
-
-#######################################
+'''
 
 ''''
 *We Can Use Classes As Decorators*
@@ -4475,7 +4489,7 @@ def hello(name):
 print(hello("fifi"))    # hello fifi!?
 '''
 
-### SINGLE DISPATCH GENERIC FUNCTION ####
+# SINGLE DISPATCH GENERIC FUNCTION
 print("=====================")
 print("SINGLE DISPATCH")
 
@@ -4485,7 +4499,7 @@ print("SINGLE DISPATCH")
 # Sometimes we need different functions according to arguments(their types or num of arguments)
 
 # The first way to do it is by creating dictionary where key=type,value=function reference
-
+'''
 def pr_string(inp):
     print(f"This is a string: {inp}")
 
@@ -4598,8 +4612,9 @@ print(fun.dispatch(list))  # output: <function _2 at 0x0000021BEDFF89D0>
 print(fun.registry.keys())  # output: dict_keys([<class 'object'>, <class 'int'>, <class 'list'>...
 print(fun.registry[int])  # output: <function _1 at 0x000002C4468F8940>
 print(fun.registry[object])  # output: <function fun at 0x000002C4468CD3A0>
-
-### ANOTHER SINGLEDISPATCH EXAMPLE
+'''
+# ANOTHER SINGLEDISPATCH EXAMPLE
+'''
 from functools import singledispatch
 from decimal import Decimal
 
@@ -4677,13 +4692,13 @@ tea = Tea(kind="white tea", temp=93)
 coffee = Coffee(kind="Yunnan", temp=98)
 print(boil(tea))  # output: Successfully boiled tea!
 print(boil(coffee))  # output: Successfully boiled coffee!
-
-''''
+'''
+'''
 # Another SingleDispatch example:
 Python@functools.singledispatch help to create a generic function composed of multiple functions implementing 
 the same operation for different types. Which functions should be used during a call is determined 
 by the dispatch algorithm.
-### Without SingleDispatch ###
+# Without SingleDispatch ###
 def func1(param):
     pass
 
@@ -4705,7 +4720,7 @@ def main(param):
         return fun3(param)
     elif isinstance(param, list):
         return fun4(param)
-##################
+
 With SingleDispatch:
 from functools import singledispatch
 
@@ -4733,16 +4748,13 @@ print(main(12))
 print(main(12.3))
 print(main("test"))
 print(main([1,2,3,4]))
-
-
-
 '''
 
-### EXCEPTION RAISE ERROR ###
+# EXCEPTION RAISE ERROR
 print("===============")
 print("EXCEPTION RAISE ERRORS")
 
-
+'''
 def colorize(text, color):
     colors = ["RED", "GREEN", "BLUE"]
     if type(color) is not str:
@@ -4757,12 +4769,13 @@ def colorize(text, color):
 # colorize(1,"blue") #TypeError: text must be string
 # colorize("dan",10) #TypeError: color must be string
 # colorize("dan","blue") #ValueError: color is invalid color
+'''
 
-### TRY/EXCEPT Blocks ###
+# TRY/EXCEPT Blocks
 print("===============")
 print("TRY_EXCEPT Blocks")
 
-
+'''
 def divide(a, b):
     try:
         result = a / b
@@ -4799,14 +4812,14 @@ for i in range(4):
         print('ExceptionA caught')
     except ExceptionB:
         print('ExceptionB caught')
+'''
 
-### OPERATOR OVERLOADING ###
+# OPERATOR OVERLOADING
 print("===============")
 print("OPERATOR OVERLOADING")
 
-
 # Example for implemet print(__str__ or __repr__) and +
-
+'''
 class Point:
     def __init__(self, x=0, y=0):
         self.x = x
@@ -4826,8 +4839,9 @@ p2 = Point(4, 5)
 print(p2)  # (4,5)
 p3 = p1 + p2
 print(p3)  # (5,7)
+'''
 
-### CLASS ###
+# CLASS
 print("===============")
 print("CLASS")
 
@@ -4859,9 +4873,8 @@ print(my_circle.radius)  # output: 5
 print(my_circle.pi)  # output: 3.14
 print(my_circle.color)  # output: 1
 print(my_circle.area)  # output: 78.5
-
 '''
-''''
+'''
 Example of Multi-Level Inheritance:
 class Creature():
     def __init__(self, age):
@@ -4997,14 +5010,11 @@ matt.say()
 --output--
 Jason says
 Matt says
-
-
-
 '''
 
 
-
 # regular class
+'''
 class ClassSample:
     class_attribute = 0  # this attribute is known to any instance of the class
 
@@ -5074,6 +5084,7 @@ cs1 = ClassSample(321)
 cs.print()
 cs.priv = 445
 print(f"The value of _private in cs instance is {cs.priv}")
+'''
 
 '''
 Instance method has a mandatory first attribute self which represent the instance itself. 
@@ -5123,11 +5134,11 @@ object_1 = Count()
 object_2 = Count()
 print(Count.total_instances) #output: 2
 '''
-### STATIC VAR AND METHOD IN CLASS ###
+
+# STATIC VAR AND METHOD IN CLASS
 print("===============")
 print("STATIC VAR AND METHOD IN CLASS")
-
-
+'''
 class Employee:  # create Employee class name
     dept = 'Information technology'  # define class variable == static variable
 
@@ -5173,12 +5184,11 @@ print(emp2.dept)  # Database Administration
 # It can only be defined inside a class but not to the objects of the class.
 # All the objects of the class share only one copy of the static method.
 # Define static method: Using the @staticmethod Decorator
-
+'''
 # STATIC METHODS
-print("                     ")
+print("=====================")
 print("=== STATIC METHOD ===")
-
-
+'''
 class Marks:
     @staticmethod
     def Math_num(a, b):  # define the static Math_num() function
@@ -5204,7 +5214,7 @@ print(" Total Marks in Science", Marks.Sci_num(70, 25))  # Total Marks in Scienc
 print(" Total Marks in English", Marks.Eng_num(65, 30))  # Total Marks in English 95
 
 print("                     ")
-
+'''
 '''
 Converting a Normal Method onto a Static One
 A Static Method is a type of method in python classes that is bound to a particular state of the class. 
@@ -5234,7 +5244,7 @@ This is useful when you want the method to be a factory for the class: since it 
 it was called on as first argument, you can always instantiate the right class, even when subclasses are involved. 
 '''
 
-
+'''
 class A(object):
     def foo(self, x):
         print(f"executing foo({self}, {x})")
@@ -5288,13 +5298,13 @@ print(a.static_foo)
 # And of course the same thing happens when you call static_foo with the class A instead.
 print(A.static_foo)
 # <function static_foo at 0xb7d479cc>
+'''
 
-
-### Creating Custom Ctor and Custome Dtor ###
-print("===============")
+# Creating Custom Ctor and Custome Dtor
+print("=====================================")
 print("Creating Custom Ctor and Custome Dtor")
 
-
+'''
 # Creating Custom Ctor and Custome Dtor
 class C:
     def __init__(self):
@@ -5329,18 +5339,17 @@ obj = C()
 with obj:
     # as soon as you have 'with' you work with __enter__ & __exit__
     obj.some_work()
-####output:
+# output:
 # ENTER
 # Some work being Done!
 # EXIT
-######
 
-###
+
 # __init__ is the initializer, some kind of first place to fill the object attributes,
 # but when __init__ is called; the instance was already created.
 # __new__ is the *real* constructor, it is here where the instance is created.
-
-''''
+'''
+'''
 Example - how __new__ creates object and __init__ initializes:
 class Employee(object):
     def __new__(cls,fname,lname):
@@ -5361,7 +5370,7 @@ Initializing the object of Employee class
 Dan Belfer
 '''
 
-### INHERITANCE ###
+# INHERITANCE
 print("===============")
 print("INHERITANCE")
 
@@ -5369,6 +5378,7 @@ print("INHERITANCE")
 # Inheritance allows us to define a class that inherits all the methods and properties from another class.
 # Parent class is the class being inherited from, also called base class.
 # Child class is the class that inherits from another class, also called derived class.
+'''
 class Person:
     def __init__(self, fname, lname):
         self.firstname = fname
@@ -5395,7 +5405,7 @@ print(st)  # The student Mike Pence is studing in UCLA university
 
 
 # You can call the parent class’s initializer using super() or parent class’s name
-## using super()
+# using super()
 class Parent:
     def __init__(self, city, address):
         self.city = city
@@ -5412,7 +5422,7 @@ child = Child('Zürich', 'Rämistrasse 101', 'ETH Zürich')
 print(child.university)  # ETH Zürich
 
 
-## using parent's class name
+# using parent's class name
 class Parent:
     def __init__(self, city, address):
         self.city = city
@@ -5456,7 +5466,8 @@ class Derived(Base):
 
 d = Derived()
 d.public()
-'''
+
+
 Output:
 public value in Base
 private value in Base
@@ -5472,7 +5483,7 @@ derive protected related to self of derived is chosen
 
 # Single inheritance enables a derived class to inherit properties from a single parent class,
 # thus enabling code reusability and the addition of new features to existing code.
-
+'''
 class P1:
     def mym11(self):
         print('Parent Method')
@@ -5591,8 +5602,10 @@ print(F.mro())  # output: [<class '__main__.F'>, <class '__main__.D'>, <class '_
 
 
 # <class '__main__.E'>, <class '__main__.B'>, <class '__main__.C'>, <class 'object'>]
+'''
 
-###### Multiply Inheritance Example ######
+# Multiply Inheritance Example
+'''
 class BaseClassA:
     def __init__(self, hello: str, world: str = "test"):
         self.hello = hello
@@ -5629,19 +5642,21 @@ assert inherited.shared_method() == "This is B"  ## This is true only because of
 # if a method is defined both in BaseClassA and BaseClassB, it will take the method from BaseClassB,
 # as it is defined first.
 
-''''
-## Private Variables In Classes Are Not Really Private ##
+
+# Private Variables In Classes Are Not Really Private ##
 class Dog():
     def __init__(self, name):
         self.__name = name
     @property
     def name(self):
         return self.__name
-        
+'''
+'''
 In this Dog class, the __name attribute has a getter method but not a setter method. 
 By right, we as users should only be able to read the __name attribute and not have permission 
 to set a new name for our Dog object. But private variables are not that private.
-
+'''
+'''
 dog = Dog("rocky")
 print(dog.__dict__)   # {'_Dog__name': 'rocky'}
 
@@ -5653,10 +5668,8 @@ print(dog.name)
 # fifi 
 '''
 
-##########################################
 
-####################
-## COMPOSITION #####
+# COMPOSITION
 print("===============")
 print("COMPOSITION")
 
@@ -5665,7 +5678,7 @@ print("COMPOSITION")
 # It enables creating complex types by combining objects of other types.
 # This means that a class can contain an object of another class.
 # This relationship means that a class has a class.
-
+'''
 class Student:
     def __init__(self, name, rollno, marks):
         self.name = name
@@ -5722,10 +5735,10 @@ t.empDetails()  # output: Employee name is Tom and Employee no is     30
 
 # We can see that we can directly call a method of a parent class in subclass using Inheritance
 # whereas in composition we have to define it under the other module.
+'''
 
 
-####################
-### POLYMORPHISM ###
+# POLYMORPHISM
 print("===============")
 print("POLYMORPHISM")
 
@@ -5736,7 +5749,7 @@ print("POLYMORPHISM")
 # 2. The same operation works for different kinds of objects
 # len method works similar on list ,tuple or string
 # The 1 section is deployed usually as parent class that has class method and child override the method to fit them
-
+'''
 class Parent():
     def __init__(self, name):
         self.name = name
@@ -5780,8 +5793,9 @@ c6 = Child2("c6", 5678)
 lst = [c1, c2, c3, c4, c5, c6]
 for i in lst:
     i.mtd()  # this is actually polymorphism
+'''
 
-### ABSTRACTION ###
+# ABSTRACTION
 print("===============")
 print("ABSTRACTION")
 
@@ -5794,7 +5808,7 @@ A class that has an abstract method is called an abstract class.
 Python by default does not support abstract classes, but there is a module named abc that 
 allows Python to create abstract methods and classes.
 '''
-
+'''
 from abc import ABC, abstractmethod
 
 
@@ -5808,12 +5822,12 @@ class Computer(ABC):
 # com.process()
 # ---------------------------------
 # TypeError: Can't instantiate abstract class Computer with abstract method process
-
+'''
 '''
 You can’t create objects for abstract classes. 
 To access the abstract class and its methods, you need to use inheritance.
 '''
-
+'''
 import abc
 
 
@@ -5834,6 +5848,7 @@ class Rectangle(Shape):
 
 r = Rectangle(10, 20)
 print('area: ', r.area())
+'''
 '''
 Some Things To Remember on Classes on general:
 A method inside the class without self can only use class attributes.
@@ -6021,8 +6036,8 @@ t.empDetails()
 Employee name is jon and Employee no is 25
 Employee name is Tom and Employee no is 30;
 '''
-"""
-## Static and Class methods can be inherited ##
+'''
+# Static and Class methods can be inherited 
 
 class A:
     def __init__(self,attr1=1,attr2=2):
@@ -6065,7 +6080,7 @@ da_sample.instance_method()
 da_sample.get_instance(20,30).instance_method()  # class method of <class '__main__.DeriveA'>
 # info of class <__main__.DeriveA object at 0x00000217CAD9FE20> with attributes derattr1: 111 derattr2: 222
 da_sample.static_func(5,6) # static method of A bn           
-"""
+'''
 ''''
 How Abstract Base classes work :
 By default, Python does not provide abstract classes. Python comes with a module that provides the base for 
@@ -6263,7 +6278,7 @@ for i in lst1:
 >3,4,5      
 '''
 
-
+'''
 def my_for(iterable, func):
     iterator = iter(iterable)
     while True:
@@ -6348,8 +6363,9 @@ for elem in bw:
     print(elem, end=',')  # output: 5,4,3,2,1,
 
 print("")
+'''
 
-#### Accessing a class as a list ####
+# Accessing a class as a list
 print("====================================")
 print("==== Accessing a class as a list ==")
 
@@ -6363,7 +6379,7 @@ print("==== Accessing a class as a list ==")
 # So if we implement these two methods in our class, we will then be able to use the square brackets
 # as we would do for a list.
 # Here is a really easy example (it is a list whose size cannot be changed, and whose index start at 1):
-
+'''
 class MyList():
     def __init__(self, dimension):
         self.l = [0 for i in range(dimension)]
@@ -6379,12 +6395,13 @@ ml = MyList(5)
 ml[1] = 50  # Set the first element of ml to 50
 ml[2] = 100  # Set the second element of ml to 100
 x = ml[1]  # x is now 50
+'''
 
 # GENERATORS
 print("====================")
 print("GENERATORS")
 
-"""
+'''
 container = nothing but a data structure that can hold elements or values. 
 Lists, dicts, tuples or even strings are examples of containers.
 
@@ -6453,7 +6470,7 @@ A generator is a specialised form of iterator.
 # Can be created with generator functions
 # use yield keyword
 # Can be created with generator expressions
-
+'''
 '''
 We can create our own generators by writing functions that use the yield keyword instead of return. 
 Return will fetch something, give it back to us and exit the function. 
@@ -6475,7 +6492,7 @@ sequene = squares(5, 10
 print(next(sequene))
 print(next(sequene))`*        
 
-Difference between list comprehension(return) and generator comprehention: 
+# Difference between list comprehension(return) and generator comprehention: 
 my_nums = [x*x for x in [1, 2, 3, 4, 5]] #list comprehension
 my_nums1 = (x*x for x in [1, 2, 3, 4, 5]) #generator comprehension
 print(my_nums)  #output:  [1,4,9,16,25]
@@ -6640,7 +6657,7 @@ Output:
 -> Received: b = 15
 '''
 
-
+'''
 def gen(max):
     count = 1
     while count <= max:
@@ -6678,13 +6695,13 @@ print(next(g1))  # val from generator 1 #output: 1
 print(next(g2))  # val from generator 2 #output: 1
 print(next(g1))  # val from generator 1 #output: 2
 print(next(g2))  # val from generator 2 #output: 2
-
-## Another Example
+'''
+# Another Example
 '''
 Consider an example where we want to generate a sequence of numbers (up to 100 Million) in our program 
 (like auto-incremented ids). We can solve this problem easily with the generator.'''
 
-
+'''
 def generate_ids(limit):
     for id in range(1, limit + 1):
         yield id
@@ -6695,11 +6712,13 @@ print("Generate example")
 print(next(ids))  # 1
 print(next(ids))  # 2
 print(next(ids))  # 3
+'''
 
 '''
 Using Generator Comprehensions, we can save our memory. 
 It works the same as List Comprehension, but instead of creating a list and keeping the whole sequence in memory, 
 the generator generates the next item in demand.
+'''
 '''
 import sys
 
@@ -6752,7 +6771,7 @@ next(generator)
 next(generator)
 next(generator)
 next(generator)
-
+'''
 # PICKLE
 print("====================")
 print("PICKLE")
@@ -6762,7 +6781,7 @@ Unpickling is the inverse process in which a byte stream is converted into an ob
 '''
 
 # We can serialize simple objects on files - it is called pickle
-
+'''
 import json
 import pickle
 
@@ -6792,12 +6811,12 @@ print(json_structure)  # output: {"name": "Dan", "family": "Belfer", "age": 48}
 # with open("people.pickle", "rb") as file:
 #     new_man = pickle.load(file)
 #     print(new_man)  # output: This is Dan Belfer aged 48
-
-### CLEAN CODE SAMPLES ###
+'''
+# CLEAN CODE SAMPLES
 print("====================")
 print("CLEAN CODE SAMPLES")
 
-
+'''
 # How to ease with nested if else conditions?
 class Check():
     def __init__(self):
@@ -7047,8 +7066,8 @@ Use in:
 if number in [1, 2, 3, 4]:
     do_smt()    
 """
-
-''''
+'''
+'''
 Python supports the most common if/else conditional statements, 
 but it lacks switch/case statements support which is common in other programming languages.
 ## Avoid Multi-level Conditional Statements ##
@@ -7226,13 +7245,11 @@ def foodmenu(order):
             return "Sorry, the waiter is on holiday."
 '''
 
-
-
-## Using * and ** for Function Argument Unpacking ##
+# Using * and ** for Function Argument Unpacking
 print("=====================")
 print("Using * and ** for Function Argument Unpacking")
 
-
+'''
 # You can unpack a dictionary for use with named keywords by using the ** prefix:
 def f(a, b):
     print(a, b)
@@ -7255,14 +7272,14 @@ num_lst = range(1, 12, 2)
 print(num_lst)  # output: range(1, 12, 2)
 # using * unpacking
 print(*num_lst)  # output: 1 3 5 7 9 11
-
-## FIND SUBSTRING ##
+'''
+# FIND SUBSTRING
 print("=====================")
 print("FIND SUBSTRING")
 
 # Find substring in long string
 # Useful when you are finding substring in a string, in 2 ways:
-
+'''
 programmers = ["I'm an expert Python Programmer",
                "I'm an expert Javascript Programmer",
                "I'm a professional Python Programmer",
@@ -7280,6 +7297,7 @@ for p in programmers:
         print(p)
 
 # Use pathlib to read files without using a with context manager
+'''
 '''
 The pathlib module offers a number of conveniences for working with file system paths and files on your file system
 One particular convenience offered by pathlib is the pathlib.Path.read_text method. 
@@ -7321,10 +7339,11 @@ with fileinput.input(files=('first.txt', 'second.txt','third.txt')) as f:
 
 '''
 
-#### CONTEXT MANAGER ####
+# CONTEXT MANAGER
 print("=====================")
 print("CONTEXT MANAGERS")
-## this is a class defined to solve the example of writing to file many times - use class to handle open/close file
+'''
+# this is a class defined to solve the example of writing to file many times - use class to handle open/close file
 print("class solution to handle file")
 
 
@@ -7367,13 +7386,14 @@ def file_handler(path, mode):
 for _ in range(5):
     with file_handler('temp.txt', 'w') as f:
         f.write('Hello World - From better example')
+'''
 
-#### ASSERT ####
+# ASSERT
 print("=====================")
 print("ASSERT")
-### **** NOTICE: assert should not come with () - because assert(True == False, 'This would never fail')
-### will always be true - because there is tuple: (True ==...) and it is not empty, it is true always!!!
-
+# **** NOTICE: assert should not come with () - because assert(True == False, 'This would never fail')
+# will always be true - because there is tuple: (True ==...) and it is not empty, it is true always!!!
+'''
 x = "hello"
 # if condition returns True, then nothing happens:
 assert x == "hello"
@@ -7396,30 +7416,33 @@ print(f"Val of division is: {a}")
 
 # a = divide(100,0) #ERROR
 # print(f"Val of division is: {a}") #will not be printed
+'''
 
-
-#### MEMORY USAGE ####
+# MEMORY USAGE
 print("=====================")
 print("MEMORY USAGE")
-
+'''
 import sys
 
 mylist = range(0, 10000)
 print(f"Memory Usage of Mylist is {sys.getsizeof(mylist)}")  # output: 48
 
 #  why is this huge list only 48 bytes?
+'''
 '''It’s because the range function returns a class that only behaves like a list. 
 A range is a lot more memory efficient than using an actual list of numbers.
 You can see for yourself by using a list comprehension to create an actual list of numbers from the same range:'''
+'''
 import sys
 
 myreallist = [x for x in range(0, 10000)]
 print(f"Memory Usage of My real list is {sys.getsizeof(myreallist)}")
+'''
 
-#### PPRINT BETTER OUTPUT ####
+# PPRINT BETTER OUTPUT
 print("=====================")
 print("PPRINT BETTER OUTPUT")
-
+'''
 import requests
 from pprint import pprint
 
@@ -7429,20 +7452,22 @@ print("+++  Ugly  +++")
 print(user)
 print("+++  Beutiful  +++")
 pprint(user)
+'''
 
-#### TIMEIT ####
+# TIMEIT
 print("=====================")
 print("TIMEIT = to calculate the runtime of our code")
-
+'''
 import timeit
 
-code = '''
+code = pass
+
 def fun():
     sum=0
     for i in range(1000000):
         sum+=i
     return sum
-'''
+
 print(f'timeit 1st example, measured {timeit.timeit(stmt=code)}')
 
 
@@ -7460,12 +7485,13 @@ def h(x):
 
 print("timeit 2nd example, measured: ".strip())
 print(timeit.timeit('[func(42) for func in (f,g,h)]', globals=globals()))
+'''
 
-### REPLACEMENT to SWITCH CASE ######
-print("=====================")
+# REPLACEMENT to SWITCH CASE
+print("==========================")
 print("REPLACEMENT to SWITCH CASE")
 
-"""
+'''
 Emulate switch case as Dictionary:
 Original function:
 def calculator(operator, x, y):
@@ -7488,7 +7514,7 @@ def calculator(operator, x, y):
       'mul': lambda: x * y,
       'div': lambda: x / y,
    }.get(operator, lambda: None)()
-"""
+'''
 
 '''
 {'option1': function1,
@@ -7497,7 +7523,7 @@ def calculator(operator, x, y):
  'option4': function4}[value]()
 '''
 
-
+'''
 def first_case():
     print("first")
 
@@ -7530,9 +7556,9 @@ def f(x):
 
 
 print(f('c'))  # output: 3
-
-### MUTABLE DEFAULT PROBLEM!!! ######
-print("=====================")
+'''
+# MUTABLE DEFAULT PROBLEM!!!
+print("==========================")
 print("MUTABLE DEFAULT PROBLEM!!!")
 '''
 This is a nifty little trick that has more benefits than it appears.
@@ -7562,7 +7588,7 @@ and replace with the mutable you'd like as default:
 #     x.append(1)
 #     print (x)
 
-
+'''
 def something(x=[]):
     x = x if x else []
     x.append(1)
@@ -7571,11 +7597,12 @@ def something(x=[]):
 
 something()  # output: [1]
 something()  # output: [1]
+'''
 
-### COUNTING OCCURENCES IN LIST ###
-print("===========================")
+# COUNTING OCCURENCES IN LIST
+print("============================")
 print("COUNTING OCCURRENCES IN LIST")
-
+'''
 from collections import Counter
 
 mylist = [1, 1, 2, 3, 4, 5, 5, 5, 6, 6]
@@ -7589,9 +7616,10 @@ strt = "aaaaabbbbbccccc"
 print(f"String is: {strt}")
 print(f"Count of Chars: {Counter(strt)}")
 # Counter({'a': 5, 'b': 5, 'c': 5})
+'''
 
-### UNDERSCORES & DUNDERS ###
-print("===========================")
+# UNDERSCORES & DUNDERS
+print("=====================")
 print("UNDERSCORES & DUNDERS")
 
 '''
@@ -7601,7 +7629,7 @@ So, to indicate that a variable is meant for internal use, a single leading unde
 is used before the variable name.
 '''
 
-
+'''
 class Pubber:
     def __init__(self):
         self.name = 'Bond, James'
@@ -7613,7 +7641,7 @@ class Pubber:
 
 p = Pubber()
 p._age = 11  # not recommended - like private
-
+'''
 '''
 Single Trailing Underscore: var_
 What if you need to use a keyword for a name?
@@ -7621,10 +7649,10 @@ Append a single trailing underscore (postfix) after variable, function, or Class
 class class: #SyntaxError: "invalid syntax"
 '''
 
-
+'''
 class class_:  # No problem
     pass
-
+'''
 
 '''
 Leading Dunders: __var
@@ -7632,7 +7660,7 @@ Leading Dunders: __var
 A double underscore prefix can be used in Python to avoid naming conflicts in subclasses.
 '''
 
-
+'''
 class Pubber:
     def __init__(self):
         self.name = 'Bond, James'
@@ -7654,7 +7682,7 @@ sp1 = SubPubber()
 
 print(dir(p1))  # we can see it was converted to '_Pubber__address'
 print(dir(sp1))  # we can see it was converted to '_SubPubber__address'
-
+'''
 '''
 Leading and Trailing Dunders: __var__ there are almost 100 built-in Dunders in Python
 '''
@@ -7663,18 +7691,21 @@ Leading and Trailing Dunders: __var__ there are almost 100 built-in Dunders in P
 Single Underscore: _ 
  use a single stand-alone underscore as a name to indicate that a variable is temporary or insignificant.
 '''
+'''
 beer = ('light', 'bitter', 70, 153)
 color, _, _, calories = beer
 print(f"color is {color} and caloris are {calories}")  # output: color is light and caloris are 153
+'''
 
-### FUNCTOOLS LIBRARY ###
-print("===========================")
+# FUNCTOOLS LIBRARY
+print("=================")
 print("FUNCTOOLS LIBRARY")
 
 '''
 Using Partial function, you can fix any argument value the number of arguments of a function thus removing
 the necessity of creating another one. What you get as a result is an elegant and easy to read code.
 If you have a function with several arguments but you need to set only 1 or 2 each time. Use partial.
+'''
 '''
 print("functools.partial")
 from functools import partial
@@ -7694,6 +7725,7 @@ debug_logger = partial(logger, 'DEBUG', 2222)
 debug_logger('message_one')  # [DEBUG]: 2222 - message_one
 debug_logger('message_two')  # [DEBUG]: 2222 - message_two
 debug_logger('message_three')  # [DEBUG]: 2222 - message_three
+'''
 
 '''
 LRU stands for Least Recently Used, it saves the result of last executed function in memory and 
@@ -7702,7 +7734,7 @@ if found it will return the result otherwise it will go on to execute the functi
 “lru_cache” can save us a lot of time when we need to perform computationally expensive or I/O bound 
 operations through a function.
 '''
-
+'''
 print("functools.lru_cache")
 from functools import lru_cache, singledispatch
 from time import time
@@ -7733,6 +7765,7 @@ def sum_of_fibo(nterms, fun):
 
 sum_of_fibo(30, fibo_lru)
 sum_of_fibo(30, fibo)
+'''
 
 '''
 “singledispatch” implementation lets you achieve function overloading. 
@@ -7741,7 +7774,7 @@ on the type of first argument.
 Use “singledispatch” decorator over the default implementation and then simply add
  “@<functionname>.register(<type>)” over the functions that you need to overload.
 '''
-
+'''
 print("functools.singledispatch")
 from functools import singledispatch
 
@@ -7772,7 +7805,7 @@ def _(a, b):
 add(1, 2)  # output: 3
 add('Python', 'Programming')  # output: PythonProgramming
 add([1, 2, 3], [5, 6, 7])  # output: [1, 2, 3, 5, 6, 7]
-
+'''
 '''
 functools.reduce
 Reduce is again a higher order function which is primarily used to accumulate data while 
@@ -7786,7 +7819,7 @@ the sequence, the result is then updated with the newly calculated value.
 and the final result is then returned.
 Reduce always returns a single value.
 '''
-
+'''
 print("functools.reduce")
 from functools import reduce
 
@@ -7807,12 +7840,13 @@ output = sum_of_digit(123)
 # print("Sum of the digits is: ", output)
 # Output:
 # Sum of the digits is: 6
+'''
 
-### STACK Class implementation ###
-print("===============================")
+# STACK Class implementation
+print("==========================")
 print("Stack Class implementation")
 
-
+'''
 class Stack():
     def __init__(self):
         self.items = []  ## Empty list intilize
@@ -7850,12 +7884,13 @@ print("peek top element")
 print(obj.peek())
 print("Show stack:")
 print(obj.show_stack())
+'''
 
-### Linked List Implementation ###
-print("======================================")
+# Linked List Implementation
+print("==========================")
 print("Linked List Implementation")
 
-
+'''
 # A single node of a singly linked list
 class Node:
     # constructor
@@ -7981,12 +8016,13 @@ LL.delete_node_at_pos(0)
 LL.printLL()
 print("\n")
 print(LL.length())
+'''
 
-### QUEUE CLASS IMPLEMENTATION ###
-print("=====================================")
+# QUEUE CLASS IMPLEMENTATION ###
+print("===========================")
 print("Queue class implementation")
 
-
+'''
 class Queue(object):
     def __init__(self, size):
         self.queue = []
@@ -7997,29 +8033,29 @@ class Queue(object):
         return myString
 
     def enqueue(self, item):
-        '''This function adds an item to the rear end of the queue '''
+        # This function adds an item to the rear end of the queue 
         if (self.isFull() != True):
             self.queue.insert(0, item)
         else:
             print('Queue is Full!')
 
     def dequeue(self):
-        ''' This function removes an item from the front end of the queue '''
+        # This function removes an item from the front end of the queue 
         if (self.isEmpty() != True):
             return self.queue.pop()
         else:
             print('Queue is Empty!')
 
     def isEmpty(self):
-        ''' This function checks if the queue is empty '''
+        # This function checks if the queue is empty 
         return self.queue == []
 
     def isFull(self):
-        ''' This function checks if the queue is full '''
+        # This function checks if the queue is full 
         return len(self.queue) == self.size
 
     def peek(self):
-        ''' This function helps to see the first element at the fron end of the queue '''
+        # This function helps to see the first element at the fron end of the queue
         if (self.isEmpty() != True):
             return self.queue[-1]
         else:
@@ -8037,12 +8073,12 @@ print(MyQuere.peek())  # output: 1
 print(MyQuere.isFull())  # output: False
 print(MyQuere.dequeue())
 print(MyQuere)  # output: 4 3 2
-
-### Search Algorithms Implemented ###
-print("======================================")
+'''
+# Search Algorithms Implemented
+print("=============================")
 print("Search Algorithms Implemented")
-
-## LINEAR SEASRCH ###
+'''
+# LINEAR SEASRCH 
 print("Linear Search:")
 lst = [2, 5, 3, 1, 7]
 num = 1
@@ -8050,6 +8086,7 @@ for index, value in enumerate(lst):
     if num == value:
         print(f"{value} found at position {index + 1}")
 print("################")
+
 ## BINARY SEARCH ###
 print("Binary Search:")
 lst = [1, 3, 2, 4, 5, 6, 9, 8, 7, 10]
@@ -8074,7 +8111,7 @@ if found == False:
 
 print("################")
 
-## Dispatch example
+# Dispatch example
 print("#################")
 print("Dispatch example")
 import datetime
@@ -8083,30 +8120,23 @@ import datetime
 def do_monday():
     print("Monday")
 
-
 def do_tuesday():
     print("Tuesday")
-
 
 def do_wednesday():
     print("Wednesday")
 
-
 def do_thursday():
     print("Thursday")
-
 
 def do_friday():
     print("Friday")
 
-
 def do_saturday():
     print("Saturday")
 
-
 def do_sunday():
     print("Sunday")
-
 
 my_special_day = datetime.date.today()
 
@@ -8139,10 +8169,11 @@ dispatch = {
 }
 
 dispatch[my_special_day.weekday()]()
-
-## Calculate Prime Numbers ##
-print("===========================")
+'''
+# Calculate Prime Numbers
+print("================================")
 print("Calculate Prime Numbers: till 13")
+'''
 print(list(filter(lambda x: all(x % y != 0 for y in range(2, x)), range(2, 13))))  # output: [2,3,5,7,11]
 
 # Write a one-liner in python to fetch out all the even and odd numbers from a given list?
@@ -8166,11 +8197,12 @@ if num == sum:
 else:
     pass
 # print(num,"is not an Armstrong number")
-
-## Checking Anagram ##
+'''
+# Checking Anagram
 '''
 An anagram is a word that is formed by rearranging the letters of a different word, 
 using all the original letters exactly once. Like: LISTEN & SILENT
+'''
 '''
 print("Check Anagram:")
 from collections import Counter
@@ -8195,10 +8227,10 @@ print(check_anagram2("Fried", "Fired"))  # True
 ## DIGITAIZING a Number
 # Digitizing means converting a number into an array or list.
 # This comes in handy when you need to convert a large number into a list form.
+'''
 print("===========================")
 print("DIGITAIZING a Number:")
-
-
+'''
 def Digitizing(num):
     return list(map(int, str(num)))
 
@@ -8212,12 +8244,11 @@ print(Digitizing(num2))  # [7, 8, 0, 4]
 integer = 234553
 digitz = [int(i) for i in str(integer)]
 print(digitz)  # [2, 3, 4, 5, 5, 3]
-
-## Convert Hexadecimal Color Codes to RGB Code
+'''
+# Convert Hexadecimal Color Codes to RGB Code
 print("===========================")
 print("HEX To RGB:")
-
-
+'''
 def Hex_To_Rgb(hex):
     rgb = tuple(int(hex[x: x + 2], 16) for x in (0, 2, 4))
     return rgb
@@ -8225,8 +8256,9 @@ def Hex_To_Rgb(hex):
 
 print(f"FF5733 is: {Hex_To_Rgb('FF5733')}")  # (255, 87, 51)
 print(f"33D8FF is: {Hex_To_Rgb('33D8FF')}")  # (51, 216, 255)
-
-## Convert List of Lists to a Single List ##
+'''
+# Convert List of Lists to a Single List ##
+'''
 import itertools
 
 mylist = [[-2, -3], [10, 30], ['apple', 'orange']]
@@ -8236,8 +8268,10 @@ print(list(itertools.chain.from_iterable(mylist)))
 
 # Output:
 # [-2, -3, 10, 30, 'apple', 'orange']
+'''
 
-## Convert Two Lists into a Dictionary
+# Convert Two Lists into a Dictionary
+'''
 def list_to_dictionary(keys, values):
     return dict(zip(keys, values))
 
@@ -8247,9 +8281,10 @@ list2 = ['Roy', 26, "New York"]
 
 print(list_to_dictionary(list1, list2))
 # output: {'Name': 'Roy', 'Age': 26, 'City': 'New York'}
-##
+'''
 
-## Merge Two Dictionaries
+# Merge Two Dictionaries
+'''
 dictionary1 = {"name": "Jeff", "age": 26}
 dictionary2 = {"name": "Jeff", "city": "New York"}
 
@@ -8259,11 +8294,11 @@ print("Merged dictionary is:", merged_dict)
 
 
 # output: Merged dictionary is: {'name': 'Jeff', 'age': 26, 'city': 'New York'}
-
-## Convert any class into a dictionary
+'''
+# Convert any class into a dictionary
 # Classes have an inbuilt attribute __dict__ which means objects that are created are dictionaries
 # and can be used like one when needed.
-
+'''
 class Obj:
     def __init__(self, a='test', b=108):
         self.a = a
@@ -8273,32 +8308,36 @@ class Obj:
 obj = Obj()
 print(vars(obj))  # vars() is pythonic way to convert to dictionary
 # output: {'a': 'test', 'b': 108}
+'''
 
 ## Quick Sort in one line
 print("===========================")
 print("Quick Sort in one line:")
-
+'''
 lst = [12, 45, 2, 6, 67, 32, 98, 52, 68, 13, 91, 18, 36, 29, 57, 72, 1, 5, 8]
 qsort = lambda l: l if len(l) <= 1 else qsort([x for x in l[1:] if x < l[0]]) + [l[0]] + qsort(
     [x for x in l[1:] if x >= l[0]])
 print(qsort(lst))  # output: [1, 2, 5, 6, 8, 12, 13, 18, 29, 32, 36, 45, 52, 57, 67, 68, 72, 91, 98]
 print(lst)  # output: [12, 45, 2, 6, 67, 32, 98, 52, 68, 13, 91, 18, 36, 29, 57, 72, 1, 5, 8]
-
-## longest string in from a list
+'''
+## The longest string in from a list
 print("===========================")
 print("longest string in from a list:")
+'''
 words = ['This', 'is', 'a', 'list', 'of', 'words']
 print(max(words, key=len))  # output: 'words'
-
-##  Find the element with the highest frequency
+'''
+#  Find the element with the highest frequency
 print("===========================")
 print("Find the element with the highest frequency:")
+'''
 new_list = ['a', 'b', 'a', 'd', 'e', 'g', 'g', 'a', 'c', 'f', 'k', 't', 'u', 'z', 'x', 'a']
 print("Most frequent element:", max(set(new_list), key=new_list.count))  # output: Most frequent element: a
-
+'''
 ## Finding sub-strings from a list of strings
 print("===========================")
 print("Finding sub-strings from a list of strings:")
+'''
 data = [
     "Python, Programming Language",
     "Meta, Mark Zuckerberg",
@@ -8316,22 +8355,26 @@ name = "Vettel"
 for data in data:
     if name in data:
         print(data)
+'''
 
-## Count the frequency of a character in a string
+# Count the frequency of a character in a string
 print("===========================")
 print("Count the frequency of a character in a string:")
+'''
 print("umbrella".count('l'))  # output 2
-
-## Most frequent element in list
+'''
+# Most frequent element in list
 print("===========================")
 print("Most frequent element in list:")
+'''
 numbers = [9, 4, 5, 4, 4, 5, 9, 5, 4]
 most_frequent_element = max(set(numbers), key=numbers.count)
 print(f"most_frequent_element: {most_frequent_element}")  # 4
-
-## Rotate a list
+'''
+# Rotate a list
 print("===========================")
 print("Rotate a list:")
+'''
 li = [1, 2, 3, 4, 5]
 # right to left
 # li[n:] + li[:n] # n is the no of rotations
@@ -8340,34 +8383,38 @@ print(f"right to left: {li[2:] + li[:2]}")  # [3, 4, 5, 1, 2]
 # li[-n:] + li[:-n]
 # li[-1:] + li[:-1]
 print(f"left to right: {li[-1:] + li[:-1]}")  # [5, 1, 2, 3, 4]
-
+'''
 # Python One Line Nested/Double Loop
 # example code Multi-Line Loop
+'''
 lst1 = [1, 2]
 lst2 = ["x", "y"]
 for x in lst1:
     for y in lst2:
         print(x, y)
-
+'''
 # example Code of Single Line Loop
+'''
 [print(x, y) for x in lst1 for y in lst2]
 # Output
 # 1 x
 # 1 y
 # 2 x
 # 2 y
+'''
 
 # Python One Line String to Integer
+'''
 strlist = ["1", "2", "3", "4", "5"]
 intlist = list(map(int, strlist))
 print(intlist)  # [1, 2, 3, 4, 5]
+'''
 
-## Merging Two Dictionaries ##
+# Merging Two Dictionaries
 print("===========================")
 print("Merging Two Dictionaries:")
 '''
 3 examples to merge dictionaries
-'''
 
 basic_information = {"name": ['karl', 'Lary'], "mobile": ["0134567894", "0123456789"]}
 academic_information = {"grade": ["A", "B"]}
@@ -8385,12 +8432,16 @@ print(details)
 details = basic_information.copy()
 details.update(academic_information)
 print(details)
+'''
 
-## Find the index of an element in a tuple
+# Find the index of an element in a tuple
+'''
 books = ('Atomic habits', 'Ego is the enemy', 'Outliers', 'Mastery')
 print(books.index('Mastery'))  # 3
+'''
 
 ## Replace nested loop with itertools.product
+'''
 for i in range(2):
     for j in range(2):
         print(f"i={i} and j={j}")
@@ -8402,6 +8453,7 @@ import itertools
 for i, j in itertools.product(range(2), range(2)):
     print(f"i={i} and j={j}")
 
+'''
 '''
 output: 
 i=0 and j=0
@@ -8416,6 +8468,7 @@ i=1 and j=1
 '''
 
 # Use itertools chain example
+'''
 from itertools import chain
 
 li = ['ABC', 'DEF', 'GHI', 'JKL']
@@ -8424,8 +8477,10 @@ res1 = list(chain(li))
 res2 = list(chain.from_iterable(li))
 print("using chain :", res1, end="\n\n")  # output: ['ABC', 'DEF', 'GHI', 'JKL']
 print("using chain.from_iterable :", res2)  # output: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']
+'''
 
 ## tee usage - Compare or apply some operation between each pair of adjacent elements
+'''
 from itertools import tee
 from typing import Iterable
 
@@ -8441,16 +8496,17 @@ window2(l)  # Is the same that: ((1,2), (2,3), (3, 4), ...)
 
 # Finding all subsets of a set in one line
 from itertools import combinations
+
 print(list(combinations([1, 2, 3, 4], 2)))
-
-
+'''
 # Best way to find palindrom
+'''
 w = "Rotator".lower()
 palindrome = bool(w.find(w[:: -1]) + 1)
 print(f"Is {w} is palindrom? {palindrome}")
-
-
+'''
 # write a program to find the [longest] word in a text file?
+'''
 def longest_word(filename):
     with open(filename, 'r') as infile:
         words = infile.read().split()
@@ -8464,18 +8520,18 @@ def longest_word(filename):
 x = "mail.google.com"
 x.partition(".")  # ('mail', '.', 'google.com')
 print(x.partition(".")[0])  # output: 'mail'
-
+'''
 ## FizzBuzz example ##
 print("===========================")
 print("MFizzBuzz example")
+'''
 print(['FizzBuzz' if i % 3 == 0 and i % 5 == 0 else 'Fizz' if i % 3 == 0 else 'Buzz' if i % 5 == 0 else i for i in
        range(1, 20)])
-
+'''
 ## Find Duplicates in List ##
 print("===========================")
 print("Find Duplicates in List")
-
-
+'''
 def has_duplicates(lst):
     return len(lst) != len(set(lst))
 
@@ -8485,10 +8541,12 @@ y = [1, 2, 3, 4, 5]
 
 print(f"x has duplicates: {has_duplicates(x)}")  # True
 print(f"y has duplicates: {has_duplicates(y)}")  # False
+'''
 
-## Remove Duplicates From a List ##
-print("===========================")
+# Remove Duplicates From a List
+print("=============================")
 print("Remove Duplicates From a List")
+'''
 list1 = [1, 2, 3, 3, 4, 'John', 'Ana', 'Mark', 'John']
 
 
@@ -8506,9 +8564,10 @@ print(result)
 
 ## Decode a base64 encoded file
 import base64, sys
-base64.decode(open(sys.argv[1], "rb"), open(sys.argv[2], "wb"))
 
-## Examples of one-liners:
+base64.decode(open(sys.argv[1], "rb"), open(sys.argv[2], "wb"))
+'''
+# Examples of one-liners:
 '''
 # Palindrome Python One-Liner
 phrase.find(phrase[::-1])
@@ -8541,8 +8600,8 @@ phrase.find(phrase[::-1])
  reduce( (lambda r,x: r-set(range(x**2,n,x)) if (x in r) else r), range(2,int(n**0.5)), set(range(2,n)))
 '''
 
-## dataclasses ##
-print("===========================")
+# dataclasses
+print("===========")
 print("dataclasses")
 '''
 There are several advantages over regular classes or other alternatives like returning multiple values or dictionaries:
@@ -8563,9 +8622,8 @@ In short, the rule of thumb is rather simple, if you create a dictionary or a cl
 attributes about the underlying data, use Data Class. It saves you a bunch of time.
 Finally, Data Class also preserves type information for each property, which is a huge added advantage!
 '''
-
+'''
 from dataclasses import dataclass
-
 
 @dataclass
 class Card:
@@ -8577,7 +8635,7 @@ card = Card("Q", "hearts")
 print(card == card)  # output: True
 print(card.rank)  # output: 'Q'
 print(card)  # output: Card(rank='Q', suit='hearts')
-
+'''
 '''
 Custom attribute behaviour with the field function
 In some situations, you may need to create an attribute that is only defined internally, 
@@ -8586,6 +8644,7 @@ previously-set attributes.
 Here’s where you’d use the field function from dataclasses.
 By using this function and setting itsinit and repr arguments to False to create a new field called full_name, 
 we can still instantiate a Person class without setting the full_name attribute.
+'''
 '''
 from dataclasses import dataclass, field, astuple, asdict
 
@@ -8605,18 +8664,19 @@ class Person:
 # Note that the repr argument inside the field function has been set to True to make it visible
 # when the object is printed.
 '''
+'''
 Using dataclasses, you can create objects that are read-only. 
 All you have to do is set the frozen argument to True inside the @dataclass decorator.
 '''
 
-
+'''
 @dataclass(frozen=True)
 class Person1:
     first_name: str = "Ron"
     last_name: str = "Ronniel"
     age: int = 20
     job: str = "Artist"
-
+'''
 
 '''
 When you do this, you prevent anyone from modifying the values of the attributes once the object is instantiated.
@@ -8627,7 +8687,7 @@ If you try to set a frozen object’s attribute to a new value, a FrozenInstance
 Instances can easily be serialized into dicts or tuples. 
 This is very useful when your code interacts with other programs that expect these formats.
 '''
-
+'''
 ahmed = Person()
 print(astuple(ahmed))
 # ('Ahmed', 'Besbes', 30, 'Data Scientist')
@@ -8637,15 +8697,17 @@ print(asdict(ahmed))
 # 'last_name': 'Besbes',
 # 'age': 30,
 # 'job': 'Data Scientist'}
+'''
 
 '''
 The attribute 'full_name' doesn’t exist yet in the instance. If we try to access it, an AttributeError is thrown.
+'''
 '''
 p_example = Person(first_name='Dan', last_name='Belfer', age=49, job='QA')
 # print(p_example.full_name)  ## will throw an error that there is no attribute of 'full_name'
 # To set the value of full_name and still keep it out of the constructor of the class?
 # To do this, we’ll have to use the __post_init__method.
-
+'''
 '''
 dataclasses has a special method called __post_init__ .
 As the name clearly suggests, this method is called right after the __init__ method is called.
@@ -8655,7 +8717,7 @@ Note that the repr argument inside the field function has been set to True
 to make it visible when the object is printed. 
 '''
 
-
+'''
 @dataclass
 class Car:
     name: str = field(compare=False)  # To exclude this field from comparison
@@ -8709,7 +8771,7 @@ def add_item_to_cart(new_item, shopper_name, existing_items=[]):
 
 shopping_list_wife = add_item_to_cart("Dress", "Jennifer")  # Jennifer's cart has ['Dress']
 shopping_list_husband = add_item_to_cart("Soccer", "David")  # David's cart has ['Dress', 'Soccer']
-
+'''
 '''
 As shown above, although we intended to create two distinct shopping lists, the second function call still accessed 
 the same underlying object, which resulted in the Soccer item added to the same list object. To solve the problem, 
@@ -8717,7 +8779,7 @@ we should use the following implementation.
 Specifically, you should use None as the default value for a mutable argument:
 '''
 
-
+'''
 def add_item_to_cart(new_item, shopper_name, existing_items=None):
     if existing_items is None:
         existing_items = list()
@@ -8728,10 +8790,10 @@ def add_item_to_cart(new_item, shopper_name, existing_items=None):
 
 shopping_list_wife = add_item_to_cart("Dress", "Jennifer")  # Jennifer's cart has ['Dress']
 shopping_list_husband = add_item_to_cart("Soccer", "David")  # David's cart has ['Soccer']
-
-####################################################################
-print("### ITERTOOLS ###")
-
+'''
+print("===============")
+print("===ITERTOOLS===")
+'''
 import itertools
 import operator
 
@@ -8767,7 +8829,8 @@ for each in result:
 
 # output: 5 6 7 8 9 10
 #####################################################################
-
+'''
+'''
 # Check type before running the code in a function - example:
 def add_numbers(a, b):
     if not (isinstance(a, (float, int)) and isinstance(b, (float, int))):
@@ -8792,7 +8855,7 @@ if hasattr(circle, 'radius'):
     print('hasattr returns the attribute of class')
 
 ## exec - dynamic executing of statement in python as string
-statement = '''a = 10; print(a + 5); print("Exec example") '''
+statement = a = 10; print(a + 5); print("Exec example") 
 exec(statement)
 
 
@@ -8809,6 +8872,7 @@ class switch():
 
 
 ### LEGB (Local, Enclosing, Global and Built-in) ###
+'''
 '''
 The LEGB rule refers to the variable look-up order in Python. 
 Specifically, Python has four layers of scopes when the interpreter tries to resolve the variable 
@@ -8869,10 +8933,11 @@ bin called W
 go called Y
 '''
 
-### Dynamically Calling Functions ###
-print("### Dynamically Calling Functions ###")
+# Dynamically Calling Functions
+print("====================================")
+print("===Dynamically Calling Functions===")
 
-
+'''
 class MyClass():
     def example_func(self):
         print("example_func was called")
@@ -8884,7 +8949,7 @@ def call_func(name):
 
 
 call_func('example_func')  # output: example_func was called
-
+'''
 '''
 If you encounter sections of code where you won’t necessarily know the name of a function you wish to invoke until later, 
 this is the answer. By using the built-in Python function getattr, you can call a function by name using a string. 
@@ -8895,7 +8960,7 @@ If all you have to do is add a new function to a class and it becomes immediatel
 makes code easier work with.
 '''
 
-
+'''
 # Another getattr example:
 class Person:
     age = 23
@@ -8917,6 +8982,7 @@ person = Person()
 
 # when default value is provided
 print('The sex is:', getattr(person, 'sex', 'Male'))  # output: The sex is: Male
+'''
 
 # ==== SINGLETON ===
 print("===========================")
@@ -8937,7 +9003,7 @@ class Singleton:
         return cls.__instance
 '''
 
-
+'''
 class Singleton_Student(object):
     _instance = None
 
@@ -8963,17 +9029,17 @@ print(s2)  # <__main__.Singleton_Student object at 0x7ff1e5a53198>
 print(s1 == s2)  # True
 print(s1.last_name)  # Musk
 print(s2.last_name)  # Musk
-
-"""
+'''
+'''
 Another example:
 class SingletonPattern:     
     def __new__(cls, *args, **kwargs):   
         if cls._instance is None: # Checking if an instance of this class exists            
             cls._instance = super().__new__(cls, *args, **kwargs) # Creating a new instance           
         return cls._instance # Returing the instance 
-"""
+'''
 
-## REMEMBER ##
+# REMEMBER #
 '''
 __init__() method must return None , otherwise a TypeError will be raised.
 If the parent class has defined __init__() method, we should using super().__init__() to explicitly 
@@ -8981,7 +9047,7 @@ call it in subclasses’ __init__() method to ensure correct initialization.
 If __new__() method does not return an instance of the class, then the __init__()method will not be invoked.
 '''
 
-
+'''
 class Student(object):
 
     def __new__(cls, *args, **kwargs):
@@ -8999,8 +9065,8 @@ s1 = Student("Dan", "Belfer")  # Running __new__() method.
 # Running __init__() method.
 
 print(s1.last_name)  # Belfer
-
-### ABSTRACT CLASS ###
+'''
+# ABSTRACT CLASS
 print("========================")
 print("### ABSTRACT CLASS ###")
 
@@ -9024,7 +9090,7 @@ ABC is the abbreviation of abstract base class.
 Note: A class is not real abstract if it has abstract methods but not inherit from abc.ABC, 
 which means it can be instantiated. For example:
 '''
-
+'''
 from abc import ABC, abstractmethod
 
 
@@ -9090,9 +9156,9 @@ take.division()  # 2.0
 take.multiply()  # Method of an Abstract Class can be called without error because abstract method decorator is not used
 print(issubclass(Calculator, Calculation))  # True
 # throws an error because abstract class method is an abstract method
+'''
 
-
-### PROPERTY DECORATORS ###
+# PROPERTY DECORATORS
 print("=============================")
 print("### PROPERTY DECORATORS ###")
 
@@ -9120,7 +9186,7 @@ class C(object):
 ### if you want to have Read only on property - do not apply setter on it ###
 '''
 
-
+'''
 class Student:
     def __init__(self):
         self._score = 0
@@ -9161,7 +9227,7 @@ class Product:
 vacuum = Product("Vacuum", 200)
 vacuum.employee_price  # output: 180.0
 
-###########################################
+
 ### 6 Alternatives to Classes in Python ###
 print("==============================================")
 print("###  6 Alternatives to Classes in Python  ####")
@@ -9339,13 +9405,13 @@ pos2 = Position(42.1238762, 9.1649964, None)
 
 def get_distance(p1: Position, p2: Position) -> float:
     pass
-
+'''
 
 #### 3 Ways to Explore a Python Object #####
 print("===========================")
 print("#### 3 Ways to Explore a Python Object #####")
 #  First of all, when we get an object, we can check which type it belongs to by type() method.
-
+'''
 a = 'Dan'
 b = 100
 
@@ -9380,10 +9446,10 @@ def func():
 
 print(type(func) == types.FunctionType)  # output: True
 print(type(lambda x: x) == types.LambdaType)  # output: True
-
+'''
 
 # For inherited classes, using the isinstance() method is a very convenient way to check their inheritance relationship.
-
+'''
 class Person:
     def __init__(self, first_name="", last_name=""):
         self.first_name = first_name
@@ -9460,10 +9526,10 @@ print(f"hasattr(Dan,'age'): {hasattr(Dan, 'age')}")  # False
 setattr(Dan, 'sex', 'male')
 print(f"getattr(Dan,'sex'): {getattr(Dan, 'sex')}")  # male
 
-
-####### MRO - order of inheritance ####
+'''
+# MRO - order of inheritance ####
 # When defining a subclass, there are different ways to call the __init__ method of a parent class.
-
+'''
 class Base(object):
     def __init__(self):
         print("Base created")
@@ -9493,6 +9559,7 @@ class ChildC(Base):
 cA = ChildA()
 cB = ChildB()
 cC = ChildC()
+'''
 ''' output:
 Base created
 Child A initialized
@@ -9502,8 +9569,7 @@ Base created
 Child C initialized
 '''
 print("=================")
-
-
+'''
 class Base1:
     def __init__(self):
         super().__init__()
@@ -9529,31 +9595,37 @@ class A2(Base2, Base1):
 
 
 a1 = A1()
-''' output:
+'''
+'''
+output:
 Base 2 created
 Base 1 created
 Child A1 Initialized
 '''
+'''
 print("\n\n")
 a2 = A2()
-''' output:
+'''
+'''
+output:
 Base 1 created
 Base 2 created
 Child A2 Initialized
 '''
 # mro = Method Resolution Order(MRO) denotes the way a programming language resolves a method or attribute.
+'''
 print(A2.mro())
-''' output:
+'''
+''' 
+output:
 [<class '__main__.A2'>, <class '__main__.Base2'>, <class '__main__.Base1'>, <class 'object'>]
 '''
-#######################################
 
-
-###### Create a constant value in class ######
+# Create a constant value in class
 print("============================================")
 print("##### Create a constant value in class #####")
 
-
+'''
 class Circle():
     def __init__(self, radius):
         self.radius = radius
@@ -9571,12 +9643,12 @@ class Circle():
 
 c = Circle(4)
 print(f"c.pi is: {c.pi} that cannot be modified!")
-
-####### Multiple Class constructors ######
+'''
+# Multiple Class constructors
 print("=======================================")
 print("##### Multiple Class constructors #####")
 
-
+'''
 class Date():
     def __init__(self, day, month, year):
         self.day = day
@@ -9596,12 +9668,13 @@ d1 = Date(12, 3, 1977)
 d2 = Date.fromString("21/07/2020")
 print(d1.day, d1.month, d1.year)  # output: 12 3 1977
 print(d2.day, d2.month, d2.year)  # output: 21 7 2020
+'''
 
-##### DESCRIPTORS ###########
+# DESCRIPTORS
 print("===========================")
 print("##### DESCRIPTORS #####")
 
-
+'''
 class Car:
     def __init__(self):
         self.fuel_amount = 0
@@ -9623,14 +9696,14 @@ class Car:
 
 car = Car()
 # car.fuel_amount = -10 will cause "ValueError: Tank can't be less than empty!"
-
-"""
+'''
+'''
 Descriptors provide a solution that helps us separating concerns within our class, 
 so our code remains nice and SOLID. By using a descriptor instead of a property, our Car class gets as short as this:
-"""
-
+'''
 
 # Descriptor
+'''
 class SixtyLitresCapacity:
     def __set__(self, car, amount):
         if amount < 0:
@@ -9656,8 +9729,10 @@ car1 = Car()
 
 
 # car1.fuel_amount = 70  ## Error occur: "ValueError: Tank can't take more than 60 l!"
+'''
 
 # Better after refactoring:
+'''
 class IsBetween:
     def __init__(self,
                  min_value,
@@ -9696,9 +9771,9 @@ class Car:
 
 car2 = Car()
 # car2.fuel_amount = 70  ### Raise Error: "raise self.above_exception ValueError"
+'''
 
-
-####### META-PROGRAMMING ######
+# META-PROGRAMMING
 print("===========================")
 print("##### META-PROGRAMMING #####")
 # Meta-programming is an act of writing code that manipulates code
@@ -9722,7 +9797,7 @@ For instance, if we have class Calc, with three class methods,
 and we want to provide debug functionality to all the methods in one class then we can use a meta-class for this.
 '''
 
-
+'''
 class Calc():
     def add(self, x, y):
         return x + y
@@ -9855,11 +9930,11 @@ class Singleton(metaclass=MyMeta):
 x = Singleton()
 y = Singleton()
 print(f"The example says x is y: {x is y}")  # Outputs True
+'''
 
-###################################################
-
-### Special Cases #########
-## Careful with chained operations
+# Special Cases
+# Careful with chained operations
+'''
 print((False == False) in [False])  # makes sense False
 print(False == (False in [False]))  # makes sense False
 print(False == False in [False])  # It is True because all comparison operations in Python have the same priority when
@@ -9880,16 +9955,13 @@ def func():
 
 print(func())  # What will get printed? from_finally - because when try is returned also fianny is executed and it has
 # twice return statements - the last is overwriting the first
-
-###########################
-
-
-### attrs ###
+'''
+# attrs
 print("===========================")
 print("######    attrs    ########")
 
+'''
 import attr
-
 
 @attr.s
 class Person(object):
@@ -9907,10 +9979,10 @@ print(p)
 # # Output:
 # #   Person(name='John', surname='Doe', age=NOTHING)
 # #   Person(name='Bill', surname='Gates', age=60)
-
-############ JSON ##########
+'''
+# JSON
+print("==============")
 print("#### JSON ####")
-
 '''
 JavaScript Object Notation (JSON) is a lightweight data-interchange format based on the syntax of JavaScript objects. 
 It is a text-based, human-readable, language-independent format for representing structured object data 
@@ -10271,8 +10343,8 @@ Note that we’re now using double quotes because we need to quote the name insi
 
 '''
 
-###############################
-### WORKING WITH CSV ##########
+
+# WORKING WITH CSV
 '''
 Reading from CSV file
 Basic CSV Interaction
@@ -10332,8 +10404,7 @@ CSV to JSON
 import csv,json
 print (json.dumps(list(csv.reader(open('csv_file.csv')))))
 '''
-
-##################################################
+'''
 print("### Find Longest String in List ####")
 # Method 1: Iterate through the list using a loop and keep track of the longest string
 string_list = ["hello", "world", "let's", "learn", "some", "Python"]
@@ -10410,13 +10481,14 @@ print("### Convert List of Characters to String ###")
 character_list = ["c", "h", "a", "r", "a", "c", "t", "e", "r"]
 result = "".join(character_list)
 print(result)  # character
-
-print("### Remove Item from List (and also Remove First and Last Item from List) ###")
 '''
+'''
+print("### Remove Item from List (and also Remove First and Last Item from List) ###")
+
 list.remove(x): Removes the first item from the list whose value is equal to x.
 list.pop([i]): Remove the item in the list at the index denoted by i. 
-If no value i is provided, the last value in the list is removed.
-'''
+# If no value i is provided, the last value in the list is removed.
+
 number_list = [1, 4, 2, 6, 2, 5]
 number_list.remove(2)
 print(number_list)  # [1, 4, 6, 2, 5]
@@ -10433,8 +10505,10 @@ print(number_list)  # [4, 2, 6, 2, 5]
 # Remove last item from list
 number_list.pop(len(number_list) - 1)
 print(number_list)  # [4, 2, 6, 2]
+'''
 
 print("### Remove Duplicates from List ###")
+'''
 # Method 1: Iteration
 number_list = [1, 1, 2, 6, 2, 5]
 no_duplicates_list = []
@@ -10474,7 +10548,7 @@ reversed_list = number_list[::-1]
 print(reversed_list)  # [5, 4, 3, 2, 1]
 print("########################")
 print("########################")
-##################################################
+
 import logging
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -10488,7 +10562,9 @@ logging.warning('This is a warning message')  # this is the default
 logging.error('This is an error message')
 logging.critical('This is a critical message')
 print("########################")
-## example of using exception info to logging ##
+'''
+
+# example of using exception info to logging ##
 # try:
 #   c = a / 0
 # except Exception as e:
@@ -10504,7 +10580,7 @@ Suppose You have an application and You want to take logs of the application.
 You want to save logs higher than the WARNING severity level to a log file and Higher than INFO on the console. 
 With the help of handlers, you can do that-
 '''
-
+'''
 # custom logger
 logger = logging.getLogger(__name__)
 
@@ -10528,7 +10604,7 @@ logger.addHandler(f_handler)
 logger.warning('This is a warning')
 logger.error('This is an error')
 logger.critical('This is an error')
-
+'''
 '''
 You saw the above codes they look so messy because of all the formatting we did. 
 To avoid this we can add all the formatting to a new file and then use that formatting in the different logs files. 
@@ -10600,6 +10676,7 @@ logger.addHandler(handler)
 for i in range(10000):
     logger.info(i)
 '''
+
 # EXAMPLES
 print("========================================================")
 print("================### EXAMPLES###=========================")
@@ -10699,7 +10776,7 @@ To begin with let’s recall the definition of the duck test:
 If it looks like a duck, swims like a duck, and quacks like a duck, then it probably is a duck.
 '''
 
-
+'''
 class Duck:
     def clean(self):
         print("Quack I'm clean")
@@ -10714,13 +10791,13 @@ class Owl:
 
     def feed(self):
         print("Woo I'm full")
-
+'''
 
 '''
 Our zookeper, Arnold, takes care of all our animals at the zoo; he feeds them and cleans them daily.
 '''
 
-
+'''
 class Zookeeper:
     def __init__(self, animals):
         self.animals = animals
@@ -10739,7 +10816,7 @@ arnold.work()
 # Quack I'm full
 # Woo I'm clean
 # Woo I'm full
-
+'''
 '''
 That’s the principle of duck typing. It’s kinda similar to polymorphism in statically typed languages like Java, 
 except that it’s easier, more flexible and doesn’t require the creation of an interface beforehand.
@@ -10756,7 +10833,7 @@ Mixins are classes that don’t stand on their own, but add functionality to oth
 Let’s create our Sadistic mixin, and make a SadisticZookeeper class to help us create Arnold:
 '''
 
-
+'''
 class SadisticMixin:
     def play(self):
         for animal in self.animals:
@@ -10765,14 +10842,14 @@ class SadisticMixin:
 
 class SadisticZookeeper(Zookeeper, SadisticMixin):
     pass
-
+'''
 
 '''
 But now our animals should be torturable for Arnold to be able to play with them. 
 We’ll create another mixin for our animals: TorturableMixin and create our torturable animals and our sadistic arnold.
 '''
 
-
+'''
 class TorturableMixin:
     def torture(self):
         print("AAAAAAAHHHHHHHH")
@@ -10795,7 +10872,7 @@ arnold.play()
 # output:
 # AAAAAAAHHHHHHHH
 # AAAAAAAHHHHHHHH
-
+'''
 '''
 Monkey patching
 Monkey patching, like duck typing, is yet another simple technique with a fancy (?) name. 
@@ -10805,7 +10882,7 @@ For example, as a conscious python coder who knows monkey patching, I
 even though arnold was created as a SadisticZookeeper in the first place. I just have to do:
 '''
 
-
+'''
 def anti_torture():
     print("NO MORE TORTURING, JACKASS!! Play Tetris instead.")
 
@@ -10815,9 +10892,9 @@ arnold.play = anti_torture
 arnold.play()
 # output:
 # NO MORE TORTURING, JACKASS!! Play Tetris instead.
+'''
 
-##################################################
-### BREAK out of nested loops ###
+# BREAK out of nested loops
 print("### BREAK out of nested loops ###")
 
 '''
@@ -10832,6 +10909,7 @@ Are there some built-in keywords or tricks for this in Python?
 Unfortunately, there is no built-in support for this operation.
 
 We see 5 ways to avoid the problem
+'''
 '''
 # Add a flag variable
 break_out_flag = False
@@ -10886,7 +10964,8 @@ import itertools
 for i, j in itertools.product(range(5), range(5)):
     if j == 2 and i == 0:
         break
-##################################################
+'''
+
 """
 Generating Password
 ===================
@@ -10927,10 +11006,10 @@ except Exception as e:
     print(e.args)
 """
 
-####################################
 
-####### Async ######
-print("~~~~~ Async ~~~~")
+# Async
+print("================")
+print("===== Async ====")
 # Asynchronous is a general programming technique that is intended to improve the performance of your project
 # by delegating some computationally heavy or lengthy process to a different process or thread.
 # For instance, when you make a web API request, you can implement asynchronous coding to fire the request
@@ -10939,9 +11018,8 @@ print("~~~~~ Async ~~~~")
 # The above is a very general discussion of asynchronous programming.
 # In Python, we can implement asynchronous programming by taking advantage of the asyncio module.
 # Specifically, we can create asynchronous functions.
-
+'''
 import time
-
 
 def login_user():
     time.sleep(2)
@@ -10990,12 +11068,12 @@ async def launch_app_async():
 
 
 asyncio.run(launch_app_async())
+'''
 
-####################################################
-### DEPENDENCY INJECTOR ############################
-print("~~~~~ Dependency Injection ~~~~")
-
-
+# DEPENDENCY INJECTOR
+print("===============================")
+print("===== Dependency Injection ====")
+'''
 ## Hard coupling without dependency injection
 class MessageFormatter:
     def success(self, message):
@@ -11031,7 +11109,7 @@ class MessageWriter:
 message_formatter = MessageFormatter()
 message_writer = MessageWriter(message_formatter)
 message_writer.write("Hello World!")
-
+'''
 """
 Most Formal way is using 'dependency_injector' lib 
 from dependency_injector import containers, providers
@@ -11060,10 +11138,11 @@ message_writer = MessageWriter(message_formatter)
 message_writer.write("Hello World!")
 """
 
-####################################################
-####### Schedule tasks with Threading ######
-print("~~~~~ Schedule tasks with Threads ~~~~")
 
+# Schedule tasks with Threading
+print("======================================")
+print("===== Schedule tasks with Threads ====")
+'''
 import os
 import time
 import threading
@@ -11088,13 +11167,13 @@ def schedule():
 # makes our logic non blocking
 thread = threading.Thread(target=schedule)
 thread.start()
-
-#### REDUCE COMPLEXITY WITH EXAMPLE OF LIST OF ACTIONS ####
+'''
+# REDUCE COMPLEXITY WITH EXAMPLE OF LIST OF ACTIONS
 # Each request contains an action and a customer name.
 # Actions consist of creating a new customer,
 # activating a customer, suspending a customer and deleting a customer.
 # There are 4 types, and each type is handled differently.
-
+'''
 from typing import Any, Dict
 
 
@@ -11137,12 +11216,12 @@ def _handle_request(action: str, customer_name: str) -> None:
     action_handler = ACTION_MAPPING.get(action)
     # handle action
     action_handler(customer_name)
-
+'''
 
 ''''
 Read this article: https://formus14.medium.com/how-to-implement-a-timeout-functionality-in-python-d578d7ad985a
 '''
-''''  Working with one Thread
+'''  Working with one Thread
 import threading
 import time
 
@@ -11188,7 +11267,7 @@ if __name__ == '__main__':
     ## Proceed with the logic of thread 1 -(Main thread)
     Obj.Function()
 '''
-''''  Working with multiple Threads
+'''  Working with multiple Threads
 import threading
 import time
 
@@ -11240,7 +11319,7 @@ if __name__ == '__main__':
     ## Proceed with the logic of thread 1 -(Main thread)
     Obj.Function()
 '''
-''''
+'''
 import threading
 import time
 
@@ -11279,9 +11358,6 @@ if __name__ == '__main__':
     ## Proceed with the logic of thread 1 -(Main thread)
     Obj.OtherFunction()
 '''
-
-###########################################################
-
 
 '''
 __slots__ is an attribute you can add to a Python class when defining it. 
@@ -11739,7 +11815,6 @@ Your code must be easy to read and understand, like a regular book.
 Other developers reading your code, must be able to recognize what each function does, 
 what each variable is used for and the general structure of the system.
 '''
-
 
 ########################################
 ########################################
